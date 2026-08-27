@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "lastVerified": "2026-08-27",
+  "lastVerified": "2026-08-28",
   "sources": {
     "unesco-1413": {
       "title": "Bergpark Wilhelmshöhe — UNESCO World Heritage Centre",
@@ -377,6 +377,96 @@
       "url": "https://www.heritage-kassel.de/service/bz/besucherzentrum-herkules",
       "accessed": "2026-08-27",
       "scope": ["visitor-center", "hercules", "accessibility", "opening-hours", "digital-park-map"]
+    },
+    "hkh-mulang-village": {
+      "title": "Parkdorf Mulang / Mulang Village in the Park",
+      "publisher": "Hessen Kassel Heritage",
+      "url": "https://www.heritage-kassel.de/en/locations/bergpark-wilhelmshoehe/mulang-village-in-the-park",
+      "accessed": "2026-08-27",
+      "scope": ["mulang", "social-history", "colonial-context", "village-ensemble"],
+      "notes": "Official interpretive page; use alongside the Parkpflegewerk/monument inventory for individual building chronology."
+    },
+    "routeyou-osm-k4": {
+      "title": "Schlosspark-Rundweg — OSM-derived RouteYou rendering",
+      "publisher": "RouteYou / OpenStreetMap contributors",
+      "url": "https://www.routeyou.com/de-de/route/view/4370240",
+      "accessed": "2026-08-27",
+      "scope": ["route-cross-check", "k4", "osm-relation-357732"],
+      "notes": "Explicitly states processing from OSM relation 357732; use only as an external cross-check, not as geometry authority."
+    },
+    "routeyou-osm-k5": {
+      "title": "Rundweg Wasserkünste — OSM-derived RouteYou rendering",
+      "publisher": "RouteYou / OpenStreetMap contributors",
+      "url": "https://www.routeyou.com/de-de/route/view/4361135",
+      "accessed": "2026-08-27",
+      "scope": ["route-cross-check", "k5", "osm-relation-358216"],
+      "notes": "Explicitly states processing from OSM relation 358216; use only as an external cross-check, not as geometry authority."
+    },
+    "osm-derived-mapcarta-sichelbach": {
+      "title": "Sichelbachbecken — OpenStreetMap-derived position",
+      "publisher": "Mapcarta / OpenStreetMap contributors",
+      "url": "https://mapcarta.com/de/W58638980",
+      "accessed": "2026-08-27",
+      "license": "OpenStreetMap data ODbL; Mapcarta text CC BY-SA 4.0",
+      "scope": ["sichelbachbecken", "coordinates", "osm-way-58638980"],
+      "notes": "Used to recover the OSM way identity and center because the original core graph/map snapshots did not extend far enough west."
+    },
+    "osm-api-public": {
+      "title": "OpenStreetMap API 0.6",
+      "publisher": "OpenStreetMap contributors / OpenStreetMap Foundation",
+      "url": "https://api.openstreetmap.org/api/0.6/",
+      "accessed": "2026-08-27",
+      "license": "ODbL 1.0",
+      "scope": ["geometry", "coordinates", "feature-tags"],
+      "notes": "Used narrowly when a Parkpflegewerk-linked OSM feature falls outside or is clipped by the repository's existing local map snapshots."
+    },
+    "stadt-bergpark-erschliessung-2010": {
+      "title": "Gesamterschließungskonzept Bergpark Wilhelmshöhe",
+      "publisher": "Stadt Kassel — Stadtplanung, Bauaufsicht und Denkmalschutz",
+      "url": "https://ratsinfo.kassel.de/sdnet4/sdnetrim/UGhVM0hpd2NXNFdFcExjZS9-kB66UMzNbG4SyAa0BY0hmvjJr4mBz64O9zFyclRM/Gesamterschliessungskonzept.pdf",
+      "accessed": "2026-08-28",
+      "scope": ["official-map", "secondary-landmark-inventory", "visitor-access", "nomenclature"],
+      "notes": "Official 2010 access concept with a numbered 1–34 park inventory: Herkulesstatue, Grottenhof, Bassin mit Riesenkopf, Große Kaskade, Bassin mit Wasserfall, Felseneck, Steinhöfer-Wasserfall, Fontänenreservoir, Plutogrotte, Teufelsbrücke, Asch, Eremitage des Sokrates, Merkur-Tempel, Löwenburg, Sibyllengrotte, Pyramide, Vergils Grabmal, Aquädukt, Neuer Wasserfall, Jussow-Tempel, Fontänenteich, Musikpavillon, Flora, Halle des Sokrates, Pagode, Mulang, Roseninsel, Schloss, Weißensteinflügel, Gewächshaus, Marstall, Schlosshotel, Ballhaus and Schlossteich. Phase-2 maps component names to canonical nodes rather than inventing duplicate coordinates."
+    },
+    "unesco-decision-37com8b33": {
+      "title": "Decision 37 COM 8B.33 — Bergpark Wilhelmshöhe",
+      "publisher": "UNESCO World Heritage Committee",
+      "url": "https://whc.unesco.org/en/decisions/5161/",
+      "accessed": "2026-08-28",
+      "scope": ["world-heritage", "integrity", "water-features", "new-waterfall-status"],
+      "notes": "Authoritative inscription decision. It states that all water features except the New Waterfall remain operable, so New Waterfall is preserved as surviving but non-functional rather than treated as an active Wasserspiele station."
+    },
+    "stadt-lac": {
+      "title": "Wasserspiele Station 7 — Lac",
+      "publisher": "Stadt Kassel",
+      "url": "https://www.kassel.de/buerger/kunst_und_kultur/parks_und_gaerten/wilhelmshoehe/wasserspiele/station-7-lac.php",
+      "accessed": "2026-08-28",
+      "scope": ["lac", "schlossteich", "fontaenenteich-distinction", "jussow", "water-route"],
+      "notes": "Primary current nomenclature source: water flows from the Fontänenteich to the Schlossteich called the Lac; the Lac was formed from a small fish pond in 1785–1791 under Heinrich Christoph Jussow."
+    },
+    "hkh-orangerie-karlsaue": {
+      "title": "Orangerie",
+      "publisher": "Hessen Kassel Heritage",
+      "url": "https://www.heritage-kassel.de/standorte/orangerie",
+      "accessed": "2026-08-28",
+      "scope": ["orangerie", "karlsaue", "scope-disambiguation"],
+      "notes": "Official HKK location page explicitly places the Orangerie Palace in the Karlsaue. It is therefore not promoted as a Bergpark Wilhelmshöhe landmark; the relevant Bergpark plant building is the Großes Gewächshaus."
+    },
+    "stadt-bergpark-gastronomie": {
+      "title": "Restaurants und Cafés im Bergpark",
+      "publisher": "Stadt Kassel",
+      "url": "https://www.kassel.de/buerger/kunst_und_kultur/parks_und_gaerten/wilhelmshoehe/service/gastronomie-bergpark.php",
+      "accessed": "2026-08-28",
+      "scope": ["visitor-services", "kaskadenwirtschaft", "schlosshotel", "herkules-terrassen", "current-hours"],
+      "notes": "Current municipal service listing. It records Kaskadenwirtschaft as closed for renovation until approximately autumn 2026 and lists Schlosshotel and Herkules Terrassen among Bergpark gastronomy."
+    },
+    "visit-kassel-schlosshotel": {
+      "title": "Schlosshotel Bad Wilhelmshöhe Conference & SPA",
+      "publisher": "Kassel Marketing GmbH / GrimmHeimat NordHessen",
+      "url": "https://visit.kassel.de/hotel/schlosshotel-bad-wilhelmshoehe-conference-spa",
+      "accessed": "2026-08-28",
+      "scope": ["schlosshotel", "visitor-service", "location", "accessibility"],
+      "notes": "Current destination listing used only for present-day service/location context; heritage interpretation relies on official park/UNESCO inventories rather than hotel marketing prose."
     }
   }
 }
