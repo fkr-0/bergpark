@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-27T06:34:50.383848+00:00",
+  "status": "pass",
+  "summary": {
+    "benches": 215,
+    "with_backrest_tag": 205,
+    "with_direction_tag": 116,
+    "with_access_tag": 22,
+    "with_check_date": 93,
+    "errors": 0
+  },
+  "errors": []
+}
