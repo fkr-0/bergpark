@@ -1,0 +1,103 @@
+.dataset-status,
+.uncertainty-note {
+  color: #536159;
+  font-size: .84rem;
+  line-height: 1.5;
+}
+
+.tree-results-summary {
+  margin: .2rem 0 .25rem;
+  color: #536159;
+  font-size: .78rem;
+  font-weight: 700;
+}
+
+.tree-more-button {
+  width: 100%;
+  min-height: 44px;
+  margin-top: .3rem;
+  border: 1px solid #315e46;
+  border-radius: .75rem;
+  background: #fffdf7;
+  color: #17352c;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.tree-more-button:focus-visible {
+  outline: 3px solid #d3aa57;
+  outline-offset: 2px;
+}
+
+.tree-map-point,
+.tree-map-cluster {
+  display: grid;
+  place-items: center;
+  border: 2px solid #f8f4e8;
+  border-radius: 50%;
+  background: #315e46;
+  box-shadow: 0 1px 5px rgb(23 53 44 / 28%);
+}
+
+.tree-map-cluster {
+  background: #17352c;
+  color: #fff;
+  font-size: .68rem;
+  font-weight: 800;
+}
+
+.tree-map-point:focus-visible,
+.tree-map-cluster:focus-visible {
+  outline: 3px solid #f5ca66;
+  outline-offset: 2px;
+}
+
+.route-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .5rem;
+  margin: 0 0 1rem;
+}
+
+.route-metrics > div {
+  padding: .7rem;
+  border: 1px solid #d8d3c5;
+  border-radius: .7rem;
+  background: #fffdf7;
+}
+
+.route-metrics dt { color: #607067; font-size: .72rem; font-weight: 800; text-transform: uppercase; }
+.route-metrics dd { margin: .2rem 0 0; color: #17352c; font-size: 1.05rem; font-weight: 800; }
+
+.route-profile { margin: .8rem 0 1rem; }
+.route-profile figcaption { margin-bottom: .35rem; color: #536159; font-size: .78rem; }
+.route-profile svg { width: 100%; height: 64px; overflow: visible; }
+.route-profile polyline { fill: none; stroke: #315e46; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+
+.route-evidence {
+  padding: .85rem;
+  border: 1px solid #d8d3c5;
+  border-radius: .8rem;
+  background: #fffdf7;
+}
+.route-evidence h3 { margin-top: 0; }
+.route-evidence p { margin: .45rem 0; }
+
+.semantic-links { display: grid; gap: .45rem; }
+.semantic-link {
+  display: grid;
+  gap: .15rem;
+  width: 100%;
+  padding: .72rem;
+  border: 1px solid #d6d0c0;
+  border-radius: .7rem;
+  background: #fffdf7;
+  color: #17352c;
+  text-align: left;
+  cursor: pointer;
+}
+.semantic-link small { color: #607067; }
+
+@media (max-width: 420px) {
+  .route-metrics { grid-template-columns: 1fr; }
+}

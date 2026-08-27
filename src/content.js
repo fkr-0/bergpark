@@ -1,4 +1,5 @@
 import { localized } from './i18n.js';
+import { semanticRelationLabel } from './semantic.js';
 
 function escapeHtml(value = '') {
   return String(value)
@@ -7,6 +8,25 @@ function escapeHtml(value = '') {
     .replaceAll('>', '&gt;')
     .replaceAll('"', '&quot;')
     .replaceAll("'", '&#039;');
+}
+
+function renderSemanticLinks(node, graph, language) {
+  const relations = graph.semanticRelationsByEntity?.get(node.id) ?? [];
+  if (!relations.length) return '';
+  const rows = relations.map((edge) => {
+    const otherId = edge.from === node.id ? edge.to : edge.from;
+    const other = graph.entitiesById.get(otherId) ?? graph.nodesById.get(otherId);
+    if (!other) return '';
+    const direction = edge.from === node.id ? 'outgoing' : 'incoming';
+    const relation = semanticRelationLabel(edge, language);
+    const otherName = localized(other.name, language, other.id);
+    const phrase = direction === 'outgoing'
+      ? `${relation} ${otherName}`
+      : `${otherName} · ${relation}`;
+    const confidence = edge.confidence ? `${language === 'de' ? 'Evidenz' : 'evidence'}: ${edge.confidence}` : '';
+    return `<button type="button" class="semantic-link" data-semantic-id="${escapeHtml(other.id)}"><strong>${escapeHtml(phrase)}</strong>${confidence ? `<small>${escapeHtml(confidence)}</small>` : ''}</button>`;
+  }).filter(Boolean).join('');
+  return rows ? `<section class="detail-section"><h3>${language === 'de' ? 'Historische Bezüge' : 'Historical connections'}</h3><div class="semantic-links">${rows}</div></section>` : '';
 }
 
 function safeImageUrl(value) {
@@ -152,6 +172,7 @@ export function renderNodeDetail(container, { node, graph, i18n, onNavigate, onS
       ${renderGallery(node, language)}
       ${sections.map(({ heading, text }) => `<section class="detail-section"><h3>${escapeHtml(heading)}</h3><p>${escapeHtml(text)}</p></section>`).join('')}
       ${renderArtworks(node, language)}
+      ${renderSemanticLinks(node, graph, language)}
       ${renderVisitInfo(node, language)}
       ${outgoing.length ? `
         <section class="detail-section">
@@ -181,6 +202,9 @@ export function renderNodeDetail(container, { node, graph, i18n, onNavigate, onS
   container.querySelector('[data-action="stop-narration"]')?.addEventListener('click', stopNarration);
   for (const button of container.querySelectorAll('[data-node-id]')) {
     button.addEventListener('click', () => onSelectNode?.(button.dataset.nodeId));
+  }
+  for (const button of container.querySelectorAll('[data-semantic-id]')) {
+    button.addEventListener('click', () => onSelectNode?.(button.dataset.semanticId));
   }
   for (const button of container.querySelectorAll('[data-route-to]')) {
     button.addEventListener('click', () => onNavigate?.(node.id, button.dataset.routeTo));

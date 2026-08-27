@@ -1,3 +1,5 @@
+import { normalizeSemanticData } from './semantic.js';
+
 const REQUIRED_FILES = ['nodes.json', 'edges.json', 'trees.json'];
 const CONTENT_ID_ALIASES = {
   schloss: 'schloss-wilhelmshoehe',
@@ -71,6 +73,10 @@ export async function loadGraphData(baseUrl = import.meta.env.BASE_URL) {
     loadOptionalJson(baseUrl, 'nodes.en.json', {}),
     loadOptionalJson(baseUrl, 'sources.json', { sources: {} }),
   ]);
+  const [figuresDoc, semanticDoc] = await Promise.all([
+    loadOptionalJson(baseUrl, 'figures.json', { figures: [] }),
+    loadOptionalJson(baseUrl, 'semantic.json', { artworks: [], collections: [], semantic_edges: [] }),
+  ]);
 
   const rawNodes = nodesDoc.nodes ?? nodesDoc;
   const nodes = rawNodes.map((node) => enrichNode(node, deDoc, enDoc, sourceRegistry));
@@ -103,7 +109,8 @@ export async function loadGraphData(baseUrl = import.meta.env.BASE_URL) {
     });
   }
 
-  const entities = [...nodes, ...contentOnlyEntities];
+  const semantic = normalizeSemanticData(figuresDoc, semanticDoc);
+  const entities = [...nodes, ...contentOnlyEntities, ...semantic.entities];
   const entitiesById = new Map(entities.map((entity) => [entity.id, entity]));
 
   return {
@@ -114,10 +121,13 @@ export async function loadGraphData(baseUrl = import.meta.env.BASE_URL) {
     outgoing,
     entities,
     entitiesById,
+    semanticEdges: semantic.semanticEdges,
+    semanticRelationsByEntity: semantic.relationsByEntity,
     metadata: {
       nodeSchemaVersion: nodesDoc.schema_version ?? nodesDoc.schemaVersion ?? 1,
       edgeSchemaVersion: edgesDoc.schema_version ?? edgesDoc.schemaVersion ?? 1,
       treeStatus: treesDoc.status ?? 'ready',
+      semanticStatus: semantic.status,
       contentLanguages: { de: Object.keys(deDoc ?? {}).length, en: Object.keys(enDoc ?? {}).length },
     },
   };

@@ -1,5 +1,6 @@
 import 'leaflet/dist/leaflet.css';
 import './styles/app.css';
+import './styles/phase2.css';
 import { loadGraphData, edgeBetween } from './data.js';
 import { createI18n, localized } from './i18n.js';
 import { createBergparkMap } from './map.js';
@@ -7,6 +8,8 @@ import { createGpsNavigator } from './gps.js';
 import { renderNodeDetail, stopNarration } from './content.js';
 import { renderGlossary } from './glossary.js';
 import { renderTreeExplorer } from './trees.js';
+import { createTreeMapLayer } from './tree-map.js';
+import { renderRouteDetail } from './routes.js';
 
 const app = document.querySelector('#app');
 const i18n = createI18n();
@@ -53,8 +56,10 @@ const elements = {
 let graph = null;
 let mapController = null;
 let gps = null;
+let treeMapController = null;
 let currentNodeId = null;
 let currentView = 'map';
+let currentRoute = null;
 
 function renderChrome() {
   for (const element of document.querySelectorAll('[data-i18n]')) element.textContent = i18n.t(element.dataset.i18n);
@@ -92,24 +97,28 @@ function setView(view) {
   elements.detail.hidden = true;
   elements.panel.hidden = false;
   if (view === 'index') {
+    treeMapController?.setVisible(false);
     renderGlossary(elements.panel, { nodes: graph.entities, i18n, onSelectNode: selectEntity });
   } else if (view === 'trees') {
+    treeMapController?.setVisible(true);
     renderTreeExplorer(elements.panel, {
       trees: graph.trees,
       metadata: graph.metadata,
       i18n,
       onSelectTree: selectTree,
+      onFilterChange: (trees) => treeMapController?.setTrees(trees),
     });
   }
 }
 
 function showDetail(node) {
+  currentRoute = null;
   renderNodeDetail(elements.detail, {
     node,
     graph,
     i18n,
     onNavigate: showRoute,
-    onSelectNode: selectNode,
+    onSelectNode: selectEntity,
   });
 }
 
@@ -144,6 +153,8 @@ function selectTree(id) {
   if (Number.isFinite(tree.lat) && Number.isFinite(tree.lng ?? tree.lon)) {
     mapController.map.flyTo([tree.lat, tree.lng ?? tree.lon], 18, { duration: 0.6 });
   }
+  const label = localized(tree.name, i18n.language, tree.species?.[i18n.language] ?? tree.species?.scientific ?? tree.catalog_ref ?? tree.id);
+  setStatus(label, true);
 }
 
 function showRoute(fromId, toId) {
@@ -153,10 +164,28 @@ function showRoute(fromId, toId) {
     return;
   }
   setView('map');
+  currentRoute = { edge, fromId, toId };
   const target = graph.nodesById.get(toId);
+  const source = graph.nodesById.get(fromId);
   if (target) {
     setStatus(`${localized(target.name, i18n.language, target.id)} · ${Math.round(edge.distance_m)} ${i18n.t('metres')} · ${edge.walking_min} ${i18n.t('minutes')}`, true);
   }
+  renderRouteDetail(elements.detail, {
+    edge,
+    from: source,
+    to: target,
+    i18n,
+    onSelectNode: selectEntity,
+    onClose: closeRouteDetail,
+  });
+}
+
+function closeRouteDetail() {
+  const source = currentRoute ? graph.nodesById.get(currentRoute.fromId) : null;
+  currentRoute = null;
+  if (!source) return;
+  showDetail(source);
+  elements.detail.querySelector('[data-action="close-detail"]')?.focus();
 }
 
 function setupGps() {
@@ -208,6 +237,10 @@ async function boot() {
     onSelectNode: (id) => selectNode(id),
     onLocationError: () => setStatus(i18n.t('gpsUnavailable'), true),
   });
+  treeMapController = createTreeMapLayer(mapController.map, graph.trees, {
+    language: i18n.language,
+    onSelectTree: selectTree,
+  });
   setupGps();
   mapController.fitPark();
   setStatus(i18n.t('mapHint'));
@@ -220,7 +253,17 @@ elements.language.addEventListener('click', () => i18n.toggle());
 i18n.subscribe(() => {
   renderChrome();
   mapController?.updateLanguage(i18n.language);
-  if (currentNodeId && !elements.detail.hidden) showDetail(graph.entitiesById.get(currentNodeId));
+  treeMapController?.updateLanguage(i18n.language);
+  if (currentRoute && !elements.detail.hidden) {
+    renderRouteDetail(elements.detail, {
+      edge: currentRoute.edge,
+      from: graph.nodesById.get(currentRoute.fromId),
+      to: graph.nodesById.get(currentRoute.toId),
+      i18n,
+      onSelectNode: selectEntity,
+      onClose: closeRouteDetail,
+    });
+  } else if (currentNodeId && !elements.detail.hidden) showDetail(graph.entitiesById.get(currentNodeId));
   if (currentView !== 'map' && graph) setView(currentView);
 });
 

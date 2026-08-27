@@ -44,6 +44,14 @@ test('tree filters combine species and significance', () => {
   assert.deepEqual(filterTrees(trees, { species: 'Stieleiche', significance: 'landmark', language: 'de' }).map(({ id }) => id), ['oak']);
 });
 
+test('tree filters combine location with legacy catalogue schema variants', () => {
+  const trees = [
+    { id: 'a', species_de: 'Eiche', location_description: 'Südtor der Löwenburg', catalogue_ref: '10', denotation: 'landmark' },
+    { id: 'b', species: { de: 'Eiche', scientific: 'Quercus robur' }, location: 'Kaskaden', catalog_ref: '11', denotation: 'landmark' },
+  ];
+  assert.deepEqual(filterTrees(trees, { query: '10', location: 'loewenburg', significance: 'landmark', language: 'de' }).map(({ id }) => id), ['a']);
+});
+
 test('edgeBetween resolves directed graph routes', () => {
   const graph = { outgoing: new Map([['a', [{ from: 'a', to: 'b', distance_m: 100 }]]]) };
   assert.equal(edgeBetween(graph, 'a', 'b').distance_m, 100);

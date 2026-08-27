@@ -12,8 +12,6 @@ const runtimeFiles = [
   'trees.json',
   'figures.json',
   'semantic.json',
-  'graph.json',
-  'validation.json',
 ];
 
 await rm(target, { recursive: true, force: true });
