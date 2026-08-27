@@ -1,5 +1,6 @@
 import L from 'leaflet';
 import { localized } from './i18n.js';
+import { hasInteractiveModel, markerPresentationClass, resolveNodePresentation, structureGlyph } from './presentation.js';
 
 const PARK_CENTER = [51.3167, 9.4167];
 
@@ -12,14 +13,22 @@ function escapeHtml(value = '') {
     .replaceAll("'", '&#039;');
 }
 
-function markerIcon(category = 'landmark') {
+function markerIcon(node) {
+  const category = node.type ?? node.category ?? 'landmark';
+  const presentation = resolveNodePresentation(node);
   const glyph = ['waterfeature', 'lake', 'pond'].includes(category) ? '≈' : ['castle', 'palace'].includes(category) ? '♜' : '●';
+  const renderedGlyph = presentation.map.kind === 'structure'
+    ? structureGlyph(presentation.map.structure)
+    : glyph;
+  const size = Math.round(42 * presentation.map.scale);
+  const anchor = Math.round(size / 2);
+  const style = `--marker-scale:${presentation.map.scale}`;
   return L.divIcon({
-    className: 'bergpark-marker-wrap',
-    html: `<span class="bergpark-marker bergpark-marker--${escapeHtml(category)}" aria-hidden="true"><span>${glyph}</span></span>`,
-    iconSize: [42, 42],
-    iconAnchor: [21, 21],
-    popupAnchor: [0, -19],
+    className: `bergpark-marker-wrap ${markerPresentationClass(node)}`,
+    html: `<span class="bergpark-marker bergpark-marker--${escapeHtml(category)} bergpark-marker--presentation-${escapeHtml(presentation.map.kind)}" data-structure="${escapeHtml(presentation.map.structure ?? '')}" style="${style}" aria-hidden="true"><span class="bergpark-marker__glyph">${renderedGlyph}</span>${presentation.map.kind === 'structure' ? '<span class="bergpark-marker__depth"></span>' : ''}</span>`,
+    iconSize: [size, size],
+    iconAnchor: [anchor, anchor],
+    popupAnchor: [0, -Math.round(size * 0.45)],
   });
 }
 
@@ -71,6 +80,65 @@ export function createBergparkMap(element, graph, { language = 'de', onSelectNod
   const routeLayer = L.layerGroup().addTo(map);
   const userLayer = L.layerGroup().addTo(map);
   const markers = new Map();
+  const nodeLookup = graph.nodesById ?? new Map(nodes.map((node) => [node.id, node]));
+  const mapStage = element.closest('.map-stage') ?? element.parentElement;
+  const modelLaunch = document.createElement('button');
+  modelLaunch.type = 'button';
+  modelLaunch.className = 'model-launch-button';
+  modelLaunch.dataset.modelLaunch = 'true';
+  modelLaunch.hidden = true;
+  mapStage?.append(modelLaunch);
+
+  let selectedModelNode = null;
+  let activeModelViewer = null;
+  let modelOpenGeneration = 0;
+
+  function updateModelLaunchCopy() {
+    modelLaunch.textContent = currentLanguage === 'de' ? '◇ 3D-Ansicht' : '◇ 3D view';
+    modelLaunch.setAttribute('aria-label', currentLanguage === 'de' ? 'Schematische 3D-Ansicht öffnen' : 'Open schematic 3D view');
+  }
+
+  function updateModelLaunch(node) {
+    if (activeModelViewer && selectedModelNode?.id !== node?.id) {
+      activeModelViewer.destroy();
+      activeModelViewer = null;
+    }
+    selectedModelNode = hasInteractiveModel(node) ? node : null;
+    modelLaunch.hidden = !selectedModelNode;
+    modelLaunch.dataset.nodeId = selectedModelNode?.id ?? '';
+    updateModelLaunchCopy();
+  }
+
+  modelLaunch.addEventListener('click', async () => {
+    const node = selectedModelNode;
+    if (!node) return;
+    const generation = ++modelOpenGeneration;
+    modelLaunch.disabled = true;
+    try {
+      const { createLandmarkModelViewer } = await import('./model-viewer.js');
+      if (generation !== modelOpenGeneration || selectedModelNode?.id !== node.id) return;
+      activeModelViewer?.destroy();
+      activeModelViewer = createLandmarkModelViewer({
+        parent: mapStage,
+        nodeId: node.id,
+        title: localized(node.name, currentLanguage, node.title ?? node.id),
+        presentation: resolveNodePresentation(node),
+        language: currentLanguage,
+        onClose() {
+          activeModelViewer = null;
+          if (!modelLaunch.hidden) modelLaunch.focus();
+        },
+      });
+      await activeModelViewer.ready;
+    } catch (error) {
+      console.warn('Unable to open Bergpark 3D viewer:', error);
+      modelLaunch.dataset.modelError = 'unavailable';
+    } finally {
+      modelLaunch.disabled = false;
+    }
+  });
+
+  updateModelLaunchCopy();
 
   const uniqueEdges = new Map();
   for (const edge of edges) {
@@ -88,7 +156,7 @@ export function createBergparkMap(element, graph, { language = 'de', onSelectNod
     const category = node.type ?? node.category ?? 'landmark';
     const title = localized(node.name, currentLanguage, node.title ?? node.id);
     const marker = L.marker([node.lat, node.lng ?? node.lon], {
-      icon: markerIcon(category),
+      icon: markerIcon(node),
       title,
       alt: title,
       riseOnHover: true,
@@ -121,6 +189,7 @@ export function createBergparkMap(element, graph, { language = 'de', onSelectNod
     showNode(id, { zoom = true, popup = false } = {}) {
       const marker = markers.get(id);
       if (!marker) return false;
+      updateModelLaunch(nodeLookup.get(id));
       if (zoom) map.flyTo(marker.getLatLng(), Math.max(map.getZoom(), 16), { duration: 0.6 });
       if (popup) marker.openPopup();
       return true;
@@ -143,6 +212,10 @@ export function createBergparkMap(element, graph, { language = 'de', onSelectNod
     },
     updateLanguage(nextLanguage) {
       currentLanguage = nextLanguage;
+      updateModelLaunchCopy();
+      if (activeModelViewer && selectedModelNode) {
+        activeModelViewer.setLanguage(currentLanguage, localized(selectedModelNode.name, currentLanguage, selectedModelNode.title ?? selectedModelNode.id));
+      }
       for (const node of nodes) {
         const marker = markers.get(node.id);
         if (!marker) continue;

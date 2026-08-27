@@ -124,6 +124,52 @@ h1 { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: clamp
   font-weight: 900;
 }
 .bergpark-marker > * { transform: rotate(45deg); }
+.bergpark-marker--presentation-structure {
+  width: calc(38px * var(--marker-scale, 1));
+  height: calc(38px * var(--marker-scale, 1));
+  border-radius: .55rem .55rem .55rem 1rem;
+  transform: rotate(-45deg) perspective(80px) rotateX(8deg) rotateY(-8deg);
+  box-shadow:
+    0 5px 0 rgb(44 58 49 / .34),
+    0 10px 18px rgb(0 0 0 / .28);
+  overflow: visible;
+}
+.bergpark-marker--presentation-structure .bergpark-marker__glyph {
+  position: relative;
+  z-index: 2;
+  transform: rotate(45deg);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.15rem;
+  text-shadow: 0 1px 0 rgb(0 0 0 / .28);
+}
+.bergpark-marker--presentation-structure .bergpark-marker__depth {
+  position: absolute;
+  inset: 7px -5px -5px 7px;
+  z-index: 1;
+  border-radius: .45rem;
+  background: rgb(0 0 0 / .18);
+  transform: none;
+  pointer-events: none;
+}
+.bergpark-marker--presentation-structure[data-structure="hercules"] {
+  background: linear-gradient(145deg, #9b8651, #594b28);
+}
+.bergpark-marker--presentation-structure[data-structure="palace"] {
+  background: linear-gradient(145deg, #8f7769, #5a453c);
+}
+.bergpark-marker--presentation-structure[data-structure="castle"] {
+  background: linear-gradient(145deg, #75574a, #40362f);
+}
+.bergpark-marker--presentation-structure[data-structure="fountain"] {
+  background: linear-gradient(145deg, #5d9caf, #356778);
+}
+.bergpark-marker--presentation-structure[data-structure="aqueduct"] {
+  background: linear-gradient(145deg, #a18c69, #65563d);
+}
+.bergpark-marker-presentation--structure:hover .bergpark-marker--presentation-structure,
+.bergpark-marker-presentation--structure:focus-within .bergpark-marker--presentation-structure {
+  transform: rotate(-45deg) perspective(80px) rotateX(3deg) rotateY(-2deg) translateY(-2px);
+}
 .bergpark-marker--water,
 .bergpark-marker--waterfeature,
 .bergpark-marker--lake,
@@ -137,6 +183,162 @@ h1 { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: clamp
 .marker-popup p { line-height: 1.4; }
 .marker-popup__kind { margin: 0; color: #62736c; font-size: .68rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
 .marker-popup button { width: 100%; min-height: 38px; border: 0; border-radius: .6rem; background: #e9e6dc; color: #6a716d; }
+
+.model-launch-button {
+  position: absolute;
+  z-index: 715;
+  top: calc(max(12px, env(safe-area-inset-top)) + 92px);
+  left: 12px;
+  min-height: 44px;
+  padding: .65rem .85rem;
+  border: 1px solid rgb(255 255 255 / .6);
+  border-radius: .9rem;
+  background: rgb(248 244 232 / .96);
+  color: var(--forest);
+  box-shadow: 0 10px 28px rgb(16 35 29 / .24);
+  font-weight: 850;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+}
+.model-launch-button:hover { transform: translateY(-1px); }
+.model-launch-button:focus-visible,
+.landmark-model-viewer button:focus-visible,
+.landmark-model-viewer__canvas:focus-visible {
+  outline: 3px solid #f0c86c;
+  outline-offset: 3px;
+}
+.model-launch-button:disabled { opacity: .58; cursor: progress; }
+
+.landmark-model-viewer {
+  position: absolute;
+  z-index: 900;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: max(12px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom));
+  background:
+    radial-gradient(circle at 50% 32%, rgb(236 235 220 / .42), transparent 42%),
+    rgb(14 31 27 / .88);
+  backdrop-filter: blur(12px);
+}
+.landmark-model-viewer__card {
+  display: grid;
+  grid-template-rows: auto minmax(280px, 1fr) auto auto;
+  width: min(880px, 100%);
+  height: min(760px, calc(100dvh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom)));
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / .46);
+  border-radius: 1.35rem;
+  background: #f6f2e6;
+  box-shadow: 0 28px 80px rgb(0 0 0 / .42);
+}
+.landmark-model-viewer__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1rem .8rem;
+  border-bottom: 1px solid #d9d2bf;
+}
+.landmark-model-viewer__eyebrow {
+  margin: 0 0 .2rem;
+  color: var(--moss);
+  font-size: .7rem;
+  font-weight: 850;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.landmark-model-viewer__header h2 {
+  margin: 0;
+  color: var(--forest);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.45rem, 5vw, 2.35rem);
+  font-weight: 600;
+}
+.landmark-model-viewer__close {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: .85rem;
+  background: var(--forest);
+  color: white;
+  font-size: 1.55rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.landmark-model-viewer__stage {
+  position: relative;
+  min-height: 280px;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, #eef0e7 0%, #dce3d5 70%, #c7d2c4 100%);
+}
+.landmark-model-viewer__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  touch-action: none;
+  cursor: grab;
+}
+.landmark-model-viewer__canvas:active { cursor: grabbing; }
+.landmark-model-viewer__canvas[hidden] { display: none; }
+.landmark-model-viewer__status {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  padding: .55rem .8rem;
+  border-radius: 999px;
+  background: rgb(23 53 44 / .9);
+  color: white;
+  font-size: .85rem;
+  pointer-events: none;
+}
+.landmark-model-viewer__fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: .5rem;
+  padding: 2rem;
+  color: var(--forest);
+  text-align: center;
+}
+.landmark-model-viewer__fallback[hidden] { display: none; }
+.landmark-model-viewer__fallback strong { max-width: 34rem; font-family: Georgia, serif; font-size: 1.3rem; }
+.landmark-model-viewer__fallback span { max-width: 38rem; line-height: 1.55; }
+.landmark-model-viewer__controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem;
+  padding: .8rem 1rem .2rem;
+}
+.landmark-model-viewer__controls button {
+  min-height: 42px;
+  padding: .58rem .8rem;
+  border: 1px solid #c9c1ae;
+  border-radius: .72rem;
+  background: #fffdf7;
+  color: var(--forest);
+  font-weight: 760;
+  cursor: pointer;
+}
+.landmark-model-viewer__controls button[aria-pressed="true"] {
+  background: var(--forest);
+  color: white;
+}
+.landmark-model-viewer__controls button:disabled { opacity: .5; cursor: progress; }
+.landmark-model-viewer__instructions {
+  margin: 0;
+  padding: .55rem 1rem 1rem;
+  color: #536159;
+  font-size: .78rem;
+  line-height: 1.45;
+}
 
 .leaflet-control-layers, .leaflet-bar { border: 0 !important; box-shadow: 0 7px 24px rgb(0 0 0 / .18) !important; }
 .leaflet-control-layers { margin-top: 104px !important; border-radius: .8rem !important; }
@@ -306,8 +508,18 @@ h1 { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: clamp
   .topbar { width: min(520px, calc(100vw - 32px)); right: auto; left: 20px; top: 20px; }
   .bottom-nav { width: 360px; left: 50%; right: auto; transform: translateX(-50%); bottom: 20px; }
   .map-hint { bottom: 92px; }
+  .model-launch-button { top: 112px; left: 20px; }
   .leaflet-control-layers { margin-top: 20px !important; }
   .leaflet-control-zoom { margin-bottom: 20px !important; }
+}
+
+@media (max-width: 520px) {
+  .landmark-model-viewer__card {
+    grid-template-rows: auto minmax(240px, 1fr) auto auto;
+    height: calc(100dvh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  }
+  .landmark-model-viewer__stage,
+  .landmark-model-viewer__canvas { min-height: 240px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

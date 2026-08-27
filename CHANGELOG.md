@@ -5,6 +5,24 @@ This project follows Semantic Versioning. Pre-release versions are explicitly
 marked as alpha/beta until the visitor guide, knowledge graph and offline
 experience have completed their release gates.
 
+## [Unreleased]
+
+### Added
+
+- Per-node rich presentation policy with lightweight structure markers for
+  selected landmarks while preserving the normal Leaflet map for navigation.
+- Lazy interactive Three.js landmark viewer with rotate/pause, reset, drag/zoom,
+  Escape/close, focus restoration and reduced-motion-aware autorotation.
+- Schematic 3D scenes for Herkules, Schloss Wilhelmshöhe, Löwenburg and Große
+  Fontäne, plus a same-origin glTF Aquädukt asset exercising the production model
+  loader path.
+- Fail-closed 3D asset policy: same-origin glTF/GLB only, 5 MiB and 180,000
+  triangle budgets, accessible fallback when WebGL/model loading is unavailable,
+  and explicit renderer/model disposal on close.
+- Browser E2E coverage for lazy loading, real WebGL interaction, all built-in
+  model scenes, glTF loading, Axe checks, WebGL fallback and warmed offline 3D
+  reopening through the service-worker cache.
+
 ## [0.1.0-alpha.2] - 2026-08-27
 
 ### Added

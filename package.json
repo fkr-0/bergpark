@@ -17,7 +17,8 @@
     "check:e2e": "npm run check && npm run test:e2e"
   },
   "dependencies": {
-    "leaflet": "^1.9.4"
+    "leaflet": "^1.9.4",
+    "three": "^0.185.1"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",

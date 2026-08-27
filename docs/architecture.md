@@ -76,6 +76,8 @@ The PWA is intentionally small:
 
 - `src/data.js` — runtime layer loading and lookup indexes;
 - `src/map.js` — Leaflet map, place markers and route geometry;
+- `src/presentation.js` — per-node visual presentation policy;
+- `src/model-viewer.js` — lazy Three.js/glTF landmark viewer and bounded asset loader;
 - `src/gps.js` — geolocation/proximity behavior;
 - `src/content.js` — detail rendering, source links and TTS;
 - `src/trees.js` — tree filtering/list UI;
@@ -84,6 +86,64 @@ The PWA is intentionally small:
 
 The browser should consume validated release artifacts, not reproduce research or
 source-resolution logic.
+
+### Rich node presentation and 3D runtime
+
+Leaflet remains the authoritative 2D navigation surface. Replacing the whole
+visitor map with a permanent WebGL scene would make GPS, routing, accessibility,
+offline operation and low-end-mobile performance harder for little benefit.
+Instead, individual entities opt into richer presentation independently.
+
+The browser presentation contract has two independent surfaces:
+
+```js
+{
+  map: {
+    kind: 'pin' | 'structure' | 'model',
+    structure: 'hercules' | 'palace' | 'castle' | 'fountain' | 'aqueduct',
+    modelUrl: './models/example.glb',
+    posterUrl: './models/example.webp',
+    scale: 1.0,
+  },
+  detail: {
+    kind: 'standard' | 'embedded-visual' | 'model-ready' | 'model',
+    assetId: 'stable-ui-asset-id',
+    modelUrl: './models/example.glb',
+    posterUrl: './models/example.webp',
+  },
+}
+```
+
+`pin` is the cheap default. `structure` is a DOM/CSS pseudo-3D marker used for a
+small number of important landmarks. `model` enables a real interactive Three.js
+scene only after the visitor selects the node and explicitly opens its 3D view.
+The renderer, OrbitControls and GLTFLoader are dynamically imported; normal map
+startup therefore does not download or initialize Three.js.
+
+The first implemented 3D set is:
+
+- Herkules — procedural schematic scene;
+- Schloss Wilhelmshöhe — procedural schematic scene;
+- Löwenburg — procedural schematic scene;
+- Große Fontäne — procedural schematic scene;
+- Aquädukt — same-origin glTF asset through the production GLTFLoader path.
+
+These views are explicitly schematic and not survey-grade, metrically exact
+reconstructions. They are presentation artifacts and must not be confused with
+canonical spatial or historical evidence.
+
+External glTF/GLB assets are restricted to the Bergpark origin and fail closed
+above 5 MiB or 180,000 triangles. A load/WebGL failure leaves the ordinary map
+and editorial detail path usable. The viewer has rotate/pause, reset and close
+controls; drag/wheel interaction; Escape-to-close; focus restoration; reduced-
+motion-aware autorotation; resize handling; and explicit renderer/geometry/
+material disposal on close.
+
+Presentation metadata is deliberately separate from historical/spatial truth.
+The initial landmark overrides live in `src/presentation.js`; once the asset set
+becomes large they may move to a small deployable UI manifest, but they must not
+be mixed into canonical coordinate/provenance claims merely to control
+appearance.
 
 ## Stable ID namespaces
 
