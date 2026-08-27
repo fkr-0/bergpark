@@ -8,8 +8,8 @@ release:
   previous_published_tag_revision: 43c76838764a142fede0480b30c6f5228b99808b
   remote_main_before_alpha5: 29e94c87ebddc51607e2edbe172ef1509ccd1fe4
   source_head_before_release_metadata: 8a0ad44f3a464a88c55c8a4ac397de64d0b1a8a5
-  release_metadata_commit: pending_candidate_commit
-  release_evidence_commit: pending_final_evidence_commit
+  release_metadata_commit: 65d8250f70d0f822f5ac3ab18d7486f870ae917a
+  release_evidence_commit: this_commit
   push_authorized: true
   tag_requested: false
   target_repository: fkr-0/bergpark
@@ -57,24 +57,26 @@ preflight_verification:
     result: not_run_product
     details: Playwright WebKit cannot launch because required host libraries are unavailable; this is retained as a beta qualification gate.
   - command: pnpm install --frozen-lockfile
-    location: exact clean candidate
-    result: pending
+    location: exact clean candidate at 65d8250f70d0f822f5ac3ab18d7486f870ae917a
+    result: pass
+    details: pnpm 11.3.0; frozen lockfile accepted with a clean worktree before and after qualification.
   - command: pnpm run check:e2e
-    location: exact clean candidate
-    result: pending
+    location: exact clean candidate at 65d8250f70d0f822f5ac3ab18d7486f870ae917a
+    result: pass
+    details: Biome warnings-fatal PASS; 27/27 Node tests PASS; 2/2 Vitest PASS; 65/65 Python PASS; Vite 8.2.2 build PASS; 15/15 Chromium Playwright PASS.
 release_gate:
-  exact_clean_worktree_check: pending
-  git_diff_check: pending
+  exact_clean_worktree_check: pass_at_65d8250f70d0f822f5ac3ab18d7486f870ae917a
+  git_diff_check: pass
   tag_created: false
-  pushed: false
+  pushed: authorized_pending_at_evidence_commit
   github_release_created: false
-  ci_workflow: not_triggered_yet
-  pages_workflow: not_triggered_yet
+  ci_workflow: pending_push
+  pages_workflow: pending_push
   production_e2e: pending_post_push
 artifacts:
-  dist_tree_sha256_manifest_sha256: pending_clean_candidate
-  dist_bytes: pending_clean_candidate
-  dist_files: pending_clean_candidate
+  dist_tree_sha256_manifest_sha256: ef8b1dd0210a6fa30813e5883cdf4de17488960afed42824b2a7f7e90138b0cd
+  dist_bytes: 5303367
+  dist_files: 24
 known_limitations:
   - Bundled landmark 3D assets are schematic interaction models, not surveyed architectural reconstructions.
   - Firefox synthetic offline reload and WebKit/iOS Safari remain explicit beta qualification gates.
