@@ -6,7 +6,7 @@ release:
   date: 2026-08-27
   base_revision: 02405ef25f48f1c2da0e5158266aa746ffabb86b
   application_revision_tested: fd93ef9a19c4d708687897b6137110ae3867a8da
-  final_tag_revision: pending
+  final_tag_revision: 364307d4bcd459f02b5e0801b26c048784ca1042
   publish_authorized: true
   target_repository: fkr-0/bergpark
   target_url: https://bergpark.fkr.dev
@@ -51,9 +51,34 @@ known_limitations:
   - Firefox and iOS Safari production qualification remain beta gates.
   - Live visitor facts such as opening hours and field accessibility remain source-dated rather than guaranteed.
 release_side_effects:
-  local_tag: pending
-  git_remote: pending
-  github_repository: pending
-  github_release: pending
-  github_pages: pending
-  dns_cname: pending
+  local_tag:
+    status: complete
+    tag: v0.1.0-alpha.1
+    tag_object: 17bd8b857c0c7e6f5e99c6204dbae6cf2e1456a7
+    peeled_commit: 364307d4bcd459f02b5e0801b26c048784ca1042
+  git_remote:
+    status: complete
+    name: origin
+    url: git@github.com:fkr-0/bergpark.git
+  github_repository:
+    status: complete
+    visibility: public
+    url: https://github.com/fkr-0/bergpark
+  github_release:
+    status: complete
+    prerelease: true
+    url: https://github.com/fkr-0/bergpark/releases/tag/v0.1.0-alpha.1
+  github_pages:
+    status: deployed
+    workflow_run: 33045746366
+    custom_domain: bergpark.fkr.dev
+    domain_verification: verified
+    http_smoke: pass
+    https_certificate: pending
+    https_enforced: false
+  dns_cname:
+    status: complete
+    domain: fkr.dev
+    name: bergpark
+    value: fkr-0.github.io
+    ttl_seconds: 600
