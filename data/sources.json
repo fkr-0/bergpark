@@ -223,6 +223,160 @@
       "accessed": "2026-08-27",
       "license": "OpenStreetMap data ODbL; Mapcarta text CC BY-SA 4.0",
       "scope": ["coordinates"]
+    },
+    "stadt-bergparkplan": {
+      "title": "Bergparkplan",
+      "publisher": "Stadt Kassel",
+      "url": "https://www.kassel.de/daten-und-karten/bergparkplan.php",
+      "accessed": "2026-08-27",
+      "scope": ["official-map", "water-route", "visitor-orientation", "trails"]
+    },
+    "stadt-steinhoefer": {
+      "title": "Wasserspiele Station 3 — Steinhöfer Wasserfall",
+      "publisher": "Kassel Marketing / Stadt Kassel tourism",
+      "url": "https://visit.kassel.de/poi/1505-uhr-steinhoefer-wasserfall",
+      "accessed": "2026-08-27",
+      "scope": ["steinhoefer-waterfall", "water-engineering", "visitor-sequence"]
+    },
+    "hkh-ballhaus": {
+      "title": "Ballhaus Wilhelmshöhe",
+      "publisher": "Hessen Kassel Heritage",
+      "url": "https://www.heritage-kassel.de/standorte/ballhaus",
+      "accessed": "2026-08-27",
+      "scope": ["ballhaus", "history", "interiors", "visitor-info", "accessibility"]
+    },
+    "hkh-gewaechshaus": {
+      "title": "Großes Gewächshaus",
+      "publisher": "Hessen Kassel Heritage",
+      "url": "https://www.heritage-kassel.de/standorte/gewaechshaus",
+      "accessed": "2026-08-27",
+      "scope": ["greenhouse", "plant-collection", "architecture", "visitor-info", "accessibility"]
+    },
+    "lfdh-denkmaltopographie-wilhelmshoehe": {
+      "title": "Denkmaltopographie Bundesrepublik Deutschland — Kulturdenkmäler in Hessen: Stadt Kassel 3, Wilhelmshöhe",
+      "publisher": "Landesamt für Denkmalpflege Hessen / Universitätsbibliothek Heidelberg digital",
+      "url": "https://digi.ub.uni-heidelberg.de/diglit/dtbrd_he_bd44",
+      "accessed": "2026-08-27",
+      "scope": ["secondary-landmarks", "protected-monuments", "chronology", "architecture", "mulang", "water-features"],
+      "notes": "Authoritative Hessian monument inventory, published 2008; OCR pages used with caution where typography is ambiguous."
+    },
+    "stadt-geoportal-mulang": {
+      "title": "Stadtwanderweg KS-West — Schloss- und Bergpark Wilhelmshöhe / Mulang",
+      "publisher": "Stadt Kassel Geoportal",
+      "url": "https://geoportal.kassel.de/wandern-ks-west/",
+      "accessed": "2026-08-27",
+      "scope": ["mulang", "pagoda", "park-village", "steinhoefer"]
+    },
+    "hkh-architekturzeichnungen-pagode": {
+      "title": "Kassel-Wilhelmshöhe, Mulang, Pagode — Bauaufnahme und Entwurf für einen neuen Anstrich",
+      "publisher": "Hessen Kassel Heritage — Bestandskatalog der Architekturzeichnungen",
+      "url": "https://architekturzeichnungen.museum-kassel.de/61951/",
+      "accessed": "2026-08-27",
+      "scope": ["mulang", "pagoda", "architecture", "1825-1826"]
+    },
+    "dewiki-mou-lang": {
+      "title": "Mou-lang",
+      "publisher": "Wikipedia, deutsch",
+      "url": "https://de.wikipedia.org/wiki/Mou-lang",
+      "accessed": "2026-08-27",
+      "license": "CC BY-SA; secondary orientation source, cross-checked against monument inventory and official material",
+      "scope": ["mulang", "building-inventory", "survival-status"]
+    },
+    "dewiki-pagode-wilhelmshoehe": {
+      "title": "Pagode (Wilhelmshöhe)",
+      "publisher": "Wikipedia, deutsch",
+      "url": "https://de.wikipedia.org/wiki/Pagode_%28Wilhelmsh%C3%B6he%29",
+      "accessed": "2026-08-27",
+      "license": "CC BY-SA; secondary orientation source, cross-checked against Hessen Kassel Heritage drawing catalogue",
+      "scope": ["pagoda", "mulang", "architecture"]
+    },
+    "osm-overpass-phase1": {
+      "title": "Bergpark Phase-1 OpenStreetMap / Overpass snapshot",
+      "publisher": "OpenStreetMap contributors",
+      "url": "https://www.openstreetmap.org/copyright",
+      "accessed": "2026-08-27",
+      "license": "ODbL 1.0",
+      "scope": ["coordinates", "poi-identification"],
+      "notes": "Exact local snapshot provenance and queries are recorded in data/source_manifest.json at graph commit 067bedd."
+    },
+    "stadt-kaskadenwirtschaft": {
+      "title": "Kaskadenwirtschaft",
+      "publisher": "Stadt Kassel",
+      "url": "https://www.kassel.de/verzeichnisse/adressverzeichnis/gastronomie/gastronomie-bergpark/kaskadenwirtschaft-grischaefer.php",
+      "accessed": "2026-08-27",
+      "scope": ["kaskadenwirtschaft", "visitor-info", "current-closure"],
+      "notes": "Current city listing states the historic Kaskadenwirtschaft is closed for renovation until approximately autumn 2026."
+    },
+    "openmeteo-elevation-glo90": {
+      "title": "Open-Meteo Elevation API — Copernicus DEM GLO-90",
+      "publisher": "Open-Meteo / Copernicus DEM",
+      "url": "https://open-meteo.com/en/docs/elevation-api",
+      "accessed": "2026-08-27",
+      "scope": ["terrain-elevation", "provisional-elevation"],
+      "notes": "WGS84 coordinate lookup based on Copernicus DEM 2021 GLO-90 (90 m resolution). Suitable as provisional terrain elevation, not survey-grade exact height; later Hessian DGM refinement required."
+    },
+    "osm-wiki-bergpark-inventory": {
+      "title": "User:Jo Cassel/Bergpark Wilhelmshöhe — Parkpflegewerk/OSM cross-reference",
+      "publisher": "OpenStreetMap Wiki contributors",
+      "url": "https://wiki.openstreetmap.org/wiki/User:Jo_Cassel/Bergpark_Wilhelmsh%C3%B6he",
+      "accessed": "2026-08-27",
+      "license": "OpenStreetMap Wiki CC BY-SA; linked OSM data ODbL",
+      "scope": ["secondary-landmarks", "mulang", "bridges", "water-features", "trees", "osm-element-cross-reference"],
+      "notes": "Useful structured cross-reference to Parkpflegewerk page numbers and OSM element IDs; verify historical claims against primary/official sources before publication."
+    },
+    "outdooractive-bergpark-route-scan": {
+      "title": "Public Bergpark Wilhelmshöhe hiking route pages",
+      "publisher": "Outdooractive",
+      "url": "https://www.outdooractive.com/de/route/wanderung/kassler-land/bergpark-wilhelmshoehe-291121/236964184/",
+      "accessed": "2026-08-27",
+      "scope": ["discovery-only", "route-names", "route-waypoints", "elevation-cross-check"],
+      "notes": "Commercial/public route pages used only to discover and cross-check named waypoints/routes such as Riesenkopfplateau, Schlosskapelle and Weißensteinflügel. Do not ingest proprietary route geometry."
+    },
+    "outdooractive-herkules-round-scan": {
+      "title": "Rundweg zum Herkules im Bergpark Wilhelmshöhe",
+      "publisher": "Outdooractive / DAV Sektion Kassel",
+      "url": "https://www.outdooractive.com/de/route/wanderung/habichtswald/rundweg-zum-herkules-im-bergpark-wilhelmshoehe/808537559/",
+      "accessed": "2026-08-27",
+      "scope": ["discovery-only", "route-description", "surface-mix", "lac", "schlossteich", "steinhoefer"],
+      "notes": "Discovery/cross-check only. Public route description confirms path sequence and mixed surfaces; open OSM geometry remains routing authority."
+    },
+    "komoot-bergpark-highlight-scan": {
+      "title": "Bergpark Wilhelmshöhe public highlight/route discovery pages",
+      "publisher": "Komoot",
+      "url": "https://www.komoot.com/de-de/guide/3234448/ausflugsziele-im-bergpark-wilhelmshoehe",
+      "accessed": "2026-08-27",
+      "scope": ["discovery-only", "poi-cross-check", "water-features", "kneipp-water-cure"],
+      "notes": "Commercial/public pages used only as discovery/cross-check evidence; do not copy proprietary route geometry or community prose."
+    },
+    "visit-kassel-k4": {
+      "title": "Terrainkurweg K4: Schlosspark Rundweg",
+      "publisher": "Kassel Marketing / GrimmHeimat NordHessen",
+      "url": "https://visit.kassel.de/tour/terrainkurweg-k4-schlosspark-rundweg",
+      "accessed": "2026-08-27",
+      "scope": ["official-route", "k4", "distance", "elevation", "surface-mix", "waypoint-sequence"],
+      "notes": "Current public tourism route record: 4.88 km, K4, with Schloss/Aquädukt/Teufelsbrücke/Steinhöfer Wasserfall/Löwenburg/Fontänenteich/Lac sequence. Use current record instead of stale historical K-number tables."
+    },
+    "visit-kassel-hiking-index": {
+      "title": "Wandern in Nordhessen — current Kassel route index",
+      "publisher": "Kassel Marketing / GrimmHeimat NordHessen",
+      "url": "https://visit.kassel.de/ausflugsziele-in-der-region/wandern",
+      "accessed": "2026-08-27",
+      "scope": ["official-route-index", "k4", "k5", "current-route-numbering"],
+      "notes": "Current route index confirms Terrainkurweg K4 Schlosspark Rundweg and K5 Rundweg Wasserspiele; preferred for current route names/numbers over older OSM Wiki snapshots."
+    },
+    "hkh-visitorcenter-wilhelmshoehe": {
+      "title": "Besucherzentrum Wilhelmshöhe",
+      "publisher": "Hessen Kassel Heritage",
+      "url": "https://www.heritage-kassel.de/service/bz/besucherzentrum-wilhelmshoehe",
+      "accessed": "2026-08-27",
+      "scope": ["visitor-center", "wilhelmshoehe", "accessibility", "opening-hours", "historic-station-building"]
+    },
+    "hkh-visitorcenter-herkules": {
+      "title": "Besucherzentrum Herkules",
+      "publisher": "Hessen Kassel Heritage",
+      "url": "https://www.heritage-kassel.de/service/bz/besucherzentrum-herkules",
+      "accessed": "2026-08-27",
+      "scope": ["visitor-center", "hercules", "accessibility", "opening-hours", "digital-park-map"]
     }
   }
 }
