@@ -1,23 +1,21 @@
 version: 1
 name: bergpark
 description: Bergpark Wilhelmshöhe bilingual visitor guide PWA
-commands:
-  test:
-    run: [npm, test]
-    category: test
-  build:
-    run: [npm, run, build]
-    category: build
-  check:
-    run: [npm, run, check]
-    category: custom
-  dev:
-    run: [npm, run, dev, --, --host, 127.0.0.1]
-    category: dev
 agent:
-  notes: >-
-    Preserve runtime JSON graph compatibility. Keep the map usable without GPS,
-    and cache only tiles actually viewed by the visitor; do not bulk-prefetch OSM.
+  notes: Preserve runtime JSON graph compatibility. Keep the map usable without GPS, and cache only tiles actually viewed by the visitor; do not bulk-prefetch OSM.
   tasks:
     - Complete bilingual content and graph navigation.
     - Import the full historic tree catalogue when bergpark-graph publishes it.
+commands:
+  test:
+    run: ["pnpm", "run", "test"]
+    category: test
+  build:
+    run: ["pnpm", "run", "build"]
+    category: build
+  check:
+    run: ["pnpm", "run", "check"]
+    category: custom
+  dev:
+    run: ["pnpm", "run", "dev", "--", "--host", "127.0.0.1"]
+    category: dev

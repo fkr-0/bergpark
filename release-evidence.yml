@@ -1,12 +1,12 @@
 schema_version: 1
 release:
   unit: bergpark
-  candidate: 0.1.0-alpha.3
-  tag: v0.1.0-alpha.3
+  candidate: 0.1.0-alpha.4
+  tag: v0.1.0-alpha.4
   date: 2026-08-27
   previous_tag: v0.1.0-alpha.2
   previous_tag_revision: 43c76838764a142fede0480b30c6f5228b99808b
-  source_head_before_release_metadata: cfbe663364b69a33f67ce87967b1772373f5c6cf
+  source_head_before_release_metadata: 9a3d5aaf1cabb9714c2809074f7b2086daf7f533
   release_metadata_commit: pending_until_candidate_commit
   release_evidence_commit: resolved_by_tag_target_after_clean_gate
   publish_authorized: true
@@ -14,7 +14,7 @@ release:
   target_url: https://bergpark.fkr.dev
 versions:
   before: 0.1.0-alpha.2
-  after: 0.1.0-alpha.3
+  after: 0.1.0-alpha.4
 package_manager:
   name: pnpm
   version: 11.3.0
@@ -46,6 +46,8 @@ release_delta:
     - Chromium browser E2E covering visitor, tree, route, semantic, 3D, security, a11y and offline paths
     - focused Firefox Phase-2 visitor qualification
     - pnpm-authoritative local, CI and Pages release commands
+    - Vitest 4.1.11 presentation-contract smoke suite integrated into the pnpm test gate
+    - Biome 2.5.10 recommended-rule lint gate with warnings treated as errors
 metadata_changed:
   - package.json
   - pnpm-lock.yaml
@@ -62,8 +64,12 @@ preflight_verification:
     details: pnpm 11.3.0; lockfile up to date
   - command: pnpm run check:e2e
     location: shared checkout
-    result: pass
-    details: 22/22 Node tests PASS; 65/65 Python tests PASS; Vite 8.2.2 build PASS; 11/11 Chromium Playwright E2E PASS
+    result: pending_requalification_after_vitest_biome
+    details: alpha.4 tooling gate will record Biome, Node, Vitest, Python, Vite and Chromium results before commit/push
+  - command: pnpm run build
+    location: shared checkout
+    result: pending_requalification_after_vitest_biome
+    details: explicitly requested standalone pnpm production-build verification
   - command: npx playwright test tests/e2e/phase2-visitor.spec.js --config=.work/bergpark-webapp-phase2/playwright-firefox.config.mjs --workers=1
     location: shared checkout against explicit built preview
     result: pass

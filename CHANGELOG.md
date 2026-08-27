@@ -7,7 +7,7 @@ experience have completed their release gates.
 
 ## [Unreleased]
 
-## [0.1.0-alpha.3] - 2026-08-27
+## [0.1.0-alpha.4] - 2026-08-27
 
 ### Added
 
@@ -40,11 +40,18 @@ experience have completed their release gates.
 - pnpm 11.3.0 is now the authoritative package manager: `pnpm-lock.yaml`, frozen
   installs, pnpm scripts and pnpm-based GitHub CI/Pages gates replace npm release
   commands and the npm lockfile.
+- Vitest 4.1.11 is a first-class unit-test runner alongside the retained Node
+  compatibility suites, with a dedicated presentation-contract smoke suite.
+- Biome 2.5.10 is a warnings-fatal lint gate using recommended rules; intentional
+  Leaflet/reduced-motion CSS cascade overrides are documented as scoped rule
+  exceptions rather than being bulk-reformatted.
 
 ### Verification
 
 - pnpm frozen-lock install: PASS.
+- Biome warnings-fatal lint gate: PASS.
 - Node visitor/runtime/presentation tests: 22/22 PASS.
+- Vitest presentation-contract tests: 2/2 PASS.
 - Python repository integrity suite: 65/65 PASS.
 - Vite 8.2.2 production build: PASS.
 - Chromium Playwright E2E: 11/11 PASS, including tree/route/semantic flows,
@@ -161,4 +168,4 @@ experience have completed their release gates.
 
 [0.1.0-alpha.1]: https://github.com/fkr-0/bergpark/releases/tag/v0.1.0-alpha.1
 [0.1.0-alpha.2]: https://github.com/fkr-0/bergpark/releases/tag/v0.1.0-alpha.2
-[0.1.0-alpha.3]: https://github.com/fkr-0/bergpark/releases/tag/v0.1.0-alpha.3
+[0.1.0-alpha.4]: https://github.com/fkr-0/bergpark/releases/tag/v0.1.0-alpha.4

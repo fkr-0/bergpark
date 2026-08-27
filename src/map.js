@@ -153,7 +153,6 @@ export function createBergparkMap(element, graph, { language = 'de', onSelectNod
   }
 
   for (const node of nodes) {
-    const category = node.type ?? node.category ?? 'landmark';
     const title = localized(node.name, currentLanguage, node.title ?? node.id);
     const marker = L.marker([node.lat, node.lng ?? node.lon], {
       icon: markerIcon(node),
