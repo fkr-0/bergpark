@@ -1,0 +1,806 @@
+{
+  "herkules": {
+    "id": "herkules",
+    "name": "Herkules",
+    "shortName": "Herkules",
+    "type": "monument",
+    "lat": 51.316389,
+    "lng": 9.392806,
+    "elevation": 515,
+    "coordinatePrecision": "approximate-wikidata-osm-crosscheck",
+    "shortDescription": "Das 71 Meter hohe Herkulesbauwerk aus Oktogon, Pyramide und Kupferfigur bildet den westlichen Höhepunkt der Parkachse und den Ausgangspunkt der historischen Wasserspiele.",
+    "longDescription": "Der Herkules ist zugleich Wahrzeichen Kassels, barockes Machtzeichen und technische Schaltstelle der historischen Wasserkünste. Das Bauwerk erhebt sich am östlichen Hang des Habichtswaldes über der Stadt und besteht aus dem monumentalen Oktogon, der darauf sitzenden Pyramide und der weithin sichtbaren Kupferfigur. Die Figur selbst misst nach Angaben der Stadt Kassel etwa 8,30 Meter; das gesamte Monument erreicht rund 71 Meter. Der Standort ist bewusst auf Fernwirkung angelegt: Vom Herkules führt die große Sicht- und Wasserachse talwärts über die Kaskaden in Richtung Schloss Wilhelmshöhe und Kasseler Becken. Der Eindruck ist deshalb nicht der eines isolierten Denkmals, sondern eines architektonischen Gipfelpunkts, dessen Bedeutung erst im Zusammenspiel mit Topografie, Wasser und Aussicht vollständig verständlich wird. Unterhalb des Oktogons setzt das barocke Wassertheater ein. Wasser durchläuft Becken, schräge Läufe und Kaskaden und aktiviert dabei auch Figuren und wasserbetriebene Klangwirkungen. Die Anlage arbeitet im historischen Prinzip mit gespeicherten Wassermassen und natürlichem Gefälle. Das erklärt, warum der Herkules für die UNESCO nicht nur als Skulptur, sondern als Bestandteil eines außergewöhnlichen Gesamtsystems aus Monument, Landschaft und Hydraulik bewertet wird.",
+    "history": "Landgraf Karl von Hessen-Kassel ließ das Monument im frühen 18. Jahrhundert als Höhepunkt seiner neuen barocken Parkanlage errichten. Nach seiner Italienreise um 1700 nahm die Vorstellung eines monumentalen Herkulesprogramms konkrete Gestalt an. Der italienische Architekt Giovanni Francesco Guerniero wurde 1701 nach Hessen geholt und prägte die Planung des Oktogons und der zugehörigen Wasserkünste. Als ikonographisches Vorbild diente der berühmte Farnesische Herkules aus der Antike. Die Kasseler Figur wurde zwischen 1713 und 1717 von dem Augsburger Goldschmied Johann Jakob Anthoni aus Kupferblech getrieben und 1717 auf dem Bauwerk aufgestellt. In ihrer Symbolik verbindet sie antikes Heldentum mit fürstlicher Selbstdarstellung: Keule und Löwenfell kennzeichnen Herkules, die Äpfel der Hesperiden verweisen auf eine seiner Aufgaben. Seit 2013 gehört der Bergpark Wilhelmshöhe mit Herkules und Wassersystem zum UNESCO-Welterbe. Die UNESCO hebt besonders hervor, wie das monumentale Hercules-Programm und die Wasserkünste absolutistische Repräsentation, technische Beherrschung des Wassers und landschaftliche Inszenierung verbinden.",
+    "architecture": "Das Oktogon ist kein klassischer Aussichtsturm, sondern eine mächtige, terrassierte Steinarchitektur, die in der historischen Überlieferung auch Riesenschloss genannt wird. Seine geometrische Strenge kontrastiert mit dem bewaldeten Hang. Darüber verjüngt sich die Pyramide, auf deren Spitze die kupferne Herkulesfigur steht. In den unteren Wasserkünsten werden Architektur und Hydraulik eng verschränkt: Das Riesenkopf- beziehungsweise Enceladus-Motiv, künstliche Grotten, Becken, Kaskaden und wasserkraftbetriebene Instrumente erzeugen eine dramatische Abfolge. Der Wasserdruck entsteht durch Höhendifferenz, nicht durch moderne Pumptechnik. Genau diese Abhängigkeit von Geländeform, Reservoirs und kontrolliertem Abfluss ist ein wesentlicher Teil der denkmalgeschützten technischen Substanz.",
+    "culturalSignificance": "Der Herkules ist das stärkste visuelle Zeichen des Bergparks und prägt bis heute die Identität Kassels. Kunsthistorisch verbindet er Antikenrezeption, barocke Herrscherikonographie und Ingenieurbau. Landschaftsgeschichtlich markiert er den Punkt, von dem aus der Besucher die Parkdramaturgie sowohl optisch als auch während der Wasserspiele physisch bergab verfolgt. Der UNESCO-Status beruht nicht auf einer einzelnen Attraktion, sondern auf dieser außergewöhnlich langen, lesbaren Beziehung zwischen Monument, Wasserführung und Kulturlandschaft.",
+    "restorationHistory": "Die monumentale Anlage wurde über Jahrhunderte instand gehalten und restauriert; einzelne Phasen betrafen Steinwerk, Kupferfigur und technische Wasserführung. Für konkrete Maßnahmenjahre wird in dieser Phase bewusst keine vollständige Restaurierungschronik behauptet, weil sie aus der noch auszuwertenden Fachliteratur und den Denkmalakten ergänzt werden soll.",
+    "visitorContext": "Das Herkulesbauwerk und seine Aussichtsbereiche sind nach der aktuell veröffentlichten Besuchsinformation saisonal zugänglich, im Regelfall vom 1. April bis 31. Oktober dienstags bis sonntags von 10 bis 17 Uhr; montags ist geschlossen. Der umgebende Bergpark ist ganzjährig frei zugänglich. Bei Wasserspieltagen beginnt die historische Abfolge um 14:30 Uhr an den Kaskaden. Die Wege am steilen Hang und die historischen Treppen sind nicht barrierefrei; festes Schuhwerk ist besonders bei Nässe wichtig. Öffnungszeiten und Eintrittspreise sind volatile Daten und müssen in der Anwendung mit dem Prüfdatum angezeigt werden.",
+    "artworks": [
+      {
+        "id": "herkules-kupferfigur",
+        "name": "Kupferfigur des Herkules",
+        "artist": "Johann Jakob Anthoni",
+        "date": "1713–1717",
+        "description": "Kupfergetriebene monumentale Herkulesfigur nach antikem Vorbild; Keule, Löwenfell und Äpfel der Hesperiden bestimmen die Ikonographie."
+      },
+      {
+        "id": "enceladus",
+        "name": "Enceladus/Riesenkopf",
+        "description": "Figürliches Element des oberen Wassertheaters; der Wasserstrahl und die umgebenden hydraulischen Effekte leiten die dramatische Kaskadenfolge ein."
+      }
+    ],
+    "figures": [
+      "karl-von-hessen-kassel",
+      "giovanni-francesco-guerniero",
+      "johann-jakob-anthoni"
+    ],
+    "images": [],
+    "visitInfo": {
+      "hours": "1.4.–31.10.: Di–So 10–17 Uhr; Montag geschlossen; saisonale Abweichungen prüfen",
+      "fee": "Tagesticket Wilhelmshöhe nach aktueller Veröffentlichung: 8 € regulär, 5 € ermäßigt; Unter-18-Regeln und Sonderkonditionen siehe Betreiber",
+      "accessibility": "Historisches Bauwerk und steile Treppen nicht durchgehend barrierefrei; Parkwege teils starkes Gefälle",
+      "verifiedOn": "2026-08-27"
+    },
+    "tags": [
+      "unesco",
+      "monument",
+      "baroque",
+      "viewpoint",
+      "waterworks",
+      "landmark"
+    ],
+    "connections": [
+      "kaskaden",
+      "oktogon-plateau"
+    ],
+    "sourceIds": [
+      "unesco-1413",
+      "unesco-nomination-1413",
+      "stadt-herkules",
+      "hkh-wasserspiele",
+      "stadt-wasserspiele"
+    ],
+    "uncertainties": [
+      "Die Höhenangabe 515 m ist eine gerundete Standortangabe und noch nicht aus amtlichem DGM verifiziert.",
+      "UNESCO nennt die monumentale Kupferfigur in einer zusammenfassenden Beschreibung mit 11,5 m, während die Stadt Kassel für die Figur selbst 8,30 m angibt; im Text wird deshalb die kommunale Figurenmessung verwendet und die Differenz nicht nivelliert."
+    ],
+    "contentMeta": {
+      "status": "phase-1-reviewed",
+      "verifiedOn": "2026-08-27",
+      "language": "de",
+      "editorialPolicy": "Primärquellen und offizielle Stellen bevorzugt; Sekundärangaben und abgeleitete Koordinaten werden ausdrücklich gekennzeichnet."
+    },
+    "title": "Herkules",
+    "kind": "place",
+    "category": "monument",
+    "lon": 9.392806,
+    "summary": "Das 71 Meter hohe Herkulesbauwerk aus Oktogon, Pyramide und Kupferfigur bildet den westlichen Höhepunkt der Parkachse und den Ausgangspunkt der historischen Wasserspiele."
+  },
+  "schloss-wilhelmshoehe": {
+    "id": "schloss-wilhelmshoehe",
+    "name": "Schloss Wilhelmshöhe",
+    "shortName": "Schloss Wilhelmshöhe",
+    "type": "palace",
+    "lat": 51.315,
+    "lng": 9.416111,
+    "elevation": 282,
+    "coordinatePrecision": "approximate-wikimedia-wikidata",
+    "shortDescription": "Das klassizistische Schloss am unteren Ende der großen Parkachse beherbergt heute die Gemäldegalerie Alte Meister und Teile der Antikensammlung von Hessen Kassel Heritage.",
+    "longDescription": "Schloss Wilhelmshöhe bildet den repräsentativen Gegenpol zum Herkules am oberen Hang. Es liegt auf einer künstlich und gärtnerisch gefassten Terrasse, von der die zentrale Achse den Blick bergauf zum Monument freigibt. Das heutige Schloss entstand ab 1786 an Stelle des älteren Schlosses Weißenstein und gehört zur großen Umgestaltung des Parks unter Landgraf Wilhelm IX., dem späteren Kurfürsten Wilhelm I. Die Anlage war zunächst aus drei getrennten Baukörpern komponiert. Erst unter Kurfürst Wilhelm II. wurden die Teile baulich verbunden. Diese Entwicklung ist bis heute an der Gliederung in Mittelbau und Flügel ablesbar. Das Schloss war Sommerresidenz und wurde bis zum Ende der Monarchie auch vom kaiserlichen Hof genutzt. Heute ist es zugleich Museumsgebäude, Verwaltungsstandort und ein Schlüsselpunkt für das Verständnis der höfischen Sammlungs- und Parkgeschichte. Besonders wichtig ist die Gemäldegalerie Alte Meister im Mittelbau. Die Sammlung umfasst insgesamt rund 2.300 Gemälde, von denen in der ständigen Präsentation mehr als 500 Werke auf mehreren Etagen gezeigt werden. Sie besitzt einen außergewöhnlich starken Bestand niederländischer und flämischer Malerei mit zwölf Gemälden Rembrandts sowie bedeutenden Arbeiten von Rubens und van Dyck; hinzu kommen deutsche, italienische und spanische Meister. Die Antikensammlung erweitert das Bild vom fürstlichen Sammeln um griechisch-römische Objekte und historische Korkmodelle antiker Architektur.",
+    "history": "Der Neubau begann 1786 unter Landgraf Wilhelm IX. Simon Louis du Ry war einer der prägenden Architekten; Heinrich Christoph Jussow war an der weiteren Ausführung beteiligt. Das Schloss gehört damit genau in die Übergangszeit, in der der ältere barocke Park um eine landschaftliche, klassizistische und historisierende Schicht erweitert wurde. Nach der Erhebung Wilhelm IX. zum Kurfürsten blieb Wilhelmshöhe ein zentraler Residenzort. Im 19. Jahrhundert wurden die ursprünglich getrennten Schlosskörper miteinander verbunden. Bis 1918 diente die Anlage auch der kaiserlichen Familie als Sommeraufenthalt. Im Zweiten Weltkrieg erlitt das Schloss schwere Schäden. Der Wiederaufbau begann nach 1945 schrittweise und ging mit einer musealen Neuordnung einher. Seit 1974 befindet sich die Gemäldegalerie Alte Meister im Schloss; zuvor waren ihre Bestände seit 1877 in der damaligen Galerie an der Schönen Aussicht untergebracht. Die heutige Nutzung verbindet deshalb historische Residenz, Wiederaufbauarchitektur und modernes Museum.",
+    "architecture": "Die Schlossanlage folgt klassizistischen Prinzipien: klare Symmetrie, horizontale Gliederung und ein repräsentativer Mittelbau werden mit seitlichen Flügeln zu einer weithin wirkenden Front verbunden. Historisch bemerkenswert ist, dass die drei Hauptteile ursprünglich getrennt standen. Die spätere Verbindung veränderte die Erscheinung, ohne die Ablesbarkeit der Einzelkörper vollständig aufzulösen. Besonders eng ist die Architektur mit der Landschaft verzahnt: Die Blickachse zum Herkules macht die Schlossfassade zum unteren Gegenstück der monumentalen Höhenarchitektur. Innen treffen rekonstruierte beziehungsweise museal umgenutzte Bereiche auf historische Raumfolgen. Der Weißensteinflügel besitzt bedeutende historische Interieurs, befindet sich jedoch nach aktueller Betreiberinformation in Restaurierung und ist daher nicht als regulär zugängliche Dauerausstellung zu behandeln.",
+    "culturalSignificance": "Schloss Wilhelmshöhe ist mehr als ein Museumscontainer. Es dokumentiert die politische Transformation von der Landgrafschaft zum Kurfürstentum, die höfische Sammelkultur und den Wandel des Parks vom Barock zum Landschaftsgarten. Die Gemäldegalerie zählt wegen ihrer niederländisch-flämischen Bestände zu den bedeutenden Sammlungen alter Meister in Deutschland. Werke wie Rembrandts 'Segen Jakobs' stehen zugleich für die Erwerbungspolitik Landgraf Wilhelms VIII. im 18. Jahrhundert. Die Antikensammlung und die historischen Korkmodelle zeigen, wie eng Kunstsammlung, Antikenbegeisterung, Bildungsreise und Architekturwissen miteinander verbunden waren.",
+    "restorationHistory": "Nach schweren Kriegsschäden wurde das Schloss ab 1945 etappenweise wiederhergestellt. Die Restaurierung ist kein abgeschlossener historischer Punkt: Der Weißensteinflügel wird weiterhin bearbeitet. Für die App soll deshalb klar zwischen dauerhaft museal zugänglichen Bereichen und temporär geschlossenen historischen Räumen unterschieden werden.",
+    "visitorContext": "Der Mittelbau mit Gemäldegalerie ist nach aktueller Betreiberangabe regulär dienstags bis sonntags von 10 bis 17 Uhr geöffnet; einzelne Freitage haben verlängerte Zeiten. Das Gebäude ist weitgehend rollstuhlgerecht erschlossen, mit Aufzug, barrierearmen Sanitärräumen und ausgewiesenen Parkplätzen. Der Schlosspark selbst ist frei zugänglich. Eintritt und Sonderausstellungszuschläge können sich ändern und sollten nicht ohne Prüfdatum zwischengespeichert werden. Für einen Besuch nur der Parklandschaft ist kein Museumsticket nötig.",
+    "artworks": [
+      {
+        "id": "gemaeldegalerie-alte-meister",
+        "name": "Gemäldegalerie Alte Meister",
+        "description": "Sammlung von rund 2.300 Gemälden; mehr als 500 Werke in der Dauerausstellung, mit Schwerpunkten bei Rembrandt, Rubens, van Dyck sowie deutscher, italienischer und spanischer Malerei."
+      },
+      {
+        "id": "rembrandt-segen-jakobs",
+        "name": "Der Segen Jakobs",
+        "artist": "Rembrandt van Rijn",
+        "description": "Hauptwerk des Kasseler Rembrandt-Bestands und eines der bekanntesten Gemälde der Sammlung."
+      },
+      {
+        "id": "antikensammlung",
+        "name": "Antikensammlung und historische Korkmodelle",
+        "description": "Griechisch-römische Sammlungsbestände sowie rund 30 historische Korkmodelle antiker Bauwerke, die auf die Sammelleidenschaft des 18. Jahrhunderts zurückgehen."
+      }
+    ],
+    "figures": [
+      "wilhelm-ix",
+      "simon-louis-du-ry",
+      "heinrich-christoph-jussow",
+      "wilhelm-viii"
+    ],
+    "images": [
+      {
+        "src": "commons:File:SchlossWilhelmshoehe.jpg",
+        "pageUrl": "https://commons.wikimedia.org/wiki/File:SchlossWilhelmshoehe.jpg",
+        "caption": "Schloss Wilhelmshöhe mit Parkbezug",
+        "license": "CC BY-SA 3.0 / GFDL 1.2+; Dateiseite vor Auslieferung erneut prüfen"
+      }
+    ],
+    "visitInfo": {
+      "hours": "Regelbetrieb Mittelbau: Di–So 10–17 Uhr; Feiertags- und Sonderzeiten siehe Betreiber",
+      "fee": "Tagesticket Wilhelmshöhe; mögliche Sonderausstellungszuschläge separat prüfen",
+      "accessibility": "Mittelbau rollstuhlgerecht mit Aufzug und barrierearmen Toiletten; historische Teilbereiche können Einschränkungen haben",
+      "verifiedOn": "2026-08-27"
+    },
+    "tags": [
+      "palace",
+      "museum",
+      "neoclassicism",
+      "old-masters",
+      "antiquities",
+      "unesco"
+    ],
+    "connections": [
+      "fontaenenteich",
+      "ballhaus",
+      "gewaechshaus",
+      "lac"
+    ],
+    "sourceIds": [
+      "hkh-schloss",
+      "hkh-alte-meister",
+      "hkh-antiken",
+      "unesco-1413",
+      "commons-schloss",
+      "commons-schloss-photo"
+    ],
+    "uncertainties": [
+      "Die Koordinate bezeichnet die Schlossanlage näherungsweise, nicht einen einzelnen Eingang.",
+      "Die Restaurierungs- und Zugangsbedingungen des Weißensteinflügels sind dynamisch und müssen vor Veröffentlichung live gegen den Betreiber geprüft werden."
+    ],
+    "contentMeta": {
+      "status": "phase-1-reviewed",
+      "verifiedOn": "2026-08-27",
+      "language": "de",
+      "editorialPolicy": "Primärquellen und offizielle Stellen bevorzugt; Sekundärangaben und abgeleitete Koordinaten werden ausdrücklich gekennzeichnet."
+    },
+    "title": "Schloss Wilhelmshöhe",
+    "kind": "place",
+    "category": "palace",
+    "lon": 9.416111,
+    "summary": "Das klassizistische Schloss am unteren Ende der großen Parkachse beherbergt heute die Gemäldegalerie Alte Meister und Teile der Antikensammlung von Hessen Kassel Heritage."
+  },
+  "loewenburg": {
+    "id": "loewenburg",
+    "name": "Löwenburg",
+    "shortName": "Löwenburg",
+    "type": "castle-folly",
+    "lat": 51.3114,
+    "lng": 9.40861,
+    "elevation": 361,
+    "coordinatePrecision": "approximate-osm-derived",
+    "shortDescription": "Die 1793–1801 für Landgraf Wilhelm IX. errichtete Löwenburg ist eine bewusst als mittelalterliche Teilruine inszenierte Lustschlossanlage und ein Schlüsselwerk der frühen Neugotik.",
+    "longDescription": "Die Löwenburg wirkt aus der Entfernung wie eine über Jahrhunderte gealterte Ritterburg, ist tatsächlich aber eine höchst bewusste Schöpfung der späten Aufklärung und beginnenden Romantik. Landgraf Wilhelm IX. ließ sie zwischen 1793 und 1801 nach Entwürfen Heinrich Christoph Jussows oberhalb des Schlosses errichten. Die Anlage sollte nicht nur malerisch im Landschaftspark erscheinen, sondern zugleich als privates Lustschloss, Sammlungsort und fiktiver Stammsitz funktionieren. Das macht sie zu einem besonders dichten Beispiel historistischer Architektur: Mauern, Türme, Zinnen und scheinbar ruinöse Partien erzeugen mittelalterliche Authentizität, während die Innenräume auf fürstliches Wohnen und Repräsentieren zugeschnitten waren. Die politische Dimension ist ausdrücklich dokumentiert. Die Vorstellung eines altehrwürdigen Stammschlosses half, dynastische Kontinuität und Legitimation bildhaft zu inszenieren. Gleichzeitig spiegelte die Burg das wachsende europäische Interesse an Mittelalter, Rittertum und 'gotischer' Architektur. Im Inneren wurden Möbel, Gemälde, Wandteppiche, Glas, Bronzen, Waffen und mittelalterliche Glasmalereien zusammengeführt. Damit ist die Löwenburg zugleich Architektur, Bühnenbild und Sammlung. Der umliegende Burggarten, ehemalige Weinberg, Turnierplatz und Tierpark verstärkten den Eindruck einer eigenen historischen Welt innerhalb des Landschaftsparks.",
+    "history": "Der Bau begann 1793 und wurde bis 1801 in mehreren Etappen ausgeführt. Jussow setzte Vorstellungen um, die Wilhelm IX. als Auftraggeber eng mitprägte. Nach der Erhebung des Landgrafen zum Kurfürsten blieb die Anlage ein sehr persönlicher Rückzugs- und Repräsentationsort. Wilhelm I. wurde 1821 in der Gruft unter der Burgkapelle beigesetzt, wodurch der fiktive Stammsitz tatsächlich eine dynastische Memorialfunktion erhielt. Im Zweiten Weltkrieg erlitt die Burg schwere Schäden; besonders prägend war die Zerstörung des Bergfrieds. Eine umfassende Sanierung und Restaurierung wurde seit 2015 intensiviert und 2022 mit der Wiedereröffnung wichtiger Bereiche und dem rekonstruierten Bergfried zu einem zentralen Abschluss gebracht. Die Wiederherstellung zielte nicht auf eine generische 'Mittelalterburg', sondern auf die historisch belegte Erscheinung und Innenraumfassung um 1816. Genau diese doppelte Zeitschicht – eine um 1800 künstlich gealterte Burg, im 21. Jahrhundert denkmalpflegerisch rekonstruiert – ist für ihre Interpretation entscheidend.",
+    "architecture": "Die Architektur arbeitet mit dem Vokabular einer spätmittelalterlichen Burg: unregelmäßige Baukörper, Zinnen, Rundtürme, Wehrmotive, Kapelle und Bergfried. Einige Partien wurden bereits beim Neubau als Ruinen formuliert. Das Material und die Oberflächen sollten Alter und Verfall suggerieren, während dahinter komfortable Appartements lagen. Bei der Restaurierung des Bergfrieds musste diese künstlich erzeugte historische Materialwirkung erneut nachvollzogen werden. Die Innenräume zeigen die andere Seite der Anlage: repräsentative Damen- und Herrenappartements, die nach der jüngsten Restaurierung weitgehend in der für 1816 belegten Einrichtung präsentiert werden. So entsteht ein kontrollierter Wechsel zwischen scheinbarer Wehrhaftigkeit außen und höfischer Wohnkultur innen.",
+    "culturalSignificance": "Die Löwenburg gehört zu den frühen und besonders konsequenten Beispielen pseudomittelalterlicher Architektur in Europa. Sie steht am Übergang von der Aufklärung zur Romantik und zeigt, wie Geschichte im Landschaftsgarten als emotionales Erlebnis gebaut wurde. Im UNESCO-Kontext ergänzt sie das barocke Herkules-Wasser-System um die spätere landschaftliche und romantische Entwicklungsphase des Parks. Ihre Bedeutung liegt daher nicht in mittelalterlicher Originalität, sondern gerade in der kunstvollen Erfindung von Mittelalter um 1800.",
+    "restorationHistory": "Nach Kriegszerstörungen blieb der verlorene Bergfried jahrzehntelang eine markante Lücke. Das Land Hessen sanierte die Löwenburg seit Ende 2015 umfassend; am 14. Juli 2022 wurden die Beletage und der wiederaufgebaute Bergfried wieder eröffnet. Handwerkliche Rekonstruktion und Restaurierung betrafen unter anderem Steinoberflächen, Fensterbeschläge, Parkett und textile beziehungsweise dekorative Ausstattungen.",
+    "visitorContext": "Die Innenräume sind nur im Rahmen einer Führung zugänglich; eine frühzeitige Reservierung wird vom Betreiber empfohlen. In der Sommersaison werden Führungen regulär stündlich angeboten, die letzte beginnt vor Schließung. Der Bergfried kann zusätzlich zugänglich sein. Die Burg liegt im Fußwegenetz des Parks und ist nicht barrierefrei. Der Zugang über historische Wege, Stufen und Gefälle verlangt Trittsicherheit. Aktuelle Betriebs- und Ticketdaten müssen vor dem Besuch geprüft werden.",
+    "artworks": [
+      {
+        "id": "loewenburg-sammlung",
+        "name": "Historische Innenausstattung und Waffensammlung",
+        "description": "Ensemble aus Möbeln, Gemälden, Tapisserien, Bronzen, Glas, Waffen und mittelalterlicher Glasmalerei; die Präsentation macht die Funktion als Lustschloss und Sammlungsort sichtbar."
+      }
+    ],
+    "figures": [
+      "wilhelm-ix",
+      "heinrich-christoph-jussow"
+    ],
+    "images": [],
+    "visitInfo": {
+      "hours": "1.4.–31.10. regulär Di–So 10–17 Uhr; Innenräume nur mit Führung; Winterbetrieb separat prüfen",
+      "fee": "Tagesticket Wilhelmshöhe laut aktueller Betreiberinformation 8 € / 5 € ermäßigt; Bergfried ggf. Zuschlag",
+      "accessibility": "Nicht barrierefrei; Assistenzhunde und barrierearme Toiletten laut Betreiber vorhanden",
+      "verifiedOn": "2026-08-27"
+    },
+    "tags": [
+      "castle",
+      "folly",
+      "neo-gothic",
+      "romanticism",
+      "museum",
+      "unesco"
+    ],
+    "connections": [
+      "lac",
+      "schloss-wilhelmshoehe",
+      "mulang"
+    ],
+    "sourceIds": [
+      "stadt-loewenburg",
+      "lbih-loewenburg-2022",
+      "hkh-bergpark",
+      "osm-derived-mapcarta-loewenburg",
+      "dewiki-bergpark"
+    ],
+    "uncertainties": [
+      "Die Koordinate und Höhenangabe stammen aus OSM-abgeleiteten Kartendaten und sind als Näherung zu behandeln.",
+      "Für die exakte Grab- und Kapellendokumentation wird in Phase 3 eine museumsfachliche Primärquelle ergänzt; die Bestattung Wilhelms I. 1821 ist derzeit zusätzlich über etablierte Sekundärquellen belegt."
+    ],
+    "contentMeta": {
+      "status": "phase-1-reviewed",
+      "verifiedOn": "2026-08-27",
+      "language": "de",
+      "editorialPolicy": "Primärquellen und offizielle Stellen bevorzugt; Sekundärangaben und abgeleitete Koordinaten werden ausdrücklich gekennzeichnet."
+    },
+    "title": "Löwenburg",
+    "kind": "place",
+    "category": "castle-folly",
+    "lon": 9.40861,
+    "summary": "Die 1793–1801 für Landgraf Wilhelm IX. errichtete Löwenburg ist eine bewusst als mittelalterliche Teilruine inszenierte Lustschlossanlage und ein Schlüsselwerk der frühen Neugotik."
+  },
+  "kaskaden": {
+    "id": "kaskaden",
+    "name": "Große Kaskaden",
+    "shortName": "Kaskaden",
+    "type": "water-feature",
+    "lat": 51.31593,
+    "lng": 9.39637,
+    "elevation": null,
+    "coordinatePrecision": "osm-derived-center",
+    "shortDescription": "Die Große Kaskade bildet den spektakulären barocken Auftakt der Wasserspiele unterhalb des Herkules: ein 210 Meter langer, von Treppen gefasster Wasserlauf mit Becken und Figurenprogramm.",
+    "longDescription": "Die Großen Kaskaden sind der sichtbarste Teil des barocken Wassersystems unmittelbar unterhalb des Herkules. Die Stadt Kassel gibt für die eigentliche Kaskadenstrecke rund 210 Meter Länge und etwa 12 Meter Breite an. Auf beiden Seiten begleiten Hunderte historischer Stufen den Wasserlauf. Von oben gesehen legt sich die Anlage wie ein streng geometrisches Band in den steilen Waldhang; von unten wird die enorme Höhendifferenz und die Verbindung mit dem Oktogon besonders deutlich. Während der Wasserspiele fließt das gespeicherte Wasser in einer genau inszenierten Folge durch Becken, Rinnen und Stufen. Die obere Zone ist als Wassertheater gestaltet: Artischockenbecken, gekrümmte Kaskaden und figürliche Elemente leiten den Lauf ein. Beim Enceladus beziehungsweise Riesenkopf erscheint Wasser als dramatische Kraft; weitere Figuren und Hörner werden durch Wasserdruck aktiviert. Danach strömt das Wasser talwärts durch die große Treppenlandschaft bis zum Neptunbecken. Das technische Prinzip ist bis heute wesentlich historisch: Die Bewegung wird durch Gefälle und kontrollierte Freigabe aus Reservoirs erzeugt. Die Kaskaden sind deshalb gleichzeitig Architektur, Skulpturenprogramm und hydraulische Maschine.",
+    "history": "Die Kaskaden gehören zur ersten großen Bauphase des Bergparks unter Landgraf Karl. Giovanni Francesco Guerniero entwickelte im frühen 18. Jahrhundert die monumentale Verbindung von Oktogon, Herkules und Wasserkünsten. Der Bau sollte ein in Europa außergewöhnliches Schauspiel aus kontrollierter Naturkraft und fürstlicher Repräsentation erzeugen. Über die folgenden Jahrhunderte wurden Teile instand gesetzt, verändert und technisch gesichert, die Grundidee der barocken Wasserfolge blieb jedoch lesbar. Mit der späteren Umgestaltung des Parks unter Wilhelm IX. erhielt die Kaskade neue landschaftliche Partner: Steinhöfer Wasserfall, Teufelsbrücke, Aquädukt und Fontäne bilden eine romantischere Fortsetzung. Dadurch lässt sich im heutigen Rundgang der Stilwandel vom strengen Barock zu den scheinbar natürlichen und ruinösen Bildern des späten 18. Jahrhunderts unmittelbar erleben.",
+    "architecture": "Die Kaskade ist als lineares Terrassenbauwerk in den Hang gesetzt. Drei ovale Becken unterbrechen die lange Folge der Stufen. Seitliche Treppen – in den kommunalen Angaben mit 535 beziehungsweise 539 Stufen bezeichnet – dienen zugleich als Besucherroute und als monumentaler Rahmen. Der präzise Querschnitt der Rinnen und Becken steuert Geschwindigkeit, Geräusch und Bild des Wassers. Im oberen Wassertheater verbinden sich Grottenarchitektur, Mythologie und hydraulische Effekte. Die Anlage ist nicht als naturähnlicher Bach gedacht, sondern als demonstrativ künstliches, geometrisches Gegenbild zur Landschaft.",
+    "culturalSignificance": "Die Kaskaden machen das zentrale Thema des Welterbes körperlich erfahrbar: Wasser wird nicht dekorativ ergänzt, sondern organisiert den gesamten Landschaftsraum. Besucher bewegen sich nahezu parallel zum Wasser bergab und erleben die Anlage zeitlich, akustisch und topografisch. Die UNESCO würdigt gerade diese monumentale, technisch anspruchsvolle und bis heute funktionsfähige Einheit von Architektur und Wassermanagement.",
+    "restorationHistory": "Die historischen Steine, Fugen, Becken und Wasserführungen benötigen kontinuierliche Denkmalpflege. Eine vollständige chronologische Liste der Restaurierungskampagnen wird erst nach Auswertung des Parkpflegewerks und der Bauakten ergänzt. Der Datensatz behauptet daher keine lückenlose Maßnahmenfolge.",
+    "visitorContext": "An regulären Wasserspieltagen beginnt der Ablauf um 14:30 Uhr an den Kaskaden. Die Gesamtstrecke der Wasserspiele ist etwa 2,3 Kilometer lang und führt fast 200 Höhenmeter bergab. Die Kaskadentreppen besitzen abschnittsweise keine Handläufe und sind bei Nässe anspruchsvoll; die Route ist nicht barrierefrei. Wer nicht die gesamte Strecke gehen möchte, sollte den Rückweg und ÖPNV-Anschlüsse vorab planen.",
+    "artworks": [
+      {
+        "id": "kaskaden-wassertheater",
+        "name": "Oberes Wassertheater",
+        "description": "Mythologisch und hydraulisch inszenierte Folge mit Artischockenbecken, gekrümmten Kaskaden, Enceladus/Riesenkopf sowie wasserbetriebenen Klangfiguren."
+      }
+    ],
+    "figures": [
+      "karl-von-hessen-kassel",
+      "giovanni-francesco-guerniero"
+    ],
+    "images": [
+      {
+        "src": "commons:File:Kaskaden1.JPG",
+        "pageUrl": "https://commons.wikimedia.org/wiki/File:Kaskaden1.JPG",
+        "caption": "Große Kaskaden unterhalb des Herkules",
+        "license": "Dateiseite vor Auslieferung einzeln verifizieren"
+      }
+    ],
+    "visitInfo": {
+      "hours": "Wasserspiele 1.5.–3.10. mittwochs, sonntags und an hessischen Feiertagen; Kaskadenbeginn 14:30 Uhr",
+      "fee": "Park und Wasserspiele im Freien frei zugänglich; Innenbereiche separat",
+      "accessibility": "Nicht barrierefrei; sehr viele historische Stufen, teils ohne Handlauf",
+      "verifiedOn": "2026-08-27"
+    },
+    "tags": [
+      "waterworks",
+      "baroque",
+      "cascade",
+      "unesco",
+      "hydraulics"
+    ],
+    "connections": [
+      "herkules",
+      "steinhoefer-wasserfall"
+    ],
+    "sourceIds": [
+      "stadt-kaskaden",
+      "hkh-wasserspiele",
+      "stadt-wasserspiele",
+      "unesco-1413",
+      "osm-derived-mapcarta-kaskaden",
+      "commons-kaskaden-photo"
+    ],
+    "uncertainties": [
+      "In populären Texten kursieren größere Längenangaben für die Kaskadenanlage; hier wird für die eigentliche Große Kaskade die aktuelle kommunale Angabe von 210 m verwendet.",
+      "Eine amtlich vermessene Mittelpunktkoordinate und Höhenlage werden in der Routenphase ergänzt."
+    ],
+    "contentMeta": {
+      "status": "phase-1-reviewed",
+      "verifiedOn": "2026-08-27",
+      "language": "de",
+      "editorialPolicy": "Primärquellen und offizielle Stellen bevorzugt; Sekundärangaben und abgeleitete Koordinaten werden ausdrücklich gekennzeichnet."
+    },
+    "title": "Große Kaskaden",
+    "kind": "place",
+    "category": "water-feature",
+    "lon": 9.39637,
+    "summary": "Die Große Kaskade bildet den spektakulären barocken Auftakt der Wasserspiele unterhalb des Herkules: ein 210 Meter langer, von Treppen gefasster Wasserlauf mit Becken und Figurenprogramm."
+  },
+  "grosse-fontaene": {
+    "id": "grosse-fontaene",
+    "name": "Große Fontäne",
+    "shortName": "Große Fontäne",
+    "type": "water-feature",
+    "lat": 51.315183,
+    "lng": 9.411794,
+    "elevation": null,
+    "coordinatePrecision": "commons-depicted-place-approximate",
+    "shortDescription": "Die Große Fontäne im Fontänenteich bildet den finalen Höhepunkt der Wasserspiele und erreicht durch reinen Gefälledruck ungefähr 50 bis 52 Meter Höhe.",
+    "longDescription": "Am unteren Ende der historischen Wasserspielroute sammelt sich die Dramaturgie noch einmal in einem einzigen, senkrechten Wasserstrahl. Die Große Fontäne steht im Fontänenteich, einem künstlich gestalteten Gewässer, das heute wie ein natürlicher Parksee wirkt. Während der Vorstellung wird Wasser aus einem höher gelegenen Reservoir durch eine unterirdische Leitung zum Fontänenkopf geführt. Entscheidend ist die Höhendifferenz von ungefähr 80 Metern: Sie erzeugt den notwendigen Druck ohne mechanische Pumpen. Erst wenn die Leitung gefüllt und der notwendige Druck aufgebaut ist, öffnet die historische beziehungsweise historisch funktionierende Freigabe und der Wasserstrahl schießt empor. Die Stadt Kassel nennt etwa 52 Meter, während die UNESCO in ihrer zusammenfassenden Beschreibung von rund 50 Metern spricht. Beide Angaben beschreiben dieselbe Größenordnung; für die Wissensbasis wird die Differenz transparent erhalten. Als die Anlage in ihrer leistungsfähigen Form im 18. Jahrhundert fertiggestellt wurde, galt sie als technische Spitzenleistung und war laut UNESCO bei ihrer Errichtung 1767 die höchste Fontäne ihrer Art weltweit. Der Effekt ist besonders eindrucksvoll, weil die gesamte zuvor bergab geführte Wassermasse hier in eine scheinbar schwerelose Vertikale verwandelt wird.",
+    "history": "Fontänen gab es im Park bereits früher, doch die Große Fontäne wurde im Verlauf des 18. Jahrhunderts technisch und räumlich weiterentwickelt. Ihre heutige historische Bedeutung hängt mit der Verbesserung der Wasserzuführung und dem ausreichend hoch gelegenen Reservoir zusammen. Während der älteren barocken Phase das Wasser vor allem in Kaskaden und mythologischen Theaterbildern zeigte, wird es hier als pure physikalische Kraft inszeniert. In der späteren Parkgestaltung wurde der umgebende Fontänenteich stärker in die landschaftliche Komposition eingebunden. Die Fontäne blieb dabei Endpunkt der historischen Wasserspiele und wurde zu einem ikonischen Kasseler Motiv.",
+    "architecture": "Die eigentliche Architektur liegt zu einem großen Teil unsichtbar unter Erde und Wasser: Reservoir, Druckleitung, Ventil beziehungsweise Freigabemechanismus und Düsenkopf bestimmen die Höhe des Strahls. Der Teich fungiert als landschaftlicher Auffangraum. Anders als moderne Springbrunnenanlagen benötigt die historische Inszenierung keine Pumpe. Das macht die Fontäne zu einem besonders anschaulichen Beispiel dafür, wie topografischer Höhenunterschied in mechanische Energie übersetzt wird. Die technische Infrastruktur ist zugleich Teil des Denkmals und muss zusammen mit dem sichtbaren Parkbild erhalten werden.",
+    "culturalSignificance": "Die Große Fontäne ist der finale Höhepunkt der rund 2,3 Kilometer langen Besucherbewegung durch die Wasserspiele. Sie übersetzt die zuvor horizontal und fallend erlebte Wassermasse in einen einzelnen vertikalen Akzent und schließt damit die lange Parkachse optisch ab. Als historische Hochdruckfontäne ohne Pumpe verkörpert sie den technischen Ehrgeiz der Kasseler Anlage und ist einer der Gründe, warum die Wasserkünste im UNESCO-Welterbe als außergewöhnliche Ingenieur- und Gartenkunst gelten.",
+    "restorationHistory": "Leitungen, Reservoirs, Düsen und Teichanlagen wurden im Lauf der Jahrhunderte wiederholt gewartet und erneuert. In dieser Phase wird keine vollständige technische Restaurierungschronik angegeben; sie soll später aus Fachpublikationen und Bauunterlagen ergänzt werden.",
+    "visitorContext": "Die Fontäne startet an regulären Wasserspieltagen gegen 15:45 Uhr und läuft bis ungefähr 16 Uhr. Der Fontänenteich ist auch außerhalb der Spieltage frei im Park zugänglich. Gute Sicht bietet sich von den Uferwegen und den Achsen in Richtung Schloss. Die unmittelbare Uferkante und einzelne historische Wege sind nicht überall barrierefrei. Bei starkem Wind verändert sich die Wasserfahne deutlich und kann Wege befeuchten.",
+    "artworks": [],
+    "figures": [
+      "wilhelm-ix",
+      "karl-steinhoefer"
+    ],
+    "images": [
+      {
+        "src": "commons:File:Bergpark Wilhelmshöhe - Große Fontäne 2020-08-05 c.JPG",
+        "pageUrl": "https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmsh%C3%B6he_-_Gro%C3%9Fe_Font%C3%A4ne_2020-08-05_c.JPG",
+        "caption": "Große Fontäne im Fontänenteich",
+        "license": "Dateiseite vor Auslieferung einzeln verifizieren"
+      }
+    ],
+    "visitInfo": {
+      "hours": "Wasserspiele saisonal 1.5.–3.10.; Fontäne regulär ab ca. 15:45 bis etwa 16:00 Uhr",
+      "fee": "Außenanlage frei zugänglich",
+      "accessibility": "Ufer- und Parkwege variieren; vollständige Barrierefreiheit nicht gewährleistet",
+      "verifiedOn": "2026-08-27"
+    },
+    "tags": [
+      "waterworks",
+      "fountain",
+      "hydraulics",
+      "unesco",
+      "fontaenenteich"
+    ],
+    "connections": [
+      "aquaedukt",
+      "jussow-tempel",
+      "schloss-wilhelmshoehe"
+    ],
+    "sourceIds": [
+      "stadt-fontaene",
+      "stadt-wasserspiele",
+      "hkh-wasserspiele",
+      "unesco-1413",
+      "commons-fontaene-photo"
+    ],
+    "uncertainties": [
+      "Die Koordinate ist aus dem auf Wikimedia Commons angegebenen dargestellten Ort abgeleitet und nicht amtlich vermessen.",
+      "Die Höhe wird je nach Quelle mit rund 50 m (UNESCO) oder 52 m (Stadt Kassel) angegeben; beide Werte bleiben im Text dokumentiert."
+    ],
+    "contentMeta": {
+      "status": "phase-1-reviewed",
+      "verifiedOn": "2026-08-27",
+      "language": "de",
+      "editorialPolicy": "Primärquellen und offizielle Stellen bevorzugt; Sekundärangaben und abgeleitete Koordinaten werden ausdrücklich gekennzeichnet."
+    },
+    "title": "Große Fontäne",
+    "kind": "place",
+    "category": "water-feature",
+    "lon": 9.411794,
+    "summary": "Die Große Fontäne im Fontänenteich bildet den finalen Höhepunkt der Wasserspiele und erreicht durch reinen Gefälledruck ungefähr 50 bis 52 Meter Höhe."
+  },
+  "teufelsbruecke": {
+    "id": "teufelsbruecke",
+    "name": "Teufelsbrücke",
+    "shortName": "Teufelsbrücke",
+    "type": "bridge-water-feature",
+    "lat": 51.314989,
+    "lng": 9.4056,
+    "elevation": null,
+    "coordinatePrecision": "commons-photo-location-approximate",
+    "shortDescription": "Die Teufelsbrücke überspannt den dramatisch inszenierten Höllenteich; während der Wasserspiele stürzt das Wasser unter der Brücke rund zehn Meter in die Schlucht.",
+    "longDescription": "Die Teufelsbrücke gehört zur romantischen Erweiterung der Wasserspiele unter Landgraf Wilhelm IX. Im Gegensatz zur streng geometrischen Kaskade wirkt diese Station wie ein zufällig entdeckter Gebirgsort: Fels, dichter Bewuchs, dunkles Wasser und die Brücke bilden ein kompaktes Landschaftsbild. Während der Wasserspiele erreicht das Wasser die Schlucht und fällt unterhalb der Brücke ungefähr zehn Meter in den Höllenteich. Die Namen 'Teufelsbrücke' und 'Höllenteich' sind Teil einer bewusst dramatischen, mythologisch aufgeladenen Szenerie und stehen in räumlichem Zusammenhang mit der nahe gelegenen Plutogrotte. Es handelt sich also nicht um ein natürlich entstandenes alpines Motiv, sondern um gebaute Landschaftskunst, die Natürlichkeit simuliert und emotionale Wirkung kalkuliert. Besucher erleben hier einen deutlichen Stilbruch zur barocken Kaskadenarchitektur: Nicht Symmetrie und Herrschaft über die Natur stehen im Vordergrund, sondern Schauder, Unregelmäßigkeit und das romantische Spiel mit Wildnis.",
+    "history": "Heinrich Christoph Jussow entwarf die Anlage 1792/93 im Zuge der landschaftlichen Umformung des Parks. Die erste Brücke besaß ein hölzernes Geländer. 1826 wurde dieses durch ein eisernes Geländer ersetzt, das bei Henschel in Kassel gegossen wurde. Die Station gehört damit sowohl zur frühen industriellen Geschichte Kassels als auch zur Gartenkunst. Ihre Entstehung fällt in dieselbe Schaffensphase, in der Jussow Aquädukt, Höllenteich und weitere Staffagen entwickelte. Die Verbindung mit der älteren Plutogrotte verstärkte die Unterweltsymbolik, ohne dass daraus eine geschlossene antike Erzählung konstruiert werden sollte.",
+    "architecture": "Die Brücke ist in eine künstlich modellierte Fels- und Teichlandschaft eingebettet. Ihre Wirkung beruht weniger auf monumentaler Größe als auf Perspektive: Wege führen Besucher nahe an die Kante, während das Wasser unter dem Bauwerk verschwindet und tief darunter wieder sichtbar wird. Das eiserne Geländer des 19. Jahrhunderts ist eine historisch relevante spätere Veränderung gegenüber Jussows ursprünglicher Holzlösung. Der Höllenteich fungiert als hydraulischer Zwischenraum und zugleich als dunkle Bühnenfläche für das fallende Wasser.",
+    "culturalSignificance": "Die Teufelsbrücke ist ein Musterbeispiel dafür, wie der Bergpark verschiedene Epochen der europäischen Gartenkunst nebeneinander lesbar macht. Nach dem barocken Machtspektakel der Kaskaden folgt eine romantische Landschaft, die kontrollierte Technik so erscheinen lässt, als sei sie wilde Natur. Diese ästhetische Verschiebung ist ein zentraler Bestandteil der Welterbe-Bedeutung des Gesamtparks.",
+    "restorationHistory": "Brücke, Geländer, Felspartien und Wasserführung wurden wiederholt denkmalpflegerisch betreut. Die bekannte Veränderung von 1826 – das Henschel-Gusseisengeländer – ist selbst historische Substanz. Eine vollständige Restaurierungschronik wird nach Auswertung des Parkpflegewerks ergänzt.",
+    "visitorContext": "Während der regulären Wasserspiele erreicht das Wasser die Teufelsbrücke gegen 15:20 Uhr. Der Standort ist über Wald- und Hangwege erreichbar. Nässe, Wurzeln, historisches Pflaster und Gefälle können die Passage erschweren; die Wasserspielroute ist insgesamt nicht barrierefrei. Die beste Beobachtung erfolgt von sicheren Wegebereichen, nicht an ungesicherten Felskanten.",
+    "artworks": [],
+    "figures": [
+      "wilhelm-ix",
+      "heinrich-christoph-jussow"
+    ],
+    "images": [
+      {
+        "src": "commons:File:Bergpark wilhelmshoehe teufelsbruecke.jpg",
+        "pageUrl": "https://commons.wikimedia.org/wiki/File:Bergpark_wilhelmshoehe_teufelsbruecke.jpg",
+        "caption": "Teufelsbrücke im Bergpark Wilhelmshöhe",
+        "license": "CC BY-SA 3.0 / GFDL 1.2+; Dateiseite vor Auslieferung erneut prüfen"
+      }
+    ],
+    "visitInfo": {
+      "hours": "Park ganzjährig; Wasserspiele saisonal, Station Teufelsbrücke regulär ca. 15:20 Uhr",
+      "fee": "Außenanlage frei zugänglich",
+      "accessibility": "Nicht barrierefreie Hang- und Waldwege; bei Nässe erhöhte Rutschgefahr",
+      "verifiedOn": "2026-08-27"
+    },
+    "tags": [
+      "bridge",
+      "romanticism",
+      "waterworks",
+      "jussow",
+      "unesco"
+    ],
+    "connections": [
+      "steinhoefer-wasserfall",
+      "plutogrotte",
+      "aquaedukt"
+    ],
+    "sourceIds": [
+      "stadt-teufelsbruecke",
+      "hkh-wasserspiele",
+      "commons-teufelsbruecke-photo",
+      "unesco-1413"
+    ],
+    "uncertainties": [
+      "Die Koordinate ist aus Commons-Fotometadaten abgeleitet und soll in der Kartenphase gegen den OSM-Brückenmittelpunkt geprüft werden."
+    ],
+    "contentMeta": {
+      "status": "phase-1-reviewed",
+      "verifiedOn": "2026-08-27",
+      "language": "de",
+      "editorialPolicy": "Primärquellen und offizielle Stellen bevorzugt; Sekundärangaben und abgeleitete Koordinaten werden ausdrücklich gekennzeichnet."
+    },
+    "interpretation": "Für die Vermittlung ist es hilfreich, die Teufelsbrücke nicht als isoliertes Fotomotiv zu behandeln. Ihr Sinn entsteht aus der Bewegung: Das Wasser kommt vom Steinhöfer Wasserfall, verschwindet in einer dramatisch verdichteten Schlucht und zieht danach in Richtung Aquädukt weiter. Damit wird der Besucher vom Bild scheinbar ungezähmter Natur zum nächsten Bild einer zerbrochenen antiken Technik geführt. Auch das Henschel-Geländer von 1826 verdient Aufmerksamkeit, weil es zeigt, dass der Park kein eingefrorener Zustand um 1800 ist. Spätere technische und gestalterische Eingriffe wurden selbst historisch bedeutsam und gehören heute zur geschützten Überlieferung.",
+    "title": "Teufelsbrücke",
+    "kind": "place",
+    "category": "bridge-water-feature",
+    "lon": 9.4056,
+    "summary": "Die Teufelsbrücke überspannt den dramatisch inszenierten Höllenteich; während der Wasserspiele stürzt das Wasser unter der Brücke rund zehn Meter in die Schlucht."
+  },
+  "aquaedukt": {
+    "id": "aquaedukt",
+    "name": "Aquädukt",
+    "shortName": "Aquädukt",
+    "type": "ruin-water-feature",
+    "lat": 51.31654,
+    "lng": 9.40849,
+    "elevation": null,
+    "coordinatePrecision": "osm-derived-center",
+    "shortDescription": "Jussows 1788–1792 errichteter Aquädukt imitiert eine zerbrochene römische Wasserleitung; während der Wasserspiele stürzt das Wasser am abrupten Ende rund 30 Meter in die Tiefe.",
+    "longDescription": "Der Aquädukt ist eine künstliche Ruine mit doppelter Funktion: Er zitiert die technische Autorität der römischen Antike und lässt diese Autorität zugleich spektakulär zusammenbrechen. Eine lange Folge gemauerter Bögen führt das Wasser durch den Hang. Nach dem vierzehnten hohen Bogen bricht die Architektur scheinbar unvermittelt ab. Während der Wasserspiele schießt das Wasser über diese künstliche Bruchkante und fällt ungefähr 30 Meter in eine mit Trümmern und Fels gestaltete Schlucht. Die Stadt Kassel bezeichnet diesen Fall als den höchsten künstlichen Wasserfall in einem künstlerisch gestalteten Garten. Das Bild ist sorgfältig komponiert: Der Besucher sieht nicht nur eine funktionierende Leitung, sondern eine 'antike' Infrastruktur im Zustand erhabenen Verfalls. Gerade dieser Widerspruch zwischen perfekter hydraulischer Funktion und inszenierter baulicher Zerstörung macht den Aquädukt zu einem Schlüsselwerk des Landschaftsparks.",
+    "history": "Heinrich Christoph Jussow entwarf den Aquädukt für Landgraf Wilhelm IX.; gebaut wurde er von 1788 bis 1792. Er entstand in der Phase, in der der Park bewusst von der älteren barocken Geometrie erweitert wurde. Antike Vorbilder waren im 18. Jahrhundert durch Reisen, Stiche und archäologische Forschung allgegenwärtig. Jussow übertrug dieses Bildungswissen in eine begehbare Gartenstaffage. Das Wasser blieb dabei funktional Teil des großen hydraulischen Systems. Nach dem Fall wird es über die Peneuskaskaden weiter in Richtung Jussow-Tempel und Fontänenteich geleitet. Die Ruine ist daher niemals reine Dekoration; ohne Wasser verliert sie einen Teil ihrer ursprünglichen Dramaturgie, während sie zugleich außerhalb der Spielzeiten als architektonisches Monument wirkt.",
+    "architecture": "Die gemauerte Bogenreihe imitiert einen römischen Aquädukt, ist aber von Anfang an als ruinöses Fragment geplant. Die Konstruktion steigert die Spannung zum absichtlichen Abbruchpunkt. Dort verwandelt sich die horizontale Wasserleitung in einen vertikalen Wasserfall. Die darunter arrangierten Fels- und Trümmermassen verstärken die Illusion eines eingestürzten antiken Bauwerks. Anschließend nimmt die landschaftlichere Peneuskaskade das Wasser auf. Die Anlage zeigt damit eine raffinierte Folge von gebauter Ordnung, scheinbarer Katastrophe und wieder naturalisiertem Wasserlauf.",
+    "culturalSignificance": "Der Aquädukt verbindet Antikenrezeption, Ruinenästhetik und Ingenieurkunst. Er zeigt, dass der Landschaftspark nicht bloß 'natürlicher' wurde, sondern historische und emotionale Bilder mit präziser Technik erzeugte. Im Verlauf der Wasserspiele ist er einer der dramatischsten Momente zwischen Teufelsbrücke und Großer Fontäne und ein besonders klares Beispiel für den ästhetischen Wandel um 1800.",
+    "restorationHistory": "Mauerwerk, Bögen und Wasserführung verlangen fortlaufende Sicherung. Da die künstliche Ruinenwirkung selbst denkmalwert ist, muss Restaurierung zwischen statischer Sicherheit und Erhalt der gewollt unvollständigen Erscheinung vermitteln. Eine detaillierte Maßnahmenliste folgt nach Auswertung der Denkmalpflegequellen.",
+    "visitorContext": "Das Wasser erreicht den Aquädukt an regulären Spieltagen gegen 15:30 Uhr. Die spektakuläre Fallkante soll ausschließlich von ausgewiesenen Wegen und Aussichtspunkten betrachtet werden. Der anschließende Weg folgt den Peneuskaskaden in Richtung Fontänenteich. Steile, unebene Abschnitte machen die Gesamtstrecke für viele Mobilitätseinschränkungen ungeeignet.",
+    "artworks": [],
+    "figures": [
+      "wilhelm-ix",
+      "heinrich-christoph-jussow"
+    ],
+    "images": [
+      {
+        "src": "commons:File:Aquädukt - Bergpark Wilhelmshöhe 01.jpg",
+        "pageUrl": "https://commons.wikimedia.org/wiki/File:Aqu%C3%A4dukt_-_Bergpark_Wilhelmsh%C3%B6he_01.jpg",
+        "caption": "Aquädukt als künstliche Ruine",
+        "license": "Dateiseite vor Auslieferung einzeln verifizieren"
+      }
+    ],
+    "visitInfo": {
+      "hours": "Park ganzjährig; Wasserspiele saisonal, Station Aquädukt regulär ca. 15:30 Uhr",
+      "fee": "Außenanlage frei zugänglich",
+      "accessibility": "Historische Hangwege und Gefälle; Gesamtwasserspielroute nicht barrierefrei",
+      "verifiedOn": "2026-08-27"
+    },
+    "tags": [
+      "aqueduct",
+      "ruin",
+      "romanticism",
+      "waterworks",
+      "jussow",
+      "unesco"
+    ],
+    "connections": [
+      "teufelsbruecke",
+      "peneuskaskaden",
+      "jussow-tempel",
+      "grosse-fontaene"
+    ],
+    "sourceIds": [
+      "stadt-aquaedukt",
+      "hkh-wasserspiele",
+      "osm-derived-mapcarta-aquaedukt",
+      "commons-aquaedukt-photo",
+      "dewiki-bergpark",
+      "unesco-1413"
+    ],
+    "uncertainties": [
+      "Die oft genannte Fallhöhe liegt je nach Darstellung bei etwa 30 bis 34 m; der Besuchertext verwendet die aktuelle kommunale Rundung von 30 m."
+    ],
+    "contentMeta": {
+      "status": "phase-1-reviewed",
+      "verifiedOn": "2026-08-27",
+      "language": "de",
+      "editorialPolicy": "Primärquellen und offizielle Stellen bevorzugt; Sekundärangaben und abgeleitete Koordinaten werden ausdrücklich gekennzeichnet."
+    },
+    "interpretation": "Als Interpretationspunkt eignet sich der Aquädukt besonders für den Vergleich von Original und Zitat. Die Anlage ist weder römisch noch das Fragment einer tatsächlich zerstörten Wasserleitung. Sie wurde vollständig im späten 18. Jahrhundert gebaut, um den Eindruck einer antiken Ruine hervorzurufen. Gerade darin liegt ihre historische Authentizität. Der scheinbare Verfall ist Entwurf, nicht Mangel. Gleichzeitig ist das Wasser real und technisch präzise geführt. Wer den Ort nur als romantische Kulisse betrachtet, übersieht deshalb die produktive Spannung zwischen archäologischem Bild, moderner Ingenieurleistung des 18. Jahrhunderts und der damals neuen Ästhetik des Erhabenen.",
+    "title": "Aquädukt",
+    "kind": "place",
+    "category": "ruin-water-feature",
+    "lon": 9.40849,
+    "summary": "Jussows 1788–1792 errichteter Aquädukt imitiert eine zerbrochene römische Wasserleitung; während der Wasserspiele stürzt das Wasser am abrupten Ende rund 30 Meter in die Tiefe."
+  },
+  "jussow-tempel": {
+    "id": "jussow-tempel",
+    "name": "Jussow-Tempel",
+    "shortName": "Jussow-Tempel",
+    "type": "temple-folly",
+    "lat": 51.315403,
+    "lng": 9.412544,
+    "elevation": 295,
+    "coordinatePrecision": "commons-photo-gps-poor-approximate",
+    "shortDescription": "Der 1817–1818 nach Heinrich Christoph Jussow errichtete klassizistische Tempel steht am Fontänenteich am Ende der Peneuskaskaden und wird häufig irrtümlich Apollotempel genannt.",
+    "longDescription": "Der Jussow-Tempel ist ein kleiner, aber wichtiger Knoten zwischen Wasserkunst, Architektur und Parkgeschichte. Er steht am Fontänenteich dort, wo die aus dem Aquädukt kommenden Peneuskaskaden in die ruhigere Teichlandschaft übergehen. Der Bau besitzt einen offenen Säulenumgang und einen geschlossenen Innenraum. Seine Lage macht ihn zu einer Art Scharnier: Hinter dem Besucher liegt das dramatische Ruinen- und Wasserbild des Aquädukts, vor ihm öffnet sich die sanftere Landschaft um Fontänenteich und Große Fontäne. Der Tempel wird bis heute oft 'Apollotempel' genannt. Diese Bezeichnung ist historisch missverständlich. Nach der etablierten Forschung stand weiter hangaufwärts zuvor ein kleinerer hölzerner Apollotempel aus der Zeit Landgraf Friedrichs II.; dieser war bereits abgebrochen, als der neue Bau entstand. Die Namensübertragung auf den späteren Jussow-Tempel ist daher eine nachträgliche Verwechslung, die selbst zur Rezeptionsgeschichte des Parks gehört.",
+    "history": "Der Tempel wurde 1817–1818 nach Entwürfen Heinrich Christoph Jussows errichtet. Zu diesem Zeitpunkt war die große landschaftliche Umformung unter Wilhelm IX./Kurfürst Wilhelm I. bereits weit fortgeschritten. Jussows Werk im Park umfasste zahlreiche Bauten und Wasserstationen, darunter Aquädukt und Teufelsbrücke. Der Tempel gehört in eine spätere Phase seines Schaffens und zeigt, wie die Wasserspiele nicht nur durch spektakuläre Fälle, sondern auch durch ruhige architektonische Ruhepunkte gegliedert wurden. Als möglicher Bezug wird in der Sekundärliteratur der englische Landschaftsgarten von Stowe genannt, dessen Tempelarchitekturen für die europäische Gartenkunst des 18. Jahrhunderts einflussreich waren.",
+    "architecture": "Der Bau kombiniert einen umlaufenden offenen Säulenbereich mit einem geschlossenen Kern. Seine klassische Formensprache ist bewusst regelmäßig und bildet am Ufer einen ruhigen Kontrast zu den felsigen und ruinösen Staffagen des vorherigen Wasserwegs. Die genaue topografische Position am Übergang der Peneuskaskaden zum Teich ist Teil der Komposition. Architektur wird hier zum Blickpunkt, Wegezeichen und Maßstab im Landschaftsraum.",
+    "culturalSignificance": "Der Jussow-Tempel verdeutlicht, wie international die Ideenwelt des Bergparks war. Antike Tempelbilder, englische Landschaftsgärten und hessische Hofarchitektur wurden nicht kopiert, sondern in ein eigenes Parksystem übersetzt. Für Besucher eignet sich der Ort besonders, um die verschiedenen Zeitschichten des Wasserspiels zu erklären: barocke Monumentalität, romantische Ruinenbilder und klassizistische Ruhearchitektur liegen nur wenige Gehminuten auseinander.",
+    "restorationHistory": "Der Tempel wurde über seine lange Standzeit instand gehalten. Konkrete Restaurierungsjahre und Veränderungen an Dach, Säulen oder Innenraum sind in der aktuellen Quellenstufe noch nicht ausreichend primär belegt und werden deshalb nicht erfunden; sie sollen aus dem Parkpflegewerk ergänzt werden.",
+    "visitorContext": "Der Tempel liegt frei im Park und ist als Außenarchitektur ganzjährig erlebbar. Während der Wasserspiele passiert das Wasser über die Peneuskaskaden in unmittelbarer Nähe und zieht weiter zum Fontänenteich. Der Standort eignet sich als Zwischenhalt zwischen Aquädukt und Großer Fontäne. Eine Innenbesichtigung ist nicht als reguläres Besucherangebot dokumentiert und sollte daher nicht versprochen werden.",
+    "artworks": [],
+    "figures": [
+      "heinrich-christoph-jussow",
+      "wilhelm-ix"
+    ],
+    "images": [
+      {
+        "src": "commons:File:Jussowtempel am Fontänenteich.jpg",
+        "pageUrl": "https://commons.wikimedia.org/wiki/File:Jussowtempel_am_Font%C3%A4nenteich.jpg",
+        "caption": "Jussow-Tempel am Fontänenteich",
+        "license": "Dateiseite vor Auslieferung einzeln verifizieren"
+      }
+    ],
+    "visitInfo": {
+      "hours": "Außenansicht im frei zugänglichen Park ganzjährig",
+      "fee": "frei",
+      "accessibility": "Wegezugang abhängig von Route; keine Innenzugänglichkeit als reguläres Angebot verifiziert",
+      "verifiedOn": "2026-08-27"
+    },
+    "tags": [
+      "temple",
+      "folly",
+      "neoclassicism",
+      "jussow",
+      "fontaenenteich"
+    ],
+    "connections": [
+      "peneuskaskaden",
+      "aquaedukt",
+      "grosse-fontaene"
+    ],
+    "sourceIds": [
+      "stadt-aquaedukt",
+      "dewiki-bergpark",
+      "commons-jussowtempel-photo"
+    ],
+    "uncertainties": [
+      "Bauzeit 1817–1818, Namensgeschichte und Stowe-Bezug sind in dieser Phase über eine etablierte Sekundärquelle erfasst; eine primäre MHK-/Parkpflegewerk-Stelle wird in Phase 2/3 ergänzt.",
+      "Die angegebene GPS-Position stammt aus Commons-Fotometadaten, deren Präzision dort als gering markiert ist."
+    ],
+    "contentMeta": {
+      "status": "phase-1-reviewed",
+      "verifiedOn": "2026-08-27",
+      "language": "de",
+      "editorialPolicy": "Primärquellen und offizielle Stellen bevorzugt; Sekundärangaben und abgeleitete Koordinaten werden ausdrücklich gekennzeichnet."
+    },
+    "interpretation": "Für die Wissensbasis wird die verbreitete Bezeichnung Apollotempel als Suchalias erhalten, aber nicht als primärer historischer Name ausgegeben. Diese Entscheidung verhindert, dass eine lange Rezeptionsgeschichte einfach gelöscht wird, trennt aber zugleich den erhaltenen Bau vom älteren, nicht mehr vorhandenen hölzernen Apollotempel. In einer Kartenanwendung kann der Ort außerdem als Ruhepunkt genutzt werden: Von hier lassen sich die Peneuskaskaden, das ruhige Wasser des Fontänenteichs und die nächste Station der Großen Fontäne räumlich zusammen erklären. Der kleine Bau macht damit die Übergänge im Park besser verständlich als eine reine Einzelobjektbeschreibung.",
+    "title": "Jussow-Tempel",
+    "kind": "place",
+    "category": "temple-folly",
+    "lon": 9.412544,
+    "summary": "Der 1817–1818 nach Heinrich Christoph Jussow errichtete klassizistische Tempel steht am Fontänenteich am Ende der Peneuskaskaden und wird häufig irrtümlich Apollotempel genannt."
+  },
+  "plutogrotte": {
+    "id": "plutogrotte",
+    "name": "Plutogrotte",
+    "shortName": "Plutogrotte",
+    "type": "grotto-folly",
+    "lat": 51.31549,
+    "lng": 9.40533,
+    "elevation": null,
+    "coordinatePrecision": "osm-derived-center",
+    "shortDescription": "Die Plutogrotte ist eine Unterweltsstaffage des 18. Jahrhunderts an der Parkachse; ihre einst farbige und figurenreiche Inneninszenierung ist heute nur noch teilweise erhalten.",
+    "longDescription": "Die Plutogrotte gehört zu den älteren Staffagebauten des Bergparks und führt Besucher in eine ganz andere Bildwelt als Schloss oder Herkules. Ihr Name verweist auf Pluto, den römischen Herrscher der Unterwelt. Historische Beschreibungen berichten von farbig verglasten Fenstern und Türen sowie von plastischen mythologischen Szenen im Inneren, die Schrecken und Unterwelt evozierten. Vieles davon ist heute verloren. Gerade dieser Verlust ist für die Interpretation wichtig: Die heutige Grotte vermittelt nur einen Teil der ursprünglich multisensorischen Inszenierung. Die Anlage steht in der Hauptachse beziehungsweise unmittelbar in deren räumlichem Zusammenhang und wurde später durch die nahe Teufelsbrücke und den Höllenteich in eine noch stärkere Unterweltslandschaft eingebunden. Damit lässt sich an ihr ablesen, wie ältere höfische Staffagen in die neue romantische Parkdramaturgie integriert wurden, statt vollständig zu verschwinden.",
+    "history": "Die Grotte wurde nach der derzeit ausgewerteten Sekundärliteratur 1766–1768 errichtet. 1820 erfolgte eine Erneuerung nach Plänen beziehungsweise unter Beteiligung von Simon Louis du Ry und Johann Conrad Bromeis; die genaue Zuschreibung einzelner Bauphasen wird in einer späteren Quellenrunde gegen das Parkpflegewerk geprüft. In den äußeren Wandnischen wurden in jüngerer Zeit wieder zwei steinerne Meeresungeheuer von Johann August Nahl dem Älteren aufgestellt. Diese Skulpturen waren ursprünglich für Schloss Wilhelmsthal geschaffen worden und befanden sich bereits ab 1798 für längere Zeit an der Fassade der Grotte. Die Wiederaufstellung macht sichtbar, dass auch die Ausstattung des Bergparks über Jahrhunderte wanderte und neu kontextualisiert wurde.",
+    "architecture": "Eine Grotte ist im Landschaftsgarten bewusst ambivalent: Sie ist gebaut, soll aber wie Natur oder uralte unterirdische Architektur wirken. Die Plutogrotte nutzte dunklen Innenraum, farbiges Licht und plastische Figuren, um einen theatralischen Erlebnisraum zu erzeugen. Die heute fehlenden Fenster-, Tür- und Figurenbestandteile verändern diesen Effekt deutlich. Außen erzeugen Nischen und steinerne Skulpturenelemente eine architektonische Fassade, die zwischen Gebäude und Felskulisse vermittelt.",
+    "culturalSignificance": "Die Plutogrotte zeigt die frühere, stärker theatralische Seite des Parks und seine intensive Beschäftigung mit antiker Mythologie. Anders als die monumentale Herkulesfigur ist Pluto nicht als Fernzeichen gedacht, sondern als intime, dunkle Erfahrung. Zusammen mit Teufelsbrücke und Höllenteich bildet die Grotte einen Themenraum des Schaurigen, der später hervorragend zur romantischen Ästhetik passte.",
+    "restorationHistory": "Die heutige Erscheinung ist Ergebnis von Umbauten, Verlusten und Wiederergänzungen. Besonders wichtig ist, dass die ursprüngliche Innenausstattung nicht als erhalten dargestellt wird. Die zwei Nahl-Meeresungeheuer sind eine jüngere Wiederaufstellung historisch belegter Fassadenskulpturen. Genaue Restaurierungsdaten werden nach Primärquellenstudium ergänzt.",
+    "visitorContext": "Die Grotte ist als Parkbau von den umliegenden Wegen erlebbar; eine reguläre freie Innenbesichtigung wird nicht vorausgesetzt. Sie liegt nahe der Teufelsbrücke und eignet sich deshalb als gemeinsamer Interpretationspunkt für Mythologie, Grotte und Höllenteich. Wege können uneben und bei Nässe rutschig sein.",
+    "artworks": [
+      {
+        "id": "plutogrotte-meeresungeheuer",
+        "name": "Zwei steinerne Meeresungeheuer",
+        "artist": "Johann August Nahl d. Ä.",
+        "description": "Historische Skulpturen, ursprünglich aus Schloss Wilhelmsthal; zeitweise seit 1798 an der Plutogrotte und in jüngerer Zeit wieder in den Außennischen aufgestellt."
+      }
+    ],
+    "figures": [
+      "simon-louis-du-ry",
+      "johann-conrad-bromeis",
+      "johann-august-nahl-der-aeltere"
+    ],
+    "images": [],
+    "visitInfo": {
+      "hours": "Außenbereich im Park ganzjährig; Innenzugang nicht als reguläres Angebot verifiziert",
+      "fee": "frei im Park",
+      "accessibility": "Wald- und Hangwege; keine barrierefreie Innenerschließung dokumentiert",
+      "verifiedOn": "2026-08-27"
+    },
+    "tags": [
+      "grotto",
+      "folly",
+      "mythology",
+      "pluto",
+      "romanticism"
+    ],
+    "connections": [
+      "teufelsbruecke",
+      "eremitage-des-sokrates",
+      "fontaenenreservoir"
+    ],
+    "sourceIds": [
+      "dewiki-bergpark",
+      "osm-derived-mapcarta-plutogrotte",
+      "hkh-bergpark"
+    ],
+    "uncertainties": [
+      "Bau- und Umbauchronologie sowie die Zuschreibung du Ry/Bromeis sind aktuell sekundär belegt und werden in einer späteren Primärquellenrunde verifiziert.",
+      "Die Beschreibung der verlorenen Innenausstattung rekonstruiert den historischen Zustand und darf nicht als heutige Besuchssituation gelesen werden."
+    ],
+    "contentMeta": {
+      "status": "phase-1-reviewed",
+      "verifiedOn": "2026-08-27",
+      "language": "de",
+      "editorialPolicy": "Primärquellen und offizielle Stellen bevorzugt; Sekundärangaben und abgeleitete Koordinaten werden ausdrücklich gekennzeichnet."
+    },
+    "interpretation": "Bei einer digitalen Rekonstruktion muss zwischen erhaltenem Bestand und historisch überlieferter Ausstattung strikt unterschieden werden. Farbige Verglasung, Türen und Unterweltsfiguren dürfen nur als verlorene beziehungsweise rekonstruierte Elemente visualisiert werden. Eine heutige Fotografie der Grotte ist kein Beleg dafür, wie der Innenraum im 18. Jahrhundert wirkte. Umgekehrt sind historische Beschreibungen keine Einladung, fehlende Teile als sicher im Detail bekannt zu modellieren. Die Plutogrotte ist deshalb ein gutes Beispiel für einen Wissensknoten mit Zeitschichten: ursprünglicher Bau, Umbau um 1820, Verlust von Ausstattung, spätere Wiederaufstellung einzelner Skulpturen und heutiger Denkmalzustand müssen getrennt modelliert werden.",
+    "title": "Plutogrotte",
+    "kind": "place",
+    "category": "grotto-folly",
+    "lon": 9.40533,
+    "summary": "Die Plutogrotte ist eine Unterweltsstaffage des 18. Jahrhunderts an der Parkachse; ihre einst farbige und figurenreiche Inneninszenierung ist heute nur noch teilweise erhalten."
+  },
+  "eremitage-des-sokrates": {
+    "id": "eremitage-des-sokrates",
+    "name": "Eremitage des Sokrates",
+    "shortName": "Sokrates-Eremitage",
+    "type": "hermitage-folly",
+    "lat": 51.31389,
+    "lng": 9.40687,
+    "elevation": null,
+    "coordinatePrecision": "osm-derived-center",
+    "shortDescription": "Die Eremitage des Sokrates ist eine kleine philosophische Parkstaffage am Waldrand südöstlich der Teufelsbrücke und erinnert an die einst größere Gruppe antiker Gelehrtenpavillons.",
+    "longDescription": "Die Eremitage des Sokrates gehört zu den leiseren, intimeren Staffagen des Bergparks. Statt monumentaler Fernwirkung bietet sie das Bild einer einfachen Einsiedelei am Waldrand. Die Vorderseite ist traditionell mit Baumrinde verkleidet, wodurch die Architektur bewusst zwischen Hütte und Naturkulisse steht. Der Name Sokrates verweist auf die antike Philosophie und auf eine höfische Gartenkultur, die Wissen, moralische Reflexion und spielerische Inszenierung miteinander verband. Historisch war die Sokrates-Eremitage nicht allein: Weitere kleine Pavillons erinnerten unter anderem an Heraklit, Archimedes und Demokrit. Diese Gruppe existierte nur begrenzte Zeit, doch sie zeigt, dass der Park zeitweise als begehbare Wissenslandschaft konzipiert war. In den zugänglichen Häuschen befanden sich nach der Sekundärüberlieferung Wachs- oder Gipsfiguren der jeweiligen Gelehrten. Der heutige Bau ist daher ein seltener Rest eines viel umfangreicheren philosophischen Programms.",
+    "history": "Nach der derzeit ausgewerteten Forschung wurde die Eremitage 1775 nach Entwürfen Simon Louis du Rys zunächst in Holz errichtet. Anfang des 19. Jahrhunderts folgte ein Neubau beziehungsweise eine Erneuerung in Stein und Fachwerk. Ein historisches Blatt von Johann Heinrich Müntz, heute in der Objektdatenbank von Hessen Kassel Heritage, zeigt eine Partie im Park mit der Eremitage und liefert unmittelbare bildliche Evidenz für ihre frühe Einbindung in die Landschaft. Die zeitweilig benachbarten Philosophenpavillons verschwanden bis zum Ende des 18. Jahrhunderts. Die erhaltene Sokrates-Eremitage wurde dadurch vom Teil einer Gruppe zum Einzeldenkmal.",
+    "architecture": "Die kleine Architektur ist absichtlich rustikal. Eine mit Rinde verkleidete Front und die Lage am Waldrand erzeugen das Bild asketischer Zurückgezogenheit, obwohl es sich um höfisch inszenierte Gartenkunst handelt. Eine Sichtschneise öffnet den Ort in die Landschaft und verhindert, dass die Eremitage nur als verborgenes Waldhäuschen wirkt. Der spätere Stein- und Fachwerkbau bewahrt die Vorstellung des ursprünglichen Holzbaus, ist aber selbst eine historische zweite Schicht.",
+    "culturalSignificance": "Die Eremitage eignet sich besonders, um die intellektuelle Dimension des Parks zu erklären. Antike Namen wurden nicht nur für dekorative Skulpturen verwendet, sondern als Rollenmodelle und Denkfiguren in räumliche Erlebnisse übersetzt. Sokrates steht dabei für philosophische Reflexion, während die künstliche Einsiedelei die im 18. Jahrhundert verbreitete Mode höfischer Eremitagen aufnimmt. Der Ort verbindet Bildung, Theater und Landschaft.",
+    "restorationHistory": "Der Übergang vom Holzbau des 18. Jahrhunderts zum Stein- und Fachwerkbau des frühen 19. Jahrhunderts ist selbst die wichtigste bekannte Veränderungsphase. Weitere Instandsetzungsdaten sind bislang nicht primärquellenbasiert erfasst und werden in der Sekundärlandmarkenphase ergänzt.",
+    "visitorContext": "Die Eremitage liegt abseits der Hauptachse am Waldrand südöstlich der Teufelsbrücke. Sie ist am besten als kurzer Abstecher in eine Route durch den mittleren Bergpark einzubinden. Der Zugang erfolgt über Park- und Waldwege; die OSM-Daten kennzeichnen den unmittelbaren Bau als eingeschränkt zugänglich. Deshalb sollte die App keine Innenbesichtigung versprechen, sondern den Außenstandort und seine historische Bedeutung erklären.",
+    "artworks": [
+      {
+        "id": "muenz-eremitage-blatt",
+        "name": "Partie im Park Wilhelmshöhe, mit der Eremitage des Sokrates",
+        "artist": "Johann Heinrich Müntz",
+        "description": "Historische graphische Darstellung in der Sammlung von Hessen Kassel Heritage; wichtige Bildquelle für die frühe Landschaftssituation."
+      }
+    ],
+    "figures": [
+      "simon-louis-du-ry",
+      "sokrates",
+      "johann-heinrich-muentz"
+    ],
+    "images": [],
+    "visitInfo": {
+      "hours": "Außenstandort im Park; unmittelbarer Bauzugang laut OSM eingeschränkt",
+      "fee": "frei im Park",
+      "accessibility": "Waldweg; keine barrierefreie Innenbesichtigung dokumentiert",
+      "verifiedOn": "2026-08-27"
+    },
+    "tags": [
+      "hermitage",
+      "folly",
+      "philosophy",
+      "socrates",
+      "landscape-garden"
+    ],
+    "connections": [
+      "teufelsbruecke",
+      "plutogrotte"
+    ],
+    "sourceIds": [
+      "hkh-eremitage-object",
+      "dewiki-bergpark",
+      "osm-derived-mapcarta-eremitage"
+    ],
+    "uncertainties": [
+      "Bauzeit, Materialwechsel und die Ausstattung mit Gelehrtenfiguren sind derzeit über Sekundärliteratur rekonstruiert; die historische Müntz-Darstellung liefert unabhängige Bildquellenevidenz für den Ort.",
+      "Die genaue Grenze zwischen öffentlich zugänglichem Weg und gesperrtem Baukörper soll in der Routenphase vor Ort beziehungsweise gegen aktuelle OSM-Daten geprüft werden."
+    ],
+    "contentMeta": {
+      "status": "phase-1-reviewed",
+      "verifiedOn": "2026-08-27",
+      "language": "de",
+      "editorialPolicy": "Primärquellen und offizielle Stellen bevorzugt; Sekundärangaben und abgeleitete Koordinaten werden ausdrücklich gekennzeichnet."
+    },
+    "interpretation": "Inhaltlich sollte die Eremitage nicht romantisch als Wohnort eines tatsächlichen Einsiedlers missverstanden werden. Sie gehört zur höfischen Tradition der Garten-Eremitagen und war Teil einer bewusst inszenierten philosophischen Bilderwelt. Die verlorenen Nachbarpavillons sind dabei ebenso wichtig wie der erhaltene Bau: Erst sie zeigen, dass Sokrates ursprünglich in ein Ensemble verschiedener antiker Denker eingebunden war. Für eine spätere AR- oder Kartenebene bietet sich daher eine Darstellung der ehemaligen Standorte mit klarer Kennzeichnung als nicht erhalten an. So kann die Anwendung den Unterschied zwischen vorhandener Substanz, historisch belegtem Verlust und hypothetischer Rekonstruktion sichtbar machen.",
+    "title": "Eremitage des Sokrates",
+    "kind": "place",
+    "category": "hermitage-folly",
+    "lon": 9.40687,
+    "summary": "Die Eremitage des Sokrates ist eine kleine philosophische Parkstaffage am Waldrand südöstlich der Teufelsbrücke und erinnert an die einst größere Gruppe antiker Gelehrtenpavillons."
+  },
+  "wasserspiele": {
+    "id": "wasserspiele",
+    "name": "Wasserspiele",
+    "shortName": "Wasserspiele",
+    "type": "water-system",
+    "lat": 51.3157,
+    "lng": 9.4025,
+    "elevation": null,
+    "coordinatePrecision": "representative-mid-route",
+    "shortDescription": "Die historischen Wasserspiele verbinden Herkules, Kaskaden, romantische Wasserfälle, Teufelsbrücke, Aquädukt und Große Fontäne zu einer rund 2,3 Kilometer langen, ausschließlich durch Gefälle betriebenen Inszenierung.",
+    "longDescription": "Die Wasserspiele sind kein einzelnes Objekt, sondern die eigentliche verbindende Infrastruktur des Bergparks. Ihr Ablauf beginnt am Herkules und führt Besucher und Wasser gemeinsam talwärts. Auf die barocken Kaskaden folgen landschaftlich gestaltete Stationen wie Steinhöfer Wasserfall und Teufelsbrücke, danach der ruinöse Aquädukt mit Peneuskaskaden und schließlich die Große Fontäne im Fontänenteich. Diese Abfolge macht mehrere Generationen Gartenkunst in einem zusammenhängenden Erlebnis sichtbar. Die technische Grundlage ist außergewöhnlich: Die Wassermassen werden in Reservoirs gesammelt und ausschließlich durch Schwerkraft und natürlichen Druck bewegt. Moderne Pumpen sind für die historische Hauptvorstellung nicht notwendig. Pro Veranstaltung werden nach aktuellen kommunalen Angaben etwa 750 Kubikmeter Wasser eingesetzt. Besucher folgen dem Wasser über ungefähr 2,3 Kilometer und fast 200 Höhenmeter bergab. Weil die Stationen zeitversetzt aktiviert werden, entsteht eine regelrechte Prozession durch die Landschaft. Das Wasser ist dabei zugleich Material, Antrieb, Tonquelle und Wegweiser.",
+    "history": "Die älteste monumentale Schicht entstand unter Landgraf Karl mit Herkules und barocken Kaskaden. Im späteren 18. Jahrhundert und um 1800 ergänzten Wilhelm IX. und seine Architekten, besonders Heinrich Christoph Jussow und Karl Steinhöfer, neue Landschaftsbilder. Dadurch wurde das ältere geometrische System nicht ersetzt, sondern in eine längere Erzählung eingebaut. Der Aquädukt zitiert antike Technik als Ruine, die Teufelsbrücke erzeugt romantischen Schauder, der Steinhöfer Wasserfall imitiert ein Naturereignis und die Fontäne demonstriert hydraulische Leistung. Die heutige Abfolge bewahrt diese unterschiedlichen Entstehungszeiten und ist ein Hauptgrund für die Aufnahme des Bergparks in die UNESCO-Welterbeliste 2013.",
+    "architecture": "Technisch besteht das System aus Reservoirs, Gräben, Leitungen, Schiebern, Becken und künstlich geformten Wasserläufen. Vieles davon liegt unterirdisch oder unscheinbar im Gelände. Sichtbar werden die technischen Entscheidungen in genau berechneten Fallhöhen, Kaskadenprofilen und Druckeffekten. Der Park ist daher als großräumige Maschine lesbar, deren 'Bauteile' über den Hang verteilt sind. Die bewusste Abwesenheit moderner Pumpen im historischen Hauptablauf ist ein wichtiges Authentizitätsmerkmal.",
+    "culturalSignificance": "Die Wasserspiele verbinden auf einzigartige Weise absolutistische Repräsentation, Ingenieurwissen und spätere romantische Landschaftsästhetik. UNESCO bewertet diese Verbindung als außergewöhnliches Zeugnis monumentaler Wassertechnik und Gartenkunst. Für Besucher ist wichtig, die Anlage nicht nur an der Großen Fontäne zu beurteilen: Ihr kultureller Wert liegt in der vollständigen zeitlichen und räumlichen Sequenz.",
+    "restorationHistory": "Das System ist nur funktionsfähig, weil Reservoirs, Leitungen und steinerne Wasserwege kontinuierlich gepflegt werden. Laut UNESCO sind die historischen Wasserfeatures bis auf die Neue Wasserkunst beziehungsweise den Neuen Wasserfall weiterhin mit authentischer Technik operabel. Einzelne technische Erneuerungen und Restaurierungen werden in einer späteren Fachquellenphase objektbezogen ergänzt.",
+    "visitorContext": "Die offizielle Saison läuft aktuell vom 1. Mai bis 3. Oktober, mittwochs, sonntags und an gesetzlichen Feiertagen in Hessen. Start ist um 14:30 Uhr an den Kaskaden; ungefähr 15:05 folgt der Steinhöfer Wasserfall, 15:20 die Teufelsbrücke, 15:30 der Aquädukt und 15:45 die Große Fontäne bis etwa 16 Uhr. Die gesamte Strecke ist nur zu Fuß sinnvoll nachzuvollziehen und nicht barrierefrei. Historische Treppen, Gefälle und nasse Oberflächen erfordern gutes Schuhwerk. Die App sollte den Zeitplan mit Prüfdatum führen, weil Saisonregeln und Sondertage verändert werden können.",
+    "artworks": [],
+    "figures": [
+      "karl-von-hessen-kassel",
+      "wilhelm-ix",
+      "giovanni-francesco-guerniero",
+      "heinrich-christoph-jussow",
+      "karl-steinhoefer"
+    ],
+    "images": [],
+    "visitInfo": {
+      "hours": "1.5.–3.10.: Mi, So und gesetzliche Feiertage in Hessen; Start 14:30 Uhr, Ende Große Fontäne ca. 16 Uhr",
+      "fee": "Wasserspiele im frei zugänglichen Park ohne gesonderten Eintritt",
+      "accessibility": "Gesamtroute nicht barrierefrei; ca. 2,3 km und fast 200 Höhenmeter bergab",
+      "verifiedOn": "2026-08-27"
+    },
+    "tags": [
+      "waterworks",
+      "route",
+      "hydraulics",
+      "unesco",
+      "baroque",
+      "romanticism"
+    ],
+    "connections": [
+      "herkules",
+      "kaskaden",
+      "steinhoefer-wasserfall",
+      "teufelsbruecke",
+      "aquaedukt",
+      "grosse-fontaene"
+    ],
+    "sourceIds": [
+      "hkh-wasserspiele",
+      "stadt-wasserspiele",
+      "unesco-1413",
+      "unesco-nomination-1413"
+    ],
+    "uncertainties": [
+      "Die repräsentative Koordinate ist nur ein Routenmittelpunkt und darf nicht als einzelner POI verwendet werden; die konkrete Geometrie folgt in edges/routes.json.",
+      "Der Begriff 'Neue Wasserkunst/Neuer Wasserfall' wird in Phase 2 als eigener historischer Knoten detailliert und gegen die UNESCO-Nomenklatur abgeglichen."
+    ],
+    "contentMeta": {
+      "status": "phase-1-reviewed",
+      "verifiedOn": "2026-08-27",
+      "language": "de",
+      "editorialPolicy": "Primärquellen und offizielle Stellen bevorzugt; Sekundärangaben und abgeleitete Koordinaten werden ausdrücklich gekennzeichnet."
+    },
+    "title": "Wasserspiele",
+    "kind": "place",
+    "category": "water-system",
+    "lon": 9.4025,
+    "summary": "Die historischen Wasserspiele verbinden Herkules, Kaskaden, romantische Wasserfälle, Teufelsbrücke, Aquädukt und Große Fontäne zu einer rund 2,3 Kilometer langen, ausschließlich durch Gefälle betriebenen Inszenierung."
+  }
+}
