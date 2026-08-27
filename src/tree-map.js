@@ -1,5 +1,6 @@
 import L from 'leaflet';
 import { localized } from './i18n.js';
+import { markerKeyboardActivation } from './leaflet-keyboard.js';
 import { clusterTrees } from './trees.js';
 
 function coordinate(tree) {
@@ -39,9 +40,11 @@ export function createTreeMapLayer(map, trees, { language = 'de', onSelectTree }
           iconSize: [12, 12],
           iconAnchor: [6, 6],
         });
+        const activateTree = () => onSelectTree?.(tree.id, { source: 'map' });
         L.marker([feature.lat, feature.lng], { icon, title: label, alt: label, keyboard: true })
           .bindTooltip(label)
-          .on('click', () => onSelectTree?.(tree.id, { source: 'map' }))
+          .on('click', activateTree)
+          .on('keydown', markerKeyboardActivation(activateTree))
           .addTo(layer);
       } else {
         const label = currentLanguage === 'de'
@@ -54,9 +57,11 @@ export function createTreeMapLayer(map, trees, { language = 'de', onSelectTree }
           iconSize: [size, size],
           iconAnchor: [size / 2, size / 2],
         });
+        const activateCluster = () => map.flyTo([feature.lat, feature.lng], Math.min(18, zoom + 2), { duration: 0.35 });
         L.marker([feature.lat, feature.lng], { icon, title: label, alt: label, keyboard: true })
           .bindTooltip(label)
-          .on('click', () => map.flyTo([feature.lat, feature.lng], Math.min(18, zoom + 2), { duration: 0.35 }))
+          .on('click', activateCluster)
+          .on('keydown', markerKeyboardActivation(activateCluster))
           .addTo(layer);
       }
     }

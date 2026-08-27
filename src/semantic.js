@@ -9,6 +9,7 @@ const RELATION_LABELS = {
   created: { de: 'schuf', en: 'created' },
   member_of_collection: { de: 'gehört zur Sammlung', en: 'belongs to the collection' },
   located_at: { de: 'befindet sich in', en: 'is located at' },
+  displayed_at: { de: 'wird gezeigt in', en: 'is displayed at' },
 };
 
 function sourceMap(semanticDoc) {
@@ -40,7 +41,10 @@ export function normalizeSemanticData(figuresDoc = {}, semanticDoc = {}) {
   const artworks = (semanticDoc.artworks ?? []).map((entity) => normalizeEntity(entity, 'artwork', sources));
   const collections = (semanticDoc.collections ?? []).map((entity) => normalizeEntity(entity, 'collection', sources));
   const entities = [...figures, ...artworks, ...collections];
-  const semanticEdges = semanticDoc.semantic_edges ?? [];
+  const semanticEdges = (semanticDoc.semantic_edges ?? []).map((edge) => ({
+    ...edge,
+    sources: resolvedSources(edge, sources),
+  }));
   const relationsByEntity = new Map();
 
   for (const edge of semanticEdges) {

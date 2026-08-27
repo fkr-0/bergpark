@@ -13,6 +13,7 @@ import { createTreeMapLayer } from './tree-map.js';
 import { renderRouteDetail } from './routes.js';
 import { renderTreeDetail } from './tree-detail.js';
 import { createVisitorLayerController, renderVisitorFeatureDetail, renderVisitorLayerControl } from './visitor-layers.js';
+import { deepLinkHash, parseDeepLink } from './deep-link.js';
 
 const app = document.querySelector('#app');
 const i18n = createI18n();
@@ -70,6 +71,20 @@ let currentView = 'map';
 let currentRoute = null;
 let treeReturnContext = null;
 let activeVisitorKinds = new Set();
+let lastHandledFragment = null;
+
+function syncDeepLink(kind, id, mode = 'push') {
+  if (mode === 'none') return;
+  const hash = deepLinkHash(kind, id);
+  if (!hash) return;
+  if (location.hash === hash) {
+    lastHandledFragment = hash;
+    return;
+  }
+  if (mode === 'replace') history.replaceState(null, '', hash);
+  else history.pushState(null, '', hash);
+  lastHandledFragment = hash;
+}
 
 function renderChrome() {
   for (const element of document.querySelectorAll('[data-i18n]')) element.textContent = i18n.t(element.dataset.i18n);
@@ -149,7 +164,7 @@ function showDetail(node) {
   });
 }
 
-function selectNode(id, { source = 'manual' } = {}) {
+function selectNode(id, { source = 'manual', historyMode } = {}) {
   const node = graph?.nodesById.get(id);
   if (!node) return;
   currentNodeId = id;
@@ -157,12 +172,12 @@ function selectNode(id, { source = 'manual' } = {}) {
   mapController.showNode(id, { popup: source === 'manual' });
   showDetail(node);
   if (source === 'gps') setStatus(i18n.t('nearPlace', localized(node.name, i18n.language, node.id)), true);
-  history.replaceState(null, '', `#place=${encodeURIComponent(id)}`);
+  syncDeepLink('place', id, historyMode ?? (source === 'gps' ? 'replace' : 'push'));
 }
 
-function selectEntity(id) {
+function selectEntity(id, { historyMode = 'push' } = {}) {
   if (graph?.nodesById.has(id)) {
-    selectNode(id);
+    selectNode(id, { historyMode });
     return;
   }
   const entity = graph?.entitiesById.get(id);
@@ -170,7 +185,7 @@ function selectEntity(id) {
   currentNodeId = id;
   setView('map');
   showDetail(entity);
-  history.replaceState(null, '', `#place=${encodeURIComponent(id)}`);
+  syncDeepLink('place', id, historyMode);
 }
 
 function selectTree(id, context = {}) {
@@ -188,6 +203,7 @@ function selectTree(id, context = {}) {
   const label = localized(tree.name, i18n.language, tree.species?.[i18n.language] ?? tree.species?.scientific ?? tree.catalog_ref ?? tree.id);
   setStatus(label, true);
   renderTreeDetail(elements.detail, { tree, i18n, onClose: closeTreeDetail });
+  syncDeepLink('tree', id, context.historyMode ?? 'push');
 }
 
 function closeTreeDetail() {
@@ -203,7 +219,7 @@ function closeTreeDetail() {
   }
 }
 
-function selectVisitorFeature(feature) {
+function selectVisitorFeature(feature, { historyMode = 'push' } = {}) {
   if (!feature) return;
   currentNodeId = null;
   currentTreeId = null;
@@ -214,6 +230,7 @@ function selectVisitorFeature(feature) {
     mapController.map.flyTo([feature.lat, feature.lng ?? feature.lon], Math.max(17, mapController.map.getZoom()), { duration: 0.35 });
   }
   renderVisitorFeatureDetail(elements.detail, { feature, i18n, onClose: closeVisitorFeature });
+  syncDeepLink('feature', feature.id, historyMode);
 }
 
 function closeVisitorFeature() {
@@ -285,12 +302,37 @@ function setupGps() {
   });
 }
 
-function restoreDeepLink() {
-  const match = location.hash.match(/^#place=([^&]+)/);
-  if (!match) return;
-  const id = decodeURIComponent(match[1]);
-  if (graph.nodesById.has(id)) selectNode(id, { source: 'deeplink' });
-  else if (graph.entitiesById.has(id)) selectEntity(id);
+function restoreDeepLink({ force = false } = {}) {
+  if (!graph) return false;
+  const fragment = location.hash;
+  if (!force && fragment === lastHandledFragment) return false;
+  const deepLink = parseDeepLink(fragment);
+  if (!deepLink) {
+    lastHandledFragment = fragment;
+    return false;
+  }
+
+  let restored = false;
+  if (deepLink.kind === 'place') {
+    if (graph.nodesById.has(deepLink.id)) {
+      selectNode(deepLink.id, { source: 'deeplink', historyMode: 'none' });
+      restored = true;
+    } else if (graph.entitiesById.has(deepLink.id)) {
+      selectEntity(deepLink.id, { historyMode: 'none' });
+      restored = true;
+    }
+  } else if (deepLink.kind === 'tree' && graph.trees.some(({ id }) => id === deepLink.id)) {
+    selectTree(deepLink.id, { source: 'deeplink', historyMode: 'none' });
+    restored = true;
+  } else if (deepLink.kind === 'feature') {
+    const feature = graph.visitorFeaturesById.get(deepLink.id);
+    if (feature) {
+      selectVisitorFeature(feature, { historyMode: 'none' });
+      restored = true;
+    }
+  }
+  lastHandledFragment = fragment;
+  return restored;
 }
 
 async function boot() {
@@ -314,7 +356,7 @@ async function boot() {
   setupGps();
   mapController.fitPark();
   setStatus(i18n.t('mapHint'));
-  restoreDeepLink();
+  restoreDeepLink({ force: true });
 }
 
 for (const button of elements.nav) button.addEventListener('click', () => graph && setView(button.dataset.view));
@@ -347,6 +389,9 @@ window.addEventListener('beforeunload', () => {
   gps?.stop();
   stopNarration();
 });
+
+window.addEventListener('hashchange', () => restoreDeepLink());
+window.addEventListener('popstate', () => restoreDeepLink());
 
 boot().catch((error) => {
   console.error(error);

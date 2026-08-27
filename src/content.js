@@ -23,8 +23,15 @@ function renderSemanticLinks(node, graph, language) {
     const phrase = direction === 'outgoing'
       ? `${relation} ${otherName}`
       : `${otherName} · ${relation}`;
-    const confidence = edge.confidence ? `${language === 'de' ? 'Evidenz' : 'evidence'}: ${edge.confidence}` : '';
-    return `<button type="button" class="semantic-link" data-semantic-id="${escapeHtml(other.id)}"><strong>${escapeHtml(phrase)}</strong>${confidence ? `<small>${escapeHtml(confidence)}</small>` : ''}</button>`;
+    const evidence = [
+      edge.confidence ? `${language === 'de' ? 'Evidenz' : 'Evidence'}: ${edge.confidence}` : '',
+      edge.provenance?.assertion ? `${language === 'de' ? 'Beleg' : 'Assertion'}: ${edge.provenance.assertion}` : '',
+      edge.provenance?.qualification ? `${language === 'de' ? 'Einordnung' : 'Qualification'}: ${edge.provenance.qualification}` : '',
+      edge.sources?.length
+        ? `${language === 'de' ? 'Quelle' : 'Source'}: ${edge.sources.map((source) => localized(source.title, language, source.publisher ?? source.id)).join('; ')}`
+        : '',
+    ].filter(Boolean);
+    return `<button type="button" class="semantic-link" data-semantic-id="${escapeHtml(other.id)}"><strong>${escapeHtml(phrase)}</strong>${evidence.map((line) => `<small>${escapeHtml(line)}</small>`).join('')}</button>`;
   }).filter(Boolean).join('');
   return rows ? `<section class="detail-section"><h3>${language === 'de' ? 'Historische Bezüge' : 'Historical connections'}</h3><div class="semantic-links">${rows}</div></section>` : '';
 }

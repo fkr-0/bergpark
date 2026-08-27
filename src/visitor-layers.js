@@ -1,4 +1,6 @@
 import L from 'leaflet';
+import { markerKeyboardActivation } from './leaflet-keyboard.js';
+import { firstAbsoluteHttpUrl } from './public-url.js';
 import { clusterVisitorFeatures } from './visitor-layer-data.js';
 
 function escapeHtml(value = '') {
@@ -9,13 +11,6 @@ function coordinate(feature) {
   const lat = Number(feature?.lat);
   const lng = Number(feature?.lng ?? feature?.lon);
   return Number.isFinite(lat) && Number.isFinite(lng) ? [lat, lng] : null;
-}
-
-function activateFromKeyboard(event, activate) {
-  const key = event.originalEvent?.key;
-  if (key !== 'Enter' && key !== ' ') return;
-  event.originalEvent.preventDefault();
-  activate();
 }
 
 const FAMILY_LABELS = {
@@ -76,7 +71,7 @@ export function createVisitorLayerController(map, layerData, { language = 'de', 
         L.marker([item.lat, item.lng], { icon, title: label, alt: label, keyboard: true })
           .bindTooltip(label)
           .on('click', activateFeature)
-          .on('keypress', (event) => activateFromKeyboard(event, activateFeature))
+          .on('keydown', markerKeyboardActivation(activateFeature))
           .addTo(layer);
       } else {
         const label = currentLanguage === 'de' ? `${item.count} Besucherobjekte` : `${item.count} visitor features`;
@@ -98,7 +93,7 @@ export function createVisitorLayerController(map, layerData, { language = 'de', 
         };
         L.marker([item.lat, item.lng], { icon, title: label, alt: label, keyboard: true })
           .on('click', activateCluster)
-          .on('keypress', (event) => activateFromKeyboard(event, activateCluster))
+          .on('keydown', markerKeyboardActivation(activateCluster))
           .addTo(layer);
       }
     }
@@ -134,23 +129,13 @@ export function renderVisitorLayerControl(container, { layerData, i18n, selected
   emit();
 }
 
-function safeHttpUrl(value) {
-  if (!value) return null;
-  try {
-    const url = new URL(value, window.location.href);
-    return ['http:', 'https:'].includes(url.protocol) ? url.href : null;
-  } catch {
-    return null;
-  }
-}
-
 export function renderVisitorFeatureDetail(container, { feature, i18n, onClose }) {
   const language = i18n.language;
   const kind = feature.layerKind ?? feature.family ?? 'visitor_poi';
   const label = visitorFeatureLabel(feature, language);
   const position = feature.position_source ?? {};
   const elevation = feature.elevation_source ?? {};
-  const sourceLink = (feature.sourceRefs ?? []).map(safeHttpUrl).find(Boolean);
+  const sourceLink = firstAbsoluteHttpUrl(feature.sourceRefs);
   const facts = kind === 'bench'
     ? [
         [language === 'de' ? 'Rückenlehne' : 'Backrest', feature.backrest],
