@@ -1,7 +1,7 @@
 .visitor-layer-control {
   position: absolute;
   z-index: 650;
-  top: 6.75rem;
+  top: 8.75rem;
   right: .75rem;
   width: min(17rem, calc(100% - 1.5rem));
   border: 1px solid rgb(23 53 44 / 20%);
@@ -122,7 +122,7 @@
 
 @media (max-width: 420px) {
   .visitor-layer-control {
-    top: 6.5rem;
+    top: 8.75rem;
     right: .5rem;
     width: min(15.5rem, calc(100% - 1rem));
   }
