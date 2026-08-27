@@ -1,84 +1,92 @@
 schema_version: 1
 release:
   unit: bergpark
-  candidate: 0.1.0-alpha.1
-  tag: v0.1.0-alpha.1
+  candidate: 0.1.0-alpha.2
+  tag: v0.1.0-alpha.2
   date: 2026-08-27
-  base_revision: 02405ef25f48f1c2da0e5158266aa746ffabb86b
-  application_revision_tested: fd93ef9a19c4d708687897b6137110ae3867a8da
-  final_tag_revision: 364307d4bcd459f02b5e0801b26c048784ca1042
+  previous_tag: v0.1.0-alpha.1
+  previous_tag_revision: 364307d4bcd459f02b5e0801b26c048784ca1042
+  source_head_before_release_metadata: 5b0925d9cd3223945d66b359dc8e3008d5a20bf1
+  release_commit: pending_until_candidate_commit
   publish_authorized: true
   target_repository: fkr-0/bergpark
   target_url: https://bergpark.fkr.dev
 versions:
-  before: 0.1.0
-  after: 0.1.0-alpha.1
+  before: 0.1.0-alpha.1
+  after: 0.1.0-alpha.2
+release_delta:
+  graph:
+    places: 30
+    directed_place_edges: 122
+    catalogued_trees: 569
+    benches: 215
+    path_nodes: 1408
+    directed_path_segments: 2858
+    visitor_pois: 109
+    figures: 5
+    artworks: 1
+    collections: 1
+    semantic_edges: 13
+  runtime:
+    - checked-in Chromium Playwright E2E
+    - Axe serious/critical accessibility release gate
+    - warmed offline-PWA reload qualification
+    - pull-request/main CI workflow
+    - Pages deployment gated by Node, Python, build and browser E2E
 metadata_changed:
   - package.json
   - package-lock.json
   - CHANGELOG.md
-  - ROADMAP.md
-  - README.md
+  - .gitignore
+  - docs/implementation-review.md
+  - .github/workflows/ci.yml
   - .github/workflows/pages.yml
-  - public/CNAME
-verification:
+  - playwright.config.js
+  - tests/e2e/visitor-guide.spec.js
+  - release-evidence.yml
+preflight_verification:
   - command: npm run check
-    location: .work/release-v0.1.0-alpha.1
-    revision: fd93ef9a19c4d708687897b6137110ae3867a8da
+    location: shared checkout
     result: pass
-    details: 8/8 Node tests PASS; Vite 8.2.2 production build PASS
-  - command: python -m unittest -v tests.test_graph
-    location: .work/release-v0.1.0-alpha.1
-    revision: fd93ef9a19c4d708687897b6137110ae3867a8da
+    details: 8/8 Node tests PASS; 45/45 Python tests PASS; Vite 8.2.2 production build PASS
+  - command: npm run test:e2e
+    location: shared checkout
     result: pass
-    details: 7/7 graph tests PASS
-  - command: built artifact runtime-data smoke
-    location: .work/release-v0.1.0-alpha.1/dist
-    revision: fd93ef9a19c4d708687897b6137110ae3867a8da
+    details: 3/3 Chromium Playwright tests PASS including deep-link/a11y and warmed offline reload
+  - command: npm audit
     result: pass
-    details: CNAME/manifest/service-worker/runtime JSON present; 30 nodes and 122 directed edges
-  - command: git diff --check
-    result: pass
+    details: dependency install reported 0 vulnerabilities
+release_gate:
+  exact_clean_worktree_check: pending
+  git_diff_check: pending
+  tag_created: false
+  pushed: false
+  github_release_created: false
+  ci_workflow: pending
+  pages_workflow: pending
+  production_e2e: pending
 artifacts:
-  dist_tree_sha256_manifest_sha256: b68d2787a76d51f30642fc5e5f3c4d88affbb7c497279aa6cf63eb2c675b0baa
-  approximate_dist_bytes: 1585506
-  generated_artifact_committed: false
+  dist_tree_sha256_manifest_sha256: pending
+  dist_bytes: pending
 known_limitations:
-  - Historic tree catalogue is not yet complete; tree explorer remains partial/pending.
-  - Secondary landmark DE/EN content is still expanding in a concurrent knowledge phase.
-  - Historical figures, artworks and semantic relationships are still expanding in graph Phase 3.
-  - Offline basemap behavior caches only tiles actually visited; it does not prefetch a complete park basemap.
-  - Firefox and iOS Safari production qualification remain beta gates.
+  - Firefox and iOS Safari/WebKit production qualification remain beta gates.
   - Live visitor facts such as opening hours and field accessibility remain source-dated rather than guaranteed.
 release_side_effects:
-  local_tag:
-    status: complete
-    tag: v0.1.0-alpha.1
-    tag_object: 17bd8b857c0c7e6f5e99c6204dbae6cf2e1456a7
-    peeled_commit: 364307d4bcd459f02b5e0801b26c048784ca1042
-  git_remote:
-    status: complete
-    name: origin
-    url: git@github.com:fkr-0/bergpark.git
-  github_repository:
-    status: complete
-    visibility: public
-    url: https://github.com/fkr-0/bergpark
-  github_release:
-    status: complete
-    prerelease: true
-    url: https://github.com/fkr-0/bergpark/releases/tag/v0.1.0-alpha.1
-  github_pages:
-    status: deployed
-    workflow_run: 33045746366
-    custom_domain: bergpark.fkr.dev
-    domain_verification: verified
-    http_smoke: pass
-    https_certificate: pending
-    https_enforced: false
   dns_cname:
-    status: complete
+    status: applied_idempotently
+    tool: godaddycli
     domain: fkr.dev
     name: bergpark
-    value: fkr-0.github.io
+    value: fkr-0.github.io.
     ttl_seconds: 600
+    apply_result: HTTP 200 OK
+  github_pages:
+    status: existing_https_deployment
+    custom_domain: bergpark.fkr.dev
+    domain_verification: verified
+    https_certificate:
+      state: approved
+      domains:
+        - bergpark.fkr.dev
+      expires_at: 2026-11-25
+    https_enforced: true

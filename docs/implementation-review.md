@@ -220,13 +220,19 @@ only.
 **Opportunity:** show known/unknown route evidence so the richer Phase-2 work
 becomes visitor value.
 
-### 17. Browser/a11y qualification is not reproducible from the repo
+### 17. Browser/a11y qualification is reproducible from the repo
 
-Release notes mention browser/accessibility qualification, but the repository
-has no browser test dependency or checked-in automated browser/a11y suite.
+Resolved for the alpha.2 release boundary: the repository now carries a
+Playwright Chromium smoke suite plus Axe serious/critical checks, and both the
+normal CI workflow and the GitHub Pages deployment run them after Node/Python
+integrity checks and the production build. The browser suite covers language
+switching, index search, deep links, route selection and a warmed offline reload.
+Third-party map tiles are deliberately suppressed so CI validates Bergpark
+behavior without crawling providers or depending on their availability.
 
-**Required change before beta:** add reproducible browser smoke tests and an
-a11y workflow, even if some manual device qualification remains necessary.
+**Remaining beta work:** add Firefox and iOS Safari/WebKit production
+qualification and retain manual device/accessibility review where automation is
+not sufficient.
 
 ### 18. Source refresh/change detection is ad hoc
 

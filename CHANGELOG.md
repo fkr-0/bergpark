@@ -5,6 +5,48 @@ This project follows Semantic Versioning. Pre-release versions are explicitly
 marked as alpha/beta until the visitor guide, knowledge graph and offline
 experience have completed their release gates.
 
+## [0.1.0-alpha.2] - 2026-08-27
+
+### Added
+
+- Reproducible Chromium end-to-end release tests covering application boot,
+  DE/EN switching, index search, landmark deep links, route selection and the
+  warmed offline-PWA path.
+- Automated Axe browser checks that fail the release gate on unreviewed serious
+  or critical accessibility findings.
+- Repository CI for pull requests and `main`, with Node tests, the complete
+  Python data-integrity suite, a production Vite build and browser E2E.
+- Expanded visitor data shipped by the post-alpha.1 graph phases: 569 catalogued
+  trees, 215 benches, 1,408 path nodes / 2,858 directed path segments, 109
+  source-grounded visitor POIs and the first sourced semantic entities/relations.
+
+### Changed
+
+- GitHub Pages now deploys only after the same complete data/runtime/build and
+  Chromium E2E/a11y gates pass in CI.
+- Place spatial provenance and graph composition are normalized so newer tree,
+  bench, path-topology, semantic and visitor-POI layers remain independently
+  validated while composing into the browser graph.
+- Browser E2E deliberately suppresses third-party map-tile traffic: the release
+  contract tests Bergpark behavior without turning CI into an OpenStreetMap tile
+  crawler or failing on an unrelated tile-provider outage.
+
+### Verification
+
+- Node visitor-guide tests: 8/8 PASS.
+- Python repository integrity suite: 45/45 PASS.
+- Vite 8.2.2 production build: PASS.
+- Chromium Playwright E2E: 3/3 PASS, including offline reload and automated
+  serious/critical accessibility qualification.
+- GoDaddy CNAME postflight and GitHub Pages custom-domain state: verified;
+  GitHub reports the `bergpark.fkr.dev` certificate approved and HTTPS enforced.
+
+### Known alpha limitations
+
+- Firefox and iOS Safari/WebKit production qualification remain beta gates.
+- Field-level accessibility, live opening hours and water-feature schedules
+  remain source-dated evidence rather than operational guarantees.
+
 ## [0.1.0-alpha.1] - 2026-08-27
 
 ### Added
@@ -61,3 +103,4 @@ experience have completed their release gates.
 - Firefox/iOS Safari production qualification remains part of the beta gate.
 
 [0.1.0-alpha.1]: https://github.com/fkr-0/bergpark/releases/tag/v0.1.0-alpha.1
+[0.1.0-alpha.2]: https://github.com/fkr-0/bergpark/releases/tag/v0.1.0-alpha.2
