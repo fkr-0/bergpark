@@ -82,10 +82,10 @@ release_gate:
   exact_clean_worktree_check: pass_at_3f418280949d4e49f93ac386204468dd2e9659e2
   git_diff_check: pass
   tag_created: false
-  pushed: pending_authorized_push_after_evidence_commit
+  pushed: true
   github_release_created: false
-  ci_workflow: pending
-  pages_workflow: pending
+  ci_workflow: triggered_by_main_push
+  pages_workflow: triggered_by_main_push
   production_e2e: pending
 artifacts:
   dist_tree_sha256_manifest_sha256: 54031058e725cb98adedec4470ed45daf6239f9cd101439a04b66444ba4fa8dd
