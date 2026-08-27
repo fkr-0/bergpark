@@ -41,8 +41,14 @@ class GraphExportTests(unittest.TestCase):
         self.assertTrue(all(e.get("surface_segments") for e in edges))
         self.assertTrue(all(len(e["elevation_profile_m"]) == len(e["path_coordinates"]) for e in edges))
         self.assertTrue(all(e["elevation_metric_sampling_m"] == 90 for e in edges))
-        self.assertNotIn("stairs_only", {e["accessibility"] for e in edges})
-        self.assertTrue(all({"access", "foot", "handrail"} <= set(e["surface_segments"][0]) for e in edges))
+        labels = {e["accessibility"] for e in edges}
+        self.assertNotIn("stairs_only", labels)
+        self.assertNotIn("potentially_step_free", labels)
+        segment_keys = {"access", "foot", "handrail", "osm_way_direction", "osm_incline", "route_incline"}
+        self.assertTrue(all(segment_keys <= set(e["surface_segments"][0]) for e in edges))
+        for edge in edges:
+            if edge["mapped_path_accessibility"] == "potentially_step_free_mapped_path" and edge["endpoint_access_unknown"]:
+                self.assertEqual("endpoint_access_unknown", edge["accessibility"])
 
     def test_reverse_edges_swap_elevation_metrics(self):
         edges = json.loads((DATA / "edges.json").read_text())["edges"]
@@ -51,6 +57,28 @@ class GraphExportTests(unittest.TestCase):
             reverse = by_pair[(edge["to"], edge["from"])]
             self.assertAlmostEqual(edge["elevation_delta_m"], -reverse["elevation_delta_m"], places=1)
             self.assertAlmostEqual(edge["ascent_m"], reverse["descent_m"], places=1)
+
+
+    def test_reverse_edges_reverse_surface_traversal(self):
+        edges = json.loads((DATA / "edges.json").read_text())["edges"]
+        by_pair = {(e["from"], e["to"]): e for e in edges}
+        for edge in edges:
+            reverse = by_pair[(edge["to"], edge["from"])]
+            forward_segments = edge["surface_segments"]
+            reverse_segments = reverse["surface_segments"]
+            self.assertEqual(
+                [s["osm_way_id"] for s in forward_segments],
+                list(reversed([s["osm_way_id"] for s in reverse_segments])),
+            )
+            for forward, backward in zip(forward_segments, reversed(reverse_segments)):
+                directions = {forward["osm_way_direction"], backward["osm_way_direction"]}
+                if "unknown" not in directions:
+                    self.assertEqual({"forward", "reverse"}, directions)
+                if forward["route_incline"] in {"up", "down"}:
+                    self.assertEqual(
+                        "down" if forward["route_incline"] == "up" else "up",
+                        backward["route_incline"],
+                    )
 
     def test_watercourse_reference_is_a_separate_audit(self):
         manifest = json.loads((DATA / "source_manifest.json").read_text())

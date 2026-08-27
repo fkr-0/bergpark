@@ -314,16 +314,64 @@ def normalize_surface(raw: str | None, highway: str | None) -> str:
     return "unknown"
 
 
+def way_traversal_direction(refs: list[str], a: str, b: str) -> str:
+    for left, right in zip(refs, refs[1:]):
+        if left == a and right == b:
+            return "forward"
+        if left == b and right == a:
+            return "reverse"
+    return "unknown"
+
+
+def route_relative_incline(raw: str | None, direction: str) -> str | None:
+    if not raw or direction == "unknown":
+        return None
+    if direction == "forward":
+        return raw
+    lowered = raw.lower()
+    if lowered == "up":
+        return "down"
+    if lowered == "down":
+        return "up"
+    suffix = "%" if raw.endswith("%") else ""
+    number = raw[:-1] if suffix else raw
+    try:
+        return f"{-float(number):g}{suffix}"
+    except ValueError:
+        return None
+
+
+def reverse_surface_segments(segments: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    out = []
+    for segment in reversed(segments):
+        reversed_segment = dict(segment)
+        direction = segment.get("osm_way_direction")
+        if direction == "forward":
+            direction = "reverse"
+        elif direction == "reverse":
+            direction = "forward"
+        reversed_segment["osm_way_direction"] = direction
+        reversed_segment["route_incline"] = route_relative_incline(
+            reversed_segment.get("osm_incline"), direction
+        )
+        out.append(reversed_segment)
+    return out
+
+
 def build_surface_segments(
     node_path: list[str],
     segs: list[tuple[str, str, dict[str, str]]],
     nodes: dict[str, tuple[float, float]],
+    ways: dict[str, dict[str, Any]],
 ) -> list[dict[str, Any]]:
     grouped: list[dict[str, Any]] = []
     for index, (_, wid, tags) in enumerate(segs):
         a, b = node_path[index], node_path[index + 1]
         distance = haversine(nodes[a], nodes[b])
         surface = normalize_surface(tags.get("surface"), tags.get("highway"))
+        direction = way_traversal_direction(ways[wid]["refs"], a, b)
+        osm_incline = tags.get("incline")
+        route_incline = route_relative_incline(osm_incline, direction)
         signature = (
             wid,
             surface,
@@ -334,7 +382,9 @@ def build_surface_segments(
             tags.get("access"),
             tags.get("foot"),
             tags.get("handrail"),
-            tags.get("incline"),
+            direction,
+            osm_incline,
+            route_incline,
             tags.get("sac_scale"),
         )
         if grouped and grouped[-1]["_signature"] == signature:
@@ -353,7 +403,9 @@ def build_surface_segments(
                 "access": tags.get("access"),
                 "foot": tags.get("foot"),
                 "handrail": tags.get("handrail"),
-                "incline": tags.get("incline"),
+                "osm_way_direction": direction,
+                "osm_incline": osm_incline,
+                "route_incline": route_incline,
                 "sac_scale": tags.get("sac_scale"),
                 "steps": tags.get("highway") == "steps",
             }
@@ -385,7 +437,7 @@ def summarize_surface(segments: list[dict[str, Any]]) -> dict[str, Any]:
     ):
         accessibility = "limited"
     elif segments and all(s["surface"] in {"paved", "gravel"} for s in segments):
-        accessibility = "potentially_step_free"
+        accessibility = "potentially_step_free_mapped_path"
     else:
         accessibility = "unknown"
     return {
@@ -464,7 +516,7 @@ def build_pairwise_routes(places: list[dict[str, Any]]):
                 path_coordinates = [[pa["lat"], pa["lng"]]]
                 path_coordinates.extend([[round(nodes[n][0], 7), round(nodes[n][1], 7)] for n in node_path])
                 path_coordinates.append([pb["lat"], pb["lng"]])
-                surface_segments = build_surface_segments(node_path, segs, nodes)
+                surface_segments = build_surface_segments(node_path, segs, nodes, ways)
                 way_ids = []
                 for _, wid, _ in segs:
                     if not way_ids or way_ids[-1] != wid:
@@ -548,15 +600,22 @@ def directed_edges(
         profile = elevation_profile_metrics(r["path_coordinates"], elevations, r["distance_m"])
         forward_walk = max(1, round(r["distance_m"] / (5000 / 60) + profile["ascent_m"] / 10))
         reverse_walk = max(1, round(r["distance_m"] / (5000 / 60) + profile["descent_m"] / 10))
+        endpoint_snap_total = r["snap_distance_m"][a] + r["snap_distance_m"][b]
+        endpoint_access_unknown = endpoint_snap_total > 2.0
+        full_route_accessibility = r["accessibility"]
+        if r["accessibility"] == "potentially_step_free_mapped_path" and endpoint_access_unknown:
+            full_route_accessibility = "endpoint_access_unknown"
         base = {
             "distance_m": round(r["distance_m"], 1),
             "surface": r["surface"],
             "surface_mix": r["surface_mix"],
             "surface_distance_m": r["surface_distance_m"],
-            "surface_segments": r["surface_segments"],
             "contains_steps": r["contains_steps"],
             "step_distance_m": r["step_distance_m"],
-            "accessibility": r["accessibility"],
+            "accessibility": full_route_accessibility,
+            "mapped_path_accessibility": r["accessibility"],
+            "endpoint_access_unknown": endpoint_access_unknown,
+            "endpoint_snap_total_m": round(endpoint_snap_total, 1),
             "osm_way_ids": r["osm_way_ids"],
             "routing_source": "OpenStreetMap shortest walking path",
             "license": "ODbL-1.0",
@@ -574,6 +633,7 @@ def directed_edges(
                 "to": b,
                 **base,
                 "walking_min": forward_walk,
+                "surface_segments": r["surface_segments"],
                 "elevation_delta_m": profile["elevation_delta_m"],
                 "ascent_m": profile["ascent_m"],
                 "descent_m": profile["descent_m"],
@@ -596,6 +656,7 @@ def directed_edges(
                 "to": a,
                 **base,
                 "walking_min": reverse_walk,
+                "surface_segments": reverse_surface_segments(r["surface_segments"]),
                 "elevation_delta_m": -profile["elevation_delta_m"],
                 "ascent_m": profile["descent_m"],
                 "descent_m": profile["ascent_m"],

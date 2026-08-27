@@ -37,10 +37,21 @@ Required keys:
 
 Directed edges use `from` and `to`, carry OSM-derived path geometry, and keep
 provenance for every contributing OSM way. `surface_segments` records contiguous
-OSM-way sections with distance, highway, normalized/raw surface, smoothness,
-access, foot, handrail, wheelchair, incline and SAC-scale tags. Route-level `surface` is a distance-
-weighted summary; `contains_steps` and `step_distance_m` prevent a route with a
-short stair section from being mislabeled as entirely stairs.
+OSM-way sections in travel order with distance, highway, normalized/raw surface,
+smoothness, access, foot, handrail, wheelchair and SAC-scale tags. Directional
+metadata separates the raw OSM `osm_incline` tag from `route_incline` and records
+`osm_way_direction`, so reversing an edge reverses both segment order and the
+interpreted travel direction. Route-level `surface` is a distance-weighted
+summary; `contains_steps` and `step_distance_m` prevent a route with a short
+stair section from being mislabeled as entirely stairs.
+
+Accessibility derived from OSM applies to the mapped walking-network portion.
+Landmark representative points may be connected to that network by a short
+straight snap whose surface and barrier state are not mapped by this model.
+`mapped_path_accessibility` therefore preserves OSM-path evidence separately;
+`endpoint_access_unknown` and `endpoint_snap_total_m` make that gap explicit. A
+mapped path that appears step-free is labelled
+`potentially_step_free_mapped_path`, never as a field-verified end-to-end route.
 
 Phase-2 terrain fields are based on the Open-Meteo Elevation API's Copernicus
 DEM 2021 GLO-90 data (90 m resolution). Every edge has a dense display elevation

@@ -114,11 +114,21 @@ def main() -> int:
         if e.get("elevation_metric_sampling_m") != 90 or e.get("elevation_metric_sample_count", 0) < 2:
             bad_elevation_edges.append(e["id"])
         segments = e.get("surface_segments", [])
+        required_segment_keys = {"access", "foot", "handrail", "osm_way_direction", "osm_incline", "route_incline"}
+        if not segments or any(not required_segment_keys <= set(segment) for segment in segments):
+            bad_surface_segments.append(e["id"])
         segment_distance = sum(s.get("distance_m", 0) for s in segments)
         snap_distance = e.get("snap_distance_m", {}).get("from", 0) + e.get("snap_distance_m", {}).get("to", 0)
         if not segments or abs((segment_distance + snap_distance) - e["distance_m"]) > 3.0:
             bad_surface_segments.append(e["id"])
-        if e.get("accessibility") == "stairs_only":
+        if e.get("accessibility") in {"stairs_only", "potentially_step_free"}:
+            bad_surface_segments.append(e["id"])
+        snap_total = e.get("snap_distance_m", {}).get("from", 0) + e.get("snap_distance_m", {}).get("to", 0)
+        if (
+            e.get("mapped_path_accessibility") == "potentially_step_free_mapped_path"
+            and snap_total > 2.0
+            and (e.get("accessibility") != "endpoint_access_unknown" or not e.get("endpoint_access_unknown"))
+        ):
             bad_surface_segments.append(e["id"])
     checks.append({"id": "edge_distances_not_shorter_than_geodesic", "pass": not implausible, "failures": implausible})
     errors.extend(f"implausibly short routed edge: {x['edge']}" for x in implausible)
@@ -155,6 +165,10 @@ def main() -> int:
         if abs(e["elevation_delta_m"] + reverse["elevation_delta_m"]) > 0.11:
             reverse_metric_errors.append(e["id"])
         if abs(e["ascent_m"] - reverse["descent_m"]) > 0.11 or abs(e["descent_m"] - reverse["ascent_m"]) > 0.11:
+            reverse_metric_errors.append(e["id"])
+        forward_way_ids = [segment.get("osm_way_id") for segment in e.get("surface_segments", [])]
+        reverse_way_ids = [segment.get("osm_way_id") for segment in reverse.get("surface_segments", [])]
+        if forward_way_ids != list(reversed(reverse_way_ids)):
             reverse_metric_errors.append(e["id"])
     reverse_metric_errors = sorted(set(reverse_metric_errors))
     checks.append({"id": "reverse_elevation_metrics_consistent", "pass": not reverse_metric_errors, "failures": reverse_metric_errors})
