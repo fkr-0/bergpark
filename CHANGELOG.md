@@ -7,6 +7,27 @@ experience have completed their release gates.
 
 ## [Unreleased]
 
+### Fixed
+
+- Visitor evidence links reject relative/internal research references and select
+  only absolute HTTP(S) evidence, so bench details no longer turn preserved
+  `data/sources/...` snapshots into clickable runtime links.
+- Semantic `displayed_at` relations are localized and now surface relation
+  confidence, source evidence, assertion and qualification; the Rembrandt display
+  relation remains explicitly a museum-location statement rather than an ownership
+  or acquisition-history inference.
+- Place, tree and visitor-feature fragment state now restores during in-session
+  hash changes and browser back/forward navigation without recursive history writes;
+  malformed or missing IDs fail safely.
+- Tree points and tree clusters explicitly activate with Enter/Space through the
+  shared Leaflet keyboard helper used by landmark markers.
+
+### Documentation
+
+- ROADMAP current-baseline claims now reflect durable alpha.4/alpha.5 visitor
+  functionality and the bounded Graph Phase-8 topology/routing authority without
+  rewriting historical phase descriptions or release metadata.
+
 ## [0.1.0-alpha.5] - 2026-08-27
 
 ### Added
