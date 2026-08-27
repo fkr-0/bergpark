@@ -203,6 +203,46 @@ These are data records, not executable functions. Direction-specific grade,
 surface/access changes and source IDs must remain serializable so routing and UI
 clients can reason about them independently.
 
+## Phase-4 composition contract
+
+`data/graph.json` is a composition artifact only. Its sole producer is
+`scripts/compose_graph.py`; the composer reads canonical layer files and must not
+rewrite any producer output. The Phase-4 aggregate keeps the existing top-level
+`nodes`, `edges`, `trees`, `figures`, `artworks`, `collections` and
+`semantic_edges` fields and adds three backward-compatible top-level fields:
+
+- `benches` — exact rows from `data/benches.json`;
+- `path_nodes` — exact rows from `data/path_topology.json#path_nodes`;
+- `path_segments` — exact rows from `data/path_topology.json#directed_segments`.
+
+The composer accepts only the explicitly supported input schema versions. Before
+writing `graph.json` it validates ID uniqueness and cross-layer references,
+including walking-edge place refs, semantic entity refs, path-segment endpoints
+and path-node segment refs. Missing files, placeholder/incompatible schemas,
+invalid declared counts or duplicate IDs fail closed before the aggregate is
+written.
+
+`graph.json.composition` records the composition schema, the composer path and a
+SHA-256/size/schema record for every input layer. `input_set_sha256` hashes that
+ordered manifest. The aggregate `generated_at` is derived from the newest
+`generated_at` value already present in the hashed inputs rather than wall-clock
+time, so repeated composition from byte-identical inputs is byte-identical.
+Validation recomputes the input records and fails if an independently owned layer
+changes without recomposition.
+
+The compatibility entry point `scripts/build_graph.py` still regenerates its
+Phase-2-owned `nodes.json`, `edges.json` and `source_manifest.json`, then delegates
+the aggregate write to `compose_graph.py`. Direct composition can therefore be
+used without touching any lower-level layer.
+
+Canonical place-position normalization remains a separate producer migration.
+Stable place IDs and current representative coordinates must remain unchanged
+until the spatial producer and knowledge/runtime consumers are coordinated.
+When normalized, places should add `position_source.horizontal_accuracy_m` and
+`elevation_source.vertical_accuracy_m` as numeric values only when a source
+actually reports a defensible accuracy; otherwise they remain `null`. Physical
+structure/object height stays separate from terrain `elevation_m`.
+
 ## Provenance
 
 OpenStreetMap-derived data is subject to the Open Database License (ODbL).

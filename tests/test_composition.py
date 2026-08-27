@@ -1,0 +1,109 @@
+import json
+import pathlib
+import shutil
+import tempfile
+import unittest
+
+from scripts.compose_graph import assert_graph_inputs_current, compose_graph, sha256_file
+
+
+ROOT = pathlib.Path(__file__).resolve().parents[1]
+DATA = ROOT / "data"
+WORK = ROOT / ".work"
+CORE_INPUTS = ("nodes.json", "edges.json", "source_manifest.json")
+INDEPENDENT_INPUTS = (
+    "trees.json",
+    "benches.json",
+    "path_topology.json",
+    "figures.json",
+    "semantic.json",
+)
+
+
+class CompositionTests(unittest.TestCase):
+    def setUp(self):
+        WORK.mkdir(exist_ok=True)
+        self.temp = tempfile.TemporaryDirectory(prefix="bergpark-compose-phase4-", dir=WORK)
+        self.output = pathlib.Path(self.temp.name)
+        for filename in CORE_INPUTS:
+            shutil.copy2(DATA / filename, self.output / filename)
+
+    def tearDown(self):
+        self.temp.cleanup()
+
+    def test_composer_only_writes_graph_and_is_byte_deterministic(self):
+        before = {filename: sha256_file(DATA / filename) for filename in INDEPENDENT_INPUTS}
+
+        first = compose_graph(self.output)
+        first_bytes = (self.output / "graph.json").read_bytes()
+        second = compose_graph(self.output)
+        second_bytes = (self.output / "graph.json").read_bytes()
+
+        self.assertEqual(first_bytes, second_bytes)
+        self.assertEqual(first["composition"], second["composition"])
+        self.assertEqual(
+            before,
+            {filename: sha256_file(DATA / filename) for filename in INDEPENDENT_INPUTS},
+        )
+        self.assertEqual(set(CORE_INPUTS) | {"graph.json"}, {p.name for p in self.output.iterdir()})
+
+    def test_composed_spatial_layers_match_independent_producers_exactly(self):
+        graph = compose_graph(self.output)
+        benches = json.loads((DATA / "benches.json").read_text())
+        topology = json.loads((DATA / "path_topology.json").read_text())
+
+        self.assertEqual(benches["benches"], graph["benches"])
+        self.assertEqual(topology["path_nodes"], graph["path_nodes"])
+        self.assertEqual(topology["directed_segments"], graph["path_segments"])
+        self.assertEqual(215, len(graph["benches"]))
+        self.assertEqual(1408, len(graph["path_nodes"]))
+        self.assertEqual(2858, len(graph["path_segments"]))
+        self.assertEqual("data/benches.json", graph["provenance"]["bench_layer"])
+        self.assertEqual("data/path_topology.json", graph["provenance"]["path_topology_layer"])
+        assert_graph_inputs_current(graph, self.output)
+
+    def test_stale_composition_hash_fails_closed(self):
+        graph = compose_graph(self.output)
+        shutil.copy2(DATA / "benches.json", self.output / "benches.json")
+        benches = json.loads((self.output / "benches.json").read_text())
+        benches["status"] = "changed-after-composition"
+        (self.output / "benches.json").write_text(json.dumps(benches, ensure_ascii=False, indent=2) + "\n")
+
+        with self.assertRaisesRegex(ValueError, "stale"):
+            assert_graph_inputs_current(graph, self.output)
+
+    def test_incompatible_input_schema_fails_before_graph_write(self):
+        nodes_path = self.output / "nodes.json"
+        nodes = json.loads(nodes_path.read_text())
+        nodes["schema_version"] = 99
+        nodes_path.write_text(json.dumps(nodes, ensure_ascii=False, indent=2) + "\n")
+
+        with self.assertRaisesRegex(ValueError, "schema_version"):
+            compose_graph(self.output)
+        self.assertFalse((self.output / "graph.json").exists())
+
+    def test_duplicate_poi_ids_fail_closed(self):
+        benches_path = self.output / "benches.json"
+        shutil.copy2(DATA / "benches.json", benches_path)
+        benches = json.loads(benches_path.read_text())
+        benches["benches"][1]["id"] = benches["benches"][0]["id"]
+        benches_path.write_text(json.dumps(benches, ensure_ascii=False, indent=2) + "\n")
+
+        with self.assertRaisesRegex(ValueError, "duplicate ids"):
+            compose_graph(self.output)
+        self.assertFalse((self.output / "graph.json").exists())
+
+    def test_broken_semantic_provenance_fails_closed(self):
+        semantic_path = self.output / "semantic.json"
+        shutil.copy2(DATA / "semantic.json", semantic_path)
+        semantic = json.loads(semantic_path.read_text())
+        semantic["semantic_edges"][0]["provenance"]["qualification"] = ""
+        semantic_path.write_text(json.dumps(semantic, ensure_ascii=False, indent=2) + "\n")
+
+        with self.assertRaisesRegex(ValueError, "source/confidence/provenance"):
+            compose_graph(self.output)
+        self.assertFalse((self.output / "graph.json").exists())
+
+
+if __name__ == "__main__":
+    unittest.main()

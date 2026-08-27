@@ -11,6 +11,11 @@ from collections import defaultdict, deque
 from datetime import datetime, timezone
 from typing import Any
 
+try:
+    from .compose_graph import assert_graph_inputs_current
+except ImportError:  # Direct `python scripts/validate_graph.py` execution.
+    from compose_graph import assert_graph_inputs_current
+
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 DATA = pathlib.Path(os.environ.get("BERGPARK_OUTPUT_DATA", str(ROOT / "data"))).resolve()
@@ -46,12 +51,17 @@ def main() -> int:
     figures_doc = load_curated("figures.json")
     semantic_doc = load_curated("semantic.json")
     trees_doc = load_curated("trees.json")
+    benches_doc = load_curated("benches.json")
+    path_topology_doc = load_curated("path_topology.json")
     figures = figures_doc.get("figures", [])
     artworks = semantic_doc.get("artworks", [])
     collections = semantic_doc.get("collections", [])
     semantic_edges = semantic_doc.get("semantic_edges", [])
     semantic_sources = semantic_doc.get("sources", [])
     trees = trees_doc.get("trees", [])
+    benches = benches_doc.get("benches", [])
+    path_nodes = path_topology_doc.get("path_nodes", [])
+    path_segments = path_topology_doc.get("directed_segments", [])
     node_ids = {n["id"] for n in nodes}
     checks = []
     errors = []
@@ -217,6 +227,8 @@ def main() -> int:
     entity_groups = {
         "place": nodes,
         "tree": trees,
+        "bench": benches,
+        "path_node": path_nodes,
         "historical_figure": figures,
         "artwork": artworks,
         "collection": collections,
@@ -232,7 +244,7 @@ def main() -> int:
 
     bad_entity_sources = []
     for kind, row in entity_rows:
-        if kind in {"place", "tree"}:
+        if kind in {"place", "tree", "bench", "path_node"}:
             continue
         refs = row.get("source_ids", [])
         if not refs or any(ref not in source_id_set for ref in refs):
@@ -300,21 +312,57 @@ def main() -> int:
     checks.append({"id": "artworks_and_collections_are_entities", "pass": not artwork_entity_failures, "failures": artwork_entity_failures})
     errors.extend(f"invalid artwork/collection entity: {x}" for x in artwork_entity_failures)
 
+    path_topology_failures = []
+    path_node_ids = {row.get("id") for row in path_nodes}
+    path_segment_ids = [row.get("id") for row in path_segments]
+    if len(path_segment_ids) != len(set(path_segment_ids)):
+        path_topology_failures.append("duplicate_path_segment_ids")
+    for segment in path_segments:
+        if segment.get("from") not in path_node_ids or segment.get("to") not in path_node_ids:
+            path_topology_failures.append(segment.get("id", "<missing-segment-id>"))
+    path_segment_id_set = {segment_id for segment_id in path_segment_ids if segment_id}
+    for path_node in path_nodes:
+        refs = path_node.get("next_segment_ids", []) + path_node.get("previous_segment_ids", [])
+        if any(ref not in path_segment_id_set for ref in refs):
+            path_topology_failures.append(path_node.get("id", "<missing-path-node-id>"))
+    path_topology_failures = sorted(set(path_topology_failures))
+    checks.append(
+        {
+            "id": "composed_path_topology_references_valid",
+            "pass": not path_topology_failures,
+            "failures": path_topology_failures,
+        }
+    )
+    errors.extend(f"invalid composed path topology: {x}" for x in path_topology_failures)
+
     composition_failures = []
     expected_graph_layers = {
-        "trees": {row["id"] for row in trees},
-        "figures": {row["id"] for row in figures},
-        "artworks": {row["id"] for row in artworks},
-        "collections": {row["id"] for row in collections},
-        "semantic_edges": {row["id"] for row in semantic_edges},
+        "trees": trees,
+        "benches": benches,
+        "path_nodes": path_nodes,
+        "path_segments": path_segments,
+        "figures": figures,
+        "artworks": artworks,
+        "collections": collections,
+        "semantic_edges": semantic_edges,
     }
-    for key, expected_ids in expected_graph_layers.items():
-        actual_ids = {row.get("id") for row in graph.get(key, [])}
-        if actual_ids != expected_ids:
+    for key, expected_rows in expected_graph_layers.items():
+        if graph.get(key) != expected_rows:
             composition_failures.append(key)
-    if graph.get("provenance", {}).get("semantic_source_registry") != "data/semantic.json#sources":
+    provenance = graph.get("provenance", {})
+    if provenance.get("semantic_source_registry") != "data/semantic.json#sources":
         composition_failures.append("semantic_source_registry")
-    checks.append({"id": "graph_composes_curated_layers", "pass": not composition_failures, "failures": composition_failures})
+    if provenance.get("bench_layer") != "data/benches.json":
+        composition_failures.append("bench_layer_provenance")
+    if provenance.get("path_topology_layer") != "data/path_topology.json":
+        composition_failures.append("path_topology_provenance")
+    checks.append(
+        {
+            "id": "graph_composes_independent_layers_exactly",
+            "pass": not composition_failures,
+            "failures": composition_failures,
+        }
+    )
     errors.extend(f"graph layer composition mismatch: {x}" for x in composition_failures)
 
     spatial_composition_failures = []
@@ -333,6 +381,20 @@ def main() -> int:
         f"graph Phase-2 spatial layer mismatch: {x}" for x in spatial_composition_failures
     )
 
+    composition_hash_failures = []
+    try:
+        assert_graph_inputs_current(graph, DATA)
+    except (FileNotFoundError, TypeError, ValueError, json.JSONDecodeError) as exc:
+        composition_hash_failures.append(str(exc))
+    checks.append(
+        {
+            "id": "graph_composition_input_hashes_current",
+            "pass": not composition_hash_failures,
+            "failures": composition_hash_failures,
+        }
+    )
+    errors.extend(f"stale or incompatible graph composition: {x}" for x in composition_hash_failures)
+
     status = "pass" if not errors else "fail"
     out = {
         "schema_version": 1,
@@ -342,6 +404,9 @@ def main() -> int:
             "place_nodes": len(nodes),
             "directed_path_edges": len(edges),
             "catalogued_trees": len(trees),
+            "benches": len(benches),
+            "path_nodes": len(path_nodes),
+            "directed_path_segments": len(path_segments),
             "historical_figures": len(figures),
             "artworks": len(artworks),
             "collections": len(collections),
@@ -362,9 +427,11 @@ def main() -> int:
         ],
         "phase_3_known_limits": [
             "Historical authorship/patronage edges encode only the scope explicitly supported by their cited sources; later restoration or replacement phases are not silently folded into earlier design relations.",
-            "Phase-2 place nodes expose coordinate source/method/confidence and GLO-90 terrain elevation, but numeric horizontal/vertical accuracy fields are not yet normalized across every mapped entity.",
-            "Explicit sampled path topology is now durable as a standalone layer in data/path_topology.json (intersections/turns and material gradient/surface/access changes), but Phase 3 does not compose that layer into graph.json yet.",
-            "Bench POIs are now durable as a standalone first-class layer in data/benches.json; Phase 3 does not compose benches into graph.json yet.",
+        ],
+        "phase_4_known_limits": [
+            "Phase-2 place nodes still expose coordinate source/method/confidence rather than the normalized position_source plus numeric-or-unknown accuracy contract; stable IDs and current representative coordinates are intentionally unchanged pending coordinated ownership.",
+            "The composed path topology remains the qualified landmark-route projection, not a claim of complete park path-network coverage.",
+            "Bench and path-topology rows are composed exactly from their independently owned layers; composition does not upgrade source-reported accuracy or accessibility certainty.",
         ],
     }
     (DATA / "validation.json").write_text(json.dumps(out, ensure_ascii=False, indent=2) + "\n")

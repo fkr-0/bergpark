@@ -16,6 +16,8 @@ class SemanticGraphTests(unittest.TestCase):
     def setUpClass(cls):
         cls.nodes = load("nodes.json")["nodes"]
         cls.trees = load("trees.json").get("trees", [])
+        cls.benches = load("benches.json").get("benches", [])
+        cls.path_topology = load("path_topology.json")
         cls.figures = load("figures.json").get("figures", [])
         cls.semantic = load("semantic.json")
         cls.graph = load("graph.json")
@@ -25,7 +27,15 @@ class SemanticGraphTests(unittest.TestCase):
         cls.edges = cls.semantic.get("semantic_edges", [])
         cls.entities = {
             row["id"]
-            for rows in (cls.nodes, cls.trees, cls.figures, cls.artworks, cls.collections)
+            for rows in (
+                cls.nodes,
+                cls.trees,
+                cls.benches,
+                cls.path_topology.get("path_nodes", []),
+                cls.figures,
+                cls.artworks,
+                cls.collections,
+            )
             for row in rows
         }
 
@@ -120,6 +130,9 @@ class SemanticGraphTests(unittest.TestCase):
             {row["id"] for row in self.trees},
             {row["id"] for row in self.graph["trees"]},
         )
+        self.assertEqual(self.benches, self.graph["benches"])
+        self.assertEqual(self.path_topology["path_nodes"], self.graph["path_nodes"])
+        self.assertEqual(self.path_topology["directed_segments"], self.graph["path_segments"])
         self.assertEqual(
             {row["id"] for row in self.figures},
             {row["id"] for row in self.graph["figures"]},
@@ -140,6 +153,8 @@ class SemanticGraphTests(unittest.TestCase):
             "data/semantic.json#sources",
             self.graph["provenance"]["semantic_source_registry"],
         )
+        self.assertEqual("scripts/compose_graph.py", self.graph["composition"]["builder"])
+        self.assertEqual(8, len(self.graph["composition"]["inputs"]))
 
     def test_phase2_route_semantics_survive_composition(self):
         segment_keys = {
