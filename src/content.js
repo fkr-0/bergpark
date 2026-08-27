@@ -29,6 +29,20 @@ function renderSemanticLinks(node, graph, language) {
   return rows ? `<section class="detail-section"><h3>${language === 'de' ? 'Historische Bezüge' : 'Historical connections'}</h3><div class="semantic-links">${rows}</div></section>` : '';
 }
 
+function renderSemanticFacts(node, graph, language) {
+  const entityName = (id) => {
+    const entity = graph?.entitiesById?.get(id) ?? graph?.nodesById?.get(id);
+    return entity ? localized(entity.name, language, id) : id;
+  };
+  const facts = [];
+  if (node.roles?.length) facts.push([language === 'de' ? 'Rollen' : 'Roles', node.roles.join(', ').replaceAll('_', ' ')]);
+  if (node.object_type) facts.push([language === 'de' ? 'Objekttyp' : 'Object type', node.object_type.replaceAll('_', ' ')]);
+  if (node.creator_id) facts.push([language === 'de' ? 'Urheber' : 'Creator', entityName(node.creator_id)]);
+  if (node.current_place_id) facts.push([language === 'de' ? 'Ortsbezug' : 'Place reference', entityName(node.current_place_id)]);
+  if (!facts.length) return '';
+  return `<section class="detail-section semantic-facts"><h3>${language === 'de' ? 'Einordnung' : 'Context'}</h3><dl>${facts.map(([label, value]) => `<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></div>`).join('')}</dl></section>`;
+}
+
 function safeImageUrl(value) {
   if (!value) return null;
   try {
@@ -172,6 +186,7 @@ export function renderNodeDetail(container, { node, graph, i18n, onNavigate, onS
       ${renderGallery(node, language)}
       ${sections.map(({ heading, text }) => `<section class="detail-section"><h3>${escapeHtml(heading)}</h3><p>${escapeHtml(text)}</p></section>`).join('')}
       ${renderArtworks(node, language)}
+      ${renderSemanticFacts(node, graph, language)}
       ${renderSemanticLinks(node, graph, language)}
       ${renderVisitInfo(node, language)}
       ${outgoing.length ? `

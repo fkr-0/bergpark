@@ -18,6 +18,9 @@ export function filterGlossary(nodes, query, language) {
         localized(node.description, language),
         node.type,
         ...(node.aliases ?? []),
+        ...(node.searchTerms ?? []),
+        ...(node.roles ?? []),
+        node.object_type,
       ].filter(Boolean).join(' ');
       return normalize(haystack).includes(needle);
     })
@@ -41,7 +44,7 @@ export function renderGlossary(container, { nodes, i18n, onSelectNode }) {
   function update() {
     const matches = filterGlossary(nodes, input.value, language);
     list.innerHTML = matches.length
-      ? matches.map((node) => `<button type="button" data-node-id="${escapeHtml(node.id)}"><span>${escapeHtml(localized(node.name, language, node.id))}</span><small>${escapeHtml(node.type ?? '')}</small></button>`).join('')
+      ? matches.map((node) => `<button type="button" data-node-id="${escapeHtml(node.id)}"><span>${escapeHtml(localized(node.name, language, node.id))}</span><small>${escapeHtml((node.type ?? '').replaceAll('_', ' '))}${node.roles?.length ? ` · ${escapeHtml(node.roles.join(', ').replaceAll('_', ' '))}` : ''}</small></button>`).join('')
       : `<p class="empty-state">${i18n.t('noResults')}</p>`;
     for (const button of list.querySelectorAll('[data-node-id]')) {
       button.addEventListener('click', () => onSelectNode(button.dataset.nodeId));

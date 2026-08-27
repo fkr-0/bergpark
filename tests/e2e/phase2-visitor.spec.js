@@ -1,17 +1,9 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
-
-function captureRuntimeErrors(page) {
-  const errors = [];
-  page.on('pageerror', (error) => errors.push(`pageerror: ${error.message}`));
-  page.on('console', (message) => {
-    if (message.type() === 'error') errors.push(`console: ${message.text()}`);
-  });
-  return errors;
-}
+import { captureRuntimeErrors, stubThirdPartyMapTiles } from './test-support.js';
 
 async function openVisitorGuide(page, path = '/') {
-  await page.route(/https:\/\/[^/]*tile\.(openstreetmap|opentopomap)\.org\//, (route) => route.abort());
+  await stubThirdPartyMapTiles(page);
   await page.goto(path);
   await expect(page.locator('#map')).toHaveClass(/leaflet-container/);
   await expect(page.locator('.bergpark-marker').first()).toBeVisible();

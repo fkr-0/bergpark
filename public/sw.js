@@ -1,4 +1,4 @@
-const SHELL_CACHE = 'bergpark-shell-v3';
+const SHELL_CACHE = 'bergpark-shell-v4';
 const TILE_CACHE = 'bergpark-tiles-v1';
 const SHELL = ['./manifest.webmanifest'];
 const RUNTIME_DATA = [
@@ -10,6 +10,8 @@ const RUNTIME_DATA = [
   './data/trees.json',
   './data/figures.json',
   './data/semantic.json',
+  './data/benches.json',
+  './data/visitor_pois.json',
 ];
 
 self.addEventListener('install', (event) => {

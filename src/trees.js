@@ -43,7 +43,7 @@ export function clusterTrees(trees, zoom = 15) {
   return [...buckets.values()].map((bucket) => ({ ...bucket, lat: bucket.lat / bucket.count, lng: bucket.lng / bucket.count }));
 }
 
-function treeSpecies(tree, language) {
+export function treeSpecies(tree, language) {
   if (typeof tree.species === 'string') return tree.species;
   return localized(tree.species, language, tree.species?.scientific ?? tree.species_de ?? tree.species_en ?? tree.taxon ?? '—');
 }
@@ -165,7 +165,7 @@ export function renderTreeExplorer(container, { trees, metadata, i18n, onSelectT
       `).join('')}
       ${page.hasMore ? `<button class="tree-more-button" type="button" data-action="more-trees">${escapeHtml(i18n.t('moreTrees'))}</button>` : ''}
     ` : `<p class="empty-state">${i18n.t('noResults')}</p>`;
-    for (const button of list.querySelectorAll('[data-tree-id]')) button.addEventListener('click', () => onSelectTree?.(button.dataset.treeId));
+    for (const button of list.querySelectorAll('[data-tree-id]')) button.addEventListener('click', () => onSelectTree?.(button.dataset.treeId, { source: 'list' }));
     list.querySelector('[data-action="more-trees"]')?.addEventListener('click', () => {
       visibleLimit += TREE_PAGE_SIZE;
       update();

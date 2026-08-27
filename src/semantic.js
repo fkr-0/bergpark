@@ -25,6 +25,12 @@ function normalizeEntity(entity, type, sources) {
     type: entity.type ?? entity.kind ?? type,
     kind: entity.kind ?? type,
     sources: resolvedSources(entity, sources),
+    searchTerms: [
+      ...(entity.roles ?? []),
+      entity.object_type,
+      entity.creator_id,
+      entity.current_place_id,
+    ].filter(Boolean),
   };
 }
 

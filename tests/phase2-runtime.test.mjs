@@ -4,6 +4,8 @@ import { readFile } from 'node:fs/promises';
 import { clusterTrees, TREE_PAGE_SIZE, treeDatasetState, treeResultPage } from '../src/trees.js';
 import { normalizeSemanticData, semanticRelationLabel } from '../src/semantic.js';
 import { routeEvidence, routeProfilePolyline } from '../src/routes.js';
+import { treeDetailModel } from '../src/tree-detail.js';
+import { clusterVisitorFeatures, normalizeVisitorLayerData } from '../src/visitor-layer-data.js';
 
 test('tree LOD is deterministic and expands to individual records at close zoom', () => {
   const trees = [
@@ -34,6 +36,43 @@ test('tree dataset state is explicit for empty, partial, and complete fixtures',
   assert.equal(treeDatasetState([], 'catalog_spatial_enrichment_complete'), 'pending');
   assert.equal(treeDatasetState([{ id: 'a' }], 'partial'), 'partial');
   assert.equal(treeDatasetState([{ id: 'a' }], 'catalog_spatial_enrichment_complete'), 'ready');
+});
+
+test('tree detail model preserves complete, partial, and missing fields without inference', () => {
+  const complete = treeDetailModel({
+    id: 'tree-a',
+    catalog_ref: '358',
+    species: { de: 'Eiche', scientific: 'Quercus robur' },
+    location_description: 'Lac',
+    description: 'Katalogtext',
+    elevation_m: 311,
+    height_m: null,
+    height_status: 'unknown_no_measurement_source',
+    position_source: { provider: 'OpenStreetMap', element: 'node/1', accuracy_status: 'not_reported_by_source' },
+    elevation_source: { provider: 'DEM', dataset: 'grid', resolution_m: 90 },
+    image: 'https://commons.wikimedia.org/wiki/File:A.jpg',
+  }, 'de');
+  assert.equal(complete.catalogueRef, '358');
+  assert.equal(complete.scientificName, 'Quercus robur');
+  assert.equal(complete.heightM, null);
+  assert.equal(complete.positionSource.accuracyStatus, 'not_reported_by_source');
+
+  const partial = treeDetailModel({ id: 'tree-b', species_de: 'Buche' }, 'de');
+  assert.equal(partial.species, 'Buche');
+  assert.equal(partial.catalogueRef, null);
+  assert.equal(partial.positionSource, null);
+  assert.equal(treeDetailModel({ id: 'tree-c' }, 'en').title, 'tree-c');
+});
+
+test('visitor layer adapter is selective and clusters map features deterministically', () => {
+  const layers = normalizeVisitorLayerData(
+    { status: 'ready', benches: [{ id: 'b', lat: 51.31, lng: 9.41, source_refs: [] }] },
+    { status: 'ready', pois: [{ id: 'p', family: 'toilet', lat: 51.3101, lng: 9.4101, source_refs: [] }] },
+  );
+  assert.deepEqual(layers.features.map(({ layerKind }) => layerKind), ['bench', 'toilet']);
+  assert.equal(clusterVisitorFeatures(layers.features, 15).length, 1);
+  assert.equal(clusterVisitorFeatures(layers.features, 17).length, 2);
+  assert.equal(normalizeVisitorLayerData(null, null).status.benches, 'unavailable');
 });
 
 test('semantic adapter exposes figures/artworks/collections and bidirectional cross-links', () => {
@@ -80,6 +119,9 @@ test('production copy excludes aggregate and audit-only payloads', async () => {
   assert.doesNotMatch(copyScript, /'validation\.json'/);
   assert.match(copyScript, /'semantic\.json'/);
   assert.match(copyScript, /'trees\.json'/);
+  assert.match(copyScript, /'benches\.json'/);
+  assert.match(copyScript, /'visitor_pois\.json'/);
+  assert.doesNotMatch(copyScript, /'path_topology\.json'/);
 });
 
 test('service worker installs built assets, refreshes data online, and bounds visited tiles', async () => {
@@ -87,6 +129,9 @@ test('service worker installs built assets, refreshes data online, and bounds vi
   assert.match(serviceWorker, /pathname\.includes\('\/assets\/'\)/);
   assert.match(serviceWorker, /networkFirstData/);
   assert.match(serviceWorker, /while \(keys\.length > 80\)/);
+  assert.match(serviceWorker, /bergpark-shell-v4/);
+  assert.match(serviceWorker, /\.\/data\/benches\.json/);
+  assert.match(serviceWorker, /\.\/data\/visitor_pois\.json/);
   const runtimeData = serviceWorker.match(/const RUNTIME_DATA = \[([\s\S]*?)\n\];/)?.[1] ?? '';
   assert.doesNotMatch(runtimeData, /tile\.(?:openstreetmap|opentopomap)/);
 });

@@ -42,6 +42,10 @@ const messages = {
     details: 'Details',
     source: 'Quelle',
     routeUnknown: 'Für diese Verbindung liegt noch keine Fußwegroute vor.',
+    visitorLayers: 'Besucher-Ebenen',
+    visitorLayerScope: 'Diese Ebenen spiegeln den qualifizierten Quell-Snapshot wider. Ein fehlender Eintrag belegt nicht, dass das Objekt vor Ort fehlt.',
+    benchesUnavailable: 'Bankdaten sind derzeit nicht verfügbar.',
+    poisUnavailable: 'Besucher-POIs sind derzeit nicht verfügbar.',
   },
   en: {
     appTitle: 'Bergpark Wilhelmshöhe',
@@ -84,6 +88,10 @@ const messages = {
     details: 'Details',
     source: 'Source',
     routeUnknown: 'No walking route is available for this connection yet.',
+    visitorLayers: 'Visitor layers',
+    visitorLayerScope: 'These layers reflect the qualified source snapshot. A missing record does not prove that a feature is absent on site.',
+    benchesUnavailable: 'Bench data is currently unavailable.',
+    poisUnavailable: 'Visitor POI data is currently unavailable.',
   },
 };
 

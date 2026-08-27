@@ -1,4 +1,5 @@
 import { normalizeSemanticData } from './semantic.js';
+import { normalizeVisitorLayerData } from './visitor-layer-data.js';
 
 const REQUIRED_FILES = ['nodes.json', 'edges.json', 'trees.json'];
 const CONTENT_ID_ALIASES = {
@@ -73,9 +74,11 @@ export async function loadGraphData(baseUrl = import.meta.env.BASE_URL) {
     loadOptionalJson(baseUrl, 'nodes.en.json', {}),
     loadOptionalJson(baseUrl, 'sources.json', { sources: {} }),
   ]);
-  const [figuresDoc, semanticDoc] = await Promise.all([
+  const [figuresDoc, semanticDoc, benchesDoc, visitorPoisDoc] = await Promise.all([
     loadOptionalJson(baseUrl, 'figures.json', { figures: [] }),
     loadOptionalJson(baseUrl, 'semantic.json', { artworks: [], collections: [], semantic_edges: [] }),
+    loadOptionalJson(baseUrl, 'benches.json', null),
+    loadOptionalJson(baseUrl, 'visitor_pois.json', null),
   ]);
 
   const rawNodes = nodesDoc.nodes ?? nodesDoc;
@@ -110,6 +113,7 @@ export async function loadGraphData(baseUrl = import.meta.env.BASE_URL) {
   }
 
   const semantic = normalizeSemanticData(figuresDoc, semanticDoc);
+  const visitorLayers = normalizeVisitorLayerData(benchesDoc, visitorPoisDoc);
   const entities = [...nodes, ...contentOnlyEntities, ...semantic.entities];
   const entitiesById = new Map(entities.map((entity) => [entity.id, entity]));
 
@@ -123,11 +127,15 @@ export async function loadGraphData(baseUrl = import.meta.env.BASE_URL) {
     entitiesById,
     semanticEdges: semantic.semanticEdges,
     semanticRelationsByEntity: semantic.relationsByEntity,
+    visitorLayers,
+    visitorFeaturesById: new Map(visitorLayers.features.map((feature) => [feature.id, feature])),
     metadata: {
       nodeSchemaVersion: nodesDoc.schema_version ?? nodesDoc.schemaVersion ?? 1,
       edgeSchemaVersion: edgesDoc.schema_version ?? edgesDoc.schemaVersion ?? 1,
       treeStatus: treesDoc.status ?? 'ready',
       semanticStatus: semantic.status,
+      benchStatus: visitorLayers.status.benches,
+      visitorPoiStatus: visitorLayers.status.pois,
       contentLanguages: { de: Object.keys(deDoc ?? {}).length, en: Object.keys(enDoc ?? {}).length },
     },
   };

@@ -41,7 +41,7 @@ export function createTreeMapLayer(map, trees, { language = 'de', onSelectTree }
         });
         L.marker([feature.lat, feature.lng], { icon, title: label, alt: label, keyboard: true })
           .bindTooltip(label)
-          .on('click', () => onSelectTree?.(tree.id))
+          .on('click', () => onSelectTree?.(tree.id, { source: 'map' }))
           .addTo(layer);
       } else {
         const label = currentLanguage === 'de'

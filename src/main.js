@@ -1,6 +1,7 @@
 import 'leaflet/dist/leaflet.css';
 import './styles/app.css';
 import './styles/phase2.css';
+import './styles/phase3.css';
 import { loadGraphData, edgeBetween } from './data.js';
 import { createI18n, localized } from './i18n.js';
 import { createBergparkMap } from './map.js';
@@ -10,6 +11,8 @@ import { renderGlossary } from './glossary.js';
 import { renderTreeExplorer } from './trees.js';
 import { createTreeMapLayer } from './tree-map.js';
 import { renderRouteDetail } from './routes.js';
+import { renderTreeDetail } from './tree-detail.js';
+import { createVisitorLayerController, renderVisitorFeatureDetail, renderVisitorLayerControl } from './visitor-layers.js';
 
 const app = document.querySelector('#app');
 const i18n = createI18n();
@@ -33,6 +36,7 @@ app.innerHTML = `
     <section class="map-stage" aria-label="Interaktive Karte des Bergparks">
       <div id="map" tabindex="0"></div>
       <div id="map-status" class="map-hint" aria-live="polite"></div>
+      <details id="visitor-layer-control" class="visitor-layer-control"></details>
     </section>
     <aside id="panel-view" class="panel-overlay" hidden></aside>
     <aside id="detail-sheet" class="detail-sheet" aria-live="polite" hidden></aside>
@@ -51,15 +55,21 @@ const elements = {
   panel: document.querySelector('#panel-view'),
   detail: document.querySelector('#detail-sheet'),
   nav: [...document.querySelectorAll('[data-view]')],
+  visitorLayers: document.querySelector('#visitor-layer-control'),
 };
 
 let graph = null;
 let mapController = null;
 let gps = null;
 let treeMapController = null;
+let visitorLayerController = null;
 let currentNodeId = null;
+let currentTreeId = null;
+let currentVisitorFeatureId = null;
 let currentView = 'map';
 let currentRoute = null;
+let treeReturnContext = null;
+let activeVisitorKinds = new Set();
 
 function renderChrome() {
   for (const element of document.querySelectorAll('[data-i18n]')) element.textContent = i18n.t(element.dataset.i18n);
@@ -76,6 +86,21 @@ function setStatus(message, transient = false) {
   elements.status.textContent = message;
   if (transient) elements.status.dataset.transient = 'true';
   else delete elements.status.dataset.transient;
+}
+
+function renderVisitorLayersControl() {
+  if (!graph?.visitorLayers) return;
+  const wasOpen = elements.visitorLayers.open;
+  renderVisitorLayerControl(elements.visitorLayers, {
+    layerData: graph.visitorLayers,
+    i18n,
+    selectedKinds: activeVisitorKinds,
+    onChange(kinds) {
+      activeVisitorKinds = new Set(kinds);
+      visitorLayerController?.setActiveKinds(kinds);
+    },
+  });
+  elements.visitorLayers.open = wasOpen;
 }
 
 function setView(view) {
@@ -113,6 +138,8 @@ function setView(view) {
 
 function showDetail(node) {
   currentRoute = null;
+  currentTreeId = null;
+  currentVisitorFeatureId = null;
   renderNodeDetail(elements.detail, {
     node,
     graph,
@@ -146,15 +173,53 @@ function selectEntity(id) {
   history.replaceState(null, '', `#place=${encodeURIComponent(id)}`);
 }
 
-function selectTree(id) {
+function selectTree(id, context = {}) {
   const tree = graph?.trees.find((candidate) => candidate.id === id);
   if (!tree) return;
-  setView('map');
+  currentNodeId = null;
+  currentRoute = null;
+  currentVisitorFeatureId = null;
+  currentTreeId = id;
+  treeReturnContext = { view: currentView, source: context.source ?? 'deeplink', treeId: id };
+  elements.panel.hidden = true;
   if (Number.isFinite(tree.lat) && Number.isFinite(tree.lng ?? tree.lon)) {
     mapController.map.flyTo([tree.lat, tree.lng ?? tree.lon], 18, { duration: 0.6 });
   }
   const label = localized(tree.name, i18n.language, tree.species?.[i18n.language] ?? tree.species?.scientific ?? tree.catalog_ref ?? tree.id);
   setStatus(label, true);
+  renderTreeDetail(elements.detail, { tree, i18n, onClose: closeTreeDetail });
+}
+
+function closeTreeDetail() {
+  elements.detail.hidden = true;
+  const context = treeReturnContext;
+  currentTreeId = null;
+  treeReturnContext = null;
+  if (context?.view === 'trees') {
+    elements.panel.hidden = false;
+    requestAnimationFrame(() => elements.panel.querySelector(`[data-tree-id="${CSS.escape(context.treeId)}"]`)?.focus());
+  } else {
+    document.querySelector('#map')?.focus();
+  }
+}
+
+function selectVisitorFeature(feature) {
+  if (!feature) return;
+  currentNodeId = null;
+  currentTreeId = null;
+  currentRoute = null;
+  currentVisitorFeatureId = feature.id;
+  elements.panel.hidden = true;
+  if (Number.isFinite(feature.lat) && Number.isFinite(feature.lng ?? feature.lon)) {
+    mapController.map.flyTo([feature.lat, feature.lng ?? feature.lon], Math.max(17, mapController.map.getZoom()), { duration: 0.35 });
+  }
+  renderVisitorFeatureDetail(elements.detail, { feature, i18n, onClose: closeVisitorFeature });
+}
+
+function closeVisitorFeature() {
+  currentVisitorFeatureId = null;
+  elements.detail.hidden = true;
+  document.querySelector('#map')?.focus();
 }
 
 function showRoute(fromId, toId) {
@@ -241,6 +306,11 @@ async function boot() {
     language: i18n.language,
     onSelectTree: selectTree,
   });
+  visitorLayerController = createVisitorLayerController(mapController.map, graph.visitorLayers, {
+    language: i18n.language,
+    onSelectFeature: selectVisitorFeature,
+  });
+  renderVisitorLayersControl();
   setupGps();
   mapController.fitPark();
   setStatus(i18n.t('mapHint'));
@@ -254,6 +324,8 @@ i18n.subscribe(() => {
   renderChrome();
   mapController?.updateLanguage(i18n.language);
   treeMapController?.updateLanguage(i18n.language);
+  visitorLayerController?.updateLanguage(i18n.language);
+  renderVisitorLayersControl();
   if (currentRoute && !elements.detail.hidden) {
     renderRouteDetail(elements.detail, {
       edge: currentRoute.edge,
@@ -263,8 +335,12 @@ i18n.subscribe(() => {
       onSelectNode: selectEntity,
       onClose: closeRouteDetail,
     });
+  } else if (currentTreeId && !elements.detail.hidden) {
+    renderTreeDetail(elements.detail, { tree: graph.trees.find(({ id }) => id === currentTreeId), i18n, onClose: closeTreeDetail });
+  } else if (currentVisitorFeatureId && !elements.detail.hidden) {
+    renderVisitorFeatureDetail(elements.detail, { feature: graph.visitorFeaturesById.get(currentVisitorFeatureId), i18n, onClose: closeVisitorFeature });
   } else if (currentNodeId && !elements.detail.hidden) showDetail(graph.entitiesById.get(currentNodeId));
-  if (currentView !== 'map' && graph) setView(currentView);
+  if (currentView !== 'map' && graph && !currentTreeId && !currentVisitorFeatureId) setView(currentView);
 });
 
 window.addEventListener('beforeunload', () => {

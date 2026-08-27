@@ -373,7 +373,7 @@ interaction responsiveness and memory growth.
 
 - one documented verification command covering Node tests, Python tests,
   validators, composition and Vite build;
-- GitHub Actions runs all repository validators/tests, not only `npm run check`;
+- GitHub Actions runs all repository validators/tests through the pnpm release gate, not only the frontend build;
 - generated artifacts carry deterministic content where feasible;
 - support `SOURCE_DATE_EPOCH` or equivalent for generated timestamps when exact
   rebuild hashes are part of qualification;

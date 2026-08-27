@@ -36,6 +36,15 @@ test('glossary search is diacritic-insensitive', () => {
   assert.deepEqual(filterGlossary(nodes, 'castle', 'en').map(({ id }) => id), ['b']);
 });
 
+test('glossary search discovers semantic roles and object types', () => {
+  const nodes = [
+    { id: 'person', name: { de: 'Person', en: 'Person' }, type: 'historical_figure', roles: ['architect'], searchTerms: ['architect'] },
+    { id: 'art', name: { de: 'Werk', en: 'Work' }, type: 'artwork', object_type: 'painting', searchTerms: ['painting'] },
+  ];
+  assert.deepEqual(filterGlossary(nodes, 'architect', 'de').map(({ id }) => id), ['person']);
+  assert.deepEqual(filterGlossary(nodes, 'painting', 'en').map(({ id }) => id), ['art']);
+});
+
 test('tree filters combine species and significance', () => {
   const trees = [
     { id: 'oak', species: { de: 'Stieleiche', en: 'Pedunculate oak' }, significance: 'landmark' },
