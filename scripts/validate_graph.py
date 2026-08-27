@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import math
+import os
 import pathlib
 from collections import defaultdict, deque
 from datetime import datetime, timezone
@@ -12,7 +13,7 @@ from typing import Any
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-DATA = ROOT / "data"
+DATA = pathlib.Path(os.environ.get("BERGPARK_OUTPUT_DATA", str(ROOT / "data"))).resolve()
 PARK_BBOX = {"south": 51.307, "west": 9.385, "north": 51.323, "east": 9.425}
 
 

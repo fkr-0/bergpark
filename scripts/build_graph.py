@@ -10,6 +10,7 @@ from __future__ import annotations
 import heapq
 import json
 import math
+import os
 import pathlib
 import xml.etree.ElementTree as ET
 from collections import Counter, defaultdict
@@ -19,8 +20,9 @@ from typing import Any
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-DATA = ROOT / "data"
-SOURCES = DATA / "sources"
+CANONICAL_DATA = ROOT / "data"
+DATA = pathlib.Path(os.environ.get("BERGPARK_OUTPUT_DATA", str(CANONICAL_DATA))).resolve()
+SOURCES = CANONICAL_DATA / "sources"
 
 # The supplied 9.400..9.420E seed box excludes the Herkules. This broader box
 # is derived from the actual OSM/UNESCO park geography and is deliberately
@@ -297,30 +299,34 @@ def build_pairwise_routes(places: list[dict[str, Any]]):
     ids = [p["id"] for p in places]
     for idx, a in enumerate(ids):
         start_node = snap[a][0]
-        target_map = {snap[b][0]: b for b in ids[idx + 1 :]}
+        # Multiple landmarks can legitimately snap to the same OSM walking node.
+        # Preserve every place instead of collapsing them in a node->place dict.
+        target_map: dict[str, list[str]] = defaultdict(list)
+        for b in ids[idx + 1 :]:
+            target_map[snap[b][0]].append(b)
         found = dijkstra(graph, start_node, set(target_map))
         for target_node, (net_distance, segs, node_path) in found.items():
-            b = target_map[target_node]
-            pa, pb = place_by_id[a], place_by_id[b]
-            path_coordinates = [[pa["lat"], pa["lng"]]]
-            path_coordinates.extend([[round(nodes[n][0], 7), round(nodes[n][1], 7)] for n in node_path])
-            path_coordinates.append([pb["lat"], pb["lng"]])
-            tags_list = [tags for _, _, tags in segs]
-            way_ids = []
-            for _, wid, _ in segs:
-                if not way_ids or way_ids[-1] != wid:
-                    way_ids.append(wid)
-            total = snap[a][1] + net_distance + snap[b][1]
-            surface, surface_mix, accessibility = classify_surface(tags_list)
-            pair_routes[(a, b)] = {
-                "distance_m": total,
-                "path_coordinates": path_coordinates,
-                "osm_way_ids": way_ids,
-                "surface": surface,
-                "surface_mix": surface_mix,
-                "accessibility": accessibility,
-                "snap_distance_m": {a: snap[a][1], b: snap[b][1]},
-            }
+            for b in target_map[target_node]:
+                pa, pb = place_by_id[a], place_by_id[b]
+                path_coordinates = [[pa["lat"], pa["lng"]]]
+                path_coordinates.extend([[round(nodes[n][0], 7), round(nodes[n][1], 7)] for n in node_path])
+                path_coordinates.append([pb["lat"], pb["lng"]])
+                tags_list = [tags for _, _, tags in segs]
+                way_ids = []
+                for _, wid, _ in segs:
+                    if not way_ids or way_ids[-1] != wid:
+                        way_ids.append(wid)
+                total = snap[a][1] + net_distance + snap[b][1]
+                surface, surface_mix, accessibility = classify_surface(tags_list)
+                pair_routes[(a, b)] = {
+                    "distance_m": total,
+                    "path_coordinates": path_coordinates,
+                    "osm_way_ids": way_ids,
+                    "surface": surface,
+                    "surface_mix": surface_mix,
+                    "accessibility": accessibility,
+                    "snap_distance_m": {a: snap[a][1], b: snap[b][1]},
+                }
     return pair_routes, snap
 
 
@@ -431,6 +437,7 @@ def dump(name: str, obj: Any) -> None:
 
 
 def main() -> None:
+    DATA.mkdir(parents=True, exist_ok=True)
     pois = load_pois()
     places = build_places(pois)
     pair_routes, snap = build_pairwise_routes(places)
