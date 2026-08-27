@@ -5,3 +5,5 @@ public/data/
 .DS_Store
 *.log
 coverage/
+__pycache__/
+*.py[cod]
