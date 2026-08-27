@@ -34,7 +34,7 @@ class LayerSpec:
 
 
 LAYER_SPECS = (
-    LayerSpec("nodes.json", 1, ("nodes",), False),
+    LayerSpec("nodes.json", 2, ("nodes",), False),
     LayerSpec("edges.json", 1, ("edges",), False),
     LayerSpec("trees.json", 2, ("trees",)),
     LayerSpec("benches.json", 1, ("benches",)),
@@ -100,6 +100,90 @@ def _unique_ids(rows: list[dict[str, Any]], label: str) -> set[str]:
     return set(ids)
 
 
+def _valid_optional_accuracy(value: Any) -> bool:
+    return value is None or (
+        isinstance(value, (int, float))
+        and not isinstance(value, bool)
+        and value >= 0
+    )
+
+
+def _validate_place_positions(nodes: list[dict[str, Any]]) -> None:
+    allowed_methods = {
+        "source_node": ("source_point", "not_reported_by_source"),
+        "source_centroid": ("representative_point", "derived_representative_point"),
+        "bounds_midpoint": ("representative_point", "derived_representative_point"),
+        "geometry_mean": ("representative_point", "derived_representative_point"),
+    }
+    legacy_method_map = {
+        "osm_node": "source_node",
+        "osm_center": "source_centroid",
+        "osm_bounds_midpoint": "bounds_midpoint",
+        "osm_geometry_mean": "geometry_mean",
+    }
+    failures = []
+    for node in nodes:
+        position = node.get("position_source")
+        elevation = node.get("elevation_source")
+        legacy = node.get("coordinate_source")
+        if (
+            not isinstance(node.get("lat"), (int, float))
+            or isinstance(node.get("lat"), bool)
+            or not isinstance(node.get("lng"), (int, float))
+            or isinstance(node.get("lng"), bool)
+            or not isinstance(node.get("elevation_m"), (int, float))
+            or isinstance(node.get("elevation_m"), bool)
+            or not isinstance(position, dict)
+            or not isinstance(elevation, dict)
+            or not isinstance(legacy, dict)
+        ):
+            failures.append(node.get("id", "<missing-id>"))
+            continue
+
+        method = position.get("method")
+        expected_role_status = allowed_methods.get(method)
+        if (
+            not position.get("provider")
+            or not position.get("element")
+            or not position.get("snapshot")
+            or not expected_role_status
+            or position.get("position_type") != expected_role_status[0]
+            or position.get("accuracy_status") != expected_role_status[1]
+            or "horizontal_accuracy_m" not in position
+            or not _valid_optional_accuracy(position.get("horizontal_accuracy_m"))
+            or legacy.get("provider") != position.get("provider")
+            or legacy.get("element") != position.get("element")
+            or legacy_method_map.get(node.get("coordinate_method")) != method
+            or not node.get("coordinate_confidence")
+            or not elevation.get("provider")
+            or not elevation.get("dataset")
+            or not isinstance(elevation.get("resolution_m"), (int, float))
+            or "vertical_accuracy_m" not in elevation
+            or not _valid_optional_accuracy(elevation.get("vertical_accuracy_m"))
+            or not elevation.get("accuracy_status")
+            or (
+                node.get("height_m") is None
+                and (
+                    node.get("height_status") != "unknown_no_measurement_source"
+                    or node.get("height_source") is not None
+                )
+            )
+            or (
+                node.get("height_m") is not None
+                and (
+                    not isinstance(node.get("height_m"), (int, float))
+                    or isinstance(node.get("height_m"), bool)
+                    or not isinstance(node.get("height_source"), dict)
+                )
+            )
+        ):
+            failures.append(node.get("id", "<missing-id>"))
+    if failures:
+        raise ValueError(
+            f"place nodes lack normalized position/elevation provenance: {failures[:10]}"
+        )
+
+
 def validate_layer_compatibility(docs: dict[str, dict[str, Any]]) -> None:
     nodes = docs["nodes.json"]["nodes"]
     edges = docs["edges.json"]["edges"]
@@ -112,6 +196,8 @@ def validate_layer_compatibility(docs: dict[str, dict[str, Any]]) -> None:
     artworks = semantic["artworks"]
     collections = semantic["collections"]
     semantic_edges = semantic["semantic_edges"]
+
+    _validate_place_positions(nodes)
 
     _check_declared_count(docs["trees.json"], "tree_count", "trees", "data/trees.json")
     _check_declared_count(docs["benches.json"], "bench_count", "benches", "data/benches.json")

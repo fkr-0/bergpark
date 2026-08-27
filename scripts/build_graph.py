@@ -174,6 +174,38 @@ def representative_point(element: dict[str, Any]) -> tuple[float, float, str]:
     raise ValueError(f"No coordinate geometry for {element['type']}/{element['id']}")
 
 
+def normalized_position_source(
+    spec: PlaceSpec, method: str
+) -> dict[str, Any]:
+    method_map = {
+        "osm_node": ("source_node", "source_point", "not_reported_by_source"),
+        "osm_center": ("source_centroid", "representative_point", "derived_representative_point"),
+        "osm_bounds_midpoint": (
+            "bounds_midpoint",
+            "representative_point",
+            "derived_representative_point",
+        ),
+        "osm_geometry_mean": (
+            "geometry_mean",
+            "representative_point",
+            "derived_representative_point",
+        ),
+    }
+    if method not in method_map:
+        raise ValueError(f"unsupported place coordinate method {method!r}")
+    normalized_method, position_type, accuracy_status = method_map[method]
+    return {
+        "provider": "OpenStreetMap",
+        "element": f"{spec.osm_type}/{spec.osm_id}",
+        "snapshot": "data/sources/osm-pois.json",
+        "method": normalized_method,
+        "position_type": position_type,
+        "horizontal_accuracy_m": None,
+        "accuracy_status": accuracy_status,
+        "license": "ODbL-1.0",
+    }
+
+
 def build_places(
     pois: dict[tuple[str, int], dict[str, Any]],
     elevations: dict[tuple[float, float], float],
@@ -196,12 +228,18 @@ def build_places(
                 "lat": round(lat, 7),
                 "lng": round(lng, 7),
                 "elevation_m": elevation_at(elevations, lat, lng),
+                "height_m": None,
+                "height_status": "unknown_no_measurement_source",
+                "height_source": None,
                 "elevation_source": {
                     "provider": "Open-Meteo Elevation API",
                     "dataset": "Copernicus DEM 2021 GLO-90",
                     "resolution_m": 90,
+                    "vertical_accuracy_m": None,
+                    "accuracy_status": "not_reported_in_project_source",
                     "snapshot": "data/sources/elevation/points.json",
                 },
+                "position_source": normalized_position_source(spec, method),
                 "coordinate_confidence": "high" if spec.osm_type in {"node", "way"} else "medium",
                 "coordinate_method": method,
                 "coordinate_source": {
@@ -732,7 +770,7 @@ def main() -> None:
     watercourse_audit = watercourse_reference_audit(places)
 
     nodes_doc = {
-        "schema_version": 1,
+        "schema_version": 2,
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "bbox": PARK_BBOX,
         "nodes": places,

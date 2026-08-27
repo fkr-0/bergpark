@@ -50,6 +50,32 @@ class GraphExportTests(unittest.TestCase):
             if edge["mapped_path_accessibility"] == "potentially_step_free_mapped_path" and edge["endpoint_access_unknown"]:
                 self.assertEqual("endpoint_access_unknown", edge["accessibility"])
 
+    def test_phase5_place_position_contract_is_additive_and_explicit(self):
+        doc = json.loads((DATA / "nodes.json").read_text())
+        self.assertEqual(2, doc["schema_version"])
+        self.assertEqual(30, len(doc["nodes"]))
+        for node in doc["nodes"]:
+            position = node["position_source"]
+            elevation = node["elevation_source"]
+            self.assertIn("coordinate_source", node)
+            self.assertIn("coordinate_method", node)
+            self.assertIn("coordinate_confidence", node)
+            self.assertEqual(node["coordinate_source"]["provider"], position["provider"])
+            self.assertEqual(node["coordinate_source"]["element"], position["element"])
+            self.assertIsNone(position["horizontal_accuracy_m"])
+            self.assertIsNone(elevation["vertical_accuracy_m"])
+            self.assertEqual("not_reported_in_project_source", elevation["accuracy_status"])
+            self.assertIsNone(node["height_m"])
+            self.assertEqual("unknown_no_measurement_source", node["height_status"])
+            self.assertIsNone(node["height_source"])
+            if position["method"] == "source_node":
+                self.assertEqual("source_point", position["position_type"])
+                self.assertEqual("not_reported_by_source", position["accuracy_status"])
+            else:
+                self.assertIn(position["method"], {"source_centroid", "bounds_midpoint", "geometry_mean"})
+                self.assertEqual("representative_point", position["position_type"])
+                self.assertEqual("derived_representative_point", position["accuracy_status"])
+
     def test_reverse_edges_swap_elevation_metrics(self):
         edges = json.loads((DATA / "edges.json").read_text())["edges"]
         by_pair = {(e["from"], e["to"]): e for e in edges}

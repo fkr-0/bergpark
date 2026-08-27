@@ -44,6 +44,14 @@ def haversine(a: tuple[float, float], b: tuple[float, float]) -> float:
     return 6371008.8 * 2 * math.asin(math.sqrt(h))
 
 
+def valid_optional_accuracy(value: Any) -> bool:
+    return value is None or (
+        isinstance(value, (int, float))
+        and not isinstance(value, bool)
+        and value >= 0
+    )
+
+
 def main() -> int:
     nodes = load("nodes.json")["nodes"]
     edges = load("edges.json")["edges"]
@@ -81,6 +89,90 @@ def main() -> int:
     missing_elevations = [n["id"] for n in nodes if not isinstance(n.get("elevation_m"), (int, float))]
     checks.append({"id": "place_elevations_present", "pass": not missing_elevations, "failures": missing_elevations})
     errors.extend(f"missing place elevation: {x}" for x in missing_elevations)
+
+    position_contract_failures = []
+    representative_failures = []
+    allowed_methods = {
+        "source_node": ("source_point", "not_reported_by_source"),
+        "source_centroid": ("representative_point", "derived_representative_point"),
+        "bounds_midpoint": ("representative_point", "derived_representative_point"),
+        "geometry_mean": ("representative_point", "derived_representative_point"),
+    }
+    legacy_method_map = {
+        "osm_node": "source_node",
+        "osm_center": "source_centroid",
+        "osm_bounds_midpoint": "bounds_midpoint",
+        "osm_geometry_mean": "geometry_mean",
+    }
+    for node in nodes:
+        position = node.get("position_source")
+        elevation = node.get("elevation_source")
+        legacy = node.get("coordinate_source")
+        if not isinstance(position, dict) or not isinstance(elevation, dict) or not isinstance(legacy, dict):
+            position_contract_failures.append(node["id"])
+            continue
+        method = position.get("method")
+        expected = allowed_methods.get(method)
+        if (
+            not expected
+            or not position.get("provider")
+            or not position.get("element")
+            or not position.get("snapshot")
+            or position.get("position_type") != expected[0]
+            or position.get("accuracy_status") != expected[1]
+            or "horizontal_accuracy_m" not in position
+            or not valid_optional_accuracy(position.get("horizontal_accuracy_m"))
+            or legacy.get("provider") != position.get("provider")
+            or legacy.get("element") != position.get("element")
+            or legacy_method_map.get(node.get("coordinate_method")) != method
+            or not node.get("coordinate_confidence")
+            or "vertical_accuracy_m" not in elevation
+            or not valid_optional_accuracy(elevation.get("vertical_accuracy_m"))
+            or not elevation.get("accuracy_status")
+            or (
+                node.get("height_m") is None
+                and (
+                    node.get("height_status") != "unknown_no_measurement_source"
+                    or node.get("height_source") is not None
+                )
+            )
+            or (
+                node.get("height_m") is not None
+                and (
+                    not isinstance(node.get("height_m"), (int, float))
+                    or isinstance(node.get("height_m"), bool)
+                    or not isinstance(node.get("height_source"), dict)
+                )
+            )
+        ):
+            position_contract_failures.append(node["id"])
+        if method in {"source_centroid", "bounds_midpoint", "geometry_mean"} and (
+            position.get("position_type") != "representative_point"
+            or position.get("accuracy_status") != "derived_representative_point"
+        ):
+            representative_failures.append(node["id"])
+    checks.append(
+        {
+            "id": "place_position_provenance_normalized",
+            "pass": not position_contract_failures,
+            "failures": sorted(set(position_contract_failures)),
+        }
+    )
+    errors.extend(
+        f"invalid normalized place position/elevation provenance: {x}"
+        for x in sorted(set(position_contract_failures))
+    )
+    checks.append(
+        {
+            "id": "representative_place_positions_qualified",
+            "pass": not representative_failures,
+            "failures": sorted(set(representative_failures)),
+        }
+    )
+    errors.extend(
+        f"representative place position not explicitly qualified: {x}"
+        for x in sorted(set(representative_failures))
+    )
 
     commons_doc = json.loads(COMMONS_AUDIT.read_text()) if COMMONS_AUDIT.is_file() else {"rows": []}
     commons_rows = {row.get("place_id"): row for row in commons_doc.get("rows", [])}
@@ -429,9 +521,13 @@ def main() -> int:
             "Historical authorship/patronage edges encode only the scope explicitly supported by their cited sources; later restoration or replacement phases are not silently folded into earlier design relations.",
         ],
         "phase_4_known_limits": [
-            "Phase-2 place nodes still expose coordinate source/method/confidence rather than the normalized position_source plus numeric-or-unknown accuracy contract; stable IDs and current representative coordinates are intentionally unchanged pending coordinated ownership.",
             "The composed path topology remains the qualified landmark-route projection, not a claim of complete park path-network coverage.",
             "Bench and path-topology rows are composed exactly from their independently owned layers; composition does not upgrade source-reported accuracy or accessibility certainty.",
+        ],
+        "phase_5_known_limits": [
+            "Place position_source accuracy is explicit but remains numerically unknown where OpenStreetMap does not report a defensible horizontal accuracy; null is intentional, not zero.",
+            "Bounds/center/geometry-derived place coordinates are representative points for display/indexing, not surveyed entrances or exact object positions.",
+            "GLO-90 terrain elevation remains approximate and vertical_accuracy_m is null because the preserved project source does not provide a defensible per-place vertical accuracy; terrain elevation is never treated as physical object height.",
         ],
     }
     (DATA / "validation.json").write_text(json.dumps(out, ensure_ascii=False, indent=2) + "\n")

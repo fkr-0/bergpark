@@ -3,10 +3,16 @@
 ## Spatial conventions
 
 - Coordinates are WGS84 decimal degrees (`lat`, `lng`).
-- `coordinate_source` identifies the public source and exact OSM element.
-- `coordinate_confidence` is one of `high`, `medium`, `low`.
-- Large/linear features use a representative point derived from their mapped
-  geometry or bounds and explain that method in `coordinate_method`.
+- Place nodes schema v2 uses `position_source` as the canonical spatial
+  provenance contract. It records the public provider/OSM element, derivation
+  method, point role, numeric-or-null horizontal accuracy, an explicit accuracy
+  status, source snapshot and license.
+- Legacy `coordinate_source`, `coordinate_method` and `coordinate_confidence`
+  remain additively present for the current browser/content runtime; they are
+  compatibility fields, not substitutes for numeric accuracy.
+- Direct OSM nodes are labelled `source_point`. Bounds midpoints, supplied
+  centres and geometry means are labelled `representative_point`; they are
+  never described as surveyed/exact positions or visitor entrances.
 - Path polylines are stored as `[lat, lng]` pairs for direct Leaflet use.
 - Walking edges are directed. Opposite directions are separate records because
   slope/accessibility notes may differ.
@@ -23,15 +29,39 @@ Required keys:
   "type": "monument",
   "lat": 51.3161,
   "lng": 9.3932,
-  "elevation_m": 527.0,
+  "elevation_m": 530.0,
+  "height_m": null,
+  "height_status": "unknown_no_measurement_source",
+  "height_source": null,
   "elevation_source": {
     "dataset": "Copernicus DEM 2021 GLO-90",
-    "resolution_m": 90
+    "resolution_m": 90,
+    "vertical_accuracy_m": null,
+    "accuracy_status": "not_reported_in_project_source"
   },
-  "coordinate_confidence": "high",
+  "position_source": {
+    "provider": "OpenStreetMap",
+    "element": "relation/164756",
+    "method": "bounds_midpoint",
+    "position_type": "representative_point",
+    "horizontal_accuracy_m": null,
+    "accuracy_status": "derived_representative_point",
+    "license": "ODbL-1.0"
+  },
+  "coordinate_confidence": "medium",
+  "coordinate_method": "osm_bounds_midpoint",
   "coordinate_source": {"provider": "OpenStreetMap", "element": "relation/164756"}
 }
 ```
+
+`data/nodes.json` schema version 2 is an additive migration: all 30 stable IDs,
+`lat`, `lng` and `elevation_m` values are preserved from the Phase-4/Phase-2
+authority. `src/data.js` already carries the document schema version as metadata
+and tolerates additional node fields, while `src/content.js` still renders the
+legacy `coordinate_source`; the legacy fields therefore remain until a later
+explicit consumer migration. `data/graph.json` remains graph schema version 1
+because its top-level aggregate contract is unchanged and it composes node rows
+verbatim.
 
 ## Walking edge
 
@@ -151,12 +181,13 @@ The tree layer already uses the preferred pattern:
 }
 ```
 
-Phase-2 place nodes predate that normalized object shape and still expose
-`coordinate_source`, `coordinate_method`, `coordinate_confidence` and
-`elevation_source`. A future spatial-schema migration should normalize them
-without changing stable IDs. Representative points derived from bounds, centers
-or geometry are representative coordinates, not exact survey positions; when a
-source does not state numeric accuracy the exported accuracy remains unknown.
+Phase-5 place nodes now use that normalized object shape while retaining
+`coordinate_source`, `coordinate_method` and `coordinate_confidence` for runtime
+compatibility. Representative points derived from bounds, centers or geometry
+are explicitly labelled representative coordinates, not exact survey positions;
+when a source does not state numeric accuracy the exported accuracy remains
+`null`. No physical structure/object height is synthesized from terrain
+`elevation_m`; height remains independently sourced or unknown.
 
 Benches are now durable in `data/benches.json` as a separate first-class POI
 layer with spatial provenance. They should retain the same provenance/accuracy
@@ -235,12 +266,11 @@ Phase-2-owned `nodes.json`, `edges.json` and `source_manifest.json`, then delega
 the aggregate write to `compose_graph.py`. Direct composition can therefore be
 used without touching any lower-level layer.
 
-Canonical place-position normalization remains a separate producer migration.
-Stable place IDs and current representative coordinates must remain unchanged
-until the spatial producer and knowledge/runtime consumers are coordinated.
-When normalized, places should add `position_source.horizontal_accuracy_m` and
-`elevation_source.vertical_accuracy_m` as numeric values only when a source
-actually reports a defensible accuracy; otherwise they remain `null`. Physical
+Phase 5 performs the canonical place-position producer migration as nodes schema
+v2 without changing stable place IDs or current representative coordinates.
+`position_source.horizontal_accuracy_m` and
+`elevation_source.vertical_accuracy_m` are numeric only when a source actually
+reports a defensible accuracy; otherwise they remain `null`. Physical
 structure/object height stays separate from terrain `elevation_m`.
 
 ## Provenance

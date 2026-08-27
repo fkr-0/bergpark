@@ -82,6 +82,31 @@ class CompositionTests(unittest.TestCase):
             compose_graph(self.output)
         self.assertFalse((self.output / "graph.json").exists())
 
+    def test_invalid_place_accuracy_contract_fails_before_graph_write(self):
+        nodes_path = self.output / "nodes.json"
+        nodes = json.loads(nodes_path.read_text())
+        nodes["nodes"][0]["position_source"]["horizontal_accuracy_m"] = -1
+        nodes_path.write_text(json.dumps(nodes, ensure_ascii=False, indent=2) + "\n")
+
+        with self.assertRaisesRegex(ValueError, "normalized position/elevation provenance"):
+            compose_graph(self.output)
+        self.assertFalse((self.output / "graph.json").exists())
+
+    def test_representative_place_cannot_be_mislabeled_as_source_point(self):
+        nodes_path = self.output / "nodes.json"
+        nodes = json.loads(nodes_path.read_text())
+        representative = next(
+            node
+            for node in nodes["nodes"]
+            if node["position_source"]["position_type"] == "representative_point"
+        )
+        representative["position_source"]["position_type"] = "source_point"
+        nodes_path.write_text(json.dumps(nodes, ensure_ascii=False, indent=2) + "\n")
+
+        with self.assertRaisesRegex(ValueError, "normalized position/elevation provenance"):
+            compose_graph(self.output)
+        self.assertFalse((self.output / "graph.json").exists())
+
     def test_duplicate_poi_ids_fail_closed(self):
         benches_path = self.output / "benches.json"
         shutil.copy2(DATA / "benches.json", benches_path)

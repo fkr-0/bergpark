@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-27T07:16:52.361728+00:00",
+  "generated_at": "2026-08-27T09:36:41.975337+00:00",
   "status": "pass",
   "summary": {
     "place_nodes": 30,
@@ -31,6 +31,16 @@
     },
     {
       "id": "place_elevations_present",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "place_position_provenance_normalized",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "representative_place_positions_qualified",
       "pass": true,
       "failures": []
     },
@@ -152,8 +162,12 @@
     "Historical authorship/patronage edges encode only the scope explicitly supported by their cited sources; later restoration or replacement phases are not silently folded into earlier design relations."
   ],
   "phase_4_known_limits": [
-    "Phase-2 place nodes still expose coordinate source/method/confidence rather than the normalized position_source plus numeric-or-unknown accuracy contract; stable IDs and current representative coordinates are intentionally unchanged pending coordinated ownership.",
     "The composed path topology remains the qualified landmark-route projection, not a claim of complete park path-network coverage.",
     "Bench and path-topology rows are composed exactly from their independently owned layers; composition does not upgrade source-reported accuracy or accessibility certainty."
+  ],
+  "phase_5_known_limits": [
+    "Place position_source accuracy is explicit but remains numerically unknown where OpenStreetMap does not report a defensible horizontal accuracy; null is intentional, not zero.",
+    "Bounds/center/geometry-derived place coordinates are representative points for display/indexing, not surveyed entrances or exact object positions.",
+    "GLO-90 terrain elevation remains approximate and vertical_accuracy_m is null because the preserved project source does not provide a defensible per-place vertical accuracy; terrain elevation is never treated as physical object height."
   ]
 }
