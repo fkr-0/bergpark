@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Bergpark icon">
+  <rect width="512" height="512" rx="104" fill="#17352c"/>
+  <path d="M48 414 179 236l63 76 67-117 155 219H48Z" fill="#a9c7a4"/>
+  <path d="M225 354h62v60h-62zM236 270h40l20 84h-80l20-84Zm20-116 20 116h-40l20-116Z" fill="#f3d48c"/>
+  <circle cx="256" cy="128" r="24" fill="#f3d48c"/>
+</svg>
