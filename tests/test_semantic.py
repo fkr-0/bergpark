@@ -154,7 +154,11 @@ class SemanticGraphTests(unittest.TestCase):
             self.graph["provenance"]["semantic_source_registry"],
         )
         self.assertEqual("scripts/compose_graph.py", self.graph["composition"]["builder"])
-        self.assertEqual(8, len(self.graph["composition"]["inputs"]))
+        self.assertEqual(9, len(self.graph["composition"]["inputs"]))
+        self.assertIn(
+            "data/visitor_pois.json",
+            {record["path"] for record in self.graph["composition"]["inputs"]},
+        )
 
     def test_phase2_route_semantics_survive_composition(self):
         segment_keys = {

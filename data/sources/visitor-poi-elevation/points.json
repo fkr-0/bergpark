@@ -1,0 +1,1336 @@
+{
+  "schema_version": 1,
+  "retrieved_utc": "2026-08-27T10:14:07.101943+00:00",
+  "selection_input_sha256": "c452d13d867f7c38e05ab6cbb3e941ac89d09e5998f49ac6af9c59dac05175e5",
+  "source": {
+    "provider": "Open-Meteo Elevation API",
+    "dataset": "Copernicus DEM 2021 GLO-90",
+    "resolution_m": 90,
+    "vertical_accuracy_m": null,
+    "accuracy_status": "not_reported_in_project_source",
+    "dataset_doi": "10.5270/ESA-c5d3d65"
+  },
+  "poi_count": 109,
+  "points": [
+    {
+      "poi_id": "visitor-poi-osm-node-298371002",
+      "osm_element": {
+        "type": "node",
+        "id": "298371002",
+        "version": "3",
+        "timestamp": "2023-10-01T19:26:18Z"
+      },
+      "lat": 51.3100917,
+      "lng": 9.4037765,
+      "elevation_m": 400.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-298454738",
+      "osm_element": {
+        "type": "node",
+        "id": "298454738",
+        "version": "10",
+        "timestamp": "2018-09-15T10:23:05Z"
+      },
+      "lat": 51.3172004,
+      "lng": 9.4129424,
+      "elevation_m": 306.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-304155515",
+      "osm_element": {
+        "type": "node",
+        "id": "304155515",
+        "version": "7",
+        "timestamp": "2018-10-05T15:36:13Z"
+      },
+      "lat": 51.3221409,
+      "lng": 9.4129326,
+      "elevation_m": 307.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-306240812",
+      "osm_element": {
+        "type": "node",
+        "id": "306240812",
+        "version": "5",
+        "timestamp": "2018-01-07T12:20:14Z"
+      },
+      "lat": 51.3172294,
+      "lng": 9.4129842,
+      "elevation_m": 306.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-388377445",
+      "osm_element": {
+        "type": "node",
+        "id": "388377445",
+        "version": "3",
+        "timestamp": "2017-12-05T18:17:23Z"
+      },
+      "lat": 51.3185339,
+      "lng": 9.4103008,
+      "elevation_m": 318.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-506429765",
+      "osm_element": {
+        "type": "node",
+        "id": "506429765",
+        "version": "7",
+        "timestamp": "2018-11-18T16:14:50Z"
+      },
+      "lat": 51.3162299,
+      "lng": 9.3936701,
+      "elevation_m": 530.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-536320722",
+      "osm_element": {
+        "type": "node",
+        "id": "536320722",
+        "version": "3",
+        "timestamp": "2018-11-04T18:32:56Z"
+      },
+      "lat": 51.3181092,
+      "lng": 9.4133688,
+      "elevation_m": 294.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-764509968",
+      "osm_element": {
+        "type": "node",
+        "id": "764509968",
+        "version": "6",
+        "timestamp": "2026-05-09T11:36:43Z"
+      },
+      "lat": 51.3116085,
+      "lng": 9.4085544,
+      "elevation_m": 359.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-782900319",
+      "osm_element": {
+        "type": "node",
+        "id": "782900319",
+        "version": "6",
+        "timestamp": "2019-11-16T15:51:27Z"
+      },
+      "lat": 51.3175523,
+      "lng": 9.4154204,
+      "elevation_m": 281.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-782900335",
+      "osm_element": {
+        "type": "node",
+        "id": "782900335",
+        "version": "7",
+        "timestamp": "2026-04-29T11:33:09Z"
+      },
+      "lat": 51.3168073,
+      "lng": 9.4153929,
+      "elevation_m": 284.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-930185294",
+      "osm_element": {
+        "type": "node",
+        "id": "930185294",
+        "version": "4",
+        "timestamp": "2018-01-06T19:07:13Z"
+      },
+      "lat": 51.3168886,
+      "lng": 9.4135796,
+      "elevation_m": 306.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-930198276",
+      "osm_element": {
+        "type": "node",
+        "id": "930198276",
+        "version": "7",
+        "timestamp": "2025-03-19T11:03:58Z"
+      },
+      "lat": 51.3128587,
+      "lng": 9.4197555,
+      "elevation_m": 275.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-930238060",
+      "osm_element": {
+        "type": "node",
+        "id": "930238060",
+        "version": "3",
+        "timestamp": "2018-02-11T16:21:24Z"
+      },
+      "lat": 51.3116347,
+      "lng": 9.4173879,
+      "elevation_m": 300.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-932709142",
+      "osm_element": {
+        "type": "node",
+        "id": "932709142",
+        "version": "7",
+        "timestamp": "2018-10-13T15:01:15Z"
+      },
+      "lat": 51.3165656,
+      "lng": 9.4175305,
+      "elevation_m": 279.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-932709158",
+      "osm_element": {
+        "type": "node",
+        "id": "932709158",
+        "version": "4",
+        "timestamp": "2018-09-14T09:32:48Z"
+      },
+      "lat": 51.3163061,
+      "lng": 9.4179839,
+      "elevation_m": 279.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-937633684",
+      "osm_element": {
+        "type": "node",
+        "id": "937633684",
+        "version": "4",
+        "timestamp": "2019-01-12T14:43:05Z"
+      },
+      "lat": 51.3124664,
+      "lng": 9.4188254,
+      "elevation_m": 284.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-945219236",
+      "osm_element": {
+        "type": "node",
+        "id": "945219236",
+        "version": "5",
+        "timestamp": "2023-06-01T14:27:34Z"
+      },
+      "lat": 51.3126331,
+      "lng": 9.4231232,
+      "elevation_m": 256.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-945222927",
+      "osm_element": {
+        "type": "node",
+        "id": "945222927",
+        "version": "4",
+        "timestamp": "2026-04-05T12:50:48Z"
+      },
+      "lat": 51.3142189,
+      "lng": 9.4237777,
+      "elevation_m": 239.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-1204099781",
+      "osm_element": {
+        "type": "node",
+        "id": "1204099781",
+        "version": "4",
+        "timestamp": "2018-03-06T16:39:33Z"
+      },
+      "lat": 51.3104215,
+      "lng": 9.4131262,
+      "elevation_m": 336.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-1309839832",
+      "osm_element": {
+        "type": "node",
+        "id": "1309839832",
+        "version": "3",
+        "timestamp": "2018-06-21T09:42:00Z"
+      },
+      "lat": 51.3126838,
+      "lng": 9.402797,
+      "elevation_m": 396.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-1350114750",
+      "osm_element": {
+        "type": "node",
+        "id": "1350114750",
+        "version": "5",
+        "timestamp": "2026-05-09T11:45:18Z"
+      },
+      "lat": 51.3104141,
+      "lng": 9.4140086,
+      "elevation_m": 317.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-1434217606",
+      "osm_element": {
+        "type": "node",
+        "id": "1434217606",
+        "version": "6",
+        "timestamp": "2021-11-02T20:09:01Z"
+      },
+      "lat": 51.3170209,
+      "lng": 9.4163293,
+      "elevation_m": 284.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-1779783281",
+      "osm_element": {
+        "type": "node",
+        "id": "1779783281",
+        "version": "3",
+        "timestamp": "2023-10-01T19:38:33Z"
+      },
+      "lat": 51.3111009,
+      "lng": 9.4080202,
+      "elevation_m": 359.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-1817300375",
+      "osm_element": {
+        "type": "node",
+        "id": "1817300375",
+        "version": "3",
+        "timestamp": "2026-05-09T11:36:55Z"
+      },
+      "lat": 51.3111999,
+      "lng": 9.4089826,
+      "elevation_m": 361.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-1829599892",
+      "osm_element": {
+        "type": "node",
+        "id": "1829599892",
+        "version": "3",
+        "timestamp": "2017-11-19T17:54:45Z"
+      },
+      "lat": 51.3089127,
+      "lng": 9.4128061,
+      "elevation_m": 366.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-1935673514",
+      "osm_element": {
+        "type": "node",
+        "id": "1935673514",
+        "version": "1",
+        "timestamp": "2012-09-27T18:41:57Z"
+      },
+      "lat": 51.3114443,
+      "lng": 9.4108091,
+      "elevation_m": 351.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-1935673520",
+      "osm_element": {
+        "type": "node",
+        "id": "1935673520",
+        "version": "1",
+        "timestamp": "2012-09-27T18:41:57Z"
+      },
+      "lat": 51.3114532,
+      "lng": 9.4082191,
+      "elevation_m": 359.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-1935673522",
+      "osm_element": {
+        "type": "node",
+        "id": "1935673522",
+        "version": "3",
+        "timestamp": "2018-06-19T15:16:53Z"
+      },
+      "lat": 51.3114859,
+      "lng": 9.4083473,
+      "elevation_m": 359.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-1935673952",
+      "osm_element": {
+        "type": "node",
+        "id": "1935673952",
+        "version": "1",
+        "timestamp": "2012-09-27T18:42:04Z"
+      },
+      "lat": 51.3118679,
+      "lng": 9.4104178,
+      "elevation_m": 335.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-1966848885",
+      "osm_element": {
+        "type": "node",
+        "id": "1966848885",
+        "version": "3",
+        "timestamp": "2018-09-28T08:12:46Z"
+      },
+      "lat": 51.3216969,
+      "lng": 9.41869,
+      "elevation_m": 268.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-1966848894",
+      "osm_element": {
+        "type": "node",
+        "id": "1966848894",
+        "version": "2",
+        "timestamp": "2018-09-27T16:46:45Z"
+      },
+      "lat": 51.3226952,
+      "lng": 9.4181263,
+      "elevation_m": 284.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-2281051003",
+      "osm_element": {
+        "type": "node",
+        "id": "2281051003",
+        "version": "6",
+        "timestamp": "2025-06-29T10:50:29Z"
+      },
+      "lat": 51.3171758,
+      "lng": 9.3912575,
+      "elevation_m": 529.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-4909007514",
+      "osm_element": {
+        "type": "node",
+        "id": "4909007514",
+        "version": "1",
+        "timestamp": "2017-06-11T14:41:09Z"
+      },
+      "lat": 51.3164856,
+      "lng": 9.3923174,
+      "elevation_m": 524.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-5208930138",
+      "osm_element": {
+        "type": "node",
+        "id": "5208930138",
+        "version": "3",
+        "timestamp": "2018-10-16T16:59:21Z"
+      },
+      "lat": 51.3167745,
+      "lng": 9.414067,
+      "elevation_m": 290.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-5208930139",
+      "osm_element": {
+        "type": "node",
+        "id": "5208930139",
+        "version": "3",
+        "timestamp": "2018-10-16T16:59:21Z"
+      },
+      "lat": 51.3167608,
+      "lng": 9.41519,
+      "elevation_m": 284.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-5209042683",
+      "osm_element": {
+        "type": "node",
+        "id": "5209042683",
+        "version": "4",
+        "timestamp": "2021-01-20T12:29:39Z"
+      },
+      "lat": 51.31613,
+      "lng": 9.415918,
+      "elevation_m": 289.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-5221359601",
+      "osm_element": {
+        "type": "node",
+        "id": "5221359601",
+        "version": "4",
+        "timestamp": "2023-03-19T15:10:07Z"
+      },
+      "lat": 51.3126875,
+      "lng": 9.4220829,
+      "elevation_m": 266.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-5223296898",
+      "osm_element": {
+        "type": "node",
+        "id": "5223296898",
+        "version": "2",
+        "timestamp": "2022-06-11T16:04:09Z"
+      },
+      "lat": 51.314437,
+      "lng": 9.4156454,
+      "elevation_m": 286.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-5224592830",
+      "osm_element": {
+        "type": "node",
+        "id": "5224592830",
+        "version": "2",
+        "timestamp": "2017-12-05T18:17:23Z"
+      },
+      "lat": 51.3184249,
+      "lng": 9.4103114,
+      "elevation_m": 318.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-5238236983",
+      "osm_element": {
+        "type": "node",
+        "id": "5238236983",
+        "version": "1",
+        "timestamp": "2017-11-19T17:54:44Z"
+      },
+      "lat": 51.3112179,
+      "lng": 9.4088446,
+      "elevation_m": 361.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-5296248329",
+      "osm_element": {
+        "type": "node",
+        "id": "5296248329",
+        "version": "2",
+        "timestamp": "2019-07-15T12:32:30Z"
+      },
+      "lat": 51.3213434,
+      "lng": 9.4149717,
+      "elevation_m": 294.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-5324316578",
+      "osm_element": {
+        "type": "node",
+        "id": "5324316578",
+        "version": "2",
+        "timestamp": "2018-10-16T16:59:21Z"
+      },
+      "lat": 51.3168175,
+      "lng": 9.4147992,
+      "elevation_m": 290.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-5324316754",
+      "osm_element": {
+        "type": "node",
+        "id": "5324316754",
+        "version": "1",
+        "timestamp": "2018-01-06T19:07:12Z"
+      },
+      "lat": 51.3168847,
+      "lng": 9.413948,
+      "elevation_m": 290.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-5343326966",
+      "osm_element": {
+        "type": "node",
+        "id": "5343326966",
+        "version": "2",
+        "timestamp": "2019-07-01T16:56:45Z"
+      },
+      "lat": 51.3162659,
+      "lng": 9.406179,
+      "elevation_m": 388.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-5381135414",
+      "osm_element": {
+        "type": "node",
+        "id": "5381135414",
+        "version": "1",
+        "timestamp": "2018-02-02T18:21:36Z"
+      },
+      "lat": 51.3152267,
+      "lng": 9.3987496,
+      "elevation_m": 418.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-5708184390",
+      "osm_element": {
+        "type": "node",
+        "id": "5708184390",
+        "version": "2",
+        "timestamp": "2018-06-22T16:20:12Z"
+      },
+      "lat": 51.3123486,
+      "lng": 9.402041,
+      "elevation_m": 425.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-5838385912",
+      "osm_element": {
+        "type": "node",
+        "id": "5838385912",
+        "version": "4",
+        "timestamp": "2026-05-09T11:40:43Z"
+      },
+      "lat": 51.3104381,
+      "lng": 9.4081977,
+      "elevation_m": 377.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-5838385920",
+      "osm_element": {
+        "type": "node",
+        "id": "5838385920",
+        "version": "3",
+        "timestamp": "2022-08-07T13:47:51Z"
+      },
+      "lat": 51.3104039,
+      "lng": 9.4087826,
+      "elevation_m": 371.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-5942236650",
+      "osm_element": {
+        "type": "node",
+        "id": "5942236650",
+        "version": "6",
+        "timestamp": "2022-06-13T18:40:00Z"
+      },
+      "lat": 51.3173023,
+      "lng": 9.4148377,
+      "elevation_m": 290.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-5951511681",
+      "osm_element": {
+        "type": "node",
+        "id": "5951511681",
+        "version": "3",
+        "timestamp": "2019-07-13T17:26:33Z"
+      },
+      "lat": 51.3170613,
+      "lng": 9.4138638,
+      "elevation_m": 290.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-5951513989",
+      "osm_element": {
+        "type": "node",
+        "id": "5951513989",
+        "version": "1",
+        "timestamp": "2018-10-03T13:22:16Z"
+      },
+      "lat": 51.3172803,
+      "lng": 9.4136819,
+      "elevation_m": 306.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-5951514034",
+      "osm_element": {
+        "type": "node",
+        "id": "5951514034",
+        "version": "2",
+        "timestamp": "2019-11-16T08:59:38Z"
+      },
+      "lat": 51.3173218,
+      "lng": 9.4143045,
+      "elevation_m": 290.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-5952017892",
+      "osm_element": {
+        "type": "node",
+        "id": "5952017892",
+        "version": "2",
+        "timestamp": "2019-11-16T15:51:27Z"
+      },
+      "lat": 51.3173274,
+      "lng": 9.414172,
+      "elevation_m": 290.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-5978899516",
+      "osm_element": {
+        "type": "node",
+        "id": "5978899516",
+        "version": "2",
+        "timestamp": "2022-06-10T09:32:34Z"
+      },
+      "lat": 51.315511,
+      "lng": 9.4157845,
+      "elevation_m": 290.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-5978899519",
+      "osm_element": {
+        "type": "node",
+        "id": "5978899519",
+        "version": "3",
+        "timestamp": "2022-06-11T16:04:09Z"
+      },
+      "lat": 51.3156939,
+      "lng": 9.4159165,
+      "elevation_m": 290.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-6019012241",
+      "osm_element": {
+        "type": "node",
+        "id": "6019012241",
+        "version": "1",
+        "timestamp": "2018-10-28T09:21:35Z"
+      },
+      "lat": 51.3170947,
+      "lng": 9.4187332,
+      "elevation_m": 274.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-6032234355",
+      "osm_element": {
+        "type": "node",
+        "id": "6032234355",
+        "version": "1",
+        "timestamp": "2018-11-02T15:46:40Z"
+      },
+      "lat": 51.3089072,
+      "lng": 9.4136813,
+      "elevation_m": 366.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-6274383395",
+      "osm_element": {
+        "type": "node",
+        "id": "6274383395",
+        "version": "1",
+        "timestamp": "2019-02-12T14:22:47Z"
+      },
+      "lat": 51.311966,
+      "lng": 9.4218706,
+      "elevation_m": 278.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-6982923982",
+      "osm_element": {
+        "type": "node",
+        "id": "6982923982",
+        "version": "1",
+        "timestamp": "2019-11-16T15:51:27Z"
+      },
+      "lat": 51.3183966,
+      "lng": 9.4149638,
+      "elevation_m": 280.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-6982923983",
+      "osm_element": {
+        "type": "node",
+        "id": "6982923983",
+        "version": "1",
+        "timestamp": "2019-11-16T15:51:27Z"
+      },
+      "lat": 51.3182118,
+      "lng": 9.4149424,
+      "elevation_m": 282.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-6987341184",
+      "osm_element": {
+        "type": "node",
+        "id": "6987341184",
+        "version": "1",
+        "timestamp": "2019-11-18T14:31:32Z"
+      },
+      "lat": 51.3170369,
+      "lng": 9.4166742,
+      "elevation_m": 284.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-7574912052",
+      "osm_element": {
+        "type": "node",
+        "id": "7574912052",
+        "version": "1",
+        "timestamp": "2020-05-31T11:13:38Z"
+      },
+      "lat": 51.3153109,
+      "lng": 9.3986201,
+      "elevation_m": 432.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-7574912063",
+      "osm_element": {
+        "type": "node",
+        "id": "7574912063",
+        "version": "1",
+        "timestamp": "2020-05-31T11:13:38Z"
+      },
+      "lat": 51.3183649,
+      "lng": 9.4090666,
+      "elevation_m": 334.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-9063065227",
+      "osm_element": {
+        "type": "node",
+        "id": "9063065227",
+        "version": "2",
+        "timestamp": "2025-03-19T18:03:05Z"
+      },
+      "lat": 51.3171342,
+      "lng": 9.3912064,
+      "elevation_m": 518.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-9063065229",
+      "osm_element": {
+        "type": "node",
+        "id": "9063065229",
+        "version": "1",
+        "timestamp": "2021-09-04T19:57:19Z"
+      },
+      "lat": 51.3172215,
+      "lng": 9.3905588,
+      "elevation_m": 518.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-9207879522",
+      "osm_element": {
+        "type": "node",
+        "id": "9207879522",
+        "version": "3",
+        "timestamp": "2021-11-02T08:45:47Z"
+      },
+      "lat": 51.3162503,
+      "lng": 9.3927117,
+      "elevation_m": 530.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-12396751612",
+      "osm_element": {
+        "type": "node",
+        "id": "12396751612",
+        "version": "1",
+        "timestamp": "2024-12-04T21:25:12Z"
+      },
+      "lat": 51.3172448,
+      "lng": 9.415465,
+      "elevation_m": 284.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-13888910626",
+      "osm_element": {
+        "type": "node",
+        "id": "13888910626",
+        "version": "1",
+        "timestamp": "2026-05-27T17:28:47Z"
+      },
+      "lat": 51.3149506,
+      "lng": 9.4161317,
+      "elevation_m": 286.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-1390202711",
+      "osm_element": {
+        "type": "node",
+        "id": "1390202711",
+        "version": "7",
+        "timestamp": "2023-05-19T08:48:03Z"
+      },
+      "lat": 51.3171743,
+      "lng": 9.3905892,
+      "elevation_m": 518.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-1759814375",
+      "osm_element": {
+        "type": "node",
+        "id": "1759814375",
+        "version": "4",
+        "timestamp": "2024-06-23T09:01:24Z"
+      },
+      "lat": 51.3143859,
+      "lng": 9.4156736,
+      "elevation_m": 286.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-1759814376",
+      "osm_element": {
+        "type": "node",
+        "id": "1759814376",
+        "version": "5",
+        "timestamp": "2023-05-11T14:26:07Z"
+      },
+      "lat": 51.314918,
+      "lng": 9.4162279,
+      "elevation_m": 286.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-1759866066",
+      "osm_element": {
+        "type": "node",
+        "id": "1759866066",
+        "version": "5",
+        "timestamp": "2023-05-15T14:52:31Z"
+      },
+      "lat": 51.3155398,
+      "lng": 9.423506,
+      "elevation_m": 247.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-2875759444",
+      "osm_element": {
+        "type": "node",
+        "id": "2875759444",
+        "version": "5",
+        "timestamp": "2024-06-23T08:36:11Z"
+      },
+      "lat": 51.3167582,
+      "lng": 9.4235374,
+      "elevation_m": 245.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-5039186848",
+      "osm_element": {
+        "type": "node",
+        "id": "5039186848",
+        "version": "2",
+        "timestamp": "2020-10-19T14:57:46Z"
+      },
+      "lat": 51.3144685,
+      "lng": 9.4161382,
+      "elevation_m": 286.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-5238236982",
+      "osm_element": {
+        "type": "node",
+        "id": "5238236982",
+        "version": "3",
+        "timestamp": "2023-07-26T09:28:49Z"
+      },
+      "lat": 51.3114655,
+      "lng": 9.4084966,
+      "elevation_m": 359.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-5324316579",
+      "osm_element": {
+        "type": "node",
+        "id": "5324316579",
+        "version": "2",
+        "timestamp": "2026-05-18T11:55:57Z"
+      },
+      "lat": 51.3168222,
+      "lng": 9.4147568,
+      "elevation_m": 290.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-5372989915",
+      "osm_element": {
+        "type": "node",
+        "id": "5372989915",
+        "version": "5",
+        "timestamp": "2023-05-19T10:08:07Z"
+      },
+      "lat": 51.3152227,
+      "lng": 9.3988256,
+      "elevation_m": 418.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-12951319673",
+      "osm_element": {
+        "type": "node",
+        "id": "12951319673",
+        "version": "2",
+        "timestamp": "2025-12-05T15:46:58Z"
+      },
+      "lat": 51.3122945,
+      "lng": 9.4183723,
+      "elevation_m": 283.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-535523144",
+      "osm_element": {
+        "type": "node",
+        "id": "535523144",
+        "version": "7",
+        "timestamp": "2023-10-20T12:40:29Z"
+      },
+      "lat": 51.3149244,
+      "lng": 9.4167424,
+      "elevation_m": 287.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-633361009",
+      "osm_element": {
+        "type": "node",
+        "id": "633361009",
+        "version": "4",
+        "timestamp": "2018-01-21T18:22:45Z"
+      },
+      "lat": 51.3182598,
+      "lng": 9.4092083,
+      "elevation_m": 353.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-731251603",
+      "osm_element": {
+        "type": "node",
+        "id": "731251603",
+        "version": "8",
+        "timestamp": "2021-08-06T10:00:09Z"
+      },
+      "lat": 51.3154883,
+      "lng": 9.4053156,
+      "elevation_m": 373.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-764510903",
+      "osm_element": {
+        "type": "node",
+        "id": "764510903",
+        "version": "4",
+        "timestamp": "2018-06-19T15:16:53Z"
+      },
+      "lat": 51.312,
+      "lng": 9.408994,
+      "elevation_m": 356.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-1930920765",
+      "osm_element": {
+        "type": "node",
+        "id": "1930920765",
+        "version": "11",
+        "timestamp": "2022-01-02T17:15:38Z"
+      },
+      "lat": 51.3161189,
+      "lng": 9.3929618,
+      "elevation_m": 530.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-3677033038",
+      "osm_element": {
+        "type": "node",
+        "id": "3677033038",
+        "version": "5",
+        "timestamp": "2019-03-19T17:11:36Z"
+      },
+      "lat": 51.3167908,
+      "lng": 9.4090132,
+      "elevation_m": 341.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-5248880298",
+      "osm_element": {
+        "type": "node",
+        "id": "5248880298",
+        "version": "2",
+        "timestamp": "2021-08-06T10:00:03Z"
+      },
+      "lat": 51.313882,
+      "lng": 9.4069263,
+      "elevation_m": 381.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-5274986042",
+      "osm_element": {
+        "type": "node",
+        "id": "5274986042",
+        "version": "2",
+        "timestamp": "2018-01-15T17:41:58Z"
+      },
+      "lat": 51.3176353,
+      "lng": 9.4076128,
+      "elevation_m": 359.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-5325396567",
+      "osm_element": {
+        "type": "node",
+        "id": "5325396567",
+        "version": "1",
+        "timestamp": "2018-01-07T12:20:12Z"
+      },
+      "lat": 51.3193249,
+      "lng": 9.412124,
+      "elevation_m": 312.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-5762435318",
+      "osm_element": {
+        "type": "node",
+        "id": "5762435318",
+        "version": "1",
+        "timestamp": "2018-07-15T21:42:30Z"
+      },
+      "lat": 51.3080974,
+      "lng": 9.3870563,
+      "elevation_m": 466.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-5854718201",
+      "osm_element": {
+        "type": "node",
+        "id": "5854718201",
+        "version": "5",
+        "timestamp": "2022-01-02T17:17:35Z"
+      },
+      "lat": 51.316058,
+      "lng": 9.3938974,
+      "elevation_m": 533.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-8959937134",
+      "osm_element": {
+        "type": "node",
+        "id": "8959937134",
+        "version": "1",
+        "timestamp": "2021-07-29T12:18:40Z"
+      },
+      "lat": 51.3115385,
+      "lng": 9.4039792,
+      "elevation_m": 386.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-12592618670",
+      "osm_element": {
+        "type": "node",
+        "id": "12592618670",
+        "version": "1",
+        "timestamp": "2025-02-16T09:23:20Z"
+      },
+      "lat": 51.317471,
+      "lng": 9.4169924,
+      "elevation_m": 284.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-4250864447",
+      "osm_element": {
+        "type": "node",
+        "id": "4250864447",
+        "version": "2",
+        "timestamp": "2018-10-27T16:21:33Z"
+      },
+      "lat": 51.3167742,
+      "lng": 9.4197587,
+      "elevation_m": 262.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-62623957",
+      "osm_element": {
+        "type": "node",
+        "id": "62623957",
+        "version": "20",
+        "timestamp": "2025-09-20T11:24:50Z"
+      },
+      "lat": 51.3172297,
+      "lng": 9.3904956,
+      "elevation_m": 518.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-way-287720392",
+      "osm_element": {
+        "type": "way",
+        "id": "287720392",
+        "version": "16",
+        "timestamp": "2024-11-05T23:53:00Z"
+      },
+      "lat": 51.3157174,
+      "lng": 9.423577,
+      "elevation_m": 247.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-way-287720393",
+      "osm_element": {
+        "type": "way",
+        "id": "287720393",
+        "version": "15",
+        "timestamp": "2024-11-05T23:53:10Z"
+      },
+      "lat": 51.3156721,
+      "lng": 9.4236592,
+      "elevation_m": 247.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-way-582930195",
+      "osm_element": {
+        "type": "way",
+        "id": "582930195",
+        "version": "3",
+        "timestamp": "2023-05-11T14:26:09Z"
+      },
+      "lat": 51.3155245,
+      "lng": 9.423303,
+      "elevation_m": 247.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-way-582930196",
+      "osm_element": {
+        "type": "way",
+        "id": "582930196",
+        "version": "4",
+        "timestamp": "2023-05-11T14:26:09Z"
+      },
+      "lat": 51.3155608,
+      "lng": 9.423157,
+      "elevation_m": 247.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-way-582930197",
+      "osm_element": {
+        "type": "way",
+        "id": "582930197",
+        "version": "9",
+        "timestamp": "2025-06-29T10:36:18Z"
+      },
+      "lat": 51.317231,
+      "lng": 9.3904942,
+      "elevation_m": 518.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-674919702",
+      "osm_element": {
+        "type": "node",
+        "id": "674919702",
+        "version": "6",
+        "timestamp": "2018-02-13T17:34:28Z"
+      },
+      "lat": 51.3143078,
+      "lng": 9.4137941,
+      "elevation_m": 289.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-764542961",
+      "osm_element": {
+        "type": "node",
+        "id": "764542961",
+        "version": "8",
+        "timestamp": "2019-11-14T18:49:41Z"
+      },
+      "lat": 51.3124222,
+      "lng": 9.4084656,
+      "elevation_m": 360.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-4904899004",
+      "osm_element": {
+        "type": "node",
+        "id": "4904899004",
+        "version": "5",
+        "timestamp": "2021-10-28T14:37:48Z"
+      },
+      "lat": 51.3160995,
+      "lng": 9.3934598,
+      "elevation_m": 530.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-5191617835",
+      "osm_element": {
+        "type": "node",
+        "id": "5191617835",
+        "version": "3",
+        "timestamp": "2019-04-27T16:05:59Z"
+      },
+      "lat": 51.316549,
+      "lng": 9.4146155,
+      "elevation_m": 296.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-5713712167",
+      "osm_element": {
+        "type": "node",
+        "id": "5713712167",
+        "version": "2",
+        "timestamp": "2021-08-06T10:00:16Z"
+      },
+      "lat": 51.3153407,
+      "lng": 9.4053677,
+      "elevation_m": 373.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-5713712168",
+      "osm_element": {
+        "type": "node",
+        "id": "5713712168",
+        "version": "2",
+        "timestamp": "2021-08-06T10:00:15Z"
+      },
+      "lat": 51.3156254,
+      "lng": 9.4053944,
+      "elevation_m": 373.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-6074038221",
+      "osm_element": {
+        "type": "node",
+        "id": "6074038221",
+        "version": "3",
+        "timestamp": "2021-08-06T09:59:05Z"
+      },
+      "lat": 51.3160122,
+      "lng": 9.394649,
+      "elevation_m": 533.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-6459228937",
+      "osm_element": {
+        "type": "node",
+        "id": "6459228937",
+        "version": "3",
+        "timestamp": "2019-10-30T18:15:49Z"
+      },
+      "lat": 51.315066,
+      "lng": 9.4160098,
+      "elevation_m": 290.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-6459228938",
+      "osm_element": {
+        "type": "node",
+        "id": "6459228938",
+        "version": "2",
+        "timestamp": "2019-10-30T18:15:49Z"
+      },
+      "lat": 51.3148492,
+      "lng": 9.4159761,
+      "elevation_m": 286.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-13171224323",
+      "osm_element": {
+        "type": "node",
+        "id": "13171224323",
+        "version": "1",
+        "timestamp": "2025-09-25T15:20:52Z"
+      },
+      "lat": 51.3160503,
+      "lng": 9.3939176,
+      "elevation_m": 533.0
+    },
+    {
+      "poi_id": "visitor-poi-osm-node-13171224352",
+      "osm_element": {
+        "type": "node",
+        "id": "13171224352",
+        "version": "1",
+        "timestamp": "2025-09-25T15:20:52Z"
+      },
+      "lat": 51.3160953,
+      "lng": 9.3945624,
+      "elevation_m": 533.0
+    }
+  ],
+  "raw_batches": [
+    {
+      "batch": "batch-00.json",
+      "poi_count": 100,
+      "sha256": "f1906799f93cd0ae3bcb73f22d6116e081eabbb038fa21a42548380437fb4eb0"
+    },
+    {
+      "batch": "batch-01.json",
+      "poi_count": 9,
+      "sha256": "86e65e31709667c86b75cb0bb478f47093e84264fbdaf4b90db58f633026e6f3"
+    }
+  ]
+}

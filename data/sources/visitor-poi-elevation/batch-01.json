@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "retrieved_utc": "2026-08-27T10:14:07.101943+00:00",
+  "selection_input_sha256": "c452d13d867f7c38e05ab6cbb3e941ac89d09e5998f49ac6af9c59dac05175e5",
+  "request": {
+    "endpoint": "https://api.open-meteo.com/v1/elevation",
+    "pois": [
+      {
+        "poi_id": "visitor-poi-osm-node-4904899004",
+        "osm_element": {
+          "type": "node",
+          "id": "4904899004",
+          "version": "5",
+          "timestamp": "2021-10-28T14:37:48Z"
+        },
+        "lat": 51.3160995,
+        "lng": 9.3934598,
+        "family": "artwork"
+      },
+      {
+        "poi_id": "visitor-poi-osm-node-5191617835",
+        "osm_element": {
+          "type": "node",
+          "id": "5191617835",
+          "version": "3",
+          "timestamp": "2019-04-27T16:05:59Z"
+        },
+        "lat": 51.316549,
+        "lng": 9.4146155,
+        "family": "artwork"
+      },
+      {
+        "poi_id": "visitor-poi-osm-node-5713712167",
+        "osm_element": {
+          "type": "node",
+          "id": "5713712167",
+          "version": "2",
+          "timestamp": "2021-08-06T10:00:16Z"
+        },
+        "lat": 51.3153407,
+        "lng": 9.4053677,
+        "family": "artwork"
+      },
+      {
+        "poi_id": "visitor-poi-osm-node-5713712168",
+        "osm_element": {
+          "type": "node",
+          "id": "5713712168",
+          "version": "2",
+          "timestamp": "2021-08-06T10:00:15Z"
+        },
+        "lat": 51.3156254,
+        "lng": 9.4053944,
+        "family": "artwork"
+      },
+      {
+        "poi_id": "visitor-poi-osm-node-6074038221",
+        "osm_element": {
+          "type": "node",
+          "id": "6074038221",
+          "version": "3",
+          "timestamp": "2021-08-06T09:59:05Z"
+        },
+        "lat": 51.3160122,
+        "lng": 9.394649,
+        "family": "artwork"
+      },
+      {
+        "poi_id": "visitor-poi-osm-node-6459228937",
+        "osm_element": {
+          "type": "node",
+          "id": "6459228937",
+          "version": "3",
+          "timestamp": "2019-10-30T18:15:49Z"
+        },
+        "lat": 51.315066,
+        "lng": 9.4160098,
+        "family": "artwork"
+      },
+      {
+        "poi_id": "visitor-poi-osm-node-6459228938",
+        "osm_element": {
+          "type": "node",
+          "id": "6459228938",
+          "version": "2",
+          "timestamp": "2019-10-30T18:15:49Z"
+        },
+        "lat": 51.3148492,
+        "lng": 9.4159761,
+        "family": "artwork"
+      },
+      {
+        "poi_id": "visitor-poi-osm-node-13171224323",
+        "osm_element": {
+          "type": "node",
+          "id": "13171224323",
+          "version": "1",
+          "timestamp": "2025-09-25T15:20:52Z"
+        },
+        "lat": 51.3160503,
+        "lng": 9.3939176,
+        "family": "artwork"
+      },
+      {
+        "poi_id": "visitor-poi-osm-node-13171224352",
+        "osm_element": {
+          "type": "node",
+          "id": "13171224352",
+          "version": "1",
+          "timestamp": "2025-09-25T15:20:52Z"
+        },
+        "lat": 51.3160953,
+        "lng": 9.3945624,
+        "family": "artwork"
+      }
+    ],
+    "url": "https://api.open-meteo.com/v1/elevation?latitude=51.3160995%2C51.3165490%2C51.3153407%2C51.3156254%2C51.3160122%2C51.3150660%2C51.3148492%2C51.3160503%2C51.3160953&longitude=9.3934598%2C9.4146155%2C9.4053677%2C9.4053944%2C9.3946490%2C9.4160098%2C9.4159761%2C9.3939176%2C9.3945624"
+  },
+  "response": {
+    "elevation": [
+      530.0,
+      296.0,
+      373.0,
+      373.0,
+      533.0,
+      290.0,
+      286.0,
+      533.0,
+      533.0
+    ]
+  }
+}

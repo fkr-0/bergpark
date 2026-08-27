@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-27T10:22:48.048954+00:00",
+  "status": "pass",
+  "summary": {
+    "visitor_pois": 109,
+    "families": {
+      "access": 68,
+      "toilet": 9,
+      "drinking_water": 1,
+      "viewpoint": 13,
+      "shelter": 1,
+      "transit": 6,
+      "artwork": 11
+    },
+    "inside_park": 100,
+    "boundary_external": 8,
+    "external_relevant": 1,
+    "source_points": 104,
+    "representative_points": 5,
+    "errors": 0
+  },
+  "checks": [
+    {
+      "id": "visitor_poi_schema_and_status",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "visitor_poi_ids_stable_unique",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "visitor_poi_family_counts_match",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "visitor_poi_common_spatial_contract",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "visitor_poi_scope_explicit",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "access_points_are_source_nodes",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "physical_height_not_derived_from_terrain",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "visitor_poi_rows_match_preserved_sources",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "snapshot_absence_not_physical_absence",
+      "pass": true,
+      "failures": []
+    }
+  ],
+  "errors": [],
+  "known_limits": [
+    "The layer is a source-grounded tranche from preserved OSM snapshots, not a claim of complete physical POI inventory.",
+    "Missing wheelchair/access/barrier tags remain unknown; absence of a negative tag is not positive accessibility evidence.",
+    "Transit platform-way coordinates are representative display/indexing points and are not visitor entrances.",
+    "GLO-90 terrain elevation is approximate and is never used as object physical height."
+  ]
+}

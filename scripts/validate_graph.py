@@ -13,8 +13,10 @@ from typing import Any
 
 try:
     from .compose_graph import assert_graph_inputs_current
+    from .validate_visitor_pois import validate_document as validate_visitor_poi_document
 except ImportError:  # Direct `python scripts/validate_graph.py` execution.
     from compose_graph import assert_graph_inputs_current
+    from validate_visitor_pois import validate_document as validate_visitor_poi_document
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -61,6 +63,7 @@ def main() -> int:
     trees_doc = load_curated("trees.json")
     benches_doc = load_curated("benches.json")
     path_topology_doc = load_curated("path_topology.json")
+    visitor_pois_doc = load_curated("visitor_pois.json")
     figures = figures_doc.get("figures", [])
     artworks = semantic_doc.get("artworks", [])
     collections = semantic_doc.get("collections", [])
@@ -70,6 +73,7 @@ def main() -> int:
     benches = benches_doc.get("benches", [])
     path_nodes = path_topology_doc.get("path_nodes", [])
     path_segments = path_topology_doc.get("directed_segments", [])
+    visitor_pois = visitor_pois_doc.get("pois", [])
     node_ids = {n["id"] for n in nodes}
     checks = []
     errors = []
@@ -316,11 +320,24 @@ def main() -> int:
     errors.extend(f"invalid semantic source: {x}" for x in source_failures)
     source_id_set = {sid for sid in semantic_source_ids if sid}
 
+    visitor_poi_checks, visitor_poi_errors = validate_visitor_poi_document(visitor_pois_doc)
+    visitor_poi_valid = not visitor_poi_errors
+    checks.append(
+        {
+            "id": "visitor_poi_layer_valid",
+            "pass": visitor_poi_valid,
+            "failures": visitor_poi_errors,
+            "subchecks": visitor_poi_checks,
+        }
+    )
+    errors.extend(f"invalid visitor POI layer: {failure}" for failure in visitor_poi_errors)
+
     entity_groups = {
         "place": nodes,
         "tree": trees,
         "bench": benches,
         "path_node": path_nodes,
+        "visitor_poi": visitor_pois,
         "historical_figure": figures,
         "artwork": artworks,
         "collection": collections,
@@ -336,7 +353,7 @@ def main() -> int:
 
     bad_entity_sources = []
     for kind, row in entity_rows:
-        if kind in {"place", "tree", "bench", "path_node"}:
+        if kind in {"place", "tree", "bench", "path_node", "visitor_poi"}:
             continue
         refs = row.get("source_ids", [])
         if not refs or any(ref not in source_id_set for ref in refs):
@@ -433,6 +450,7 @@ def main() -> int:
         "benches": benches,
         "path_nodes": path_nodes,
         "path_segments": path_segments,
+        "visitor_pois": visitor_pois,
         "figures": figures,
         "artworks": artworks,
         "collections": collections,
@@ -448,6 +466,10 @@ def main() -> int:
         composition_failures.append("bench_layer_provenance")
     if provenance.get("path_topology_layer") != "data/path_topology.json":
         composition_failures.append("path_topology_provenance")
+    if provenance.get("visitor_poi_layer") != "data/visitor_pois.json":
+        composition_failures.append("visitor_poi_layer_provenance")
+    if provenance.get("visitor_poi_scope") != visitor_pois_doc.get("status"):
+        composition_failures.append("visitor_poi_scope_provenance")
     checks.append(
         {
             "id": "graph_composes_independent_layers_exactly",
@@ -499,6 +521,8 @@ def main() -> int:
             "benches": len(benches),
             "path_nodes": len(path_nodes),
             "directed_path_segments": len(path_segments),
+            "visitor_pois": len(visitor_pois),
+            "visitor_poi_families": visitor_pois_doc.get("family_counts", {}),
             "historical_figures": len(figures),
             "artworks": len(artworks),
             "collections": len(collections),
@@ -528,6 +552,12 @@ def main() -> int:
             "Place position_source accuracy is explicit but remains numerically unknown where OpenStreetMap does not report a defensible horizontal accuracy; null is intentional, not zero.",
             "Bounds/center/geometry-derived place coordinates are representative points for display/indexing, not surveyed entrances or exact object positions.",
             "GLO-90 terrain elevation remains approximate and vertical_accuracy_m is null because the preserved project source does not provide a defensible per-place vertical accuracy; terrain elevation is never treated as physical object height.",
+        ],
+        "phase_6_known_limits": [
+            "Visitor POIs are a source-grounded tranche from preserved OSM map snapshots, not a claim of complete physical inventory; absence from the snapshot is not evidence of absence in the park.",
+            "Wheelchair, access, foot, entrance and barrier facts are source-tag evidence only; missing tags remain unknown and are never upgraded to positive accessibility claims.",
+            "Transit platform ways use explicitly representative bounds-midpoint coordinates and are not treated as visitor entrances.",
+            "The current web runtime does not selectively load the standalone visitor_pois.json layer; Phase 6 composes it additively into graph.json without changing loader/cache/API behavior.",
         ],
     }
     (DATA / "validation.json").write_text(json.dumps(out, ensure_ascii=False, indent=2) + "\n")

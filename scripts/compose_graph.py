@@ -39,6 +39,7 @@ LAYER_SPECS = (
     LayerSpec("trees.json", 2, ("trees",)),
     LayerSpec("benches.json", 1, ("benches",)),
     LayerSpec("path_topology.json", 1, ("path_nodes", "directed_segments")),
+    LayerSpec("visitor_pois.json", 1, ("pois",)),
     LayerSpec("figures.json", 1, ("figures",)),
     LayerSpec("semantic.json", 1, ("sources", "artworks", "collections", "semantic_edges")),
     LayerSpec("source_manifest.json", 1, (), False),
@@ -184,6 +185,95 @@ def _validate_place_positions(nodes: list[dict[str, Any]]) -> None:
         )
 
 
+def _validate_visitor_pois(doc: dict[str, Any]) -> None:
+    pois = doc["pois"]
+    allowed_families = {
+        "access",
+        "toilet",
+        "drinking_water",
+        "viewpoint",
+        "shelter",
+        "transit",
+        "artwork",
+    }
+    family_counts = {family: 0 for family in allowed_families}
+    failures = []
+    for poi in pois:
+        row_id = poi.get("id", "<missing-id>")
+        family = poi.get("family")
+        element = poi.get("osm_element")
+        position = poi.get("position_source")
+        elevation = poi.get("elevation_source")
+        scope = poi.get("scope")
+        if family in family_counts:
+            family_counts[family] += 1
+        else:
+            failures.append(row_id)
+            continue
+        if not isinstance(element, dict) or not isinstance(position, dict) or not isinstance(elevation, dict) or not isinstance(scope, dict):
+            failures.append(row_id)
+            continue
+        element_type = element.get("type")
+        expected_id = f"visitor-poi-osm-{element_type}-{element.get('id')}"
+        expected_method = "source_node" if element_type == "node" else "bounds_midpoint"
+        expected_position_type = "source_point" if element_type == "node" else "representative_point"
+        expected_accuracy_status = "not_reported_by_source" if element_type == "node" else "derived_representative_point"
+        if (
+            poi.get("kind") != "visitor_poi"
+            or row_id != expected_id
+            or element_type not in {"node", "way"}
+            or not element.get("id")
+            or not element.get("version")
+            or not element.get("timestamp")
+            or not isinstance(poi.get("lat"), (int, float))
+            or isinstance(poi.get("lat"), bool)
+            or not isinstance(poi.get("lng"), (int, float))
+            or isinstance(poi.get("lng"), bool)
+            or not isinstance(poi.get("elevation_m"), (int, float))
+            or isinstance(poi.get("elevation_m"), bool)
+            or position.get("provider") != "OpenStreetMap"
+            or position.get("element") != f"{element_type}/{element.get('id')}"
+            or not position.get("snapshot")
+            or not position.get("snapshot_refs")
+            or position.get("source_version") != element.get("version")
+            or position.get("source_timestamp") != element.get("timestamp")
+            or position.get("method") != expected_method
+            or position.get("position_type") != expected_position_type
+            or position.get("accuracy_status") != expected_accuracy_status
+            or "horizontal_accuracy_m" not in position
+            or not _valid_optional_accuracy(position.get("horizontal_accuracy_m"))
+            or position.get("license") != "ODbL-1.0"
+            or elevation.get("dataset") != "Copernicus DEM 2021 GLO-90"
+            or elevation.get("resolution_m") != 90
+            or "vertical_accuracy_m" not in elevation
+            or not _valid_optional_accuracy(elevation.get("vertical_accuracy_m"))
+            or elevation.get("accuracy_status") != "not_reported_in_project_source"
+            or elevation.get("snapshot") != "data/sources/visitor-poi-elevation/points.json"
+            or scope.get("relation") not in {"inside_park", "boundary_external", "external_relevant"}
+            or poi.get("height_m") is not None
+            or poi.get("height_status") != "unknown_no_measurement_source"
+            or poi.get("height_source") is not None
+            or not poi.get("source_refs")
+        ):
+            failures.append(row_id)
+        if family == "access" and (
+            element_type != "node"
+            or position.get("position_type") != "source_point"
+            or not ({"entrance", "barrier"} & set(poi.get("source_tags", {})))
+        ):
+            failures.append(row_id)
+    if doc.get("poi_count") != len(pois) or doc.get("family_counts") != family_counts:
+        failures.append("declared-counts")
+    status = doc.get("status")
+    if not isinstance(status, str) or not status or "pending" in status.lower():
+        failures.append("status")
+    coverage = doc.get("quality", {}).get("coverage_note", "").lower()
+    if "absence" not in coverage or "not evidence" not in coverage:
+        failures.append("coverage-note")
+    if failures:
+        raise ValueError(f"visitor POIs lack normalized source/spatial contract: {sorted(set(failures))[:10]}")
+
+
 def validate_layer_compatibility(docs: dict[str, dict[str, Any]]) -> None:
     nodes = docs["nodes.json"]["nodes"]
     edges = docs["edges.json"]["edges"]
@@ -191,6 +281,7 @@ def validate_layer_compatibility(docs: dict[str, dict[str, Any]]) -> None:
     benches = docs["benches.json"]["benches"]
     path_nodes = docs["path_topology.json"]["path_nodes"]
     path_segments = docs["path_topology.json"]["directed_segments"]
+    visitor_pois = docs["visitor_pois.json"]["pois"]
     figures = docs["figures.json"]["figures"]
     semantic = docs["semantic.json"]
     artworks = semantic["artworks"]
@@ -198,6 +289,7 @@ def validate_layer_compatibility(docs: dict[str, dict[str, Any]]) -> None:
     semantic_edges = semantic["semantic_edges"]
 
     _validate_place_positions(nodes)
+    _validate_visitor_pois(docs["visitor_pois.json"])
 
     _check_declared_count(docs["trees.json"], "tree_count", "trees", "data/trees.json")
     _check_declared_count(docs["benches.json"], "bench_count", "benches", "data/benches.json")
@@ -221,6 +313,7 @@ def validate_layer_compatibility(docs: dict[str, dict[str, Any]]) -> None:
     tree_ids = _unique_ids(trees, "trees")
     bench_ids = _unique_ids(benches, "benches")
     path_node_ids = _unique_ids(path_nodes, "path nodes")
+    visitor_poi_ids = _unique_ids(visitor_pois, "visitor POIs")
     figure_ids = _unique_ids(figures, "figures")
     artwork_ids = _unique_ids(artworks, "artworks")
     collection_ids = _unique_ids(collections, "collections")
@@ -232,6 +325,7 @@ def validate_layer_compatibility(docs: dict[str, dict[str, Any]]) -> None:
         tree_ids,
         bench_ids,
         path_node_ids,
+        visitor_poi_ids,
         figure_ids,
         artwork_ids,
         collection_ids,
@@ -329,7 +423,7 @@ def validate_layer_compatibility(docs: dict[str, dict[str, Any]]) -> None:
     if edge_id_overlap:
         raise ValueError(f"duplicate edge/segment ids across layers: {sorted(edge_id_overlap)[:10]}")
 
-    for label, rows in (("trees", trees), ("benches", benches), ("path nodes", path_nodes)):
+    for label, rows in (("trees", trees), ("benches", benches), ("path nodes", path_nodes), ("visitor POIs", visitor_pois)):
         missing_position = [
             row["id"]
             for row in rows
@@ -425,6 +519,7 @@ def compose_graph(data_dir: pathlib.Path | None = None) -> dict[str, Any]:
         "benches": docs["benches.json"]["benches"],
         "path_nodes": topology_doc["path_nodes"],
         "path_segments": topology_doc["directed_segments"],
+        "visitor_pois": docs["visitor_pois.json"]["pois"],
         "figures": docs["figures.json"]["figures"],
         "artworks": semantic_doc["artworks"],
         "collections": semantic_doc["collections"],
@@ -448,6 +543,8 @@ def compose_graph(data_dir: pathlib.Path | None = None) -> dict[str, Any]:
             "bench_layer": "data/benches.json",
             "path_topology_layer": "data/path_topology.json",
             "path_topology_scope": topology_doc.get("status"),
+            "visitor_poi_layer": "data/visitor_pois.json",
+            "visitor_poi_scope": docs["visitor_pois.json"].get("status"),
             "osm_license": "ODbL-1.0",
             "source_snapshots": [
                 "data/sources/osm-pois.json",
@@ -456,6 +553,7 @@ def compose_graph(data_dir: pathlib.Path | None = None) -> dict[str, Any]:
                 "data/sources/osm-map/se.xml",
                 "data/sources/osm-map/ne.xml",
                 "data/sources/elevation/points.json",
+                "data/sources/visitor-poi-elevation/points.json",
                 "data/sources/commons-geotag-audit.json",
             ],
         },
@@ -475,6 +573,11 @@ def main() -> None:
         "benches": len(graph["benches"]),
         "path_nodes": len(graph["path_nodes"]),
         "path_segments": len(graph["path_segments"]),
+        "visitor_pois": len(graph["visitor_pois"]),
+        "visitor_poi_families": {
+            family: sum(poi.get("family") == family for poi in graph["visitor_pois"])
+            for family in sorted({poi.get("family") for poi in graph["visitor_pois"]})
+        },
         "figures": len(graph["figures"]),
         "artworks": len(graph["artworks"]),
         "collections": len(graph["collections"]),

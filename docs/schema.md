@@ -189,9 +189,88 @@ when a source does not state numeric accuracy the exported accuracy remains
 `null`. No physical structure/object height is synthesized from terrain
 `elevation_m`; height remains independently sourced or unknown.
 
-Benches are now durable in `data/benches.json` as a separate first-class POI
-layer with spatial provenance. They should retain the same provenance/accuracy
-rules when later composed into the main graph.
+Benches are durable in `data/benches.json` as a separate first-class POI layer
+with spatial provenance and are composed verbatim into `data/graph.json` by the
+composition-only Phase-4 boundary.
+
+## Phase-6 visitor POI contract
+
+Phase 6 uses one deliberately common typed document, `data/visitor_pois.json`
+(schema version 1), rather than seven nearly identical producer files. Every row
+has `kind: "visitor_poi"` and one `family` discriminator: `access`, `toilet`,
+`drinking_water`, `viewpoint`, `shelter`, `transit`, or `artwork`. The common
+document still reports per-family counts and `scripts/validate_visitor_pois.py`
+validates each family-specific evidence rule fail-closed.
+
+Stable IDs are source-derived as
+`visitor-poi-osm-<element-type>-<element-id>`. A source element may occur only
+once in the document, and visitor POI IDs must also be globally distinct from
+place, tree, bench, path-node, historical-figure, semantic-artwork and collection
+IDs during composition.
+
+Every row carries the Phase-5 spatial contract:
+
+```json
+{
+  "id": "visitor-poi-osm-node-12951319673",
+  "kind": "visitor_poi",
+  "family": "drinking_water",
+  "osm_element": {"type": "node", "id": "12951319673", "version": "2"},
+  "lat": 51.3122945,
+  "lng": 9.4183723,
+  "elevation_m": 283.0,
+  "position_source": {
+    "provider": "OpenStreetMap",
+    "element": "node/12951319673",
+    "method": "source_node",
+    "position_type": "source_point",
+    "horizontal_accuracy_m": null,
+    "accuracy_status": "not_reported_by_source",
+    "license": "ODbL-1.0"
+  },
+  "elevation_source": {
+    "dataset": "Copernicus DEM 2021 GLO-90",
+    "resolution_m": 90,
+    "vertical_accuracy_m": null,
+    "accuracy_status": "not_reported_in_project_source",
+    "snapshot": "data/sources/visitor-poi-elevation/points.json"
+  },
+  "height_m": null,
+  "height_status": "unknown_no_measurement_source",
+  "height_source": null
+}
+```
+
+Direct OSM nodes are `source_point`s. The five source-mapped public-transport
+platform ways use a deterministic `bounds_midpoint` only for display/indexing
+and are explicitly `representative_point`s; they are never promoted to visitor
+entrances. Access-family rows are OSM nodes only and require an actual `entrance`
+or `barrier` source tag. Toilet `wheelchair` / `toilets:wheelchair`, access,
+foot, barrier and related facts remain verbatim in `source_tags`; missing tags
+remain unknown rather than becoming positive accessibility claims.
+
+Spatial scope is grounded in the preserved OSM Bergpark protected-area boundary
+`way/608171475`. Rows are marked `inside_park`, `boundary_external`, or
+`external_relevant`, with boundary distance and selection rationale. The current
+source-grounded tranche contains 109 rows: 68 access, 9 toilet, 1 drinking-water,
+13 viewpoint, 1 shelter, 6 boundary-transit and 11 artwork POIs. Eight rows are
+explicit near-boundary external services/access points and the named `Blick zum
+Herkules` viewpoint is the single deliberately `external_relevant` row. These
+counts describe this preserved snapshot and selection policy only: absence from
+the snapshot is not evidence that a physical POI does not exist.
+
+Normal builds do not refresh OpenStreetMap or elevation services. OSM evidence
+comes from the preserved `data/sources/osm-map/*.xml` files. Terrain elevations
+come from the separately preserved two-batch
+`data/sources/visitor-poi-elevation/` snapshot, whose `points.json` records the
+exact POI-selection SHA-256 and fails if IDs or coordinates drift. GLO-90 terrain
+elevation never becomes physical object height.
+
+Phase 6 composes the rows additively as `graph.json.visitor_pois` and records
+`data/visitor_pois.json` as a schema/hash composition input. No browser loader,
+cache, API or service-worker contract is changed in this phase: the existing
+runtime continues to consume its established base layers while a later webapp
+handoff may expose selective standalone POI loading.
 
 ## Standalone explicit path topology
 
@@ -254,7 +333,9 @@ invalid declared counts or duplicate IDs fail closed before the aggregate is
 written.
 
 `graph.json.composition` records the composition schema, the composer path and a
-SHA-256/size/schema record for every input layer. `input_set_sha256` hashes that
+SHA-256/size/schema record for every input layer. Phase 6 adds
+`data/visitor_pois.json` as the ninth hashed composition input and exposes its
+rows additively as top-level `visitor_pois`. `input_set_sha256` hashes that
 ordered manifest. The aggregate `generated_at` is derived from the newest
 `generated_at` value already present in the hashed inputs rather than wall-clock
 time, so repeated composition from byte-identical inputs is byte-identical.

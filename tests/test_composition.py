@@ -15,6 +15,7 @@ INDEPENDENT_INPUTS = (
     "trees.json",
     "benches.json",
     "path_topology.json",
+    "visitor_pois.json",
     "figures.json",
     "semantic.json",
 )
@@ -51,15 +52,19 @@ class CompositionTests(unittest.TestCase):
         graph = compose_graph(self.output)
         benches = json.loads((DATA / "benches.json").read_text())
         topology = json.loads((DATA / "path_topology.json").read_text())
+        visitor_pois = json.loads((DATA / "visitor_pois.json").read_text())
 
         self.assertEqual(benches["benches"], graph["benches"])
         self.assertEqual(topology["path_nodes"], graph["path_nodes"])
         self.assertEqual(topology["directed_segments"], graph["path_segments"])
+        self.assertEqual(visitor_pois["pois"], graph["visitor_pois"])
         self.assertEqual(215, len(graph["benches"]))
         self.assertEqual(1408, len(graph["path_nodes"]))
         self.assertEqual(2858, len(graph["path_segments"]))
+        self.assertEqual(109, len(graph["visitor_pois"]))
         self.assertEqual("data/benches.json", graph["provenance"]["bench_layer"])
         self.assertEqual("data/path_topology.json", graph["provenance"]["path_topology_layer"])
+        self.assertEqual("data/visitor_pois.json", graph["provenance"]["visitor_poi_layer"])
         assert_graph_inputs_current(graph, self.output)
 
     def test_stale_composition_hash_fails_closed(self):
@@ -117,6 +122,29 @@ class CompositionTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "duplicate ids"):
             compose_graph(self.output)
         self.assertFalse((self.output / "graph.json").exists())
+
+    def test_invalid_visitor_poi_contract_fails_before_graph_write(self):
+        visitor_path = self.output / "visitor_pois.json"
+        shutil.copy2(DATA / "visitor_pois.json", visitor_path)
+        visitor = json.loads(visitor_path.read_text())
+        access = next(row for row in visitor["pois"] if row["family"] == "access")
+        access["position_source"]["position_type"] = "representative_point"
+        visitor_path.write_text(json.dumps(visitor, ensure_ascii=False, indent=2) + "\n")
+
+        with self.assertRaisesRegex(ValueError, "visitor POIs lack normalized"):
+            compose_graph(self.output)
+        self.assertFalse((self.output / "graph.json").exists())
+
+    def test_stale_visitor_poi_hash_fails_closed(self):
+        graph = compose_graph(self.output)
+        visitor_path = self.output / "visitor_pois.json"
+        shutil.copy2(DATA / "visitor_pois.json", visitor_path)
+        visitor = json.loads(visitor_path.read_text())
+        visitor["quality"]["transit_note"] += " changed"
+        visitor_path.write_text(json.dumps(visitor, ensure_ascii=False, indent=2) + "\n")
+
+        with self.assertRaisesRegex(ValueError, "stale"):
+            assert_graph_inputs_current(graph, self.output)
 
     def test_broken_semantic_provenance_fails_closed(self):
         semantic_path = self.output / "semantic.json"

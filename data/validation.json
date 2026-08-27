@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-27T09:36:41.975337+00:00",
+  "generated_at": "2026-08-27T10:22:58.045452+00:00",
   "status": "pass",
   "summary": {
     "place_nodes": 30,
@@ -9,6 +9,16 @@
     "benches": 215,
     "path_nodes": 1408,
     "directed_path_segments": 2858,
+    "visitor_pois": 109,
+    "visitor_poi_families": {
+      "access": 68,
+      "toilet": 9,
+      "drinking_water": 1,
+      "viewpoint": 13,
+      "shelter": 1,
+      "transit": 6,
+      "artwork": 11
+    },
     "historical_figures": 5,
     "artworks": 1,
     "collections": 1,
@@ -105,6 +115,58 @@
       "failures": []
     },
     {
+      "id": "visitor_poi_layer_valid",
+      "pass": true,
+      "failures": [],
+      "subchecks": [
+        {
+          "id": "visitor_poi_schema_and_status",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "visitor_poi_ids_stable_unique",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "visitor_poi_family_counts_match",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "visitor_poi_common_spatial_contract",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "visitor_poi_scope_explicit",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "access_points_are_source_nodes",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "physical_height_not_derived_from_terrain",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "visitor_poi_rows_match_preserved_sources",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "snapshot_absence_not_physical_absence",
+          "pass": true,
+          "failures": []
+        }
+      ]
+    },
+    {
       "id": "semantic_entity_ids_unique",
       "pass": true,
       "failures": []
@@ -169,5 +231,11 @@
     "Place position_source accuracy is explicit but remains numerically unknown where OpenStreetMap does not report a defensible horizontal accuracy; null is intentional, not zero.",
     "Bounds/center/geometry-derived place coordinates are representative points for display/indexing, not surveyed entrances or exact object positions.",
     "GLO-90 terrain elevation remains approximate and vertical_accuracy_m is null because the preserved project source does not provide a defensible per-place vertical accuracy; terrain elevation is never treated as physical object height."
+  ],
+  "phase_6_known_limits": [
+    "Visitor POIs are a source-grounded tranche from preserved OSM map snapshots, not a claim of complete physical inventory; absence from the snapshot is not evidence of absence in the park.",
+    "Wheelchair, access, foot, entrance and barrier facts are source-tag evidence only; missing tags remain unknown and are never upgraded to positive accessibility claims.",
+    "Transit platform ways use explicitly representative bounds-midpoint coordinates and are not treated as visitor entrances.",
+    "The current web runtime does not selectively load the standalone visitor_pois.json layer; Phase 6 composes it additively into graph.json without changing loader/cache/API behavior."
   ]
 }
