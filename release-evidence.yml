@@ -1,0 +1,59 @@
+schema_version: 1
+release:
+  unit: bergpark
+  candidate: 0.1.0-alpha.1
+  tag: v0.1.0-alpha.1
+  date: 2026-08-27
+  base_revision: 02405ef25f48f1c2da0e5158266aa746ffabb86b
+  application_revision_tested: fd93ef9a19c4d708687897b6137110ae3867a8da
+  final_tag_revision: pending
+  publish_authorized: true
+  target_repository: fkr-0/bergpark
+  target_url: https://bergpark.fkr.dev
+versions:
+  before: 0.1.0
+  after: 0.1.0-alpha.1
+metadata_changed:
+  - package.json
+  - package-lock.json
+  - CHANGELOG.md
+  - ROADMAP.md
+  - README.md
+  - .github/workflows/pages.yml
+  - public/CNAME
+verification:
+  - command: npm run check
+    location: .work/release-v0.1.0-alpha.1
+    revision: fd93ef9a19c4d708687897b6137110ae3867a8da
+    result: pass
+    details: 8/8 Node tests PASS; Vite 8.2.2 production build PASS
+  - command: python -m unittest -v tests.test_graph
+    location: .work/release-v0.1.0-alpha.1
+    revision: fd93ef9a19c4d708687897b6137110ae3867a8da
+    result: pass
+    details: 7/7 graph tests PASS
+  - command: built artifact runtime-data smoke
+    location: .work/release-v0.1.0-alpha.1/dist
+    revision: fd93ef9a19c4d708687897b6137110ae3867a8da
+    result: pass
+    details: CNAME/manifest/service-worker/runtime JSON present; 30 nodes and 122 directed edges
+  - command: git diff --check
+    result: pass
+artifacts:
+  dist_tree_sha256_manifest_sha256: b68d2787a76d51f30642fc5e5f3c4d88affbb7c497279aa6cf63eb2c675b0baa
+  approximate_dist_bytes: 1585506
+  generated_artifact_committed: false
+known_limitations:
+  - Historic tree catalogue is not yet complete; tree explorer remains partial/pending.
+  - Secondary landmark DE/EN content is still expanding in a concurrent knowledge phase.
+  - Historical figures, artworks and semantic relationships are still expanding in graph Phase 3.
+  - Offline basemap behavior caches only tiles actually visited; it does not prefetch a complete park basemap.
+  - Firefox and iOS Safari production qualification remain beta gates.
+  - Live visitor facts such as opening hours and field accessibility remain source-dated rather than guaranteed.
+release_side_effects:
+  local_tag: pending
+  git_remote: pending
+  github_repository: pending
+  github_release: pending
+  github_pages: pending
+  dns_cname: pending
