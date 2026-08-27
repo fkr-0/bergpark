@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "retrieved_utc": "2026-08-27T05:25:09.529701+00:00",
+  "retrieved_utc": "2026-08-27T06:07:44.861454+00:00",
   "sources": [
     {
       "id": "osm-overpass-pois",
@@ -39,6 +39,23 @@
       "publisher": "Hessen Kassel Heritage",
       "url": "https://www.heritage-kassel.de/standorte/bergpark-wilhelmshoehe",
       "purpose": "official site/visitor and heritage cross-check"
+    },
+    {
+      "id": "wikimedia-commons-geotag-audit",
+      "publisher": "Wikimedia Commons contributors",
+      "url": "https://commons.wikimedia.org/w/api.php",
+      "snapshot": "data/sources/commons-geotag-audit.json",
+      "purpose": "nearby geotagged-media cross-check of OSM representative coordinates; proximity does not prove landmark identity"
+    },
+    {
+      "id": "open-meteo-elevation-glo90",
+      "publisher": "Open-Meteo / Copernicus Programme",
+      "url": "https://open-meteo.com/en/docs/elevation-api",
+      "snapshot": "data/sources/elevation/points.json",
+      "raw_batches": "data/sources/elevation/batch-*.json",
+      "dataset": "Copernicus DEM 2021 GLO-90",
+      "resolution_m": 90,
+      "dataset_doi": "10.5270/ESA-c5d3d65"
     }
   ],
   "rejected_seed_assumptions": [
@@ -96,5 +113,31 @@
     "teufelsbruecke": 10.1,
     "vergils-grab": 2.7,
     "vexierwassergrotte": 1.9
+  },
+  "watercourse_reference_audit": {
+    "purpose": "official visitor-route context only; do not force this distance or elevation onto arbitrary shortest-path graph edges",
+    "source": {
+      "publisher": "Hessen Kassel Heritage",
+      "url": "https://www.heritage-kassel.de/besuch/wasserspiele",
+      "published_reference": {
+        "visitor_route_distance_m": 2300,
+        "route_description": "from below Herkules downhill to Schloss Wilhelmshöhe",
+        "elevation_change_description": "almost 200 metres; safety guidance also says over 200 metres downhill",
+        "timed_stations": [
+          "kaskaden",
+          "steinhofer-wasserfall",
+          "teufelsbruecke",
+          "aquaedukt",
+          "grosse-fontaene"
+        ]
+      }
+    },
+    "graph_dem_context": {
+      "herkules_representative_terrain_m": 530.0,
+      "grosse_fontaene_representative_terrain_m": 311.0,
+      "schloss_representative_terrain_m": 286.0,
+      "herkules_to_schloss_endpoint_drop_m": 244.0,
+      "note": "GLO-90 representative-point terrain values are approximate and are not the official route profile."
+    }
   }
 }

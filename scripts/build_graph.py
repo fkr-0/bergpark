@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Build the Phase-1 Bergpark place/path graph from public OSM snapshots.
+"""Build the Bergpark place/path graph from public spatial snapshots.
 
-No third-party Python packages are required. Later phases extend the same output
-files with elevation, semantic and dendrological data.
+No third-party Python packages are required. Phase 2 enriches the Phase-1 OSM
+graph with a preserved Copernicus GLO-90 terrain snapshot.
 """
 
 from __future__ import annotations
@@ -13,7 +13,7 @@ import math
 import os
 import pathlib
 import xml.etree.ElementTree as ET
-from collections import Counter, defaultdict
+from collections import defaultdict
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from typing import Any
@@ -23,6 +23,7 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 CANONICAL_DATA = ROOT / "data"
 DATA = pathlib.Path(os.environ.get("BERGPARK_OUTPUT_DATA", str(CANONICAL_DATA))).resolve()
 SOURCES = CANONICAL_DATA / "sources"
+ELEVATION_POINTS = SOURCES / "elevation" / "points.json"
 
 # The supplied 9.400..9.420E seed box excludes the Herkules. This broader box
 # is derived from the actual OSM/UNESCO park geography and is deliberately
@@ -109,6 +110,32 @@ def haversine(a: tuple[float, float], b: tuple[float, float]) -> float:
     return 6371008.8 * 2 * math.asin(math.sqrt(h))
 
 
+def coordinate_key(lat: float, lng: float) -> tuple[float, float]:
+    return round(float(lat), 7), round(float(lng), 7)
+
+
+def load_elevations() -> tuple[dict[tuple[float, float], float], dict[str, Any]]:
+    if not ELEVATION_POINTS.is_file():
+        raise FileNotFoundError(
+            f"missing Phase-2 terrain snapshot {ELEVATION_POINTS}; run scripts/fetch_elevation.py"
+        )
+    doc = json.loads(ELEVATION_POINTS.read_text())
+    points = {
+        coordinate_key(row["lat"], row["lng"]): float(row["elevation_m"])
+        for row in doc["points"]
+    }
+    return points, doc["source"]
+
+
+def elevation_at(
+    elevations: dict[tuple[float, float], float], lat: float, lng: float
+) -> float:
+    key = coordinate_key(lat, lng)
+    if key not in elevations:
+        raise KeyError(f"terrain elevation missing for {key[0]},{key[1]}")
+    return elevations[key]
+
+
 def load_pois() -> dict[tuple[str, int], dict[str, Any]]:
     doc = json.loads((SOURCES / "osm-pois.json").read_text())
     return {(e["type"], int(e["id"])): e for e in doc["elements"]}
@@ -140,7 +167,10 @@ def representative_point(element: dict[str, Any]) -> tuple[float, float, str]:
     raise ValueError(f"No coordinate geometry for {element['type']}/{element['id']}")
 
 
-def build_places(pois: dict[tuple[str, int], dict[str, Any]]) -> list[dict[str, Any]]:
+def build_places(
+    pois: dict[tuple[str, int], dict[str, Any]],
+    elevations: dict[tuple[float, float], float],
+) -> list[dict[str, Any]]:
     out = []
     for spec in PLACE_SPECS:
         key = (spec.osm_type, spec.osm_id)
@@ -158,7 +188,13 @@ def build_places(pois: dict[tuple[str, int], dict[str, Any]]) -> list[dict[str, 
                 "type": spec.type,
                 "lat": round(lat, 7),
                 "lng": round(lng, 7),
-                "elevation_m": None,
+                "elevation_m": elevation_at(elevations, lat, lng),
+                "elevation_source": {
+                    "provider": "Open-Meteo Elevation API",
+                    "dataset": "Copernicus DEM 2021 GLO-90",
+                    "resolution_m": 90,
+                    "snapshot": "data/sources/elevation/points.json",
+                },
                 "coordinate_confidence": "high" if spec.osm_type in {"node", "way"} else "medium",
                 "coordinate_method": method,
                 "coordinate_source": {
@@ -264,27 +300,144 @@ def dijkstra(
     return found
 
 
-def classify_surface(tags_list: list[dict[str, str]]) -> tuple[str, list[str], str]:
-    surfaces = [t.get("surface", "unknown") for t in tags_list]
-    highways = [t.get("highway", "") for t in tags_list]
-    uniq = sorted(set(surfaces))
-    if "steps" in highways:
-        return "stone_steps", uniq, "stairs_only"
-    normalized = []
-    for s in surfaces:
-        if s in {"asphalt", "paved", "paving_stones", "sett", "cobblestone", "concrete", "concrete:plates"}:
-            normalized.append("paved")
-        elif s in {"gravel", "fine_gravel", "compacted", "pebblestone"}:
-            normalized.append("gravel")
-        elif s in {"dirt", "earth", "ground", "mud", "unpaved"}:
-            normalized.append("dirt")
-        elif s == "grass":
-            normalized.append("grass")
-        else:
-            normalized.append("unknown")
-    primary = Counter(normalized).most_common(1)[0][0] if normalized else "unknown"
-    accessibility = "unknown" if primary == "unknown" else "limited"
-    return primary, uniq, accessibility
+def normalize_surface(raw: str | None, highway: str | None) -> str:
+    if highway == "steps":
+        return "stone_steps"
+    if raw in {"asphalt", "paved", "paving_stones", "sett", "cobblestone", "concrete", "concrete:plates"}:
+        return "paved"
+    if raw in {"gravel", "fine_gravel", "compacted", "pebblestone"}:
+        return "gravel"
+    if raw in {"dirt", "earth", "ground", "mud", "unpaved"}:
+        return "dirt"
+    if raw == "grass":
+        return "grass"
+    return "unknown"
+
+
+def build_surface_segments(
+    node_path: list[str],
+    segs: list[tuple[str, str, dict[str, str]]],
+    nodes: dict[str, tuple[float, float]],
+) -> list[dict[str, Any]]:
+    grouped: list[dict[str, Any]] = []
+    for index, (_, wid, tags) in enumerate(segs):
+        a, b = node_path[index], node_path[index + 1]
+        distance = haversine(nodes[a], nodes[b])
+        surface = normalize_surface(tags.get("surface"), tags.get("highway"))
+        signature = (
+            wid,
+            surface,
+            tags.get("highway"),
+            tags.get("surface"),
+            tags.get("smoothness"),
+            tags.get("wheelchair"),
+            tags.get("access"),
+            tags.get("foot"),
+            tags.get("handrail"),
+            tags.get("incline"),
+            tags.get("sac_scale"),
+        )
+        if grouped and grouped[-1]["_signature"] == signature:
+            grouped[-1]["distance_m"] += distance
+            continue
+        grouped.append(
+            {
+                "_signature": signature,
+                "osm_way_id": wid,
+                "distance_m": distance,
+                "highway": tags.get("highway"),
+                "surface": surface,
+                "osm_surface": tags.get("surface"),
+                "smoothness": tags.get("smoothness"),
+                "wheelchair": tags.get("wheelchair"),
+                "access": tags.get("access"),
+                "foot": tags.get("foot"),
+                "handrail": tags.get("handrail"),
+                "incline": tags.get("incline"),
+                "sac_scale": tags.get("sac_scale"),
+                "steps": tags.get("highway") == "steps",
+            }
+        )
+    for segment in grouped:
+        segment.pop("_signature")
+        segment["distance_m"] = round(segment["distance_m"], 1)
+    return grouped
+
+
+def summarize_surface(segments: list[dict[str, Any]]) -> dict[str, Any]:
+    distances: dict[str, float] = defaultdict(float)
+    for segment in segments:
+        distances[segment["surface"]] += segment["distance_m"]
+    known = {k: v for k, v in distances.items() if k != "unknown"}
+    primary_pool = known or distances
+    primary = max(primary_pool, key=primary_pool.get) if primary_pool else "unknown"
+    step_distance = sum(s["distance_m"] for s in segments if s["steps"])
+    contains_steps = step_distance > 0
+    if contains_steps:
+        accessibility = "not_step_free"
+    elif any(s.get("wheelchair") == "no" for s in segments):
+        accessibility = "not_wheelchair_accessible"
+    elif any(
+        s["surface"] in {"dirt", "grass"}
+        or s.get("smoothness") in {"bad", "very_bad", "horrible", "very_horrible", "impassable"}
+        or s.get("sac_scale")
+        for s in segments
+    ):
+        accessibility = "limited"
+    elif segments and all(s["surface"] in {"paved", "gravel"} for s in segments):
+        accessibility = "potentially_step_free"
+    else:
+        accessibility = "unknown"
+    return {
+        "surface": primary,
+        "surface_mix": sorted(distances),
+        "surface_distance_m": {k: round(v, 1) for k, v in sorted(distances.items())},
+        "contains_steps": contains_steps,
+        "step_distance_m": round(step_distance, 1),
+        "accessibility": accessibility,
+    }
+
+
+def elevation_profile_metrics(
+    path_coordinates: list[list[float]],
+    elevations: dict[tuple[float, float], float],
+    distance_m: float,
+) -> dict[str, Any]:
+    profile = [elevation_at(elevations, lat, lng) for lat, lng in path_coordinates]
+
+    # GLO-90 has 90 m horizontal resolution. Summing every dense OSM vertex
+    # would repeatedly cross quantized DEM-cell values and overstate gross
+    # ascent/descent. Keep the dense profile for rendering, but calculate gross
+    # metrics from samples spaced at roughly the DEM resolution.
+    sample_indices = [0]
+    since_sample = 0.0
+    for index in range(1, len(path_coordinates)):
+        since_sample += haversine(tuple(path_coordinates[index - 1]), tuple(path_coordinates[index]))
+        if since_sample >= 90.0:
+            sample_indices.append(index)
+            since_sample = 0.0
+    if sample_indices[-1] != len(path_coordinates) - 1:
+        sample_indices.append(len(path_coordinates) - 1)
+    sampled_profile = [profile[index] for index in sample_indices]
+
+    ascent = 0.0
+    descent = 0.0
+    for before, after in zip(sampled_profile, sampled_profile[1:]):
+        delta = after - before
+        if delta > 0:
+            ascent += delta
+        elif delta < 0:
+            descent -= delta
+    delta = profile[-1] - profile[0]
+    return {
+        "elevation_profile_m": profile,
+        "elevation_metric_sampling_m": 90,
+        "elevation_metric_sample_count": len(sample_indices),
+        "elevation_delta_m": round(delta, 1),
+        "ascent_m": round(ascent, 1),
+        "descent_m": round(descent, 1),
+        "avg_grade_pct": round((delta / distance_m) * 100, 1) if distance_m else 0.0,
+    }
 
 
 def build_pairwise_routes(places: list[dict[str, Any]]):
@@ -311,20 +464,19 @@ def build_pairwise_routes(places: list[dict[str, Any]]):
                 path_coordinates = [[pa["lat"], pa["lng"]]]
                 path_coordinates.extend([[round(nodes[n][0], 7), round(nodes[n][1], 7)] for n in node_path])
                 path_coordinates.append([pb["lat"], pb["lng"]])
-                tags_list = [tags for _, _, tags in segs]
+                surface_segments = build_surface_segments(node_path, segs, nodes)
                 way_ids = []
                 for _, wid, _ in segs:
                     if not way_ids or way_ids[-1] != wid:
                         way_ids.append(wid)
                 total = snap[a][1] + net_distance + snap[b][1]
-                surface, surface_mix, accessibility = classify_surface(tags_list)
+                surface_summary = summarize_surface(surface_segments)
                 pair_routes[(a, b)] = {
                     "distance_m": total,
                     "path_coordinates": path_coordinates,
                     "osm_way_ids": way_ids,
-                    "surface": surface,
-                    "surface_mix": surface_mix,
-                    "accessibility": accessibility,
+                    "surface_segments": surface_segments,
+                    **surface_summary,
                     "snap_distance_m": {a: snap[a][1], b: snap[b][1]},
                 }
     return pair_routes, snap
@@ -373,31 +525,47 @@ def select_adjacencies(places: list[dict[str, Any]], pair_routes: dict[tuple[str
 
 
 def notes_for(direction: str, route: dict[str, Any]) -> dict[str, str]:
-    if route["accessibility"] == "stairs_only":
+    if route["contains_steps"]:
         return {
-            "de": "OSM-Route enthält Treppen; nicht stufenfrei.",
-            "en": "OSM route contains steps; not step-free.",
+            "de": f"OSM-Route enthält auf etwa {route['step_distance_m']:.0f} m Treppen; nicht stufenfrei.",
+            "en": f"OSM route contains about {route['step_distance_m']:.0f} m of steps; not step-free.",
         }
     return {
-        "de": "Initiale OSM-Fußwegroute; Oberfläche und Höhenprofil werden in Phase 2 verfeinert.",
-        "en": "Initial OSM walking route; surface and elevation profile are refined in Phase 2.",
+        "de": "OSM-Fußwegroute mit segmentweiser Oberfläche und GLO-90-Höhenprofil; Barrierefreiheit nicht vor Ort verifiziert.",
+        "en": "OSM walking route with segment-level surfaces and GLO-90 elevation profile; accessibility not field-verified.",
     }
 
 
-def directed_edges(places: list[dict[str, Any]], pair_routes: dict[tuple[str, str], dict[str, Any]]) -> list[dict[str, Any]]:
+def directed_edges(
+    places: list[dict[str, Any]],
+    pair_routes: dict[tuple[str, str], dict[str, Any]],
+    elevations: dict[tuple[float, float], float],
+) -> list[dict[str, Any]]:
     selected = select_adjacencies(places, pair_routes)
     edges = []
     for a, b in sorted(selected):
         r = pair_routes[(a, b)]
+        profile = elevation_profile_metrics(r["path_coordinates"], elevations, r["distance_m"])
+        forward_walk = max(1, round(r["distance_m"] / (5000 / 60) + profile["ascent_m"] / 10))
+        reverse_walk = max(1, round(r["distance_m"] / (5000 / 60) + profile["descent_m"] / 10))
         base = {
             "distance_m": round(r["distance_m"], 1),
-            "walking_min": max(1, round(r["distance_m"] / (5000 / 60))),
             "surface": r["surface"],
             "surface_mix": r["surface_mix"],
+            "surface_distance_m": r["surface_distance_m"],
+            "surface_segments": r["surface_segments"],
+            "contains_steps": r["contains_steps"],
+            "step_distance_m": r["step_distance_m"],
             "accessibility": r["accessibility"],
             "osm_way_ids": r["osm_way_ids"],
-            "routing_source": "OpenStreetMap shortest walking path (Phase 1)",
+            "routing_source": "OpenStreetMap shortest walking path",
             "license": "ODbL-1.0",
+            "elevation_source": {
+                "provider": "Open-Meteo Elevation API",
+                "dataset": "Copernicus DEM 2021 GLO-90",
+                "resolution_m": 90,
+                "snapshot": "data/sources/elevation/points.json",
+            },
         }
         edges.append(
             {
@@ -405,7 +573,14 @@ def directed_edges(places: list[dict[str, Any]], pair_routes: dict[tuple[str, st
                 "from": a,
                 "to": b,
                 **base,
-                "elevation_delta_m": None,
+                "walking_min": forward_walk,
+                "elevation_delta_m": profile["elevation_delta_m"],
+                "ascent_m": profile["ascent_m"],
+                "descent_m": profile["descent_m"],
+                "avg_grade_pct": profile["avg_grade_pct"],
+                "elevation_profile_m": profile["elevation_profile_m"],
+                "elevation_metric_sampling_m": profile["elevation_metric_sampling_m"],
+                "elevation_metric_sample_count": profile["elevation_metric_sample_count"],
                 "path_coordinates": r["path_coordinates"],
                 "snap_distance_m": {
                     "from": round(r["snap_distance_m"][a], 1),
@@ -420,7 +595,14 @@ def directed_edges(places: list[dict[str, Any]], pair_routes: dict[tuple[str, st
                 "from": b,
                 "to": a,
                 **base,
-                "elevation_delta_m": None,
+                "walking_min": reverse_walk,
+                "elevation_delta_m": -profile["elevation_delta_m"],
+                "ascent_m": profile["descent_m"],
+                "descent_m": profile["ascent_m"],
+                "avg_grade_pct": -profile["avg_grade_pct"],
+                "elevation_profile_m": list(reversed(profile["elevation_profile_m"])),
+                "elevation_metric_sampling_m": profile["elevation_metric_sampling_m"],
+                "elevation_metric_sample_count": profile["elevation_metric_sample_count"],
                 "path_coordinates": list(reversed(r["path_coordinates"])),
                 "snap_distance_m": {
                     "from": round(r["snap_distance_m"][b], 1),
@@ -432,16 +614,54 @@ def directed_edges(places: list[dict[str, Any]], pair_routes: dict[tuple[str, st
     return edges
 
 
+def watercourse_reference_audit(places: list[dict[str, Any]]) -> dict[str, Any]:
+    by_id = {p["id"]: p for p in places}
+    timed_stations = [
+        "kaskaden",
+        "steinhofer-wasserfall",
+        "teufelsbruecke",
+        "aquaedukt",
+        "grosse-fontaene",
+    ]
+    return {
+        "purpose": (
+            "official visitor-route context only; do not force this distance or elevation "
+            "onto arbitrary shortest-path graph edges"
+        ),
+        "source": {
+            "publisher": "Hessen Kassel Heritage",
+            "url": "https://www.heritage-kassel.de/besuch/wasserspiele",
+            "published_reference": {
+                "visitor_route_distance_m": 2300,
+                "route_description": "from below Herkules downhill to Schloss Wilhelmshöhe",
+                "elevation_change_description": "almost 200 metres; safety guidance also says over 200 metres downhill",
+                "timed_stations": timed_stations,
+            },
+        },
+        "graph_dem_context": {
+            "herkules_representative_terrain_m": by_id["herkules"]["elevation_m"],
+            "grosse_fontaene_representative_terrain_m": by_id["grosse-fontaene"]["elevation_m"],
+            "schloss_representative_terrain_m": by_id["schloss"]["elevation_m"],
+            "herkules_to_schloss_endpoint_drop_m": round(
+                by_id["herkules"]["elevation_m"] - by_id["schloss"]["elevation_m"], 1
+            ),
+            "note": "GLO-90 representative-point terrain values are approximate and are not the official route profile.",
+        },
+    }
+
+
 def dump(name: str, obj: Any) -> None:
     (DATA / name).write_text(json.dumps(obj, ensure_ascii=False, indent=2) + "\n")
 
 
 def main() -> None:
     DATA.mkdir(parents=True, exist_ok=True)
+    elevations, elevation_source = load_elevations()
     pois = load_pois()
-    places = build_places(pois)
+    places = build_places(pois, elevations)
     pair_routes, snap = build_pairwise_routes(places)
-    edges = directed_edges(places, pair_routes)
+    edges = directed_edges(places, pair_routes, elevations)
+    watercourse_audit = watercourse_reference_audit(places)
 
     empty_trees = {"schema_version": 1, "trees": [], "status": "pending_phase_4"}
     empty_figures = {"schema_version": 1, "figures": [], "status": "pending_phase_3"}
@@ -469,6 +689,7 @@ def main() -> None:
         "provenance": {
             "coordinate_primary": "OpenStreetMap",
             "path_primary": "OpenStreetMap",
+            "elevation_primary": "Open-Meteo / Copernicus DEM GLO-90",
             "osm_license": "ODbL-1.0",
             "source_snapshots": [
                 "data/sources/osm-pois.json",
@@ -476,6 +697,8 @@ def main() -> None:
                 "data/sources/osm-map/nw.xml",
                 "data/sources/osm-map/se.xml",
                 "data/sources/osm-map/ne.xml",
+                "data/sources/elevation/points.json",
+                "data/sources/commons-geotag-audit.json",
             ],
         },
     }
@@ -516,6 +739,23 @@ def main() -> None:
                 "url": "https://www.heritage-kassel.de/standorte/bergpark-wilhelmshoehe",
                 "purpose": "official site/visitor and heritage cross-check",
             },
+            {
+                "id": "wikimedia-commons-geotag-audit",
+                "publisher": "Wikimedia Commons contributors",
+                "url": "https://commons.wikimedia.org/w/api.php",
+                "snapshot": "data/sources/commons-geotag-audit.json",
+                "purpose": "nearby geotagged-media cross-check of OSM representative coordinates; proximity does not prove landmark identity",
+            },
+            {
+                "id": "open-meteo-elevation-glo90",
+                "publisher": "Open-Meteo / Copernicus Programme",
+                "url": "https://open-meteo.com/en/docs/elevation-api",
+                "snapshot": "data/sources/elevation/points.json",
+                "raw_batches": "data/sources/elevation/batch-*.json",
+                "dataset": elevation_source.get("dataset"),
+                "resolution_m": elevation_source.get("resolution_m"),
+                "dataset_doi": elevation_source.get("dataset_doi"),
+            },
         ],
         "rejected_seed_assumptions": [
             {
@@ -537,6 +777,7 @@ def main() -> None:
             },
         ],
         "routing_snap_m": {pid: round(distance, 1) for pid, (_, distance) in sorted(snap.items())},
+        "watercourse_reference_audit": watercourse_audit,
     }
 
     dump("nodes.json", nodes_doc)

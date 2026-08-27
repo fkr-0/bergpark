@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-27T05:25:09.529685+00:00",
+  "generated_at": "2026-08-27T06:07:44.861438+00:00",
   "bbox": {
     "south": 51.307,
     "west": 9.385,
@@ -19,7 +19,13 @@
       "type": "monument",
       "lat": 51.3161018,
       "lng": 9.3932069,
-      "elevation_m": null,
+      "elevation_m": 530.0,
+      "elevation_source": {
+        "provider": "Open-Meteo Elevation API",
+        "dataset": "Copernicus DEM 2021 GLO-90",
+        "resolution_m": 90,
+        "snapshot": "data/sources/elevation/points.json"
+      },
       "coordinate_confidence": "medium",
       "coordinate_method": "osm_bounds_midpoint",
       "coordinate_source": {
@@ -49,7 +55,13 @@
       "type": "waterfeature",
       "lat": 51.3159319,
       "lng": 9.3963653,
-      "elevation_m": null,
+      "elevation_m": 474.0,
+      "elevation_source": {
+        "provider": "Open-Meteo Elevation API",
+        "dataset": "Copernicus DEM 2021 GLO-90",
+        "resolution_m": 90,
+        "snapshot": "data/sources/elevation/points.json"
+      },
       "coordinate_confidence": "high",
       "coordinate_method": "osm_node",
       "coordinate_source": {
@@ -73,7 +85,13 @@
       "type": "waterfeature",
       "lat": 51.3149902,
       "lng": 9.3984822,
-      "elevation_m": null,
+      "elevation_m": 466.0,
+      "elevation_source": {
+        "provider": "Open-Meteo Elevation API",
+        "dataset": "Copernicus DEM 2021 GLO-90",
+        "resolution_m": 90,
+        "snapshot": "data/sources/elevation/points.json"
+      },
       "coordinate_confidence": "high",
       "coordinate_method": "osm_node",
       "coordinate_source": {
@@ -94,7 +112,13 @@
       "type": "viewpoint",
       "lat": 51.3164498,
       "lng": 9.4004228,
-      "elevation_m": null,
+      "elevation_m": 433.0,
+      "elevation_source": {
+        "provider": "Open-Meteo Elevation API",
+        "dataset": "Copernicus DEM 2021 GLO-90",
+        "resolution_m": 90,
+        "snapshot": "data/sources/elevation/points.json"
+      },
       "coordinate_confidence": "high",
       "coordinate_method": "osm_bounds_midpoint",
       "coordinate_source": {
@@ -119,7 +143,13 @@
       "type": "waterfeature",
       "lat": 51.3120155,
       "lng": 9.4021889,
-      "elevation_m": null,
+      "elevation_m": 425.0,
+      "elevation_source": {
+        "provider": "Open-Meteo Elevation API",
+        "dataset": "Copernicus DEM 2021 GLO-90",
+        "resolution_m": 90,
+        "snapshot": "data/sources/elevation/points.json"
+      },
       "coordinate_confidence": "high",
       "coordinate_method": "osm_bounds_midpoint",
       "coordinate_source": {
@@ -144,7 +174,13 @@
       "type": "bridge",
       "lat": 51.314992,
       "lng": 9.4056033,
-      "elevation_m": null,
+      "elevation_m": 374.0,
+      "elevation_source": {
+        "provider": "Open-Meteo Elevation API",
+        "dataset": "Copernicus DEM 2021 GLO-90",
+        "resolution_m": 90,
+        "snapshot": "data/sources/elevation/points.json"
+      },
       "coordinate_confidence": "high",
       "coordinate_method": "osm_bounds_midpoint",
       "coordinate_source": {
@@ -169,7 +205,13 @@
       "type": "waterfeature",
       "lat": 51.3165378,
       "lng": 9.408494,
-      "elevation_m": null,
+      "elevation_m": 352.0,
+      "elevation_source": {
+        "provider": "Open-Meteo Elevation API",
+        "dataset": "Copernicus DEM 2021 GLO-90",
+        "resolution_m": 90,
+        "snapshot": "data/sources/elevation/points.json"
+      },
       "coordinate_confidence": "high",
       "coordinate_method": "osm_bounds_midpoint",
       "coordinate_source": {
@@ -194,7 +236,13 @@
       "type": "grotto",
       "lat": 51.3154849,
       "lng": 9.4053249,
-      "elevation_m": null,
+      "elevation_m": 373.0,
+      "elevation_source": {
+        "provider": "Open-Meteo Elevation API",
+        "dataset": "Copernicus DEM 2021 GLO-90",
+        "resolution_m": 90,
+        "snapshot": "data/sources/elevation/points.json"
+      },
       "coordinate_confidence": "high",
       "coordinate_method": "osm_bounds_midpoint",
       "coordinate_source": {
@@ -218,7 +266,13 @@
       "type": "grotto",
       "lat": 51.3138876,
       "lng": 9.4068715,
-      "elevation_m": null,
+      "elevation_m": 381.0,
+      "elevation_source": {
+        "provider": "Open-Meteo Elevation API",
+        "dataset": "Copernicus DEM 2021 GLO-90",
+        "resolution_m": 90,
+        "snapshot": "data/sources/elevation/points.json"
+      },
       "coordinate_confidence": "high",
       "coordinate_method": "osm_bounds_midpoint",
       "coordinate_source": {
@@ -244,7 +298,13 @@
       "type": "monument",
       "lat": 51.3147682,
       "lng": 9.4091681,
-      "elevation_m": null,
+      "elevation_m": 339.0,
+      "elevation_source": {
+        "provider": "Open-Meteo Elevation API",
+        "dataset": "Copernicus DEM 2021 GLO-90",
+        "resolution_m": 90,
+        "snapshot": "data/sources/elevation/points.json"
+      },
       "coordinate_confidence": "high",
       "coordinate_method": "osm_bounds_midpoint",
       "coordinate_source": {
@@ -271,7 +331,13 @@
       "type": "monument",
       "lat": 51.3157434,
       "lng": 9.4092645,
-      "elevation_m": null,
+      "elevation_m": 341.0,
+      "elevation_source": {
+        "provider": "Open-Meteo Elevation API",
+        "dataset": "Copernicus DEM 2021 GLO-90",
+        "resolution_m": 90,
+        "snapshot": "data/sources/elevation/points.json"
+      },
       "coordinate_confidence": "high",
       "coordinate_method": "osm_bounds_midpoint",
       "coordinate_source": {
@@ -300,7 +366,13 @@
       "type": "temple",
       "lat": 51.3155627,
       "lng": 9.4117537,
-      "elevation_m": null,
+      "elevation_m": 311.0,
+      "elevation_source": {
+        "provider": "Open-Meteo Elevation API",
+        "dataset": "Copernicus DEM 2021 GLO-90",
+        "resolution_m": 90,
+        "snapshot": "data/sources/elevation/points.json"
+      },
       "coordinate_confidence": "high",
       "coordinate_method": "osm_bounds_midpoint",
       "coordinate_source": {
@@ -325,7 +397,13 @@
       "type": "waterfeature",
       "lat": 51.3160524,
       "lng": 9.4109611,
-      "elevation_m": null,
+      "elevation_m": 321.0,
+      "elevation_source": {
+        "provider": "Open-Meteo Elevation API",
+        "dataset": "Copernicus DEM 2021 GLO-90",
+        "resolution_m": 90,
+        "snapshot": "data/sources/elevation/points.json"
+      },
       "coordinate_confidence": "high",
       "coordinate_method": "osm_node",
       "coordinate_source": {
@@ -350,7 +428,13 @@
       "type": "lake",
       "lat": 51.3150361,
       "lng": 9.4118667,
-      "elevation_m": null,
+      "elevation_m": 311.0,
+      "elevation_source": {
+        "provider": "Open-Meteo Elevation API",
+        "dataset": "Copernicus DEM 2021 GLO-90",
+        "resolution_m": 90,
+        "snapshot": "data/sources/elevation/points.json"
+      },
       "coordinate_confidence": "medium",
       "coordinate_method": "osm_bounds_midpoint",
       "coordinate_source": {
@@ -374,7 +458,13 @@
       "type": "waterfeature",
       "lat": 51.3151826,
       "lng": 9.4117938,
-      "elevation_m": null,
+      "elevation_m": 311.0,
+      "elevation_source": {
+        "provider": "Open-Meteo Elevation API",
+        "dataset": "Copernicus DEM 2021 GLO-90",
+        "resolution_m": 90,
+        "snapshot": "data/sources/elevation/points.json"
+      },
       "coordinate_confidence": "high",
       "coordinate_method": "osm_node",
       "coordinate_source": {
@@ -397,7 +487,13 @@
       "type": "palace",
       "lat": 51.3149835,
       "lng": 9.4159308,
-      "elevation_m": null,
+      "elevation_m": 286.0,
+      "elevation_source": {
+        "provider": "Open-Meteo Elevation API",
+        "dataset": "Copernicus DEM 2021 GLO-90",
+        "resolution_m": 90,
+        "snapshot": "data/sources/elevation/points.json"
+      },
       "coordinate_confidence": "high",
       "coordinate_method": "osm_bounds_midpoint",
       "coordinate_source": {
@@ -424,7 +520,13 @@
       "type": "building",
       "lat": 51.316301,
       "lng": 9.4159162,
-      "elevation_m": null,
+      "elevation_m": 289.0,
+      "elevation_source": {
+        "provider": "Open-Meteo Elevation API",
+        "dataset": "Copernicus DEM 2021 GLO-90",
+        "resolution_m": 90,
+        "snapshot": "data/sources/elevation/points.json"
+      },
       "coordinate_confidence": "high",
       "coordinate_method": "osm_bounds_midpoint",
       "coordinate_source": {
@@ -453,7 +555,13 @@
       "type": "building",
       "lat": 51.3167636,
       "lng": 9.4146284,
-      "elevation_m": null,
+      "elevation_m": 290.0,
+      "elevation_source": {
+        "provider": "Open-Meteo Elevation API",
+        "dataset": "Copernicus DEM 2021 GLO-90",
+        "resolution_m": 90,
+        "snapshot": "data/sources/elevation/points.json"
+      },
       "coordinate_confidence": "high",
       "coordinate_method": "osm_bounds_midpoint",
       "coordinate_source": {
@@ -480,7 +588,13 @@
       "type": "lake",
       "lat": 51.3136164,
       "lng": 9.4194115,
-      "elevation_m": null,
+      "elevation_m": 260.0,
+      "elevation_source": {
+        "provider": "Open-Meteo Elevation API",
+        "dataset": "Copernicus DEM 2021 GLO-90",
+        "resolution_m": 90,
+        "snapshot": "data/sources/elevation/points.json"
+      },
       "coordinate_confidence": "medium",
       "coordinate_method": "osm_bounds_midpoint",
       "coordinate_source": {
@@ -504,7 +618,13 @@
       "type": "castle",
       "lat": 51.3114009,
       "lng": 9.4087631,
-      "elevation_m": null,
+      "elevation_m": 361.0,
+      "elevation_source": {
+        "provider": "Open-Meteo Elevation API",
+        "dataset": "Copernicus DEM 2021 GLO-90",
+        "resolution_m": 90,
+        "snapshot": "data/sources/elevation/points.json"
+      },
       "coordinate_confidence": "medium",
       "coordinate_method": "osm_bounds_midpoint",
       "coordinate_source": {
@@ -532,7 +652,13 @@
       "type": "village",
       "lat": 51.3113991,
       "lng": 9.416661,
-      "elevation_m": null,
+      "elevation_m": 300.0,
+      "elevation_source": {
+        "provider": "Open-Meteo Elevation API",
+        "dataset": "Copernicus DEM 2021 GLO-90",
+        "resolution_m": 90,
+        "snapshot": "data/sources/elevation/points.json"
+      },
       "coordinate_confidence": "high",
       "coordinate_method": "osm_node",
       "coordinate_source": {
@@ -555,7 +681,13 @@
       "type": "pond",
       "lat": 51.3126123,
       "lng": 9.4048997,
-      "elevation_m": null,
+      "elevation_m": 391.0,
+      "elevation_source": {
+        "provider": "Open-Meteo Elevation API",
+        "dataset": "Copernicus DEM 2021 GLO-90",
+        "resolution_m": 90,
+        "snapshot": "data/sources/elevation/points.json"
+      },
       "coordinate_confidence": "high",
       "coordinate_method": "osm_bounds_midpoint",
       "coordinate_source": {
@@ -580,7 +712,13 @@
       "type": "waterfeature",
       "lat": 51.318334,
       "lng": 9.4097345,
-      "elevation_m": null,
+      "elevation_m": 334.0,
+      "elevation_source": {
+        "provider": "Open-Meteo Elevation API",
+        "dataset": "Copernicus DEM 2021 GLO-90",
+        "resolution_m": 90,
+        "snapshot": "data/sources/elevation/points.json"
+      },
       "coordinate_confidence": "high",
       "coordinate_method": "osm_bounds_midpoint",
       "coordinate_source": {
@@ -605,7 +743,13 @@
       "type": "temple",
       "lat": 51.315472,
       "lng": 9.4138016,
-      "elevation_m": null,
+      "elevation_m": 298.0,
+      "elevation_source": {
+        "provider": "Open-Meteo Elevation API",
+        "dataset": "Copernicus DEM 2021 GLO-90",
+        "resolution_m": 90,
+        "snapshot": "data/sources/elevation/points.json"
+      },
       "coordinate_confidence": "high",
       "coordinate_method": "osm_bounds_midpoint",
       "coordinate_source": {
@@ -630,7 +774,13 @@
       "type": "temple",
       "lat": 51.3176783,
       "lng": 9.4076641,
-      "elevation_m": null,
+      "elevation_m": 359.0,
+      "elevation_source": {
+        "provider": "Open-Meteo Elevation API",
+        "dataset": "Copernicus DEM 2021 GLO-90",
+        "resolution_m": 90,
+        "snapshot": "data/sources/elevation/points.json"
+      },
       "coordinate_confidence": "high",
       "coordinate_method": "osm_bounds_midpoint",
       "coordinate_source": {
@@ -655,7 +805,13 @@
       "type": "grotto",
       "lat": 51.3135064,
       "lng": 9.4088277,
-      "elevation_m": null,
+      "elevation_m": 334.0,
+      "elevation_source": {
+        "provider": "Open-Meteo Elevation API",
+        "dataset": "Copernicus DEM 2021 GLO-90",
+        "resolution_m": 90,
+        "snapshot": "data/sources/elevation/points.json"
+      },
       "coordinate_confidence": "high",
       "coordinate_method": "osm_node",
       "coordinate_source": {
@@ -680,7 +836,13 @@
       "type": "building",
       "lat": 51.3116667,
       "lng": 9.4168145,
-      "elevation_m": null,
+      "elevation_m": 286.0,
+      "elevation_source": {
+        "provider": "Open-Meteo Elevation API",
+        "dataset": "Copernicus DEM 2021 GLO-90",
+        "resolution_m": 90,
+        "snapshot": "data/sources/elevation/points.json"
+      },
       "coordinate_confidence": "high",
       "coordinate_method": "osm_bounds_midpoint",
       "coordinate_source": {
@@ -707,7 +869,13 @@
       "type": "ruin",
       "lat": 51.311451,
       "lng": 9.3972293,
-      "elevation_m": null,
+      "elevation_m": 542.0,
+      "elevation_source": {
+        "provider": "Open-Meteo Elevation API",
+        "dataset": "Copernicus DEM 2021 GLO-90",
+        "resolution_m": 90,
+        "snapshot": "data/sources/elevation/points.json"
+      },
       "coordinate_confidence": "high",
       "coordinate_method": "osm_bounds_midpoint",
       "coordinate_source": {
@@ -732,7 +900,13 @@
       "type": "grotto",
       "lat": 51.3160508,
       "lng": 9.394048,
-      "elevation_m": null,
+      "elevation_m": 533.0,
+      "elevation_source": {
+        "provider": "Open-Meteo Elevation API",
+        "dataset": "Copernicus DEM 2021 GLO-90",
+        "resolution_m": 90,
+        "snapshot": "data/sources/elevation/points.json"
+      },
       "coordinate_confidence": "high",
       "coordinate_method": "osm_bounds_midpoint",
       "coordinate_source": {
@@ -756,7 +930,13 @@
       "type": "waterfeature",
       "lat": 51.3152503,
       "lng": 9.4037807,
-      "elevation_m": null,
+      "elevation_m": 384.0,
+      "elevation_source": {
+        "provider": "Open-Meteo Elevation API",
+        "dataset": "Copernicus DEM 2021 GLO-90",
+        "resolution_m": 90,
+        "snapshot": "data/sources/elevation/points.json"
+      },
       "coordinate_confidence": "high",
       "coordinate_method": "osm_bounds_midpoint",
       "coordinate_source": {

@@ -34,6 +34,32 @@ class GraphExportTests(unittest.TestCase):
         self.assertLess(nodes["herkules"]["lng"], nodes["schloss"]["lng"])
         self.assertLess(nodes["herkules"]["lng"], 9.400)
 
+    def test_phase2_elevation_and_segments_are_present(self):
+        nodes = json.loads((DATA / "nodes.json").read_text())["nodes"]
+        edges = json.loads((DATA / "edges.json").read_text())["edges"]
+        self.assertTrue(all(isinstance(n.get("elevation_m"), (int, float)) for n in nodes))
+        self.assertTrue(all(e.get("surface_segments") for e in edges))
+        self.assertTrue(all(len(e["elevation_profile_m"]) == len(e["path_coordinates"]) for e in edges))
+        self.assertTrue(all(e["elevation_metric_sampling_m"] == 90 for e in edges))
+        self.assertNotIn("stairs_only", {e["accessibility"] for e in edges})
+        self.assertTrue(all({"access", "foot", "handrail"} <= set(e["surface_segments"][0]) for e in edges))
+
+    def test_reverse_edges_swap_elevation_metrics(self):
+        edges = json.loads((DATA / "edges.json").read_text())["edges"]
+        by_pair = {(e["from"], e["to"]): e for e in edges}
+        for edge in edges:
+            reverse = by_pair[(edge["to"], edge["from"])]
+            self.assertAlmostEqual(edge["elevation_delta_m"], -reverse["elevation_delta_m"], places=1)
+            self.assertAlmostEqual(edge["ascent_m"], reverse["descent_m"], places=1)
+
+    def test_watercourse_reference_is_a_separate_audit(self):
+        manifest = json.loads((DATA / "source_manifest.json").read_text())
+        audit = manifest["watercourse_reference_audit"]
+        self.assertEqual(2300, audit["source"]["published_reference"]["visitor_route_distance_m"])
+        self.assertIn("do not force", audit["purpose"])
+        self.assertNotIn("distance_difference_m", audit)
+        self.assertIsInstance(audit["graph_dem_context"]["herkules_to_schloss_endpoint_drop_m"], (int, float))
+
 
 if __name__ == "__main__":
     unittest.main()

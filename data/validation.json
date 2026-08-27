@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-27T05:25:09.581031+00:00",
+  "generated_at": "2026-08-27T06:07:44.928583+00:00",
   "status": "pass",
   "summary": {
     "place_nodes": 30,
@@ -17,6 +17,16 @@
   "checks": [
     {
       "id": "place_coordinates_in_research_bbox",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "place_elevations_present",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "commons_nearby_geotag_crosscheck",
       "pass": true,
       "failures": []
     },
@@ -46,16 +56,37 @@
       "failures": []
     },
     {
+      "id": "edge_elevation_profiles_consistent",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "surface_segments_cover_routed_network",
+      "pass": true,
+      "failures": []
+    },
+    {
       "id": "path_polylines_anchor_to_places",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "reverse_elevation_metrics_consistent",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "watercourse_reference_audit_present",
       "pass": true,
       "failures": []
     }
   ],
   "errors": [],
   "warnings": [],
-  "phase_1_known_gaps": [
-    "Elevation is intentionally null until Phase 2 terrain enrichment.",
-    "Surface classification is OSM-tag-derived and requires Phase 2 route-by-route review.",
+  "phase_2_known_limits": [
+    "Elevation profiles use the 90 m Copernicus GLO-90 DEM and are approximate; they are not survey-grade measurements.",
+    "Surface/accessibility fields are OSM-tag-derived and are not a substitute for field inspection.",
+    "Naismith-style walking times use 5 km/h plus 1 minute per 10 m ascent and do not model individual mobility.",
     "Semantic/figure and tree layers are placeholders until Phases 3 and 4.",
     "The supplied seed bbox was rejected because it excludes Herkules; see source_manifest.json."
   ]

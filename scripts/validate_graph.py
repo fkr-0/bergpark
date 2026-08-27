@@ -14,6 +14,7 @@ from typing import Any
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 DATA = pathlib.Path(os.environ.get("BERGPARK_OUTPUT_DATA", str(ROOT / "data"))).resolve()
+COMMONS_AUDIT = ROOT / "data" / "sources" / "commons-geotag-audit.json"
 PARK_BBOX = {"south": 51.307, "west": 9.385, "north": 51.323, "east": 9.425}
 
 
@@ -49,6 +50,21 @@ def main() -> int:
     checks.append({"id": "place_coordinates_in_research_bbox", "pass": not bad_coords, "failures": bad_coords})
     errors.extend(f"coordinate outside research bbox: {x}" for x in bad_coords)
 
+    missing_elevations = [n["id"] for n in nodes if not isinstance(n.get("elevation_m"), (int, float))]
+    checks.append({"id": "place_elevations_present", "pass": not missing_elevations, "failures": missing_elevations})
+    errors.extend(f"missing place elevation: {x}" for x in missing_elevations)
+
+    commons_doc = json.loads(COMMONS_AUDIT.read_text()) if COMMONS_AUDIT.is_file() else {"rows": []}
+    commons_rows = {row.get("place_id"): row for row in commons_doc.get("rows", [])}
+    commons_failures = []
+    for node_id in sorted(node_ids):
+        row = commons_rows.get(node_id)
+        nearest = row.get("nearest") if row else None
+        if not row or not nearest or nearest.get("distance_m", 999999) > 150:
+            commons_failures.append(node_id)
+    checks.append({"id": "commons_nearby_geotag_crosscheck", "pass": not commons_failures, "failures": commons_failures})
+    errors.extend(f"missing nearby Commons geotag cross-check: {x}" for x in commons_failures)
+
     missing_refs = sorted({x for e in edges for x in (e["from"], e["to"]) if x not in node_ids})
     checks.append({"id": "edge_references_exist", "pass": not missing_refs, "failures": missing_refs})
     errors.extend(f"missing edge node: {x}" for x in missing_refs)
@@ -80,6 +96,8 @@ def main() -> int:
 
     by_id = {n["id"]: n for n in nodes}
     implausible = []
+    bad_elevation_edges = []
+    bad_surface_segments = []
     for e in edges:
         a, b = by_id[e["from"]], by_id[e["to"]]
         straight = haversine((a["lat"], a["lng"]), (b["lat"], b["lng"]))
@@ -87,8 +105,29 @@ def main() -> int:
             implausible.append({"edge": e["id"], "distance_m": e["distance_m"], "straight_m": round(straight, 1)})
         if e["distance_m"] > max(2500, straight * 5 + 250):
             warnings.append(f"route detour merits Phase-2 review: {e['id']} ({e['distance_m']} m vs {straight:.1f} m straight)")
+        expected_delta = round(b["elevation_m"] - a["elevation_m"], 1)
+        if abs(e.get("elevation_delta_m", 99999) - expected_delta) > 0.11:
+            bad_elevation_edges.append(e["id"])
+        profile = e.get("elevation_profile_m", [])
+        if len(profile) != len(e.get("path_coordinates", [])) or not profile:
+            bad_elevation_edges.append(e["id"])
+        if e.get("elevation_metric_sampling_m") != 90 or e.get("elevation_metric_sample_count", 0) < 2:
+            bad_elevation_edges.append(e["id"])
+        segments = e.get("surface_segments", [])
+        segment_distance = sum(s.get("distance_m", 0) for s in segments)
+        snap_distance = e.get("snap_distance_m", {}).get("from", 0) + e.get("snap_distance_m", {}).get("to", 0)
+        if not segments or abs((segment_distance + snap_distance) - e["distance_m"]) > 3.0:
+            bad_surface_segments.append(e["id"])
+        if e.get("accessibility") == "stairs_only":
+            bad_surface_segments.append(e["id"])
     checks.append({"id": "edge_distances_not_shorter_than_geodesic", "pass": not implausible, "failures": implausible})
     errors.extend(f"implausibly short routed edge: {x['edge']}" for x in implausible)
+    bad_elevation_edges = sorted(set(bad_elevation_edges))
+    checks.append({"id": "edge_elevation_profiles_consistent", "pass": not bad_elevation_edges, "failures": bad_elevation_edges})
+    errors.extend(f"invalid elevation profile: {x}" for x in bad_elevation_edges)
+    bad_surface_segments = sorted(set(bad_surface_segments))
+    checks.append({"id": "surface_segments_cover_routed_network", "pass": not bad_surface_segments, "failures": bad_surface_segments})
+    errors.extend(f"invalid surface segmentation: {x}" for x in bad_surface_segments)
 
     bad_polylines = []
     for e in edges:
@@ -107,6 +146,30 @@ def main() -> int:
     if snap_warnings:
         warnings.append(f"{len(snap_warnings)} place(s) snap >75 m to routable OSM path; Phase 2 should inspect them")
 
+    pair_map = {(e["from"], e["to"]): e for e in edges}
+    reverse_metric_errors = []
+    for e in edges:
+        reverse = pair_map.get((e["to"], e["from"]))
+        if not reverse:
+            continue
+        if abs(e["elevation_delta_m"] + reverse["elevation_delta_m"]) > 0.11:
+            reverse_metric_errors.append(e["id"])
+        if abs(e["ascent_m"] - reverse["descent_m"]) > 0.11 or abs(e["descent_m"] - reverse["ascent_m"]) > 0.11:
+            reverse_metric_errors.append(e["id"])
+    reverse_metric_errors = sorted(set(reverse_metric_errors))
+    checks.append({"id": "reverse_elevation_metrics_consistent", "pass": not reverse_metric_errors, "failures": reverse_metric_errors})
+    errors.extend(f"reverse elevation metrics inconsistent: {x}" for x in reverse_metric_errors)
+
+    audit = manifest.get("watercourse_reference_audit", {})
+    audit_ok = (
+        audit.get("source", {}).get("published_reference", {}).get("visitor_route_distance_m") == 2300
+        and isinstance(audit.get("graph_dem_context", {}).get("herkules_to_schloss_endpoint_drop_m"), (int, float))
+        and "do not force" in audit.get("purpose", "")
+    )
+    checks.append({"id": "watercourse_reference_audit_present", "pass": audit_ok, "failures": [] if audit_ok else ["missing audit"]})
+    if not audit_ok:
+        errors.append("watercourse reference audit missing")
+
     status = "pass" if not errors else "fail"
     out = {
         "schema_version": 1,
@@ -122,9 +185,10 @@ def main() -> int:
         "checks": checks,
         "errors": errors,
         "warnings": warnings,
-        "phase_1_known_gaps": [
-            "Elevation is intentionally null until Phase 2 terrain enrichment.",
-            "Surface classification is OSM-tag-derived and requires Phase 2 route-by-route review.",
+        "phase_2_known_limits": [
+            "Elevation profiles use the 90 m Copernicus GLO-90 DEM and are approximate; they are not survey-grade measurements.",
+            "Surface/accessibility fields are OSM-tag-derived and are not a substitute for field inspection.",
+            "Naismith-style walking times use 5 km/h plus 1 minute per 10 m ascent and do not model individual mobility.",
             "Semantic/figure and tree layers are placeholders until Phases 3 and 4.",
             "The supplied seed bbox was rejected because it excludes Herkules; see source_manifest.json.",
         ],

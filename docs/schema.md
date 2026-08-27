@@ -23,7 +23,11 @@ Required keys:
   "type": "monument",
   "lat": 51.3161,
   "lng": 9.3932,
-  "elevation_m": null,
+  "elevation_m": 527.0,
+  "elevation_source": {
+    "dataset": "Copernicus DEM 2021 GLO-90",
+    "resolution_m": 90
+  },
   "coordinate_confidence": "high",
   "coordinate_source": {"provider": "OpenStreetMap", "element": "relation/164756"}
 }
@@ -32,8 +36,20 @@ Required keys:
 ## Walking edge
 
 Directed edges use `from` and `to`, carry OSM-derived path geometry, and keep
-provenance for every contributing OSM way. `surface_mix` preserves mixed path
-surfaces even when `surface` contains a single routing-oriented summary.
+provenance for every contributing OSM way. `surface_segments` records contiguous
+OSM-way sections with distance, highway, normalized/raw surface, smoothness,
+access, foot, handrail, wheelchair, incline and SAC-scale tags. Route-level `surface` is a distance-
+weighted summary; `contains_steps` and `step_distance_m` prevent a route with a
+short stair section from being mislabeled as entirely stairs.
+
+Phase-2 terrain fields are based on the Open-Meteo Elevation API's Copernicus
+DEM 2021 GLO-90 data (90 m resolution). Every edge has a dense display elevation
+profile parallel to `path_coordinates`, while gross `ascent_m`/`descent_m` is
+computed from samples spaced at roughly 90 m to avoid overstating relief from
+DEM-cell quantization. Directed `elevation_delta_m` and `avg_grade_pct` use
+route endpoints. Walking time uses a transparent
+Naismith-style estimate (5 km/h plus one minute per 10 m ascent). These are
+planning estimates, not survey-grade or field-verified accessibility data.
 
 ## Semantic node/edge identifiers
 

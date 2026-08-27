@@ -1,0 +1,546 @@
+{
+  "schema_version": 1,
+  "provider": "Wikimedia Commons MediaWiki API geosearch",
+  "rows": [
+    {
+      "place_id": "herkules",
+      "api_url": "https://commons.wikimedia.org/w/api.php?action=query&format=json&list=geosearch&gsnamespace=6&gscoord=51.3161018%7C9.3932069&gsradius=150&gslimit=10&gsprimary=all",
+      "osm_coordinate": [
+        51.3161018,
+        9.3932069
+      ],
+      "search_radius_m": 150,
+      "hit_count": 10,
+      "nearest": {
+        "pageid": 27168716,
+        "title": "File:Hercules statue side view Jul 2013.jpg",
+        "distance_m": 2.3,
+        "lat": 51.316089,
+        "lng": 9.393181
+      },
+      "phase2_retry": "success"
+    },
+    {
+      "place_id": "kaskaden",
+      "osm_coordinate": [
+        51.3159319,
+        9.3963653
+      ],
+      "search_radius_m": 150,
+      "hit_count": 10,
+      "nearest": {
+        "pageid": 35722976,
+        "title": "File:BergparkWilhelmshöhe3.JPG",
+        "distance_m": 0,
+        "lat": 51.3159319,
+        "lng": 9.3963653
+      },
+      "api_url": "https://commons.wikimedia.org/w/api.php?action=query&format=json&list=geosearch&gsnamespace=6&gscoord=51.3159319%7C9.3963653&gsradius=150&gslimit=10&gsprimary=all",
+      "phase2_retry": "not_needed"
+    },
+    {
+      "place_id": "neptunbecken",
+      "osm_coordinate": [
+        51.3149902,
+        9.3984822
+      ],
+      "search_radius_m": 150,
+      "hit_count": 10,
+      "nearest": {
+        "pageid": 80061884,
+        "title": "File:Bergpark Wilhelmshöhe - Baum 396 2019-06-30.JPG",
+        "distance_m": 40.6,
+        "lat": 51.3153435,
+        "lng": 9.3986315
+      },
+      "api_url": "https://commons.wikimedia.org/w/api.php?action=query&format=json&list=geosearch&gsnamespace=6&gscoord=51.3149902%7C9.3984822&gsradius=150&gslimit=10&gsprimary=all",
+      "phase2_retry": "not_needed"
+    },
+    {
+      "place_id": "felseneck",
+      "osm_coordinate": [
+        51.3164498,
+        9.4004228
+      ],
+      "search_radius_m": 150,
+      "hit_count": 10,
+      "nearest": {
+        "pageid": 66129314,
+        "title": "File:Bergpark Wilhelmshöhe - Felseneck 2018-01-28 a.jpg",
+        "distance_m": 0,
+        "lat": 51.3164498,
+        "lng": 9.4004228
+      },
+      "api_url": "https://commons.wikimedia.org/w/api.php?action=query&format=json&list=geosearch&gsnamespace=6&gscoord=51.3164498%7C9.4004228&gsradius=150&gslimit=10&gsprimary=all",
+      "phase2_retry": "not_needed"
+    },
+    {
+      "place_id": "steinhofer-wasserfall",
+      "osm_coordinate": [
+        51.3120155,
+        9.4021889
+      ],
+      "search_radius_m": 150,
+      "hit_count": 4,
+      "nearest": {
+        "pageid": 70112756,
+        "title": "File:Bergpark Wilhelmshöhe - Steinhöfer Wasserfall 2018-06-20.JPG",
+        "distance_m": 0,
+        "lat": 51.3120155,
+        "lng": 9.4021889
+      },
+      "api_url": "https://commons.wikimedia.org/w/api.php?action=query&format=json&list=geosearch&gsnamespace=6&gscoord=51.3120155%7C9.4021889&gsradius=150&gslimit=10&gsprimary=all",
+      "phase2_retry": "not_needed"
+    },
+    {
+      "place_id": "teufelsbruecke",
+      "osm_coordinate": [
+        51.314992,
+        9.4056033
+      ],
+      "search_radius_m": 150,
+      "hit_count": 10,
+      "nearest": {
+        "pageid": 18867831,
+        "title": "File:Teufelsbrücke - Bergpark Wilhelmshöhe - Kassel - 20090520-01.jpg",
+        "distance_m": 5.5,
+        "lat": 51.314958333333,
+        "lng": 9.4056611111111
+      },
+      "api_url": "https://commons.wikimedia.org/w/api.php?action=query&format=json&list=geosearch&gsnamespace=6&gscoord=51.314992%7C9.4056033&gsradius=150&gslimit=10&gsprimary=all",
+      "phase2_retry": "not_needed"
+    },
+    {
+      "place_id": "aquaedukt",
+      "osm_coordinate": [
+        51.3165378,
+        9.408494
+      ],
+      "search_radius_m": 150,
+      "hit_count": 10,
+      "nearest": {
+        "pageid": 15749950,
+        "title": "File:Bergpark wilhelmshoehe aquaedukt 1.jpg",
+        "distance_m": 0,
+        "lat": 51.3165378,
+        "lng": 9.408494
+      },
+      "api_url": "https://commons.wikimedia.org/w/api.php?action=query&format=json&list=geosearch&gsnamespace=6&gscoord=51.3165378%7C9.408494&gsradius=150&gslimit=10&gsprimary=all",
+      "phase2_retry": "not_needed"
+    },
+    {
+      "place_id": "plutogrotte",
+      "osm_coordinate": [
+        51.3154849,
+        9.4053249
+      ],
+      "search_radius_m": 150,
+      "hit_count": 10,
+      "nearest": {
+        "pageid": 62810038,
+        "title": "File:Kassel - 2017-09-21 - Plutogrotte (08).jpg",
+        "distance_m": 0,
+        "lat": 51.3154848,
+        "lng": 9.4053249
+      },
+      "api_url": "https://commons.wikimedia.org/w/api.php?action=query&format=json&list=geosearch&gsnamespace=6&gscoord=51.3154849%7C9.4053249&gsradius=150&gslimit=10&gsprimary=all",
+      "phase2_retry": "not_needed"
+    },
+    {
+      "place_id": "eremitage",
+      "osm_coordinate": [
+        51.3138876,
+        9.4068715
+      ],
+      "search_radius_m": 150,
+      "hit_count": 10,
+      "nearest": {
+        "pageid": 27791183,
+        "title": "File:1308 Bergpark 031.jpg",
+        "distance_m": 0,
+        "lat": 51.3138876,
+        "lng": 9.4068715
+      },
+      "api_url": "https://commons.wikimedia.org/w/api.php?action=query&format=json&list=geosearch&gsnamespace=6&gscoord=51.3138876%7C9.4068715&gsradius=150&gslimit=10&gsprimary=all",
+      "phase2_retry": "not_needed"
+    },
+    {
+      "place_id": "cestius-pyramide",
+      "osm_coordinate": [
+        51.3147682,
+        9.4091681
+      ],
+      "search_radius_m": 150,
+      "hit_count": 10,
+      "nearest": {
+        "pageid": 15749986,
+        "title": "File:Bergpark wilhelmshoehe pyramide 1.jpg",
+        "distance_m": 0,
+        "lat": 51.3147682,
+        "lng": 9.4091681
+      },
+      "api_url": "https://commons.wikimedia.org/w/api.php?action=query&format=json&list=geosearch&gsnamespace=6&gscoord=51.3147682%7C9.4091681&gsradius=150&gslimit=10&gsprimary=all",
+      "phase2_retry": "not_needed"
+    },
+    {
+      "place_id": "vergils-grab",
+      "osm_coordinate": [
+        51.3157434,
+        9.4092645
+      ],
+      "search_radius_m": 150,
+      "hit_count": 10,
+      "nearest": {
+        "pageid": 67164458,
+        "title": "File:Bergpark Wilhelmshöhe - Grabmal des Vergil 2018-03-04.JPG",
+        "distance_m": 0,
+        "lat": 51.3157433,
+        "lng": 9.4092645
+      },
+      "api_url": "https://commons.wikimedia.org/w/api.php?action=query&format=json&list=geosearch&gsnamespace=6&gscoord=51.3157434%7C9.4092645&gsradius=150&gslimit=10&gsprimary=all",
+      "phase2_retry": "not_needed"
+    },
+    {
+      "place_id": "jussow-tempel",
+      "api_url": "https://commons.wikimedia.org/w/api.php?action=query&format=json&list=geosearch&gsnamespace=6&gscoord=51.3155627%7C9.4117537&gsradius=150&gslimit=10&gsprimary=all",
+      "osm_coordinate": [
+        51.3155627,
+        9.4117537
+      ],
+      "search_radius_m": 150,
+      "hit_count": 10,
+      "nearest": {
+        "pageid": 35762482,
+        "title": "File:BergparkWilhelmshöhe11.JPG",
+        "distance_m": 0,
+        "lat": 51.3155627,
+        "lng": 9.4117537
+      },
+      "phase2_retry": "success"
+    },
+    {
+      "place_id": "peneuskaskaden",
+      "api_url": "https://commons.wikimedia.org/w/api.php?action=query&format=json&list=geosearch&gsnamespace=6&gscoord=51.3160524%7C9.4109611&gsradius=150&gslimit=10&gsprimary=all",
+      "osm_coordinate": [
+        51.3160524,
+        9.4109611
+      ],
+      "search_radius_m": 150,
+      "hit_count": 10,
+      "nearest": {
+        "pageid": 62809076,
+        "title": "File:Kassel - 2017-09-21 - Jussow-Tempel (02).jpg",
+        "distance_m": 0,
+        "lat": 51.3160524,
+        "lng": 9.4109611
+      },
+      "phase2_retry": "success"
+    },
+    {
+      "place_id": "fontaenenteich",
+      "api_url": "https://commons.wikimedia.org/w/api.php?action=query&format=json&list=geosearch&gsnamespace=6&gscoord=51.3150361%7C9.4118667&gsradius=150&gslimit=10&gsprimary=all",
+      "osm_coordinate": [
+        51.3150361,
+        9.4118667
+      ],
+      "search_radius_m": 150,
+      "hit_count": 10,
+      "nearest": {
+        "pageid": 22670023,
+        "title": "File:Bergpark grosse fontaene wv d schmidt 05 2006.jpg",
+        "distance_m": 0,
+        "lat": 51.3150361,
+        "lng": 9.4118667
+      },
+      "phase2_retry": "success"
+    },
+    {
+      "place_id": "grosse-fontaene",
+      "api_url": "https://commons.wikimedia.org/w/api.php?action=query&format=json&list=geosearch&gsnamespace=6&gscoord=51.3151826%7C9.4117938&gsradius=150&gslimit=10&gsprimary=all",
+      "osm_coordinate": [
+        51.3151826,
+        9.4117938
+      ],
+      "search_radius_m": 150,
+      "hit_count": 10,
+      "nearest": {
+        "pageid": 92902400,
+        "title": "File:Bergpark Wilhelmshöhe - Große Fontäne 2020-08-05 c.JPG",
+        "distance_m": 0,
+        "lat": 51.3151826,
+        "lng": 9.4117938
+      },
+      "phase2_retry": "success"
+    },
+    {
+      "place_id": "schloss",
+      "api_url": "https://commons.wikimedia.org/w/api.php?action=query&format=json&list=geosearch&gsnamespace=6&gscoord=51.3149835%7C9.4159308&gsradius=150&gslimit=10&gsprimary=all",
+      "osm_coordinate": [
+        51.3149835,
+        9.4159308
+      ],
+      "search_radius_m": 150,
+      "hit_count": 10,
+      "nearest": {
+        "pageid": 2769428,
+        "title": "File:Kassel-schloss-wilhelmshoehe-001.jpg",
+        "distance_m": 0.1,
+        "lat": 51.3149822,
+        "lng": 9.415931
+      },
+      "phase2_retry": "success"
+    },
+    {
+      "place_id": "ballhaus",
+      "api_url": "https://commons.wikimedia.org/w/api.php?action=query&format=json&list=geosearch&gsnamespace=6&gscoord=51.316301%7C9.4159162&gsradius=150&gslimit=10&gsprimary=all",
+      "osm_coordinate": [
+        51.316301,
+        9.4159162
+      ],
+      "search_radius_m": 150,
+      "hit_count": 10,
+      "nearest": {
+        "pageid": 15749923,
+        "title": "File:Bergpark wilhelmshoehe ballhaus 1.jpg",
+        "distance_m": 0,
+        "lat": 51.316301,
+        "lng": 9.4159162
+      },
+      "phase2_retry": "success"
+    },
+    {
+      "place_id": "gewaechshaus",
+      "api_url": "https://commons.wikimedia.org/w/api.php?action=query&format=json&list=geosearch&gsnamespace=6&gscoord=51.3167636%7C9.4146284&gsradius=150&gslimit=10&gsprimary=all",
+      "osm_coordinate": [
+        51.3167636,
+        9.4146284
+      ],
+      "search_radius_m": 150,
+      "hit_count": 10,
+      "nearest": {
+        "pageid": 83787808,
+        "title": "File:Bergpark Wilhelmshöhe - Großes Gewächshaus 2019-11-08.JPG",
+        "distance_m": 1.5,
+        "lat": 51.31677,
+        "lng": 9.41461
+      },
+      "phase2_retry": "success"
+    },
+    {
+      "place_id": "lac",
+      "api_url": "https://commons.wikimedia.org/w/api.php?action=query&format=json&list=geosearch&gsnamespace=6&gscoord=51.3136164%7C9.4194115&gsradius=150&gslimit=10&gsprimary=all",
+      "osm_coordinate": [
+        51.3136164,
+        9.4194115
+      ],
+      "search_radius_m": 150,
+      "hit_count": 10,
+      "nearest": {
+        "pageid": 50420768,
+        "title": "File:Kassel, der Schlossteich.jpg",
+        "distance_m": 0,
+        "lat": 51.3136164,
+        "lng": 9.4194115
+      },
+      "phase2_retry": "success"
+    },
+    {
+      "place_id": "loewenburg",
+      "api_url": "https://commons.wikimedia.org/w/api.php?action=query&format=json&list=geosearch&gsnamespace=6&gscoord=51.3114009%7C9.4087631&gsradius=150&gslimit=10&gsprimary=all",
+      "osm_coordinate": [
+        51.3114009,
+        9.4087631
+      ],
+      "search_radius_m": 150,
+      "hit_count": 10,
+      "nearest": {
+        "pageid": 2794352,
+        "title": "File:Bergpark wilhelmshoehe loewenburg von westen.jpg",
+        "distance_m": 0,
+        "lat": 51.3114009,
+        "lng": 9.4087631
+      },
+      "phase2_retry": "success"
+    },
+    {
+      "place_id": "mulang",
+      "api_url": "https://commons.wikimedia.org/w/api.php?action=query&format=json&list=geosearch&gsnamespace=6&gscoord=51.3113991%7C9.416661&gsradius=150&gslimit=10&gsprimary=all",
+      "phase2_retry": "success",
+      "hit_count": 10,
+      "search_radius_m": 150,
+      "nearest": {
+        "pageid": 79329276,
+        "title": "File:Bergpark Wilhelmshöhe - Baum 332a 2019-05-29.JPG",
+        "distance_m": 14.5,
+        "lat": 51.3114504,
+        "lng": 9.4168533
+      }
+    },
+    {
+      "place_id": "entenfang",
+      "api_url": "https://commons.wikimedia.org/w/api.php?action=query&format=json&list=geosearch&gsnamespace=6&gscoord=51.3126123%7C9.4048997&gsradius=150&gslimit=10&gsprimary=all",
+      "phase2_retry": "success",
+      "hit_count": 10,
+      "search_radius_m": 150,
+      "nearest": {
+        "pageid": 81206073,
+        "title": "File:Bergpark Wilhelmshöhe - Entenfang 2019-08-10 b.JPG",
+        "distance_m": 0,
+        "lat": 51.3126123,
+        "lng": 9.4048997
+      }
+    },
+    {
+      "place_id": "neuer-wasserfall",
+      "api_url": "https://commons.wikimedia.org/w/api.php?action=query&format=json&list=geosearch&gsnamespace=6&gscoord=51.318334%7C9.4097345&gsradius=150&gslimit=10&gsprimary=all",
+      "osm_coordinate": [
+        51.318334,
+        9.4097345
+      ],
+      "search_radius_m": 150,
+      "hit_count": 10,
+      "nearest": {
+        "pageid": 65245863,
+        "title": "File:Bergpark Wilhelmshöhe - Neuer Wasserfall 2018-01-03 b.JPG",
+        "distance_m": 0,
+        "lat": 51.318334,
+        "lng": 9.4097345
+      },
+      "phase2_retry": "success"
+    },
+    {
+      "place_id": "halle-des-sokrates",
+      "api_url": "https://commons.wikimedia.org/w/api.php?action=query&format=json&list=geosearch&gsnamespace=6&gscoord=51.315472%7C9.4138016&gsradius=150&gslimit=10&gsprimary=all",
+      "osm_coordinate": [
+        51.315472,
+        9.4138016
+      ],
+      "search_radius_m": 150,
+      "hit_count": 10,
+      "nearest": {
+        "pageid": 65129512,
+        "title": "File:Bergpark Wilhelmshöhe - Halle des Sokrates 2017-12-28 b.jpg",
+        "distance_m": 0,
+        "lat": 51.315472,
+        "lng": 9.4138016
+      },
+      "phase2_retry": "success"
+    },
+    {
+      "place_id": "merkurtempel",
+      "api_url": "https://commons.wikimedia.org/w/api.php?action=query&format=json&list=geosearch&gsnamespace=6&gscoord=51.3176783%7C9.4076641&gsradius=150&gslimit=10&gsprimary=all",
+      "osm_coordinate": [
+        51.3176783,
+        9.4076641
+      ],
+      "search_radius_m": 150,
+      "hit_count": 10,
+      "nearest": {
+        "pageid": 28275000,
+        "title": "File:1212 Bergpark 059.jpg",
+        "distance_m": 0,
+        "lat": 51.3176783,
+        "lng": 9.4076641
+      },
+      "phase2_retry": "success"
+    },
+    {
+      "place_id": "sibyllengrotte",
+      "osm_coordinate": [
+        51.3135064,
+        9.4088277
+      ],
+      "search_radius_m": 150,
+      "hit_count": 10,
+      "nearest": {
+        "pageid": 69802778,
+        "title": "File:Bergpark Wilhelmshöhe - Sibyllengrotte 2018-06-08.JPG",
+        "distance_m": 0,
+        "lat": 51.3135064,
+        "lng": 9.4088277
+      },
+      "api_url": "https://commons.wikimedia.org/w/api.php?action=query&format=json&list=geosearch&gsnamespace=6&gscoord=51.3135064%7C9.4088277&gsradius=150&gslimit=10&gsprimary=all",
+      "phase2_retry": "not_needed"
+    },
+    {
+      "place_id": "pagode",
+      "osm_coordinate": [
+        51.3116667,
+        9.4168145
+      ],
+      "search_radius_m": 150,
+      "hit_count": 10,
+      "nearest": {
+        "pageid": 15749999,
+        "title": "File:Bergpark wilhelmshoehe mou-lang pavillon 1.jpg",
+        "distance_m": 0,
+        "lat": 51.3116667,
+        "lng": 9.4168145
+      },
+      "api_url": "https://commons.wikimedia.org/w/api.php?action=query&format=json&list=geosearch&gsnamespace=6&gscoord=51.3116667%7C9.4168145&gsradius=150&gslimit=10&gsprimary=all",
+      "phase2_retry": "not_needed"
+    },
+    {
+      "place_id": "kleiner-herkules",
+      "osm_coordinate": [
+        51.311451,
+        9.3972293
+      ],
+      "search_radius_m": 150,
+      "hit_count": 1,
+      "nearest": {
+        "pageid": 70821623,
+        "title": "File:Bergpark Wilhelmshöhe - Kleiner Herkules 2018-07-09 c.JPG",
+        "distance_m": 0,
+        "lat": 51.3114509,
+        "lng": 9.3972293
+      },
+      "api_url": "https://commons.wikimedia.org/w/api.php?action=query&format=json&list=geosearch&gsnamespace=6&gscoord=51.311451%7C9.3972293&gsradius=150&gslimit=10&gsprimary=all",
+      "phase2_retry": "not_needed"
+    },
+    {
+      "place_id": "vexierwassergrotte",
+      "osm_coordinate": [
+        51.3160508,
+        9.394048
+      ],
+      "search_radius_m": 150,
+      "hit_count": 10,
+      "nearest": {
+        "pageid": 84358917,
+        "title": "File:Bergpark Wilhelmshöhe - Vexierwassergrotte 2019-11-25 a.JPG",
+        "distance_m": 0,
+        "lat": 51.3160508,
+        "lng": 9.394048
+      },
+      "api_url": "https://commons.wikimedia.org/w/api.php?action=query&format=json&list=geosearch&gsnamespace=6&gscoord=51.3160508%7C9.394048&gsradius=150&gslimit=10&gsprimary=all",
+      "phase2_retry": "not_needed"
+    },
+    {
+      "place_id": "fontaenenreservoir",
+      "osm_coordinate": [
+        51.3152503,
+        9.4037807
+      ],
+      "search_radius_m": 150,
+      "hit_count": 10,
+      "nearest": {
+        "pageid": 70114041,
+        "title": "File:Bergpark Wilhelmshöhe - Fontänenreservoir 2018-06-20 d.JPG",
+        "distance_m": 0,
+        "lat": 51.3152503,
+        "lng": 9.4037807
+      },
+      "api_url": "https://commons.wikimedia.org/w/api.php?action=query&format=json&list=geosearch&gsnamespace=6&gscoord=51.3152503%7C9.4037807&gsradius=150&gslimit=10&gsprimary=all",
+      "phase2_retry": "not_needed"
+    }
+  ],
+  "phase2_retry": {
+    "retried_rows": 15,
+    "request_spacing_seconds": 1.5,
+    "user_agent": "bergpark-graph-research/phase2 (respectful coordinate cross-check; contact: local research agent)",
+    "policy": "retry only Phase-1 errors; no fabricated coordinates or titles",
+    "final_retry_utc": "2026-08-27T06:01:53.014841+00:00",
+    "final_retry_spacing_seconds": 3.0
+  }
+}
