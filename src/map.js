@@ -1,5 +1,6 @@
 import L from 'leaflet';
 import { localized } from './i18n.js';
+import { markerKeyboardActivation } from './leaflet-keyboard.js';
 import { hasInteractiveModel, markerPresentationClass, resolveNodePresentation, structureGlyph } from './presentation.js';
 
 const PARK_CENTER = [51.3167, 9.4167];
@@ -164,7 +165,9 @@ export function createBergparkMap(element, graph, { language = 'de', onSelectNod
     marker.on('popupopen', ({ popup }) => {
       popup.getElement()?.querySelector('[data-map-details]')?.addEventListener('click', () => onSelectNode?.(node.id));
     });
-    marker.on('click', () => onSelectNode?.(node.id));
+    const activateMarker = () => onSelectNode?.(node.id);
+    marker.on('click', activateMarker);
+    marker.on('keydown', markerKeyboardActivation(activateMarker));
     marker.addTo(markerLayer);
     markers.set(node.id, marker);
   }
