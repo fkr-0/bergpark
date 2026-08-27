@@ -7,6 +7,8 @@ experience have completed their release gates.
 
 ## [Unreleased]
 
+## [0.1.0-alpha.3] - 2026-08-27
+
 ### Added
 
 - Per-node rich presentation policy with lightweight structure markers for
@@ -17,11 +19,48 @@ experience have completed their release gates.
   Fontäne, plus a same-origin glTF Aquädukt asset exercising the production model
   loader path.
 - Fail-closed 3D asset policy: same-origin glTF/GLB only, 5 MiB and 180,000
-  triangle budgets, accessible fallback when WebGL/model loading is unavailable,
-  and explicit renderer/model disposal on close.
-- Browser E2E coverage for lazy loading, real WebGL interaction, all built-in
-  model scenes, glTF loading, Axe checks, WebGL fallback and warmed offline 3D
-  reopening through the service-worker cache.
+  triangle budgets, embedded secondary resources, accessible fallback when
+  WebGL/model loading is unavailable, and explicit renderer/model disposal.
+- Visitor-facing tree map/explorer integration for the 569-tree catalogue with
+  deterministic clustering/LOD, location/species/significance filters and
+  bounded mobile result paging.
+- Route detail sheets exposing distance, walking time, ascent/descent, average
+  grade, surface/access evidence, mapped steps and endpoint uncertainty without
+  overstating field-level accessibility.
+- Historical semantic links between places, figures, artworks and collections,
+  preserving source-backed relations in the visitor detail flow.
+
+### Changed
+
+- Service-worker runtime data is network-first with offline fallback; generated
+  build assets are cached from the built HTML and visited map tiles remain
+  bounded rather than bulk-prefetched.
+- Graph Phase 7 normalizes provenance and accuracy contracts while preserving
+  stable place/tree/bench/path identities and route semantics.
+- pnpm 11.3.0 is now the authoritative package manager: `pnpm-lock.yaml`, frozen
+  installs, pnpm scripts and pnpm-based GitHub CI/Pages gates replace npm release
+  commands and the npm lockfile.
+
+### Verification
+
+- pnpm frozen-lock install: PASS.
+- Node visitor/runtime/presentation tests: 22/22 PASS.
+- Python repository integrity suite: 65/65 PASS.
+- Vite 8.2.2 production build: PASS.
+- Chromium Playwright E2E: 11/11 PASS, including tree/route/semantic flows,
+  serious/critical Axe checks, 3D WebGL/glTF/fallback/security cases and warmed
+  offline reopening.
+- Firefox Phase-2 visitor qualification: 2/2 PASS when run against the built
+  preview (tree explorer and route/semantic/focus flow).
+
+### Known alpha limitations
+
+- The bundled landmark 3D assets are schematic interaction models, not surveyed
+  architectural/heritage reconstructions.
+- Full Firefox 3D and iOS Safari/WebKit production qualification remain beta
+  gates.
+- Field-level accessibility, live opening hours and water-feature schedules
+  remain source-dated evidence rather than operational guarantees.
 
 ## [0.1.0-alpha.2] - 2026-08-27
 
@@ -122,3 +161,4 @@ experience have completed their release gates.
 
 [0.1.0-alpha.1]: https://github.com/fkr-0/bergpark/releases/tag/v0.1.0-alpha.1
 [0.1.0-alpha.2]: https://github.com/fkr-0/bergpark/releases/tag/v0.1.0-alpha.2
+[0.1.0-alpha.3]: https://github.com/fkr-0/bergpark/releases/tag/v0.1.0-alpha.3

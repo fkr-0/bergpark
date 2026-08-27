@@ -1,19 +1,27 @@
 schema_version: 1
 release:
   unit: bergpark
-  candidate: 0.1.0-alpha.2
-  tag: v0.1.0-alpha.2
+  candidate: 0.1.0-alpha.3
+  tag: v0.1.0-alpha.3
   date: 2026-08-27
-  previous_tag: v0.1.0-alpha.1
-  previous_tag_revision: 364307d4bcd459f02b5e0801b26c048784ca1042
-  source_head_before_release_metadata: 5b0925d9cd3223945d66b359dc8e3008d5a20bf1
-  release_commit: pending_until_candidate_commit
+  previous_tag: v0.1.0-alpha.2
+  previous_tag_revision: 43c76838764a142fede0480b30c6f5228b99808b
+  source_head_before_release_metadata: cfbe663364b69a33f67ce87967b1772373f5c6cf
+  release_metadata_commit: pending_until_candidate_commit
+  release_evidence_commit: resolved_by_tag_target_after_clean_gate
   publish_authorized: true
   target_repository: fkr-0/bergpark
   target_url: https://bergpark.fkr.dev
 versions:
-  before: 0.1.0-alpha.1
-  after: 0.1.0-alpha.2
+  before: 0.1.0-alpha.2
+  after: 0.1.0-alpha.3
+package_manager:
+  name: pnpm
+  version: 11.3.0
+  declaration: package.json#packageManager
+  lockfile: pnpm-lock.yaml
+  install_gate: pnpm install --frozen-lockfile
+  npm_lockfile_present: false
 release_delta:
   graph:
     places: 30
@@ -27,35 +35,43 @@ release_delta:
     artworks: 1
     collections: 1
     semantic_edges: 13
+    provenance_phase: 7
   runtime:
-    - checked-in Chromium Playwright E2E
-    - Axe serious/critical accessibility release gate
-    - warmed offline-PWA reload qualification
-    - pull-request/main CI workflow
-    - Pages deployment gated by Node, Python, build and browser E2E
+    - lazy per-landmark Three.js/WebGL presentation with procedural scenes and same-origin glTF
+    - bounded model byte/triangle policy and embedded-secondary-resource enforcement
+    - tree map clustering, LOD, filtering and bounded mobile result paging
+    - route metrics and explicit mapped-path versus endpoint accessibility uncertainty
+    - source-backed semantic links between places, figures, artworks and collections
+    - network-first runtime data with offline fallback and bounded visited-tile caching
+    - Chromium browser E2E covering visitor, tree, route, semantic, 3D, security, a11y and offline paths
+    - focused Firefox Phase-2 visitor qualification
+    - pnpm-authoritative local, CI and Pages release commands
 metadata_changed:
   - package.json
-  - package-lock.json
+  - pnpm-lock.yaml
+  - package-lock.json (removed)
+  - README.md
   - CHANGELOG.md
-  - .gitignore
-  - docs/implementation-review.md
   - .github/workflows/ci.yml
   - .github/workflows/pages.yml
-  - playwright.config.js
-  - tests/e2e/visitor-guide.spec.js
   - release-evidence.yml
 preflight_verification:
-  - command: npm run check
+  - command: pnpm install --frozen-lockfile
     location: shared checkout
     result: pass
-    details: 8/8 Node tests PASS; 45/45 Python tests PASS; Vite 8.2.2 production build PASS
-  - command: npm run test:e2e
+    details: pnpm 11.3.0; lockfile up to date
+  - command: pnpm run check:e2e
     location: shared checkout
     result: pass
-    details: 3/3 Chromium Playwright tests PASS including deep-link/a11y and warmed offline reload
-  - command: npm audit
+    details: 22/22 Node tests PASS; 65/65 Python tests PASS; Vite 8.2.2 build PASS; 11/11 Chromium Playwright E2E PASS
+  - command: npx playwright test tests/e2e/phase2-visitor.spec.js --config=.work/bergpark-webapp-phase2/playwright-firefox.config.mjs --workers=1
+    location: shared checkout against explicit built preview
     result: pass
-    details: dependency install reported 0 vulnerabilities
+    details: 2/2 Firefox Phase-2 visitor tests PASS; earlier connection-refused run was preview orchestration only
+  - command: pnpm authority scan
+    location: package.json README.md bridge.yml .github
+    result: pass
+    details: no npm install/run/cache commands remain in release-facing project configuration
 release_gate:
   exact_clean_worktree_check: pending
   git_diff_check: pending
@@ -66,10 +82,11 @@ release_gate:
   pages_workflow: pending
   production_e2e: pending
 artifacts:
-  dist_tree_sha256_manifest_sha256: pending
-  dist_bytes: pending
+  dist_tree_sha256_manifest_sha256: pending_clean_candidate_build
+  dist_bytes: pending_clean_candidate_build
 known_limitations:
-  - Firefox and iOS Safari/WebKit production qualification remain beta gates.
+  - Bundled landmark 3D assets are schematic interaction models, not surveyed architectural reconstructions.
+  - Full Firefox 3D and iOS Safari/WebKit production qualification remain beta gates.
   - Live visitor facts such as opening hours and field accessibility remain source-dated rather than guaranteed.
 release_side_effects:
   dns_cname:

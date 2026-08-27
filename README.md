@@ -28,14 +28,14 @@ Current alpha capabilities include:
 Run locally:
 
 ```sh
-npm ci
-npm run dev
+pnpm install --frozen-lockfile
+pnpm run dev
 ```
 
 Release gate:
 
 ```sh
-npm run check
+pnpm run check
 python -m unittest -v tests.test_graph
 ```
 
