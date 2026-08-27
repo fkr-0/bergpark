@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-27T09:35:04.306910+00:00",
+  "generated_at": "2026-08-27T06:07:43.553398+00:00",
   "bbox": {
     "south": 51.307,
     "west": 9.385,
@@ -29,12 +29,16 @@
         "resolution_m": 90,
         "vertical_accuracy_m": null,
         "accuracy_status": "not_reported_in_project_source",
-        "snapshot": "data/sources/elevation/points.json"
+        "snapshot": "data/sources/elevation/points.json",
+        "retrieved_at": "2026-08-27T06:07:43.553398+00:00"
       },
       "position_source": {
         "provider": "OpenStreetMap",
         "element": "relation/164756",
         "snapshot": "data/sources/osm-pois.json",
+        "source_timestamp": "2026-08-27T05:02:01Z",
+        "retrieved_at": null,
+        "retrieval_status": "source_retrieval_time_not_preserved_separately",
         "method": "bounds_midpoint",
         "position_type": "representative_point",
         "horizontal_accuracy_m": null,
@@ -80,12 +84,16 @@
         "resolution_m": 90,
         "vertical_accuracy_m": null,
         "accuracy_status": "not_reported_in_project_source",
-        "snapshot": "data/sources/elevation/points.json"
+        "snapshot": "data/sources/elevation/points.json",
+        "retrieved_at": "2026-08-27T06:07:43.553398+00:00"
       },
       "position_source": {
         "provider": "OpenStreetMap",
         "element": "node/3923243905",
         "snapshot": "data/sources/osm-pois.json",
+        "source_timestamp": "2026-08-27T05:02:01Z",
+        "retrieved_at": null,
+        "retrieval_status": "source_retrieval_time_not_preserved_separately",
         "method": "source_node",
         "position_type": "source_point",
         "horizontal_accuracy_m": null,
@@ -125,12 +133,16 @@
         "resolution_m": 90,
         "vertical_accuracy_m": null,
         "accuracy_status": "not_reported_in_project_source",
-        "snapshot": "data/sources/elevation/points.json"
+        "snapshot": "data/sources/elevation/points.json",
+        "retrieved_at": "2026-08-27T06:07:43.553398+00:00"
       },
       "position_source": {
         "provider": "OpenStreetMap",
         "element": "node/2912938750",
         "snapshot": "data/sources/osm-pois.json",
+        "source_timestamp": "2026-08-27T05:02:01Z",
+        "retrieved_at": null,
+        "retrieval_status": "source_retrieval_time_not_preserved_separately",
         "method": "source_node",
         "position_type": "source_point",
         "horizontal_accuracy_m": null,
@@ -167,12 +179,16 @@
         "resolution_m": 90,
         "vertical_accuracy_m": null,
         "accuracy_status": "not_reported_in_project_source",
-        "snapshot": "data/sources/elevation/points.json"
+        "snapshot": "data/sources/elevation/points.json",
+        "retrieved_at": "2026-08-27T06:07:43.553398+00:00"
       },
       "position_source": {
         "provider": "OpenStreetMap",
         "element": "way/389165294",
         "snapshot": "data/sources/osm-pois.json",
+        "source_timestamp": "2026-08-27T05:02:01Z",
+        "retrieved_at": null,
+        "retrieval_status": "source_retrieval_time_not_preserved_separately",
         "method": "bounds_midpoint",
         "position_type": "representative_point",
         "horizontal_accuracy_m": null,
@@ -213,12 +229,16 @@
         "resolution_m": 90,
         "vertical_accuracy_m": null,
         "accuracy_status": "not_reported_in_project_source",
-        "snapshot": "data/sources/elevation/points.json"
+        "snapshot": "data/sources/elevation/points.json",
+        "retrieved_at": "2026-08-27T06:07:43.553398+00:00"
       },
       "position_source": {
         "provider": "OpenStreetMap",
         "element": "way/600205054",
         "snapshot": "data/sources/osm-pois.json",
+        "source_timestamp": "2026-08-27T05:02:01Z",
+        "retrieved_at": null,
+        "retrieval_status": "source_retrieval_time_not_preserved_separately",
         "method": "bounds_midpoint",
         "position_type": "representative_point",
         "horizontal_accuracy_m": null,
@@ -259,12 +279,16 @@
         "resolution_m": 90,
         "vertical_accuracy_m": null,
         "accuracy_status": "not_reported_in_project_source",
-        "snapshot": "data/sources/elevation/points.json"
+        "snapshot": "data/sources/elevation/points.json",
+        "retrieved_at": "2026-08-27T06:07:43.553398+00:00"
       },
       "position_source": {
         "provider": "OpenStreetMap",
         "element": "way/541136210",
         "snapshot": "data/sources/osm-pois.json",
+        "source_timestamp": "2026-08-27T05:02:01Z",
+        "retrieved_at": null,
+        "retrieval_status": "source_retrieval_time_not_preserved_separately",
         "method": "bounds_midpoint",
         "position_type": "representative_point",
         "horizontal_accuracy_m": null,
@@ -305,12 +329,16 @@
         "resolution_m": 90,
         "vertical_accuracy_m": null,
         "accuracy_status": "not_reported_in_project_source",
-        "snapshot": "data/sources/elevation/points.json"
+        "snapshot": "data/sources/elevation/points.json",
+        "retrieved_at": "2026-08-27T06:07:43.553398+00:00"
       },
       "position_source": {
         "provider": "OpenStreetMap",
         "element": "way/499181982",
         "snapshot": "data/sources/osm-pois.json",
+        "source_timestamp": "2026-08-27T05:02:01Z",
+        "retrieved_at": null,
+        "retrieval_status": "source_retrieval_time_not_preserved_separately",
         "method": "bounds_midpoint",
         "position_type": "representative_point",
         "horizontal_accuracy_m": null,
@@ -351,12 +379,16 @@
         "resolution_m": 90,
         "vertical_accuracy_m": null,
         "accuracy_status": "not_reported_in_project_source",
-        "snapshot": "data/sources/elevation/points.json"
+        "snapshot": "data/sources/elevation/points.json",
+        "retrieved_at": "2026-08-27T06:07:43.553398+00:00"
       },
       "position_source": {
         "provider": "OpenStreetMap",
         "element": "way/389164993",
         "snapshot": "data/sources/osm-pois.json",
+        "source_timestamp": "2026-08-27T05:02:01Z",
+        "retrieved_at": null,
+        "retrieval_status": "source_retrieval_time_not_preserved_separately",
         "method": "bounds_midpoint",
         "position_type": "representative_point",
         "horizontal_accuracy_m": null,
@@ -396,12 +428,16 @@
         "resolution_m": 90,
         "vertical_accuracy_m": null,
         "accuracy_status": "not_reported_in_project_source",
-        "snapshot": "data/sources/elevation/points.json"
+        "snapshot": "data/sources/elevation/points.json",
+        "retrieved_at": "2026-08-27T06:07:43.553398+00:00"
       },
       "position_source": {
         "provider": "OpenStreetMap",
         "element": "way/541728530",
         "snapshot": "data/sources/osm-pois.json",
+        "source_timestamp": "2026-08-27T05:02:01Z",
+        "retrieved_at": null,
+        "retrieval_status": "source_retrieval_time_not_preserved_separately",
         "method": "bounds_midpoint",
         "position_type": "representative_point",
         "horizontal_accuracy_m": null,
@@ -443,12 +479,16 @@
         "resolution_m": 90,
         "vertical_accuracy_m": null,
         "accuracy_status": "not_reported_in_project_source",
-        "snapshot": "data/sources/elevation/points.json"
+        "snapshot": "data/sources/elevation/points.json",
+        "retrieved_at": "2026-08-27T06:07:43.553398+00:00"
       },
       "position_source": {
         "provider": "OpenStreetMap",
         "element": "way/541144378",
         "snapshot": "data/sources/osm-pois.json",
+        "source_timestamp": "2026-08-27T05:02:01Z",
+        "retrieved_at": null,
+        "retrieval_status": "source_retrieval_time_not_preserved_separately",
         "method": "bounds_midpoint",
         "position_type": "representative_point",
         "horizontal_accuracy_m": null,
@@ -491,12 +531,16 @@
         "resolution_m": 90,
         "vertical_accuracy_m": null,
         "accuracy_status": "not_reported_in_project_source",
-        "snapshot": "data/sources/elevation/points.json"
+        "snapshot": "data/sources/elevation/points.json",
+        "retrieved_at": "2026-08-27T06:07:43.553398+00:00"
       },
       "position_source": {
         "provider": "OpenStreetMap",
         "element": "way/541585797",
         "snapshot": "data/sources/osm-pois.json",
+        "source_timestamp": "2026-08-27T05:02:01Z",
+        "retrieved_at": null,
+        "retrieval_status": "source_retrieval_time_not_preserved_separately",
         "method": "bounds_midpoint",
         "position_type": "representative_point",
         "horizontal_accuracy_m": null,
@@ -541,12 +585,16 @@
         "resolution_m": 90,
         "vertical_accuracy_m": null,
         "accuracy_status": "not_reported_in_project_source",
-        "snapshot": "data/sources/elevation/points.json"
+        "snapshot": "data/sources/elevation/points.json",
+        "retrieved_at": "2026-08-27T06:07:43.553398+00:00"
       },
       "position_source": {
         "provider": "OpenStreetMap",
         "element": "way/321469909",
         "snapshot": "data/sources/osm-pois.json",
+        "source_timestamp": "2026-08-27T05:02:01Z",
+        "retrieved_at": null,
+        "retrieval_status": "source_retrieval_time_not_preserved_separately",
         "method": "bounds_midpoint",
         "position_type": "representative_point",
         "horizontal_accuracy_m": null,
@@ -587,12 +635,16 @@
         "resolution_m": 90,
         "vertical_accuracy_m": null,
         "accuracy_status": "not_reported_in_project_source",
-        "snapshot": "data/sources/elevation/points.json"
+        "snapshot": "data/sources/elevation/points.json",
+        "retrieved_at": "2026-08-27T06:07:43.553398+00:00"
       },
       "position_source": {
         "provider": "OpenStreetMap",
         "element": "node/3163220629",
         "snapshot": "data/sources/osm-pois.json",
+        "source_timestamp": "2026-08-27T05:02:01Z",
+        "retrieved_at": null,
+        "retrieval_status": "source_retrieval_time_not_preserved_separately",
         "method": "source_node",
         "position_type": "source_point",
         "horizontal_accuracy_m": null,
@@ -633,12 +685,16 @@
         "resolution_m": 90,
         "vertical_accuracy_m": null,
         "accuracy_status": "not_reported_in_project_source",
-        "snapshot": "data/sources/elevation/points.json"
+        "snapshot": "data/sources/elevation/points.json",
+        "retrieved_at": "2026-08-27T06:07:43.553398+00:00"
       },
       "position_source": {
         "provider": "OpenStreetMap",
         "element": "relation/7321251",
         "snapshot": "data/sources/osm-pois.json",
+        "source_timestamp": "2026-08-27T05:02:01Z",
+        "retrieved_at": null,
+        "retrieval_status": "source_retrieval_time_not_preserved_separately",
         "method": "bounds_midpoint",
         "position_type": "representative_point",
         "horizontal_accuracy_m": null,
@@ -678,12 +734,16 @@
         "resolution_m": 90,
         "vertical_accuracy_m": null,
         "accuracy_status": "not_reported_in_project_source",
-        "snapshot": "data/sources/elevation/points.json"
+        "snapshot": "data/sources/elevation/points.json",
+        "retrieved_at": "2026-08-27T06:07:43.553398+00:00"
       },
       "position_source": {
         "provider": "OpenStreetMap",
         "element": "node/373197742",
         "snapshot": "data/sources/osm-pois.json",
+        "source_timestamp": "2026-08-27T05:02:01Z",
+        "retrieved_at": null,
+        "retrieval_status": "source_retrieval_time_not_preserved_separately",
         "method": "source_node",
         "position_type": "source_point",
         "horizontal_accuracy_m": null,
@@ -722,12 +782,16 @@
         "resolution_m": 90,
         "vertical_accuracy_m": null,
         "accuracy_status": "not_reported_in_project_source",
-        "snapshot": "data/sources/elevation/points.json"
+        "snapshot": "data/sources/elevation/points.json",
+        "retrieved_at": "2026-08-27T06:07:43.553398+00:00"
       },
       "position_source": {
         "provider": "OpenStreetMap",
         "element": "way/183224852",
         "snapshot": "data/sources/osm-pois.json",
+        "source_timestamp": "2026-08-27T05:02:01Z",
+        "retrieved_at": null,
+        "retrieval_status": "source_retrieval_time_not_preserved_separately",
         "method": "bounds_midpoint",
         "position_type": "representative_point",
         "horizontal_accuracy_m": null,
@@ -770,12 +834,16 @@
         "resolution_m": 90,
         "vertical_accuracy_m": null,
         "accuracy_status": "not_reported_in_project_source",
-        "snapshot": "data/sources/elevation/points.json"
+        "snapshot": "data/sources/elevation/points.json",
+        "retrieved_at": "2026-08-27T06:07:43.553398+00:00"
       },
       "position_source": {
         "provider": "OpenStreetMap",
         "element": "way/33077249",
         "snapshot": "data/sources/osm-pois.json",
+        "source_timestamp": "2026-08-27T05:02:01Z",
+        "retrieved_at": null,
+        "retrieval_status": "source_retrieval_time_not_preserved_separately",
         "method": "bounds_midpoint",
         "position_type": "representative_point",
         "horizontal_accuracy_m": null,
@@ -820,12 +888,16 @@
         "resolution_m": 90,
         "vertical_accuracy_m": null,
         "accuracy_status": "not_reported_in_project_source",
-        "snapshot": "data/sources/elevation/points.json"
+        "snapshot": "data/sources/elevation/points.json",
+        "retrieved_at": "2026-08-27T06:07:43.553398+00:00"
       },
       "position_source": {
         "provider": "OpenStreetMap",
         "element": "way/31735163",
         "snapshot": "data/sources/osm-pois.json",
+        "source_timestamp": "2026-08-27T05:02:01Z",
+        "retrieved_at": null,
+        "retrieval_status": "source_retrieval_time_not_preserved_separately",
         "method": "bounds_midpoint",
         "position_type": "representative_point",
         "horizontal_accuracy_m": null,
@@ -868,12 +940,16 @@
         "resolution_m": 90,
         "vertical_accuracy_m": null,
         "accuracy_status": "not_reported_in_project_source",
-        "snapshot": "data/sources/elevation/points.json"
+        "snapshot": "data/sources/elevation/points.json",
+        "retrieved_at": "2026-08-27T06:07:43.553398+00:00"
       },
       "position_source": {
         "provider": "OpenStreetMap",
         "element": "relation/7723238",
         "snapshot": "data/sources/osm-pois.json",
+        "source_timestamp": "2026-08-27T05:02:01Z",
+        "retrieved_at": null,
+        "retrieval_status": "source_retrieval_time_not_preserved_separately",
         "method": "bounds_midpoint",
         "position_type": "representative_point",
         "horizontal_accuracy_m": null,
@@ -913,12 +989,16 @@
         "resolution_m": 90,
         "vertical_accuracy_m": null,
         "accuracy_status": "not_reported_in_project_source",
-        "snapshot": "data/sources/elevation/points.json"
+        "snapshot": "data/sources/elevation/points.json",
+        "retrieved_at": "2026-08-27T06:07:43.553398+00:00"
       },
       "position_source": {
         "provider": "OpenStreetMap",
         "element": "relation/6241813",
         "snapshot": "data/sources/osm-pois.json",
+        "source_timestamp": "2026-08-27T05:02:01Z",
+        "retrieved_at": null,
+        "retrieval_status": "source_retrieval_time_not_preserved_separately",
         "method": "bounds_midpoint",
         "position_type": "representative_point",
         "horizontal_accuracy_m": null,
@@ -962,12 +1042,16 @@
         "resolution_m": 90,
         "vertical_accuracy_m": null,
         "accuracy_status": "not_reported_in_project_source",
-        "snapshot": "data/sources/elevation/points.json"
+        "snapshot": "data/sources/elevation/points.json",
+        "retrieved_at": "2026-08-27T06:07:43.553398+00:00"
       },
       "position_source": {
         "provider": "OpenStreetMap",
         "element": "node/3923256516",
         "snapshot": "data/sources/osm-pois.json",
+        "source_timestamp": "2026-08-27T05:02:01Z",
+        "retrieved_at": null,
+        "retrieval_status": "source_retrieval_time_not_preserved_separately",
         "method": "source_node",
         "position_type": "source_point",
         "horizontal_accuracy_m": null,
@@ -1006,12 +1090,16 @@
         "resolution_m": 90,
         "vertical_accuracy_m": null,
         "accuracy_status": "not_reported_in_project_source",
-        "snapshot": "data/sources/elevation/points.json"
+        "snapshot": "data/sources/elevation/points.json",
+        "retrieved_at": "2026-08-27T06:07:43.553398+00:00"
       },
       "position_source": {
         "provider": "OpenStreetMap",
         "element": "way/83586933",
         "snapshot": "data/sources/osm-pois.json",
+        "source_timestamp": "2026-08-27T05:02:01Z",
+        "retrieved_at": null,
+        "retrieval_status": "source_retrieval_time_not_preserved_separately",
         "method": "bounds_midpoint",
         "position_type": "representative_point",
         "horizontal_accuracy_m": null,
@@ -1052,12 +1140,16 @@
         "resolution_m": 90,
         "vertical_accuracy_m": null,
         "accuracy_status": "not_reported_in_project_source",
-        "snapshot": "data/sources/elevation/points.json"
+        "snapshot": "data/sources/elevation/points.json",
+        "retrieved_at": "2026-08-27T06:07:43.553398+00:00"
       },
       "position_source": {
         "provider": "OpenStreetMap",
         "element": "way/547719842",
         "snapshot": "data/sources/osm-pois.json",
+        "source_timestamp": "2026-08-27T05:02:01Z",
+        "retrieved_at": null,
+        "retrieval_status": "source_retrieval_time_not_preserved_separately",
         "method": "bounds_midpoint",
         "position_type": "representative_point",
         "horizontal_accuracy_m": null,
@@ -1098,12 +1190,16 @@
         "resolution_m": 90,
         "vertical_accuracy_m": null,
         "accuracy_status": "not_reported_in_project_source",
-        "snapshot": "data/sources/elevation/points.json"
+        "snapshot": "data/sources/elevation/points.json",
+        "retrieved_at": "2026-08-27T06:07:43.553398+00:00"
       },
       "position_source": {
         "provider": "OpenStreetMap",
         "element": "way/321469908",
         "snapshot": "data/sources/osm-pois.json",
+        "source_timestamp": "2026-08-27T05:02:01Z",
+        "retrieved_at": null,
+        "retrieval_status": "source_retrieval_time_not_preserved_separately",
         "method": "bounds_midpoint",
         "position_type": "representative_point",
         "horizontal_accuracy_m": null,
@@ -1144,12 +1240,16 @@
         "resolution_m": 90,
         "vertical_accuracy_m": null,
         "accuracy_status": "not_reported_in_project_source",
-        "snapshot": "data/sources/elevation/points.json"
+        "snapshot": "data/sources/elevation/points.json",
+        "retrieved_at": "2026-08-27T06:07:43.553398+00:00"
       },
       "position_source": {
         "provider": "OpenStreetMap",
         "element": "way/389166242",
         "snapshot": "data/sources/osm-pois.json",
+        "source_timestamp": "2026-08-27T05:02:01Z",
+        "retrieved_at": null,
+        "retrieval_status": "source_retrieval_time_not_preserved_separately",
         "method": "bounds_midpoint",
         "position_type": "representative_point",
         "horizontal_accuracy_m": null,
@@ -1190,12 +1290,16 @@
         "resolution_m": 90,
         "vertical_accuracy_m": null,
         "accuracy_status": "not_reported_in_project_source",
-        "snapshot": "data/sources/elevation/points.json"
+        "snapshot": "data/sources/elevation/points.json",
+        "retrieved_at": "2026-08-27T06:07:43.553398+00:00"
       },
       "position_source": {
         "provider": "OpenStreetMap",
         "element": "node/674079825",
         "snapshot": "data/sources/osm-pois.json",
+        "source_timestamp": "2026-08-27T05:02:01Z",
+        "retrieved_at": null,
+        "retrieval_status": "source_retrieval_time_not_preserved_separately",
         "method": "source_node",
         "position_type": "source_point",
         "horizontal_accuracy_m": null,
@@ -1236,12 +1340,16 @@
         "resolution_m": 90,
         "vertical_accuracy_m": null,
         "accuracy_status": "not_reported_in_project_source",
-        "snapshot": "data/sources/elevation/points.json"
+        "snapshot": "data/sources/elevation/points.json",
+        "retrieved_at": "2026-08-27T06:07:43.553398+00:00"
       },
       "position_source": {
         "provider": "OpenStreetMap",
         "element": "way/214802668",
         "snapshot": "data/sources/osm-pois.json",
+        "source_timestamp": "2026-08-27T05:02:01Z",
+        "retrieved_at": null,
+        "retrieval_status": "source_retrieval_time_not_preserved_separately",
         "method": "bounds_midpoint",
         "position_type": "representative_point",
         "horizontal_accuracy_m": null,
@@ -1284,12 +1392,16 @@
         "resolution_m": 90,
         "vertical_accuracy_m": null,
         "accuracy_status": "not_reported_in_project_source",
-        "snapshot": "data/sources/elevation/points.json"
+        "snapshot": "data/sources/elevation/points.json",
+        "retrieved_at": "2026-08-27T06:07:43.553398+00:00"
       },
       "position_source": {
         "provider": "OpenStreetMap",
         "element": "way/607746853",
         "snapshot": "data/sources/osm-pois.json",
+        "source_timestamp": "2026-08-27T05:02:01Z",
+        "retrieved_at": null,
+        "retrieval_status": "source_retrieval_time_not_preserved_separately",
         "method": "bounds_midpoint",
         "position_type": "representative_point",
         "horizontal_accuracy_m": null,
@@ -1330,12 +1442,16 @@
         "resolution_m": 90,
         "vertical_accuracy_m": null,
         "accuracy_status": "not_reported_in_project_source",
-        "snapshot": "data/sources/elevation/points.json"
+        "snapshot": "data/sources/elevation/points.json",
+        "retrieved_at": "2026-08-27T06:07:43.553398+00:00"
       },
       "position_source": {
         "provider": "OpenStreetMap",
         "element": "way/646446140",
         "snapshot": "data/sources/osm-pois.json",
+        "source_timestamp": "2026-08-27T05:02:01Z",
+        "retrieved_at": null,
+        "retrieval_status": "source_retrieval_time_not_preserved_separately",
         "method": "bounds_midpoint",
         "position_type": "representative_point",
         "horizontal_accuracy_m": null,
@@ -1375,12 +1491,16 @@
         "resolution_m": 90,
         "vertical_accuracy_m": null,
         "accuracy_status": "not_reported_in_project_source",
-        "snapshot": "data/sources/elevation/points.json"
+        "snapshot": "data/sources/elevation/points.json",
+        "retrieved_at": "2026-08-27T06:07:43.553398+00:00"
       },
       "position_source": {
         "provider": "OpenStreetMap",
         "element": "way/42022370",
         "snapshot": "data/sources/osm-pois.json",
+        "source_timestamp": "2026-08-27T05:02:01Z",
+        "retrieved_at": null,
+        "retrieval_status": "source_retrieval_time_not_preserved_separately",
         "method": "bounds_midpoint",
         "position_type": "representative_point",
         "horizontal_accuracy_m": null,

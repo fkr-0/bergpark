@@ -4,14 +4,22 @@
 from __future__ import annotations
 
 import json
+import os
 import pathlib
 from collections import defaultdict
 from datetime import datetime, timezone
 
+try:
+    from .provenance_contract import validate_spatial_entity
+except ImportError:
+    from provenance_contract import validate_spatial_entity
+
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-DATA = ROOT / "data"
-ID_FILE = DATA / "sources" / "osm-tree-node-ids.txt"
+CANONICAL_DATA = ROOT / "data"
+DATA = pathlib.Path(os.environ.get("BERGPARK_OUTPUT_DATA", str(CANONICAL_DATA))).resolve()
+REPORT_DATA = pathlib.Path(os.environ.get("BERGPARK_VALIDATION_OUTPUT_DATA", str(DATA))).resolve()
+ID_FILE = CANONICAL_DATA / "sources" / "osm-tree-node-ids.txt"
 TREE_RESEARCH_BBOX = {"south": 51.30, "west": 9.38, "north": 51.33, "east": 9.435}
 
 
@@ -35,7 +43,7 @@ def main() -> int:
         errors.append("tree OSM-node set differs from catalog-node set")
 
     spatial_bad = []
-    position_accuracy_bad = []
+    common_provenance_bad = []
     elevation_bad = []
     height_bad = []
     for tree in trees:
@@ -44,9 +52,8 @@ def main() -> int:
             and TREE_RESEARCH_BBOX["west"] <= tree["lng"] <= TREE_RESEARCH_BBOX["east"]
         ):
             spatial_bad.append(tree["id"])
-        position = tree.get("position_source", {})
-        if "horizontal_accuracy_m" not in position or position.get("accuracy_status") != "not_reported_by_source":
-            position_accuracy_bad.append(tree["id"])
+        if validate_spatial_entity(tree, label=f"tree:{tree['id']}"):
+            common_provenance_bad.append(tree["id"])
         if not isinstance(tree.get("elevation_m"), (int, float)):
             elevation_bad.append(tree["id"])
         if tree.get("height_m") is None and tree.get("height_status") != "unknown_no_measurement_source":
@@ -55,7 +62,7 @@ def main() -> int:
             height_bad.append(tree["id"])
     for check_id, failures in (
         ("coordinates_in_research_bbox", spatial_bad),
-        ("position_accuracy_explicit", position_accuracy_bad),
+        ("common_spatial_provenance", common_provenance_bad),
         ("elevation_present", elevation_bad),
         ("height_provenance_consistent", height_bad),
     ):
@@ -99,7 +106,8 @@ def main() -> int:
             "GLO-90 terrain elevation is approximate and is not the physical height of a tree.",
         ],
     }
-    (DATA / "tree_validation.json").write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n")
+    REPORT_DATA.mkdir(parents=True, exist_ok=True)
+    (REPORT_DATA / "tree_validation.json").write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n")
     print(json.dumps(result["summary"], ensure_ascii=False))
     return 0 if not errors else 1
 

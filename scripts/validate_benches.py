@@ -4,12 +4,20 @@
 from __future__ import annotations
 
 import json
+import os
 import pathlib
 from datetime import datetime, timezone
 
+try:
+    from .provenance_contract import validate_spatial_entity
+except ImportError:
+    from provenance_contract import validate_spatial_entity
+
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-DATA = ROOT / "data"
+CANONICAL_DATA = ROOT / "data"
+DATA = pathlib.Path(os.environ.get("BERGPARK_OUTPUT_DATA", str(CANONICAL_DATA))).resolve()
+REPORT_DATA = pathlib.Path(os.environ.get("BERGPARK_VALIDATION_OUTPUT_DATA", str(DATA))).resolve()
 
 
 def main() -> int:
@@ -28,8 +36,8 @@ def main() -> int:
             errors.append(f"bench outside research bbox: {bench['id']}")
         if not isinstance(bench.get("elevation_m"), (int, float)):
             errors.append(f"bench elevation missing: {bench['id']}")
-        if bench.get("position_source", {}).get("accuracy_status") != "not_reported_by_source":
-            errors.append(f"bench position accuracy misrepresented: {bench['id']}")
+        common_failures = validate_spatial_entity(bench, label=f"bench:{bench['id']}")
+        errors.extend(common_failures)
     summary = {
         "benches": len(benches),
         "with_backrest_tag": sum(b.get("backrest") is not None for b in benches),
@@ -45,7 +53,8 @@ def main() -> int:
         "summary": summary,
         "errors": errors,
     }
-    (DATA / "bench_validation.json").write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n")
+    REPORT_DATA.mkdir(parents=True, exist_ok=True)
+    (REPORT_DATA / "bench_validation.json").write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n")
     print(json.dumps(summary, ensure_ascii=False))
     return 0 if not errors else 1
 

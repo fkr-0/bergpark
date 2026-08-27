@@ -55,13 +55,33 @@ class VisitorPoiTests(unittest.TestCase):
             self.assertIsInstance(row["elevation_m"], (int, float))
             self.assertIn(row["scope"]["relation"], {"inside_park", "boundary_external", "external_relevant"})
             self.assertIn("horizontal_accuracy_m", row["position_source"])
+            self.assertIsNone(row["position_source"]["retrieved_at"])
+            self.assertEqual(
+                "source_retrieval_time_not_preserved_separately",
+                row["position_source"]["retrieval_status"],
+            )
             self.assertIn("vertical_accuracy_m", row["elevation_source"])
+            self.assertEqual(
+                self.doc["provenance"]["elevation_retrieved_at"],
+                row["elevation_source"]["retrieved_at"],
+            )
             self.assertEqual("ODbL-1.0", row["position_source"]["license"])
             self.assertEqual("Copernicus DEM 2021 GLO-90", row["elevation_source"]["dataset"])
             self.assertEqual("not_reported_in_project_source", row["elevation_source"]["accuracy_status"])
             self.assertIsNone(row["height_m"])
             self.assertEqual("unknown_no_measurement_source", row["height_status"])
             self.assertIsNone(row["height_source"])
+
+    def test_retrieval_provenance_is_explicit_without_invention(self):
+        self.assertEqual(
+            "2026-08-27T10:14:07.101943+00:00",
+            self.doc["provenance"]["elevation_retrieved_at"],
+        )
+        self.assertEqual(
+            "source timestamps preserved per element; fetch time not preserved separately",
+            self.doc["provenance"]["osm_retrieval_status"],
+        )
+        self.assertTrue(all(row["osm_element"].get("timestamp") for row in self.pois))
 
     def test_access_points_are_mapped_nodes_not_representative_centroids(self):
         access = [row for row in self.pois if row["family"] == "access"]

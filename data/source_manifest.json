@@ -1,6 +1,7 @@
 {
   "schema_version": 1,
-  "retrieved_utc": "2026-08-27T06:13:54.600369+00:00",
+  "retrieved_utc": "2026-08-27T06:07:43.553398+00:00",
+  "retrieval_scope": "Latest preserved machine retrieval timestamp among generated terrain inputs; OSM map API retrieval timestamps are not preserved separately.",
   "sources": [
     {
       "id": "osm-overpass-pois",
@@ -8,6 +9,9 @@
       "url": "https://overpass-api.de/api/interpreter",
       "query_file": "data/sources/osm-pois.overpass",
       "snapshot": "data/sources/osm-pois.json",
+      "source_timestamp": "2026-08-27T05:02:01Z",
+      "retrieved_at": null,
+      "retrieval_status": "source_retrieval_time_not_preserved_separately",
       "license": "ODbL-1.0"
     },
     {
@@ -55,7 +59,10 @@
       "raw_batches": "data/sources/elevation/batch-*.json",
       "dataset": "Copernicus DEM 2021 GLO-90",
       "resolution_m": 90,
-      "dataset_doi": "10.5270/ESA-c5d3d65"
+      "dataset_doi": "10.5270/ESA-c5d3d65",
+      "vertical_accuracy_m": null,
+      "accuracy_status": "not_reported_in_project_source",
+      "retrieved_at": "2026-08-27T06:07:43.553398+00:00"
     }
   ],
   "rejected_seed_assumptions": [

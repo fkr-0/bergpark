@@ -24,7 +24,12 @@ class CatalogTreeTests(unittest.TestCase):
             self.assertIsInstance(tree["lng"], float)
             self.assertIsInstance(tree["elevation_m"], (int, float))
             self.assertIn("horizontal_accuracy_m", tree["position_source"])
+            self.assertEqual("source_node", tree["position_source"]["method"])
+            self.assertEqual("source_point", tree["position_source"]["position_type"])
+            self.assertTrue(tree["position_source"]["snapshot"].startswith("data/sources/osm-tree-nodes/"))
             self.assertEqual("not_reported_by_source", tree["position_source"]["accuracy_status"])
+            self.assertIsNone(tree["elevation_source"]["vertical_accuracy_m"])
+            self.assertEqual("not_reported_in_project_source", tree["elevation_source"]["accuracy_status"])
 
     def test_no_species_description_is_misused_as_specimen_height(self):
         # Current source snapshot contains no `height` tags. A future source may

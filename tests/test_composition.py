@@ -112,6 +112,78 @@ class CompositionTests(unittest.TestCase):
             compose_graph(self.output)
         self.assertFalse((self.output / "graph.json").exists())
 
+    def test_invalid_tree_common_accuracy_contract_fails_before_graph_write(self):
+        tree_path = self.output / "trees.json"
+        shutil.copy2(DATA / "trees.json", tree_path)
+        trees = json.loads(tree_path.read_text())
+        trees["trees"][0]["position_source"]["horizontal_accuracy_m"] = -1
+        tree_path.write_text(json.dumps(trees, ensure_ascii=False, indent=2) + "\n")
+
+        with self.assertRaisesRegex(ValueError, "common spatial provenance contract"):
+            compose_graph(self.output)
+        self.assertFalse((self.output / "graph.json").exists())
+
+    def test_false_exact_bench_position_fails_before_graph_write(self):
+        bench_path = self.output / "benches.json"
+        shutil.copy2(DATA / "benches.json", bench_path)
+        benches = json.loads(bench_path.read_text())
+        benches["benches"][0]["position_source"]["accuracy_status"] = "exact_position"
+        benches["benches"][0]["position_source"]["horizontal_accuracy_m"] = None
+        bench_path.write_text(json.dumps(benches, ensure_ascii=False, indent=2) + "\n")
+
+        with self.assertRaisesRegex(ValueError, "common spatial provenance contract"):
+            compose_graph(self.output)
+        self.assertFalse((self.output / "graph.json").exists())
+
+    def test_path_representative_point_cannot_be_mislabeled_as_entrance(self):
+        path = self.output / "path_topology.json"
+        shutil.copy2(DATA / "path_topology.json", path)
+        topology = json.loads(path.read_text())
+        representative = next(
+            row for row in topology["path_nodes"]
+            if row["position_source"]["position_type"] == "representative_point"
+        )
+        representative["position_source"]["method"] = "entrance_node"
+        path.write_text(json.dumps(topology, ensure_ascii=False, indent=2) + "\n")
+
+        with self.assertRaisesRegex(ValueError, "common spatial provenance contract"):
+            compose_graph(self.output)
+        self.assertFalse((self.output / "graph.json").exists())
+
+    def test_terrain_provenance_cannot_be_reused_as_physical_height(self):
+        nodes_path = self.output / "nodes.json"
+        nodes = json.loads(nodes_path.read_text())
+        node = nodes["nodes"][0]
+        node["height_m"] = node["elevation_m"]
+        node["height_status"] = "source_reported"
+        node["height_source"] = dict(node["elevation_source"])
+        nodes_path.write_text(json.dumps(nodes, ensure_ascii=False, indent=2) + "\n")
+
+        with self.assertRaisesRegex(ValueError, "common spatial provenance contract|normalized position/elevation provenance"):
+            compose_graph(self.output)
+        self.assertFalse((self.output / "graph.json").exists())
+
+    def test_unqualified_route_metric_algorithm_fails_before_graph_write(self):
+        edges_path = self.output / "edges.json"
+        edges = json.loads(edges_path.read_text())
+        edges["derived_metric_profile"]["metrics"]["ascent_m"]["algorithm"] = ""
+        edges_path.write_text(json.dumps(edges, ensure_ascii=False, indent=2) + "\n")
+
+        with self.assertRaisesRegex(ValueError, "derived metric provenance contract"):
+            compose_graph(self.output)
+        self.assertFalse((self.output / "graph.json").exists())
+
+    def test_unqualified_path_metric_assumption_fails_before_graph_write(self):
+        path = self.output / "path_topology.json"
+        shutil.copy2(DATA / "path_topology.json", path)
+        topology = json.loads(path.read_text())
+        topology["derived_metric_profile"]["metrics"]["avg_grade_pct"]["assumptions"] = ""
+        path.write_text(json.dumps(topology, ensure_ascii=False, indent=2) + "\n")
+
+        with self.assertRaisesRegex(ValueError, "derived metric provenance contract"):
+            compose_graph(self.output)
+        self.assertFalse((self.output / "graph.json").exists())
+
     def test_duplicate_poi_ids_fail_closed(self):
         benches_path = self.output / "benches.json"
         shutil.copy2(DATA / "benches.json", benches_path)

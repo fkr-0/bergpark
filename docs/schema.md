@@ -354,6 +354,65 @@ v2 without changing stable place IDs or current representative coordinates.
 reports a defensible accuracy; otherwise they remain `null`. Physical
 structure/object height stays separate from terrain `elevation_m`.
 
+## Phase-7 spatial provenance contract
+
+Phase 7 keeps all existing public layer schema-version numbers because the
+migration is additive: no existing field is removed or retyped, and the web
+runtime can continue consuming the legacy coordinate/route fields. The
+composition gate nevertheless treats the added provenance fields as mandatory
+for current canonical producer output and fails closed if they are malformed.
+This avoids forcing a runtime/API migration merely to qualify source metadata.
+
+Every coordinate-bearing canonical row in `nodes.json`, `trees.json`,
+`benches.json`, `path_topology.json#path_nodes`, and `visitor_pois.json` now
+carries:
+
+- a provider plus exact source element(s) or document reference;
+- preserved source timestamp and retrieval metadata when available, otherwise
+  explicit null/unknown retrieval status;
+- `method` plus `position_type` (`source_point` or `representative_point`);
+- numeric-or-null `horizontal_accuracy_m` plus `accuracy_status`;
+- terrain `elevation_source` with dataset, horizontal resolution,
+  numeric-or-null `vertical_accuracy_m`, accuracy status and snapshot;
+- physical `height_m`/height provenance only where that entity publishes a
+  physical-height contract, never by aliasing terrain elevation.
+
+The 30 path nodes associated with place entities inherit the place position
+role rather than using the old blanket `place_representative_point` label. This
+therefore remains 6 source points and 24 representative points. OSM path nodes
+are source points. Unmapped route-coordinate fallback remains explicitly
+representative/derived and cannot masquerade as an entrance.
+
+`data/semantic.json` contains no coordinate-bearing artwork or collection rows
+at this boundary, so Phase 7 does not fabricate spatial fields for them. Spatial
+OSM artwork POIs remain in `visitor_pois.json` and use that layer's spatial
+contract.
+
+### Derived metric profiles
+
+`data/edges.json.derived_metric_profile` applies to `edges[*]` and records the
+algorithm, source fields and assumptions for distance, terrain delta, 90 m
+sampled gross ascent/descent, average grade, walking time, surface summary,
+mapped-path accessibility, endpoint snap distance and the guarded end-to-end
+accessibility result. The document-level profile is deliberate: the 122
+Phase-2 edge rows remain exactly preserved while their derivation becomes
+machine-readable.
+
+`data/path_topology.json.derived_metric_profile` applies to
+`directed_segments[*]`. Distance is WGS84 haversine between path-node
+coordinates. Terrain delta is endpoint GLO-90 terrain difference. Segments
+shorter than the 90 m DEM horizontal resolution retain endpoint delta but must
+keep `ascent_m`, `descent_m` and `avg_grade_pct` null with
+`terrain_metric_status=below_dem_horizontal_resolution`. Mapped OSM surface and
+access values are source-qualified; missing tags stay unknown. Representative
+point snap connectors inherit no path accessibility facts and remain
+`unknown_unmapped_connector`.
+
+The shared `scripts/provenance_contract.py` gate is used by composition and
+layer validators. It rejects negative/malformed accuracy, unsupported exactness,
+source/representative-role conflation, terrain/physical-height conflation and
+missing algorithm/input/assumption qualification for derived metric profiles.
+
 ## Provenance
 
 OpenStreetMap-derived data is subject to the Open Database License (ODbL).

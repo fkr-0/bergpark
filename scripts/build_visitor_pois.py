@@ -242,6 +242,8 @@ def _row_from_element(
             "snapshot_refs": snapshots,
             "source_version": element.get("version"),
             "source_timestamp": element.get("timestamp"),
+            "retrieved_at": None,
+            "retrieval_status": "source_retrieval_time_not_preserved_separately",
             "method": method,
             "position_type": position_type,
             "horizontal_accuracy_m": None,
@@ -387,6 +389,7 @@ def build_document() -> dict[str, Any]:
             "vertical_accuracy_m": None,
             "accuracy_status": "not_reported_in_project_source",
             "snapshot": "data/sources/visitor-poi-elevation/points.json",
+            "retrieved_at": elevation_doc.get("retrieved_utc"),
             "dataset_doi": "10.5270/ESA-c5d3d65",
         }
         poi["height_m"] = None
@@ -430,6 +433,8 @@ def build_document() -> dict[str, Any]:
                 "license": OSM_LICENSE,
             },
             "elevation_snapshot": "data/sources/visitor-poi-elevation/points.json",
+            "elevation_retrieved_at": elevation_doc.get("retrieved_utc"),
+            "osm_retrieval_status": "source timestamps preserved per element; fetch time not preserved separately",
             "selection_input_sha256": selection_sha256(candidates),
         },
         "quality": {

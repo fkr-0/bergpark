@@ -121,7 +121,7 @@ def coordinate_key(lat: float, lng: float) -> tuple[float, float]:
     return round(float(lat), 7), round(float(lng), 7)
 
 
-def load_elevations() -> tuple[dict[tuple[float, float], float], dict[str, Any]]:
+def load_elevations() -> tuple[dict[tuple[float, float], float], dict[str, Any], str | None]:
     if not ELEVATION_POINTS.is_file():
         raise FileNotFoundError(
             f"missing Phase-2 terrain snapshot {ELEVATION_POINTS}; run scripts/fetch_elevation.py"
@@ -131,7 +131,7 @@ def load_elevations() -> tuple[dict[tuple[float, float], float], dict[str, Any]]
         coordinate_key(row["lat"], row["lng"]): float(row["elevation_m"])
         for row in doc["points"]
     }
-    return points, doc["source"]
+    return points, doc["source"], doc.get("retrieved_utc")
 
 
 def elevation_at(
@@ -143,9 +143,12 @@ def elevation_at(
     return elevations[key]
 
 
-def load_pois() -> dict[tuple[str, int], dict[str, Any]]:
+def load_pois() -> tuple[dict[tuple[str, int], dict[str, Any]], str | None]:
     doc = json.loads((SOURCES / "osm-pois.json").read_text())
-    return {(e["type"], int(e["id"])): e for e in doc["elements"]}
+    return (
+        {(e["type"], int(e["id"])): e for e in doc["elements"]},
+        doc.get("osm3s", {}).get("timestamp_osm_base"),
+    )
 
 
 def representative_point(element: dict[str, Any]) -> tuple[float, float, str]:
@@ -175,7 +178,7 @@ def representative_point(element: dict[str, Any]) -> tuple[float, float, str]:
 
 
 def normalized_position_source(
-    spec: PlaceSpec, method: str
+    spec: PlaceSpec, method: str, source_timestamp: str | None
 ) -> dict[str, Any]:
     method_map = {
         "osm_node": ("source_node", "source_point", "not_reported_by_source"),
@@ -198,6 +201,9 @@ def normalized_position_source(
         "provider": "OpenStreetMap",
         "element": f"{spec.osm_type}/{spec.osm_id}",
         "snapshot": "data/sources/osm-pois.json",
+        "source_timestamp": source_timestamp,
+        "retrieved_at": None,
+        "retrieval_status": "source_retrieval_time_not_preserved_separately",
         "method": normalized_method,
         "position_type": position_type,
         "horizontal_accuracy_m": None,
@@ -209,6 +215,9 @@ def normalized_position_source(
 def build_places(
     pois: dict[tuple[str, int], dict[str, Any]],
     elevations: dict[tuple[float, float], float],
+    *,
+    osm_source_timestamp: str | None,
+    elevation_retrieved_at: str | None,
 ) -> list[dict[str, Any]]:
     out = []
     for spec in PLACE_SPECS:
@@ -238,8 +247,9 @@ def build_places(
                     "vertical_accuracy_m": None,
                     "accuracy_status": "not_reported_in_project_source",
                     "snapshot": "data/sources/elevation/points.json",
+                    "retrieved_at": elevation_retrieved_at,
                 },
-                "position_source": normalized_position_source(spec, method),
+                "position_source": normalized_position_source(spec, method, osm_source_timestamp),
                 "coordinate_confidence": "high" if spec.osm_type in {"node", "way"} else "medium",
                 "coordinate_method": method,
                 "coordinate_source": {
@@ -756,33 +766,133 @@ def watercourse_reference_audit(places: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
+def route_derived_metric_profile(elevation_retrieved_at: str | None) -> dict[str, Any]:
+    return {
+        "profile_id": "phase2-walking-edge-derived-v1",
+        "applies_to": "edges[*]",
+        "source_vs_derived_policy": (
+            "source_facts_are_preserved; derived_values_require_declared_algorithm_and_inputs"
+        ),
+        "terrain_source": {
+            "provider": "Open-Meteo Elevation API",
+            "dataset": "Copernicus DEM 2021 GLO-90",
+            "resolution_m": 90,
+            "vertical_accuracy_m": None,
+            "accuracy_status": "not_reported_in_project_source",
+            "snapshot": "data/sources/elevation/points.json",
+            "retrieved_at": elevation_retrieved_at,
+        },
+        "metrics": {
+            "distance_m": {
+                "kind": "derived",
+                "algorithm": "dijkstra_haversine_network_distance_plus_endpoint_snaps",
+                "source_fields": ["path_coordinates", "snap_distance_m"],
+                "assumptions": "WGS84 great-circle segment lengths; endpoint snaps are straight representative-point connectors.",
+            },
+            "elevation_delta_m": {
+                "kind": "derived",
+                "algorithm": "terrain_profile_endpoint_difference",
+                "source_fields": ["elevation_profile_m"],
+                "assumptions": "GLO-90 terrain values are approximate and are not surveyed object elevations.",
+            },
+            "ascent_m": {
+                "kind": "derived",
+                "algorithm": "sampled_glo90_positive_change_sum",
+                "source_fields": ["elevation_profile_m", "path_coordinates", "elevation_metric_sampling_m"],
+                "assumptions": "Gross ascent is sampled at roughly 90 m, matching DEM horizontal resolution rather than dense OSM vertices.",
+            },
+            "descent_m": {
+                "kind": "derived",
+                "algorithm": "sampled_glo90_negative_change_sum",
+                "source_fields": ["elevation_profile_m", "path_coordinates", "elevation_metric_sampling_m"],
+                "assumptions": "Gross descent is sampled at roughly 90 m, matching DEM horizontal resolution rather than dense OSM vertices.",
+            },
+            "avg_grade_pct": {
+                "kind": "derived",
+                "algorithm": "endpoint_elevation_delta_divided_by_route_distance",
+                "source_fields": ["elevation_delta_m", "distance_m"],
+                "assumptions": "Average grade is a coarse endpoint terrain estimate, not a short-segment or survey-grade slope.",
+            },
+            "walking_min": {
+                "kind": "derived",
+                "algorithm": "naismith_style_5kmh_plus_1min_per_10m_ascent",
+                "source_fields": ["distance_m", "ascent_m"],
+                "assumptions": "Planning estimate only; it does not model individual mobility or conditions.",
+            },
+            "surface": {
+                "kind": "derived_summary",
+                "algorithm": "distance_weighted_primary_normalized_surface",
+                "source_fields": ["surface_segments[].surface", "surface_segments[].distance_m"],
+                "assumptions": "Unknown surface remains unknown and is never upgraded from missing OSM tags.",
+            },
+            "mapped_path_accessibility": {
+                "kind": "source_qualified_derived",
+                "algorithm": "bounded_osm_tag_evidence_summary",
+                "source_fields": [
+                    "surface_segments[].highway",
+                    "surface_segments[].surface",
+                    "surface_segments[].smoothness",
+                    "surface_segments[].wheelchair",
+                    "surface_segments[].access",
+                    "surface_segments[].foot",
+                    "surface_segments[].handrail",
+                    "surface_segments[].sac_scale",
+                ],
+                "assumptions": "Missing tags are unknown, never positive accessibility evidence; summary applies only to the mapped OSM path.",
+            },
+            "endpoint_snap_total_m": {
+                "kind": "derived",
+                "algorithm": "sum_endpoint_snap_distances",
+                "source_fields": ["snap_distance_m.from", "snap_distance_m.to"],
+                "assumptions": "Straight representative-point connectors have unknown surface/barrier/access evidence.",
+            },
+            "accessibility": {
+                "kind": "source_qualified_derived",
+                "algorithm": "mapped_path_evidence_with_endpoint_unknown_guard",
+                "source_fields": ["mapped_path_accessibility", "endpoint_access_unknown", "endpoint_snap_total_m"],
+                "assumptions": "Potential mapped-path step-free evidence is not promoted to end-to-end accessibility when endpoint connectors are unknown.",
+            },
+        },
+    }
+
+
 def dump(name: str, obj: Any) -> None:
     (DATA / name).write_text(json.dumps(obj, ensure_ascii=False, indent=2) + "\n")
 
 
 def main() -> None:
     DATA.mkdir(parents=True, exist_ok=True)
-    elevations, elevation_source = load_elevations()
-    pois = load_pois()
-    places = build_places(pois, elevations)
+    elevations, elevation_source, elevation_retrieved_at = load_elevations()
+    pois, osm_source_timestamp = load_pois()
+    places = build_places(
+        pois,
+        elevations,
+        osm_source_timestamp=osm_source_timestamp,
+        elevation_retrieved_at=elevation_retrieved_at,
+    )
     pair_routes, snap = build_pairwise_routes(places)
     edges = directed_edges(places, pair_routes, elevations)
     watercourse_audit = watercourse_reference_audit(places)
 
     nodes_doc = {
         "schema_version": 2,
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": elevation_retrieved_at,
         "bbox": PARK_BBOX,
         "nodes": places,
     }
     edges_doc = {
         "schema_version": 1,
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": elevation_retrieved_at,
+        "derived_metric_profile": route_derived_metric_profile(elevation_retrieved_at),
         "edges": edges,
     }
     source_manifest = {
         "schema_version": 1,
-        "retrieved_utc": datetime.now(timezone.utc).isoformat(),
+        "retrieved_utc": elevation_retrieved_at,
+        "retrieval_scope": (
+            "Latest preserved machine retrieval timestamp among generated terrain inputs; "
+            "OSM map API retrieval timestamps are not preserved separately."
+        ),
         "sources": [
             {
                 "id": "osm-overpass-pois",
@@ -790,6 +900,9 @@ def main() -> None:
                 "url": "https://overpass-api.de/api/interpreter",
                 "query_file": "data/sources/osm-pois.overpass",
                 "snapshot": "data/sources/osm-pois.json",
+                "source_timestamp": osm_source_timestamp,
+                "retrieved_at": None,
+                "retrieval_status": "source_retrieval_time_not_preserved_separately",
                 "license": "ODbL-1.0",
             },
             {
@@ -833,6 +946,9 @@ def main() -> None:
                 "dataset": elevation_source.get("dataset"),
                 "resolution_m": elevation_source.get("resolution_m"),
                 "dataset_doi": elevation_source.get("dataset_doi"),
+                "vertical_accuracy_m": elevation_source.get("vertical_accuracy_m"),
+                "accuracy_status": "not_reported_in_project_source",
+                "retrieved_at": elevation_retrieved_at,
             },
         ],
         "rejected_seed_assumptions": [

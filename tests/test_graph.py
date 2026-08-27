@@ -76,6 +76,19 @@ class GraphExportTests(unittest.TestCase):
                 self.assertEqual("representative_point", position["position_type"])
                 self.assertEqual("derived_representative_point", position["accuracy_status"])
 
+    def test_phase7_route_metric_profile_qualifies_derived_values_without_rewriting_rows(self):
+        doc = json.loads((DATA / "edges.json").read_text())
+        profile = doc["derived_metric_profile"]
+        self.assertEqual("edges[*]", profile["applies_to"])
+        self.assertEqual(90, profile["terrain_source"]["resolution_m"])
+        self.assertIsNone(profile["terrain_source"]["vertical_accuracy_m"])
+        required = {
+            "distance_m", "elevation_delta_m", "ascent_m", "descent_m", "avg_grade_pct",
+            "walking_min", "surface", "mapped_path_accessibility", "endpoint_snap_total_m", "accessibility",
+        }
+        self.assertTrue(required <= set(profile["metrics"]))
+        self.assertIn("Missing tags are unknown", profile["metrics"]["mapped_path_accessibility"]["assumptions"])
+
     def test_reverse_edges_swap_elevation_metrics(self):
         edges = json.loads((DATA / "edges.json").read_text())["edges"]
         by_pair = {(e["from"], e["to"]): e for e in edges}

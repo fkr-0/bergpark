@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-27T10:22:48.048954+00:00",
+  "generated_at": "2026-08-27T15:41:07.430254+00:00",
   "status": "pass",
   "summary": {
     "visitor_pois": 109,
@@ -58,6 +58,11 @@
     },
     {
       "id": "visitor_poi_rows_match_preserved_sources",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "visitor_poi_retrieval_provenance_explicit",
       "pass": true,
       "failures": []
     },

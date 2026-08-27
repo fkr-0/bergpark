@@ -11,6 +11,7 @@ from __future__ import annotations
 import hashlib
 import json
 import math
+import os
 import pathlib
 import xml.etree.ElementTree as ET
 from collections import defaultdict
@@ -19,8 +20,9 @@ from typing import Any
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-DATA = ROOT / "data"
-MAP_DIR = DATA / "sources" / "osm-map"
+CANONICAL_DATA = ROOT / "data"
+DATA = pathlib.Path(os.environ.get("BERGPARK_OUTPUT_DATA", str(CANONICAL_DATA))).resolve()
+MAP_DIR = CANONICAL_DATA / "sources" / "osm-map"
 
 
 def coord_key(lat: float, lng: float) -> tuple[float, float]:
@@ -39,13 +41,34 @@ def haversine(a: tuple[float, float], b: tuple[float, float]) -> float:
 def load_osm() -> tuple[
     dict[str, tuple[float, float]],
     dict[tuple[tuple[float, float], tuple[float, float]], list[dict[str, Any]]],
+    dict[str, dict[str, Any]],
 ]:
     nodes: dict[str, tuple[float, float]] = {}
+    node_provenance: dict[str, dict[str, Any]] = {}
     ways: dict[str, tuple[list[str], dict[str, str]]] = {}
     for path in sorted(MAP_DIR.glob("*.xml")):
         root = ET.parse(path).getroot()
         for node in root.findall("node"):
-            nodes[node.attrib["id"]] = coord_key(node.attrib["lat"], node.attrib["lon"])
+            node_id = node.attrib["id"]
+            coord = coord_key(node.attrib["lat"], node.attrib["lon"])
+            if node_id in nodes and nodes[node_id] != coord:
+                raise RuntimeError(f"OSM node {node_id} differs across preserved snapshots")
+            nodes[node_id] = coord
+            meta = node_provenance.setdefault(
+                node_id,
+                {
+                    "version": node.attrib.get("version"),
+                    "timestamp": node.attrib.get("timestamp"),
+                    "snapshot_refs": set(),
+                },
+            )
+            meta["snapshot_refs"].add(f"data/sources/osm-map/{path.name}")
+            versions = [value for value in (meta.get("version"), node.attrib.get("version")) if value]
+            if versions:
+                meta["version"] = max(versions, key=int)
+            timestamps = [value for value in (meta.get("timestamp"), node.attrib.get("timestamp")) if value]
+            if timestamps:
+                meta["timestamp"] = max(timestamps)
         for way in root.findall("way"):
             way_id = way.attrib["id"]
             if way_id in ways:
@@ -66,7 +89,7 @@ def load_osm() -> tuple[
             adjacency[(cb, ca)].append(
                 {"osm_way_id": way_id, "osm_way_direction": "reverse", "from_osm_node": b, "to_osm_node": a, "tags": tags}
             )
-    return nodes, adjacency
+    return nodes, adjacency, node_provenance
 
 
 def scalar(values: list[Any]) -> Any:
@@ -112,13 +135,83 @@ def fallback_node_id(coord: tuple[float, float]) -> str:
     return f"pathnode-coordinate-{digest}"
 
 
+def path_derived_metric_profile(elevation_retrieved_at: str | None) -> dict[str, Any]:
+    return {
+        "profile_id": "phase5-path-topology-derived-v1",
+        "applies_to": "directed_segments[*]",
+        "source_vs_derived_policy": (
+            "source_facts_are_preserved; derived_values_require_declared_algorithm_and_inputs"
+        ),
+        "terrain_source": {
+            "provider": "Open-Meteo Elevation API",
+            "dataset": "Copernicus DEM 2021 GLO-90",
+            "resolution_m": 90,
+            "vertical_accuracy_m": None,
+            "accuracy_status": "not_reported_in_project_source",
+            "snapshot": "data/sources/elevation/points.json",
+            "retrieved_at": elevation_retrieved_at,
+        },
+        "metrics": {
+            "distance_m": {
+                "kind": "derived",
+                "algorithm": "wgs84_haversine_between_path_node_coordinates",
+                "source_fields": ["geometry", "from", "to"],
+                "assumptions": "Each serialized segment is one adjacency between its path-node endpoint coordinates.",
+            },
+            "elevation_delta_m": {
+                "kind": "derived",
+                "algorithm": "to_node_terrain_elevation_minus_from_node_terrain_elevation",
+                "source_fields": ["from.elevation_m", "to.elevation_m"],
+                "assumptions": "Endpoint GLO-90 terrain values are approximate and not physical object heights.",
+            },
+            "ascent_m": {
+                "kind": "derived",
+                "algorithm": "positive_endpoint_glo90_delta_if_segment_at_least_dem_resolution",
+                "source_fields": ["elevation_delta_m", "distance_m", "terrain_metric_status"],
+                "assumptions": "Only segments >=90 m publish ascent; shorter segments remain null because GLO-90 cannot support that precision.",
+            },
+            "descent_m": {
+                "kind": "derived",
+                "algorithm": "negative_endpoint_glo90_delta_if_segment_at_least_dem_resolution",
+                "source_fields": ["elevation_delta_m", "distance_m", "terrain_metric_status"],
+                "assumptions": "Only segments >=90 m publish descent; shorter segments remain null because GLO-90 cannot support that precision.",
+            },
+            "avg_grade_pct": {
+                "kind": "derived",
+                "algorithm": "endpoint_glo90_delta_divided_by_segment_distance_if_at_least_90m",
+                "source_fields": ["elevation_delta_m", "distance_m", "terrain_metric_status"],
+                "assumptions": "Short-segment grade is explicitly null below the 90 m DEM horizontal resolution; long-segment grade remains coarse.",
+            },
+            "surface": {
+                "kind": "source_qualified_derived",
+                "algorithm": "normalize_unique_contributing_osm_way_surface_or_mixed",
+                "source_fields": ["data/sources/osm-map/*.xml way.tags.surface", "osm_way_ids"],
+                "assumptions": "Missing OSM surface remains unknown; multiple conflicting source ways remain mixed/ambiguous.",
+            },
+            "access": {
+                "kind": "source_qualified_derived",
+                "algorithm": "unique_contributing_osm_way_access_tag_or_mixed",
+                "source_fields": ["data/sources/osm-map/*.xml way.tags.access", "osm_way_ids"],
+                "assumptions": "Missing access tags remain unknown and are never interpreted as accessible.",
+            },
+            "accessibility_status": {
+                "kind": "source_qualified_derived",
+                "algorithm": "fail_closed_representative_point_snap_connector_policy",
+                "source_fields": ["source_kind", "osm_way_ids", "surface", "steps", "access"],
+                "assumptions": "Unmapped representative-point snap connectors publish unknown_unmapped_connector and inherit no path accessibility facts.",
+            },
+        },
+    }
+
+
 def main() -> int:
     place_doc = json.loads((DATA / "nodes.json").read_text())
     edge_doc = json.loads((DATA / "edges.json").read_text())
-    elevation_doc = json.loads((DATA / "sources" / "elevation" / "points.json").read_text())
+    elevation_doc = json.loads((CANONICAL_DATA / "sources" / "elevation" / "points.json").read_text())
     places = place_doc["nodes"]
     edges = edge_doc["edges"]
-    osm_nodes, adjacency = load_osm()
+    osm_nodes, adjacency, osm_node_provenance = load_osm()
+    elevation_retrieved_at = elevation_doc.get("retrieved_utc")
 
     elevations = {coord_key(p["lat"], p["lng"]): float(p["elevation_m"]) for p in elevation_doc["points"]}
     place_at: dict[tuple[float, float], list[dict[str, Any]]] = defaultdict(list)
@@ -140,19 +233,49 @@ def main() -> int:
         osm_ids = sorted(set(osm_at.get(coord, [])), key=int)
         if related_places:
             node_id = f"pathnode-place-{related_places[0]}"
+            source_positions = [p["position_source"] for p in place_at[coord]]
+            primary = source_positions[0]
+            if any(
+                (position.get("provider"), position.get("element"), position.get("method"), position.get("position_type"))
+                != (primary.get("provider"), primary.get("element"), primary.get("method"), primary.get("position_type"))
+                for position in source_positions[1:]
+            ):
+                raise RuntimeError(f"coincident place positions have incompatible provenance at {coord}")
             position_source = {
-                "kind": "place_representative_point",
+                "kind": "place_position",
+                "provider": primary.get("provider"),
+                "element": primary.get("element"),
+                "snapshot": primary.get("snapshot"),
+                "source_timestamp": primary.get("source_timestamp"),
+                "retrieved_at": primary.get("retrieved_at"),
+                "retrieval_status": primary.get(
+                    "retrieval_status", "source_retrieval_time_not_preserved_separately"
+                ),
+                "method": primary.get("method"),
+                "position_type": primary.get("position_type"),
+                "horizontal_accuracy_m": primary.get("horizontal_accuracy_m"),
+                "accuracy_status": primary.get("accuracy_status"),
+                "license": primary.get("license", "ODbL-1.0"),
+                "source_layer": "data/nodes.json",
                 "place_ids": related_places,
                 "coordinate_sources": [p.get("coordinate_source") for p in place_at[coord]],
-                "horizontal_accuracy_m": None,
-                "accuracy_status": "not_reported_or_representative_geometry",
             }
         elif osm_ids:
             node_id = f"pathnode-osm-{osm_ids[0]}"
+            metas = [osm_node_provenance[node_id_] for node_id_ in osm_ids]
+            snapshot_refs = sorted({ref for meta in metas for ref in meta["snapshot_refs"]})
+            timestamps = sorted({meta.get("timestamp") for meta in metas if meta.get("timestamp")})
             position_source = {
                 "kind": "osm_path_node",
                 "provider": "OpenStreetMap",
                 "elements": [f"node/{node_id_}" for node_id_ in osm_ids],
+                "snapshot": snapshot_refs[0],
+                "snapshot_refs": snapshot_refs,
+                "source_timestamp": max(timestamps) if timestamps else None,
+                "retrieved_at": None,
+                "retrieval_status": "source_retrieval_time_not_preserved_separately",
+                "method": "source_node",
+                "position_type": "source_point",
                 "license": "ODbL-1.0",
                 "horizontal_accuracy_m": None,
                 "accuracy_status": "not_reported_by_source",
@@ -161,7 +284,15 @@ def main() -> int:
             node_id = fallback_node_id(coord)
             position_source = {
                 "kind": "qualified_route_coordinate",
+                "provider": "Bergpark derived route export",
+                "document_ref": "data/edges.json",
                 "source": "data/edges.json",
+                "snapshot": "data/edges.json",
+                "source_timestamp": edge_doc.get("generated_at"),
+                "retrieved_at": None,
+                "retrieval_status": "derived_from_hashed_route_layer",
+                "method": "route_geometry_coordinate",
+                "position_type": "representative_point",
                 "horizontal_accuracy_m": None,
                 "accuracy_status": "derived_from_route_export",
             }
@@ -178,7 +309,9 @@ def main() -> int:
                 "dataset": "Copernicus DEM 2021 GLO-90",
                 "resolution_m": 90,
                 "vertical_accuracy_m": None,
+                "accuracy_status": "not_reported_in_project_source",
                 "snapshot": "data/sources/elevation/points.json",
+                "retrieved_at": elevation_retrieved_at,
             },
             "related_place_ids": related_places,
             "osm_node_ids": osm_ids,
@@ -288,8 +421,13 @@ def main() -> int:
 
     doc = {
         "schema_version": 1,
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": max(
+            timestamp
+            for timestamp in (place_doc.get("generated_at"), edge_doc.get("generated_at"), elevation_retrieved_at)
+            if timestamp
+        ),
         "status": "qualified_route_topology_projection",
+        "derived_metric_profile": path_derived_metric_profile(elevation_retrieved_at),
         "path_node_count": len(path_nodes),
         "directed_segment_count": len(segments),
         "path_nodes": [path_nodes[node_id] for node_id in sorted(path_nodes)],

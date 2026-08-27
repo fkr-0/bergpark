@@ -16,10 +16,13 @@ do not imply an accessible route.
 
 ## Position contract
 
-Every coordinate-bearing entity should eventually use a common
-`position_source` object.
+Every coordinate-bearing canonical entity uses a common `position_source`
+contract. Phase 7 applies it to places, catalogued trees, benches, explicit path
+nodes and visitor POIs; semantic artwork/collection entities currently have no
+coordinate fields and therefore do not synthesize a position merely for shape
+uniformity.
 
-Recommended fields:
+Required fields/roles:
 
 ```json
 {
@@ -28,10 +31,12 @@ Recommended fields:
     "element": "way/183224852",
     "url": "https://www.openstreetmap.org/way/183224852",
     "source_timestamp": "2026-08-01T12:00:00Z",
-    "retrieved_at": "2026-08-27T00:00:00Z",
+    "retrieved_at": null,
+    "retrieval_status": "source_retrieval_time_not_preserved_separately",
     "method": "bounds_midpoint",
+    "position_type": "representative_point",
     "horizontal_accuracy_m": null,
-    "accuracy_status": "not_reported_by_source",
+    "accuracy_status": "derived_representative_point",
     "license": "ODbL-1.0"
   }
 }
@@ -49,6 +54,11 @@ Examples:
 - `field_observation` — measured on site with observation provenance.
 
 The method should describe what was done, not imply a quality grade.
+`position_type` is independently constrained to `source_point` or
+`representative_point`. A representative point may never be relabelled as an
+entrance/access point simply because routing needs a connector. If source or
+retrieval timestamps were not preserved, the field remains `null` with an
+explicit status; filesystem mtimes are not promoted to source provenance.
 
 ### Accuracy
 
@@ -81,7 +91,8 @@ Recommended source metadata:
     "resolution_m": 90,
     "vertical_accuracy_m": null,
     "accuracy_status": "not_reported_in_project_source",
-    "snapshot": "data/sources/elevation/points.json"
+    "snapshot": "data/sources/elevation/points.json",
+    "retrieved_at": "2026-08-27T06:07:43.553398+00:00"
   }
 }
 ```
@@ -135,10 +146,28 @@ Examples:
 - walking-time estimate;
 - summarized surface/accessibility categories.
 
-Derived metrics should identify the algorithm/assumptions in schema or build
-metadata. For GLO-90, dense geometry can be kept for display, but gross
-ascent/descent should not repeatedly sum quantized changes at a resolution much
-finer than the DEM.
+Derived metrics identify the algorithm, source fields and assumptions in
+machine-readable document-level `derived_metric_profile` metadata. A profile
+has a stable `profile_id`, an `applies_to` selector and one entry per qualified
+metric. This lets Phase-2 route rows stay byte-for-byte stable while still
+exposing how their values were produced.
+
+For walking edges the profile covers route distance, endpoint elevation delta,
+90 m sampled gross ascent/descent, average grade, walking-time estimate,
+surface summary, mapped-path accessibility, endpoint snap distance and the
+end-to-end accessibility guard. The mapped-path accessibility algorithm only
+uses preserved OSM tag evidence; missing tags remain unknown.
+
+For explicit path segments the profile records haversine distance, endpoint
+GLO-90 delta and the fail-closed terrain rule: segments shorter than 90 m retain
+their endpoint elevation delta but publish `null` ascent/descent/grade with
+`terrain_metric_status=below_dem_horizontal_resolution`. Representative-point
+snap connectors inherit no surface/access/steps evidence and remain
+`unknown_unmapped_connector`.
+
+Dense route geometry can still be kept for display, but gross ascent/descent
+must not repeatedly sum quantized DEM changes at a resolution much finer than
+the DEM.
 
 ## Accessibility evidence
 
@@ -234,7 +263,11 @@ and practically appropriate. A release/source manifest should record hashes for
 those inputs.
 
 Network fetch operations should be explicit update/research steps. Normal builds
-and validation should use the preserved snapshots.
+and validation use the preserved snapshots. Where a snapshot carries a source
+object timestamp (for example Overpass `timestamp_osm_base` or OSM node
+`timestamp`), Phase 7 preserves it. Where the repository did not preserve fetch
+time, `retrieved_at` stays `null` with an explicit retrieval status rather than
+being reconstructed from local filesystem metadata.
 
 ## Unknown-data policy
 

@@ -5,12 +5,20 @@ from __future__ import annotations
 
 import json
 import math
+import os
 import pathlib
 from datetime import datetime, timezone
 
+try:
+    from .provenance_contract import validate_elevation_source, validate_metric_profile, validate_spatial_entity
+except ImportError:
+    from provenance_contract import validate_elevation_source, validate_metric_profile, validate_spatial_entity
+
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-DATA = ROOT / "data"
+CANONICAL_DATA = ROOT / "data"
+DATA = pathlib.Path(os.environ.get("BERGPARK_OUTPUT_DATA", str(CANONICAL_DATA))).resolve()
+REPORT_DATA = pathlib.Path(os.environ.get("BERGPARK_VALIDATION_OUTPUT_DATA", str(DATA))).resolve()
 
 
 def haversine(a, b):
@@ -36,6 +44,23 @@ def main() -> int:
     pairs = [(segment["from"], segment["to"]) for segment in segments]
     if len(pairs) != len(set(pairs)):
         errors.append("duplicate directed path-node pair")
+
+    metric_failures = validate_metric_profile(
+        doc.get("derived_metric_profile"),
+        label="data/path_topology.json",
+        required_metrics=(
+            "distance_m", "elevation_delta_m", "ascent_m", "descent_m", "avg_grade_pct",
+            "surface", "access", "accessibility_status",
+        ),
+    )
+    profile = doc.get("derived_metric_profile")
+    metric_failures.extend(
+        validate_elevation_source(
+            profile.get("terrain_source") if isinstance(profile, dict) else None,
+            label="data/path_topology.json.derived_metric_profile.terrain_source",
+        )
+    )
+    errors.extend(metric_failures)
 
     connector_count = 0
     ambiguous_count = 0
@@ -75,6 +100,7 @@ def main() -> int:
 
     segment_id_set = set(segment_ids)
     for node in nodes:
+        errors.extend(validate_spatial_entity(node, label=f"path_node:{node['id']}"))
         if not isinstance(node.get("elevation_m"), (int, float)):
             errors.append(f"path node elevation missing: {node['id']}")
         if any(seg_id not in segment_id_set for seg_id in node["next_segment_ids"] + node["previous_segment_ids"]):
@@ -101,7 +127,8 @@ def main() -> int:
             "GLO-90 per-short-segment grade is coarse; do not interpret it as survey-grade slope.",
         ],
     }
-    (DATA / "path_topology_validation.json").write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n")
+    REPORT_DATA.mkdir(parents=True, exist_ok=True)
+    (REPORT_DATA / "path_topology_validation.json").write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n")
     print(json.dumps(summary, ensure_ascii=False))
     return 0 if not errors else 1
 

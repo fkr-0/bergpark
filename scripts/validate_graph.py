@@ -13,9 +13,11 @@ from typing import Any
 
 try:
     from .compose_graph import assert_graph_inputs_current
+    from .provenance_contract import validate_metric_profile, validate_spatial_entity
     from .validate_visitor_pois import validate_document as validate_visitor_poi_document
 except ImportError:  # Direct `python scripts/validate_graph.py` execution.
     from compose_graph import assert_graph_inputs_current
+    from provenance_contract import validate_metric_profile, validate_spatial_entity
     from validate_visitor_pois import validate_document as validate_visitor_poi_document
 
 
@@ -177,6 +179,54 @@ def main() -> int:
         f"representative place position not explicitly qualified: {x}"
         for x in sorted(set(representative_failures))
     )
+
+    phase7_spatial_failures = []
+    for label, rows in (
+        ("place", nodes),
+        ("tree", trees),
+        ("bench", benches),
+        ("path_node", path_nodes),
+        ("visitor_poi", visitor_pois),
+    ):
+        for row in rows:
+            phase7_spatial_failures.extend(
+                validate_spatial_entity(row, label=f"{label}:{row.get('id', '<missing-id>')}")
+            )
+    checks.append(
+        {
+            "id": "phase7_common_spatial_provenance",
+            "pass": not phase7_spatial_failures,
+            "failures": phase7_spatial_failures[:50],
+        }
+    )
+    errors.extend(f"Phase-7 spatial provenance: {failure}" for failure in phase7_spatial_failures)
+
+    edge_doc = load("edges.json")
+    edge_metric_failures = validate_metric_profile(
+        edge_doc.get("derived_metric_profile"),
+        label="data/edges.json",
+        required_metrics=(
+            "distance_m", "elevation_delta_m", "ascent_m", "descent_m", "avg_grade_pct",
+            "walking_min", "surface", "mapped_path_accessibility", "endpoint_snap_total_m", "accessibility",
+        ),
+    )
+    path_metric_failures = validate_metric_profile(
+        path_topology_doc.get("derived_metric_profile"),
+        label="data/path_topology.json",
+        required_metrics=(
+            "distance_m", "elevation_delta_m", "ascent_m", "descent_m", "avg_grade_pct",
+            "surface", "access", "accessibility_status",
+        ),
+    )
+    phase7_metric_failures = edge_metric_failures + path_metric_failures
+    checks.append(
+        {
+            "id": "phase7_derived_metric_provenance",
+            "pass": not phase7_metric_failures,
+            "failures": phase7_metric_failures[:50],
+        }
+    )
+    errors.extend(f"Phase-7 derived metric provenance: {failure}" for failure in phase7_metric_failures)
 
     commons_doc = json.loads(COMMONS_AUDIT.read_text()) if COMMONS_AUDIT.is_file() else {"rows": []}
     commons_rows = {row.get("place_id"): row for row in commons_doc.get("rows", [])}
@@ -558,6 +608,13 @@ def main() -> int:
             "Wheelchair, access, foot, entrance and barrier facts are source-tag evidence only; missing tags remain unknown and are never upgraded to positive accessibility claims.",
             "Transit platform ways use explicitly representative bounds-midpoint coordinates and are not treated as visitor entrances.",
             "The current web runtime does not selectively load the standalone visitor_pois.json layer; Phase 6 composes it additively into graph.json without changing loader/cache/API behavior.",
+        ],
+        "phase_7_known_limits": [
+            "OpenStreetMap source timestamps are preserved where present, but fetch/retrieval time remains null where the repository did not preserve it; no timestamp is inferred from filesystem metadata.",
+            "Horizontal and vertical accuracy remain null when the preserved source does not report defensible numeric accuracy; null is not zero and is never described as exact.",
+            "Derived route/path metrics are qualified by document-level machine-readable profiles; source-backed Phase-2 route rows remain unchanged.",
+            "Short path segments below 90 m retain endpoint terrain delta but suppress ascent/descent/grade because GLO-90 cannot support those metrics at that scale.",
+            "Semantic artwork/collection entities currently have no coordinate fields; spatial OSM artwork rows live in visitor_pois.json and follow the common spatial contract there.",
         ],
     }
     (DATA / "validation.json").write_text(json.dumps(out, ensure_ascii=False, indent=2) + "\n")

@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import os
 import pathlib
 import xml.etree.ElementTree as ET
 from collections import defaultdict
@@ -12,8 +13,9 @@ from typing import Any
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-DATA = ROOT / "data"
-SOURCES = DATA / "sources"
+CANONICAL_DATA = ROOT / "data"
+DATA = pathlib.Path(os.environ.get("BERGPARK_OUTPUT_DATA", str(CANONICAL_DATA))).resolve()
+SOURCES = CANONICAL_DATA / "sources"
 ID_FILE = SOURCES / "osm-tree-node-ids.txt"
 TREE_XML = SOURCES / "osm-tree-nodes"
 ELEVATION_FILE = SOURCES / "tree-elevation" / "points.json"
@@ -42,6 +44,7 @@ def source_nodes() -> dict[str, dict[str, Any]]:
                 "lng": round(float(node.attrib["lon"]), 7),
                 "version": node.attrib.get("version"),
                 "timestamp": node.attrib.get("timestamp"),
+                "snapshot": f"data/sources/osm-tree-nodes/{path.name}",
                 "tags": tags,
             }
     missing = sorted(wanted - out.keys())
@@ -50,12 +53,12 @@ def source_nodes() -> dict[str, dict[str, Any]]:
     return out
 
 
-def elevation_lookup() -> tuple[dict[str, float], dict[str, Any]]:
+def elevation_lookup() -> tuple[dict[str, float], dict[str, Any], str | None]:
     doc = json.loads(ELEVATION_FILE.read_text())
     points = {str(row["osm_node_id"]): float(row["elevation_m"]) for row in doc["points"]}
     if len(points) != 569:
         raise RuntimeError(f"expected 569 tree elevations, got {len(points)}")
-    return points, doc["source"]
+    return points, doc["source"], doc.get("retrieved_utc")
 
 
 def number_or_none(value: str | None) -> float | None:
@@ -67,7 +70,7 @@ def number_or_none(value: str | None) -> float | None:
         return None
 
 
-def tree_record(node: dict[str, Any], elevation_m: float) -> dict[str, Any]:
+def tree_record(node: dict[str, Any], elevation_m: float, elevation_retrieved_at: str | None) -> dict[str, Any]:
     tags = node["tags"]
     source_height = number_or_none(tags.get("height"))
     circumference = number_or_none(tags.get("circumference"))
@@ -82,8 +85,14 @@ def tree_record(node: dict[str, Any], elevation_m: float) -> dict[str, Any]:
         "position_source": {
             "provider": "OpenStreetMap",
             "element": f"node/{node['id']}",
-            "license": "ODbL-1.0",
+            "snapshot": node["snapshot"],
+            "source_version": node.get("version"),
             "source_timestamp": node.get("timestamp"),
+            "retrieved_at": None,
+            "retrieval_status": "source_retrieval_time_not_preserved_separately",
+            "method": "source_node",
+            "position_type": "source_point",
+            "license": "ODbL-1.0",
             "horizontal_accuracy_m": None,
             "accuracy_status": "not_reported_by_source",
             "note": "Coordinate is the mapped OSM node position; source does not report survey/GNSS accuracy.",
@@ -93,7 +102,9 @@ def tree_record(node: dict[str, Any], elevation_m: float) -> dict[str, Any]:
             "dataset": "Copernicus DEM 2021 GLO-90",
             "resolution_m": 90,
             "vertical_accuracy_m": None,
+            "accuracy_status": "not_reported_in_project_source",
             "snapshot": "data/sources/tree-elevation/points.json",
+            "retrieved_at": elevation_retrieved_at,
         },
         "species": {
             "scientific": tags.get("species"),
@@ -111,13 +122,24 @@ def tree_record(node: dict[str, Any], elevation_m: float) -> dict[str, Any]:
         "start_date": tags.get("start_date"),
         "height_m": source_height,
         "height_status": "source_reported" if source_height is not None else "unknown_no_measurement_source",
-        "height_source": "OpenStreetMap height tag" if source_height is not None else None,
+        "height_source": (
+            {
+                "measurement_kind": "physical_height",
+                "provider": "OpenStreetMap",
+                "element": f"node/{node['id']}",
+                "tag": "height",
+                "source_timestamp": node.get("timestamp"),
+            }
+            if source_height is not None
+            else None
+        ),
         "description": tags.get("description"),
         "image": tags.get("image"),
         "wikimedia_commons": tags.get("wikimedia_commons"),
         "location_description": tags.get("tree_location:full"),
         "source_refs": [
             "data/sources/osm-wiki-baumkataster.wiki",
+            node["snapshot"],
             f"https://www.openstreetmap.org/node/{node['id']}",
             "data/sources/tree-elevation/points.json",
         ],
@@ -132,8 +154,11 @@ def tree_record(node: dict[str, Any], elevation_m: float) -> dict[str, Any]:
 
 def main() -> int:
     nodes = source_nodes()
-    elevations, elevation_source = elevation_lookup()
-    trees = [tree_record(nodes[node_id], elevations[node_id]) for node_id in ids()]
+    elevations, elevation_source, elevation_retrieved_at = elevation_lookup()
+    trees = [
+        tree_record(nodes[node_id], elevations[node_id], elevation_retrieved_at)
+        for node_id in ids()
+    ]
 
     refs: dict[str, list[str]] = defaultdict(list)
     for tree in trees:
@@ -143,7 +168,7 @@ def main() -> int:
 
     doc = {
         "schema_version": 2,
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": elevation_retrieved_at,
         "status": "catalog_spatial_enrichment_complete",
         "tree_count": len(trees),
         "trees": trees,
@@ -153,6 +178,8 @@ def main() -> int:
             "osm_node_snapshots": "data/sources/osm-tree-nodes/chunk-*.xml",
             "elevation": "data/sources/tree-elevation/points.json",
             "elevation_dataset": elevation_source.get("dataset"),
+            "elevation_retrieved_at": elevation_retrieved_at,
+            "osm_retrieval_status": "source timestamps preserved per node; fetch time not preserved separately",
             "osm_license": "ODbL-1.0",
         },
         "quality": {

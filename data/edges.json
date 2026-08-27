@@ -1,6 +1,120 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-27T06:13:54.600363+00:00",
+  "generated_at": "2026-08-27T06:07:43.553398+00:00",
+  "derived_metric_profile": {
+    "profile_id": "phase2-walking-edge-derived-v1",
+    "applies_to": "edges[*]",
+    "source_vs_derived_policy": "source_facts_are_preserved; derived_values_require_declared_algorithm_and_inputs",
+    "terrain_source": {
+      "provider": "Open-Meteo Elevation API",
+      "dataset": "Copernicus DEM 2021 GLO-90",
+      "resolution_m": 90,
+      "vertical_accuracy_m": null,
+      "accuracy_status": "not_reported_in_project_source",
+      "snapshot": "data/sources/elevation/points.json",
+      "retrieved_at": "2026-08-27T06:07:43.553398+00:00"
+    },
+    "metrics": {
+      "distance_m": {
+        "kind": "derived",
+        "algorithm": "dijkstra_haversine_network_distance_plus_endpoint_snaps",
+        "source_fields": [
+          "path_coordinates",
+          "snap_distance_m"
+        ],
+        "assumptions": "WGS84 great-circle segment lengths; endpoint snaps are straight representative-point connectors."
+      },
+      "elevation_delta_m": {
+        "kind": "derived",
+        "algorithm": "terrain_profile_endpoint_difference",
+        "source_fields": [
+          "elevation_profile_m"
+        ],
+        "assumptions": "GLO-90 terrain values are approximate and are not surveyed object elevations."
+      },
+      "ascent_m": {
+        "kind": "derived",
+        "algorithm": "sampled_glo90_positive_change_sum",
+        "source_fields": [
+          "elevation_profile_m",
+          "path_coordinates",
+          "elevation_metric_sampling_m"
+        ],
+        "assumptions": "Gross ascent is sampled at roughly 90 m, matching DEM horizontal resolution rather than dense OSM vertices."
+      },
+      "descent_m": {
+        "kind": "derived",
+        "algorithm": "sampled_glo90_negative_change_sum",
+        "source_fields": [
+          "elevation_profile_m",
+          "path_coordinates",
+          "elevation_metric_sampling_m"
+        ],
+        "assumptions": "Gross descent is sampled at roughly 90 m, matching DEM horizontal resolution rather than dense OSM vertices."
+      },
+      "avg_grade_pct": {
+        "kind": "derived",
+        "algorithm": "endpoint_elevation_delta_divided_by_route_distance",
+        "source_fields": [
+          "elevation_delta_m",
+          "distance_m"
+        ],
+        "assumptions": "Average grade is a coarse endpoint terrain estimate, not a short-segment or survey-grade slope."
+      },
+      "walking_min": {
+        "kind": "derived",
+        "algorithm": "naismith_style_5kmh_plus_1min_per_10m_ascent",
+        "source_fields": [
+          "distance_m",
+          "ascent_m"
+        ],
+        "assumptions": "Planning estimate only; it does not model individual mobility or conditions."
+      },
+      "surface": {
+        "kind": "derived_summary",
+        "algorithm": "distance_weighted_primary_normalized_surface",
+        "source_fields": [
+          "surface_segments[].surface",
+          "surface_segments[].distance_m"
+        ],
+        "assumptions": "Unknown surface remains unknown and is never upgraded from missing OSM tags."
+      },
+      "mapped_path_accessibility": {
+        "kind": "source_qualified_derived",
+        "algorithm": "bounded_osm_tag_evidence_summary",
+        "source_fields": [
+          "surface_segments[].highway",
+          "surface_segments[].surface",
+          "surface_segments[].smoothness",
+          "surface_segments[].wheelchair",
+          "surface_segments[].access",
+          "surface_segments[].foot",
+          "surface_segments[].handrail",
+          "surface_segments[].sac_scale"
+        ],
+        "assumptions": "Missing tags are unknown, never positive accessibility evidence; summary applies only to the mapped OSM path."
+      },
+      "endpoint_snap_total_m": {
+        "kind": "derived",
+        "algorithm": "sum_endpoint_snap_distances",
+        "source_fields": [
+          "snap_distance_m.from",
+          "snap_distance_m.to"
+        ],
+        "assumptions": "Straight representative-point connectors have unknown surface/barrier/access evidence."
+      },
+      "accessibility": {
+        "kind": "source_qualified_derived",
+        "algorithm": "mapped_path_evidence_with_endpoint_unknown_guard",
+        "source_fields": [
+          "mapped_path_accessibility",
+          "endpoint_access_unknown",
+          "endpoint_snap_total_m"
+        ],
+        "assumptions": "Potential mapped-path step-free evidence is not promoted to end-to-end accessibility when endpoint connectors are unknown."
+      }
+    }
+  },
   "edges": [
     {
       "id": "aquaedukt--merkurtempel",

@@ -10,9 +10,23 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import pathlib
 from dataclasses import dataclass
 from typing import Any
+
+try:
+    from .provenance_contract import (
+        validate_elevation_source,
+        validate_metric_profile,
+        validate_spatial_entity,
+    )
+except ImportError:  # Direct `python scripts/compose_graph.py` execution.
+    from provenance_contract import (
+        validate_elevation_source,
+        validate_metric_profile,
+        validate_spatial_entity,
+    )
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -291,6 +305,75 @@ def validate_layer_compatibility(docs: dict[str, dict[str, Any]]) -> None:
     _validate_place_positions(nodes)
     _validate_visitor_pois(docs["visitor_pois.json"])
 
+    spatial_failures: list[str] = []
+    for label, rows in (
+        ("place", nodes),
+        ("tree", trees),
+        ("bench", benches),
+        ("path_node", path_nodes),
+        ("visitor_poi", visitor_pois),
+    ):
+        for row in rows:
+            spatial_failures.extend(
+                validate_spatial_entity(row, label=f"{label}:{row.get('id', '<missing-id>')}")
+            )
+    if spatial_failures:
+        raise ValueError(f"common spatial provenance contract failed: {spatial_failures[:10]}")
+
+    edge_metric_failures = validate_metric_profile(
+        docs["edges.json"].get("derived_metric_profile"),
+        label="data/edges.json",
+        required_metrics=(
+            "distance_m",
+            "elevation_delta_m",
+            "ascent_m",
+            "descent_m",
+            "avg_grade_pct",
+            "walking_min",
+            "surface",
+            "mapped_path_accessibility",
+            "endpoint_snap_total_m",
+            "accessibility",
+        ),
+    )
+    path_metric_failures = validate_metric_profile(
+        docs["path_topology.json"].get("derived_metric_profile"),
+        label="data/path_topology.json",
+        required_metrics=(
+            "distance_m",
+            "elevation_delta_m",
+            "ascent_m",
+            "descent_m",
+            "avg_grade_pct",
+            "surface",
+            "access",
+            "accessibility_status",
+        ),
+    )
+    for label, profile in (
+        ("data/edges.json.derived_metric_profile", docs["edges.json"].get("derived_metric_profile")),
+        ("data/path_topology.json.derived_metric_profile", docs["path_topology.json"].get("derived_metric_profile")),
+    ):
+        terrain = profile.get("terrain_source") if isinstance(profile, dict) else None
+        path_metric_failures.extend(validate_elevation_source(terrain, label=f"{label}.terrain_source"))
+    metric_failures = edge_metric_failures + path_metric_failures
+    if metric_failures:
+        raise ValueError(f"derived metric provenance contract failed: {metric_failures[:10]}")
+
+    if any(edge.get("elevation_metric_sampling_m") != 90 for edge in edges):
+        raise ValueError("walking edges must preserve ~90 m GLO-90 gross ascent/descent sampling")
+    path_terrain_failures = []
+    for segment in path_segments:
+        if segment.get("distance_m", 0) < 90:
+            if segment.get("terrain_metric_status") != "below_dem_horizontal_resolution" or any(
+                segment.get(key) is not None for key in ("ascent_m", "descent_m", "avg_grade_pct")
+            ):
+                path_terrain_failures.append(segment.get("id", "<missing-id>"))
+        elif segment.get("terrain_metric_status") != "coarse_glo90_endpoint_estimate":
+            path_terrain_failures.append(segment.get("id", "<missing-id>"))
+    if path_terrain_failures:
+        raise ValueError(f"path terrain metrics overstate DEM precision: {path_terrain_failures[:10]}")
+
     _check_declared_count(docs["trees.json"], "tree_count", "trees", "data/trees.json")
     _check_declared_count(docs["benches.json"], "bench_count", "benches", "data/benches.json")
     _check_declared_count(
@@ -447,7 +530,10 @@ def validate_layer_compatibility(docs: dict[str, dict[str, Any]]) -> None:
         if not source_kind:
             bad_segment_provenance.append(segment["id"])
         elif source_kind == "representative_point_snap_connector":
-            if segment.get("accessibility_status") != "unknown_unmapped_connector":
+            if (
+                segment.get("accessibility_status") != "unknown_unmapped_connector"
+                or any(segment.get(key) is not None for key in ("surface", "steps", "access"))
+            ):
                 bad_segment_provenance.append(segment["id"])
         elif not segment.get("osm_way_ids"):
             bad_segment_provenance.append(segment["id"])
@@ -565,7 +651,10 @@ def compose_graph(data_dir: pathlib.Path | None = None) -> dict[str, Any]:
 
 
 def main() -> None:
-    graph = compose_graph()
+    data_dir = pathlib.Path(
+        os.environ.get("BERGPARK_OUTPUT_DATA", str(CANONICAL_DATA))
+    ).resolve()
+    graph = compose_graph(data_dir)
     summary = {
         "places": len(graph["nodes"]),
         "walking_edges": len(graph["edges"]),

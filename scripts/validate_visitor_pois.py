@@ -104,6 +104,8 @@ def validate_document(doc: dict[str, Any]) -> tuple[list[dict[str, Any]], list[s
             or position.get("element") != f"{element_type}/{row.get('osm_element', {}).get('id')}"
             or not position.get("snapshot")
             or not position.get("snapshot_refs")
+            or position.get("retrieved_at") is not None
+            or position.get("retrieval_status") != "source_retrieval_time_not_preserved_separately"
             or position.get("method") != expected_method
             or position.get("position_type") != expected_position_type
             or position.get("accuracy_status") != expected_accuracy_status
@@ -116,6 +118,8 @@ def validate_document(doc: dict[str, Any]) -> tuple[list[dict[str, Any]], list[s
             or not valid_optional_accuracy(elevation.get("vertical_accuracy_m"))
             or elevation.get("accuracy_status") != "not_reported_in_project_source"
             or elevation.get("snapshot") != "data/sources/visitor-poi-elevation/points.json"
+            or not isinstance(elevation.get("retrieved_at"), str)
+            or elevation.get("retrieved_at") != doc.get("provenance", {}).get("elevation_retrieved_at")
         ):
             spatial_failures.append(row_id)
         if scope.get("relation") not in {"inside_park", "boundary_external", "external_relevant"}:
@@ -159,6 +163,16 @@ def validate_document(doc: dict[str, Any]) -> tuple[list[dict[str, Any]], list[s
         exact_failures.append("selection_input_sha256")
     checks.append({"id": "visitor_poi_rows_match_preserved_sources", "pass": not exact_failures, "failures": exact_failures})
     errors.extend(f"visitor POI source-derived layer mismatch: {failure}" for failure in exact_failures)
+
+    retrieval_provenance = doc.get("provenance", {})
+    retrieval_ok = (
+        isinstance(retrieval_provenance.get("elevation_retrieved_at"), str)
+        and retrieval_provenance.get("osm_retrieval_status")
+        == "source timestamps preserved per element; fetch time not preserved separately"
+    )
+    checks.append({"id": "visitor_poi_retrieval_provenance_explicit", "pass": retrieval_ok, "failures": [] if retrieval_ok else ["provenance"]})
+    if not retrieval_ok:
+        errors.append("visitor POI retrieval provenance is incomplete")
 
     coverage = doc.get("quality", {}).get("coverage_note", "").lower()
     coverage_ok = "absence" in coverage and "not evidence" in coverage and "snapshot" in coverage

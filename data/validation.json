@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-27T10:22:58.045452+00:00",
+  "generated_at": "2026-08-27T15:43:10.815585+00:00",
   "status": "pass",
   "summary": {
     "place_nodes": 30,
@@ -51,6 +51,16 @@
     },
     {
       "id": "representative_place_positions_qualified",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "phase7_common_spatial_provenance",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "phase7_derived_metric_provenance",
       "pass": true,
       "failures": []
     },
@@ -160,6 +170,11 @@
           "failures": []
         },
         {
+          "id": "visitor_poi_retrieval_provenance_explicit",
+          "pass": true,
+          "failures": []
+        },
+        {
           "id": "snapshot_absence_not_physical_absence",
           "pass": true,
           "failures": []
@@ -237,5 +252,12 @@
     "Wheelchair, access, foot, entrance and barrier facts are source-tag evidence only; missing tags remain unknown and are never upgraded to positive accessibility claims.",
     "Transit platform ways use explicitly representative bounds-midpoint coordinates and are not treated as visitor entrances.",
     "The current web runtime does not selectively load the standalone visitor_pois.json layer; Phase 6 composes it additively into graph.json without changing loader/cache/API behavior."
+  ],
+  "phase_7_known_limits": [
+    "OpenStreetMap source timestamps are preserved where present, but fetch/retrieval time remains null where the repository did not preserve it; no timestamp is inferred from filesystem metadata.",
+    "Horizontal and vertical accuracy remain null when the preserved source does not report defensible numeric accuracy; null is not zero and is never described as exact.",
+    "Derived route/path metrics are qualified by document-level machine-readable profiles; source-backed Phase-2 route rows remain unchanged.",
+    "Short path segments below 90 m retain endpoint terrain delta but suppress ascent/descent/grade because GLO-90 cannot support those metrics at that scale.",
+    "Semantic artwork/collection entities currently have no coordinate fields; spatial OSM artwork rows live in visitor_pois.json and follow the common spatial contract there."
   ]
 }
