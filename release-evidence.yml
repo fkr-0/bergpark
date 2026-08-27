@@ -1,116 +1,87 @@
 schema_version: 1
 release:
   unit: bergpark
-  candidate: 0.1.0-alpha.4
-  tag: v0.1.0-alpha.4
+  candidate: 0.1.0-alpha.5
+  proposed_tag: v0.1.0-alpha.5
   date: 2026-08-27
-  previous_tag: v0.1.0-alpha.2
-  previous_tag_revision: 43c76838764a142fede0480b30c6f5228b99808b
-  source_head_before_release_metadata: 9a3d5aaf1cabb9714c2809074f7b2086daf7f533
-  release_metadata_commit: 3f418280949d4e49f93ac386204468dd2e9659e2
-  release_evidence_commit: this_commit
-  publish_authorized: true
+  previous_published_tag: v0.1.0-alpha.2
+  previous_published_tag_revision: 43c76838764a142fede0480b30c6f5228b99808b
+  remote_main_before_alpha5: 29e94c87ebddc51607e2edbe172ef1509ccd1fe4
+  source_head_before_release_metadata: 8a0ad44f3a464a88c55c8a4ac397de64d0b1a8a5
+  release_metadata_commit: pending_candidate_commit
+  release_evidence_commit: pending_final_evidence_commit
+  push_authorized: true
+  tag_requested: false
   target_repository: fkr-0/bergpark
   target_url: https://bergpark.fkr.dev
 versions:
-  before: 0.1.0-alpha.2
-  after: 0.1.0-alpha.4
+  before: 0.1.0-alpha.4
+  after: 0.1.0-alpha.5
 package_manager:
   name: pnpm
   version: 11.3.0
   declaration: package.json#packageManager
   lockfile: pnpm-lock.yaml
   install_gate: pnpm install --frozen-lockfile
-  npm_lockfile_present: false
 release_delta:
-  graph:
-    places: 30
-    directed_place_edges: 122
-    catalogued_trees: 569
-    benches: 215
-    path_nodes: 1408
-    directed_path_segments: 2858
-    visitor_pois: 109
-    figures: 5
-    artworks: 1
-    collections: 1
-    semantic_edges: 13
-    provenance_phase: 7
+  durable_commits_before_metadata:
+    - 0531e6192a2164b6aeeaf0af02b9c4ae0a38250e  # sourced tree-detail safety
+    - f248b06771d3ba002e704698f79f31914911ee92  # Phase-3 visitor layers
+    - 8a0ad44f3a464a88c55c8a4ac397de64d0b1a8a5  # pnpm browser gate
   runtime:
-    - lazy per-landmark Three.js/WebGL presentation with procedural scenes and same-origin glTF
-    - bounded model byte/triangle policy and embedded-secondary-resource enforcement
-    - tree map clustering, LOD, filtering and bounded mobile result paging
-    - route metrics and explicit mapped-path versus endpoint accessibility uncertainty
-    - source-backed semantic links between places, figures, artworks and collections
-    - network-first runtime data with offline fallback and bounded visited-tile caching
-    - Chromium browser E2E covering visitor, tree, route, semantic, 3D, security, a11y and offline paths
-    - focused Firefox Phase-2 visitor qualification
-    - pnpm-authoritative local, CI and Pages release commands
-    - Vitest 4.1.11 presentation-contract smoke suite integrated into the pnpm test gate
-    - Biome 2.5.10 recommended-rule lint gate with warnings treated as errors
-metadata_changed:
-  - package.json
-  - pnpm-lock.yaml
-  - package-lock.json (removed)
-  - README.md
-  - CHANGELOG.md
-  - .github/workflows/ci.yml
-  - .github/workflows/pages.yml
-  - release-evidence.yml
+    - selective sourced bench and visitor-POI layers with bounded map rendering
+    - sourced tree detail with explicit unknown physical-height handling
+    - semantic role/object discoverability in index and detail flows
+    - dense visitor clusters that can drill down at maximum zoom without exceeding the 180-marker global bound
+    - explicit Enter/Space activation for visitor clusters and points
+    - network-first selective runtime data with offline fallback and bounded visited-tile caching
+  release_infrastructure:
+    - deterministic successful in-memory map-tile fixtures for browser E2E
+    - pnpm-only local development and Playwright preview orchestration
+    - pnpm-authoritative development and implementation-review documentation
 preflight_verification:
-  - command: pnpm install --frozen-lockfile
-    location: shared checkout
-    result: pass
-    details: pnpm 11.3.0; lockfile up to date
   - command: pnpm run check:e2e
-    location: clean worktree at 3f418280949d4e49f93ac386204468dd2e9659e2
+    location: integrated shared checkout before metadata commit
     result: pass
-    details: Biome warnings-fatal PASS; 22/22 Node tests PASS; 2/2 Vitest tests PASS; 65/65 Python tests PASS; Vite 8.2.2 build PASS; 11/11 Chromium Playwright E2E PASS
-  - command: pnpm run build
-    location: clean worktree at 3f418280949d4e49f93ac386204468dd2e9659e2
+    details: Biome warnings-fatal PASS; 28/28 Node tests PASS; 2/2 Vitest PASS; 65/65 Python PASS; Vite 8.2.2 build PASS; 16/16 Chromium Playwright PASS. Counts include concurrent shared-checkout seams and are not the authoritative clean candidate.
+  - command: focused Chromium 390px visitor-layer E2E after production rebuild
+    location: integrated shared checkout
     result: pass
-    details: explicit standalone Vite 8.2.2 production build PASS before the full release gate
-  - command: npx playwright test tests/e2e/phase2-visitor.spec.js --config=.work/bergpark-webapp-phase2/playwright-firefox.config.mjs --workers=1
-    location: shared checkout against explicit built preview
+    details: 1/1 PASS; max-zoom cluster drill-down, keyboard activation, marker bound and provenance detail qualified.
+  - command: Firefox non-offline visitor/3D slice
+    location: built shared preview
     result: pass
-    details: 2/2 Firefox Phase-2 visitor tests PASS; earlier connection-refused run was preview orchestration only
-  - command: pnpm authority scan
-    location: package.json README.md bridge.yml .github
-    result: pass
-    details: no npm install/run/cache commands remain in release-facing project configuration
+    details: 7/7 PASS; the two synthetic offline reload cases remain unqualified because Playwright Firefox returns NS_ERROR_OFFLINE before service-worker navigation.
+  - command: WebKit launch qualification
+    location: Arch development host
+    result: not_run_product
+    details: Playwright WebKit cannot launch because required host libraries are unavailable; this is retained as a beta qualification gate.
+  - command: pnpm install --frozen-lockfile
+    location: exact clean candidate
+    result: pending
+  - command: pnpm run check:e2e
+    location: exact clean candidate
+    result: pending
 release_gate:
-  exact_clean_worktree_check: pass_at_3f418280949d4e49f93ac386204468dd2e9659e2
-  git_diff_check: pass
+  exact_clean_worktree_check: pending
+  git_diff_check: pending
   tag_created: false
-  pushed: true
+  pushed: false
   github_release_created: false
-  ci_workflow: triggered_by_main_push
-  pages_workflow: triggered_by_main_push
-  production_e2e: pending
+  ci_workflow: not_triggered_yet
+  pages_workflow: not_triggered_yet
+  production_e2e: pending_post_push
 artifacts:
-  dist_tree_sha256_manifest_sha256: 54031058e725cb98adedec4470ed45daf6239f9cd101439a04b66444ba4fa8dd
-  dist_bytes: 4683016
-  dist_files: 22
+  dist_tree_sha256_manifest_sha256: pending_clean_candidate
+  dist_bytes: pending_clean_candidate
+  dist_files: pending_clean_candidate
 known_limitations:
   - Bundled landmark 3D assets are schematic interaction models, not surveyed architectural reconstructions.
-  - Full Firefox 3D and iOS Safari/WebKit production qualification remain beta gates.
-  - Live visitor facts such as opening hours and field accessibility remain source-dated rather than guaranteed.
-release_side_effects:
-  dns_cname:
-    status: applied_idempotently
-    tool: godaddycli
-    domain: fkr.dev
-    name: bergpark
-    value: fkr-0.github.io.
-    ttl_seconds: 600
-    apply_result: HTTP 200 OK
-  github_pages:
-    status: existing_https_deployment
-    custom_domain: bergpark.fkr.dev
-    domain_verification: verified
-    https_certificate:
-      state: approved
-      domains:
-        - bergpark.fkr.dev
-      expires_at: 2026-11-25
-    https_enforced: true
+  - Firefox synthetic offline reload and WebKit/iOS Safari remain explicit beta qualification gates.
+  - Live visitor facts such as opening hours, field accessibility and water-feature schedules remain source-dated rather than guaranteed.
+alpha4_remote_failure:
+  ci: failed
+  pages: failed
+  classification: test_harness_false_positive
+  cause: third-party map-tile requests were intentionally aborted and their net::ERR_FAILED console messages were counted as application runtime errors
+  alpha5_fix: deterministic fulfilled tile fixtures preserve zero third-party tile traffic without generating false application errors

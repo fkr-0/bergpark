@@ -7,6 +7,53 @@ experience have completed their release gates.
 
 ## [Unreleased]
 
+## [0.1.0-alpha.5] - 2026-08-27
+
+### Added
+
+- Selective visitor map layers for 215 sourced benches and 109 qualified visitor
+  POIs, with provenance-aware detail sheets and explicit unknown/missing-state
+  wording rather than inferred field conditions.
+- Compact sourced tree details that keep terrain elevation separate from unknown
+  physical tree height and fail closed on non-public evidence links.
+- Phase-3 browser coverage across 320 px mobile, 390 px mobile, tablet and desktop
+  for tree details, semantic index context, visitor layers and warmed offline use.
+
+### Changed
+
+- Dense visitor clusters retain the 180-marker rendering bound but can now drill
+  into a selected cluster at maximum zoom instead of becoming permanently
+  non-expandable.
+- Visitor cluster and point markers explicitly support Enter/Space keyboard
+  activation instead of relying on Leaflet's popup-only keypress behavior.
+- Browser tests use deterministic in-memory map-tile fixtures, so CI performs no
+  third-party tile crawl and no longer mistakes intentionally aborted tile
+  requests for application runtime failures.
+- Local development, Playwright preview orchestration and documentation are
+  pnpm-authoritative throughout.
+- Semantic role/object metadata is searchable and visible in visitor details,
+  while runtime packaging remains selective rather than exposing aggregate or
+  audit-only graph payloads.
+
+### Verification
+
+- Integrated preflight `pnpm run check:e2e`: PASS with Biome warnings-fatal,
+  28/28 Node tests, 2/2 Vitest tests, 65/65 Python tests, Vite 8.2.2 build and
+  16/16 Chromium Playwright tests.
+- Exact clean-candidate evidence is recorded in `release-evidence.yml` before
+  push; shared-checkout counts include concurrent durable/uncommitted seams and
+  are not substituted for that clean qualification.
+
+### Known alpha limitations
+
+- Playwright Firefox's synthetic offline mode returns `NS_ERROR_OFFLINE` before
+  service-worker navigation on the two offline-reload cases; the non-offline
+  visitor/3D Firefox slice is qualified separately.
+- WebKit is not qualified on the current Arch host because its Playwright runtime
+  dependencies are unavailable; real iOS Safari remains a beta gate.
+- Landmark 3D assets remain schematic interaction models rather than surveyed
+  architectural reconstructions.
+
 ## [0.1.0-alpha.4] - 2026-08-27
 
 ### Added
@@ -38,8 +85,8 @@ experience have completed their release gates.
 - Graph Phase 7 normalizes provenance and accuracy contracts while preserving
   stable place/tree/bench/path identities and route semantics.
 - pnpm 11.3.0 is now the authoritative package manager: `pnpm-lock.yaml`, frozen
-  installs, pnpm scripts and pnpm-based GitHub CI/Pages gates replace npm release
-  commands and the npm lockfile.
+  installs, pnpm scripts and pnpm-based GitHub CI/Pages gates replace the legacy
+  package-manager release commands and lockfile.
 - Vitest 4.1.11 is a first-class unit-test runner alongside the retained Node
   compatibility suites, with a dedicated presentation-contract smoke suite.
 - Biome 2.5.10 is a warnings-fatal lint gate using recommended rules; intentional
