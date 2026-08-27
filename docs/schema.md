@@ -68,6 +68,141 @@ All entity IDs are stable lowercase ASCII slugs. Trees use `tree-<osm-node-id>`
 because catalogue references are not guaranteed unique (for example some
 catalogue refs intentionally identify groups or multiple specimens).
 
+Phase 3 treats people, artworks and collections as first-class graph entities;
+semantic edges never point at an unregistered display string. Historical people
+live in `data/figures.json`, while artworks, collections, the semantic source
+registry and semantic relations live in `data/semantic.json`. `data/graph.json`
+composes those curated layers without changing the stable Phase-2 place IDs.
+
+Example artwork and collection entities:
+
+```json
+{
+  "artwork": {
+    "id": "artwork-der-segen-jakobs",
+    "kind": "artwork",
+    "name": {"de": "Der Segen Jakobs", "en": "Jacob Blessing the Sons of Joseph"},
+    "creator_id": "person-rembrandt-van-rijn",
+    "source_ids": ["hkh-gemaeldegalerie-collection"]
+  },
+  "collection": {
+    "id": "collection-gemaeldegalerie-alte-meister",
+    "kind": "collection",
+    "name": {"de": "Gemäldegalerie Alte Meister", "en": "Old Masters Picture Gallery"},
+    "current_place_id": "schloss",
+    "source_ids": ["hkh-gemaeldegalerie-location"]
+  }
+}
+```
+
+Every semantic relation has a stable `id`, resolvable `from`/`to`, a controlled
+relation label, an explicit `confidence` (`high`, `medium`, or `low`), one or
+more `source_ids`, and provenance that states both the supported assertion and
+its qualification:
+
+```json
+{
+  "id": "sem-jussow-planned-teufelsbruecke-setting",
+  "from": "person-heinrich-christoph-jussow",
+  "to": "teufelsbruecke",
+  "relation": "planned_landscape_setting_for",
+  "confidence": "high",
+  "source_ids": ["museum-kassel-jussow-teufelsbruecke-gs5860"],
+  "provenance": {
+    "basis": "direct_architectural_landscape_plan_catalogue",
+    "assertion": "The source documents Jussow's design role for the earlier landscape setting.",
+    "qualification": "This is not unqualified authorship of the present bridge."
+  }
+}
+```
+
+That qualification is intentional: semantic relations describe only the phase
+and scope actually supported by their sources. Commissioning, design, current
+location, collection membership and later replacement/restoration phases must
+not be inferred from one another.
+
+## Position provenance and physical height
+
+The target spatial contract for every mapped entity is `lat`, `lng` and terrain
+`elevation_m` together with explicit position/elevation provenance and accuracy.
+Physical object height is a separate field (`height_m` or a type-specific
+equivalent) and must never be populated from terrain elevation or generic
+species/building descriptions.
+
+The tree layer already uses the preferred pattern:
+
+```json
+{
+  "lat": 51.311135,
+  "lng": 9.4089563,
+  "elevation_m": 361.0,
+  "position_source": {
+    "provider": "OpenStreetMap",
+    "element": "node/5702751554",
+    "horizontal_accuracy_m": null,
+    "accuracy_status": "not_reported_by_source"
+  },
+  "elevation_source": {
+    "dataset": "Copernicus DEM 2021 GLO-90",
+    "resolution_m": 90,
+    "vertical_accuracy_m": null
+  },
+  "height_m": null
+}
+```
+
+Phase-2 place nodes predate that normalized object shape and still expose
+`coordinate_source`, `coordinate_method`, `coordinate_confidence` and
+`elevation_source`. A future spatial-schema migration should normalize them
+without changing stable IDs. Representative points derived from bounds, centers
+or geometry are representative coordinates, not exact survey positions; when a
+source does not state numeric accuracy the exported accuracy remains unknown.
+
+Benches are now durable in `data/benches.json` as a separate first-class POI
+layer with spatial provenance. They should retain the same provenance/accuracy
+rules when later composed into the main graph.
+
+## Standalone explicit path topology
+
+The explicit path-topology phase is now durable in `data/path_topology.json`
+without replacing the qualified Phase-2 landmark-to-landmark route model. It
+exports sampled path nodes at intersections/turns and at material gradient,
+surface or accessibility changes plus directed serializable segments. Phase 3
+keeps this as an independently owned layer rather than silently widening
+`graph.json`; later composition should preserve the same data contract:
+
+```json
+{
+  "path_node": {
+    "id": "path-node-...",
+    "lat": 51.0,
+    "lng": 9.0,
+    "elevation_m": 300.0,
+    "position_source": {"provider": "OpenStreetMap", "horizontal_accuracy_m": null}
+  },
+  "directed_segment": {
+    "from": "path-node-a",
+    "to": "path-node-b",
+    "geometry": [[51.0, 9.0], [51.0001, 9.0002]],
+    "distance_m": 25.0,
+    "ascent_m": 2.0,
+    "descent_m": 0.0,
+    "avg_grade_pct": 8.0,
+    "max_grade_pct": null,
+    "surface": "paved",
+    "width_m": null,
+    "steps": false,
+    "access": "yes",
+    "seasonal": null,
+    "source_ids": ["osm-way-..."]
+  }
+}
+```
+
+These are data records, not executable functions. Direction-specific grade,
+surface/access changes and source IDs must remain serializable so routing and UI
+clients can reason about them independently.
+
 ## Provenance
 
 OpenStreetMap-derived data is subject to the Open Database License (ODbL).

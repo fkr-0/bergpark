@@ -22,6 +22,14 @@ def load(name: str) -> Any:
     return json.loads((DATA / name).read_text())
 
 
+def load_curated(name: str) -> Any:
+    """Load a curated layer from the build output when present, else canonical data."""
+    candidate = DATA / name
+    if not candidate.is_file():
+        candidate = ROOT / "data" / name
+    return json.loads(candidate.read_text())
+
+
 def haversine(a: tuple[float, float], b: tuple[float, float]) -> float:
     lat1, lon1 = map(math.radians, a)
     lat2, lon2 = map(math.radians, b)
@@ -34,6 +42,16 @@ def haversine(a: tuple[float, float], b: tuple[float, float]) -> float:
 def main() -> int:
     nodes = load("nodes.json")["nodes"]
     edges = load("edges.json")["edges"]
+    graph = load("graph.json")
+    figures_doc = load_curated("figures.json")
+    semantic_doc = load_curated("semantic.json")
+    trees_doc = load_curated("trees.json")
+    figures = figures_doc.get("figures", [])
+    artworks = semantic_doc.get("artworks", [])
+    collections = semantic_doc.get("collections", [])
+    semantic_edges = semantic_doc.get("semantic_edges", [])
+    semantic_sources = semantic_doc.get("sources", [])
+    trees = trees_doc.get("trees", [])
     node_ids = {n["id"] for n in nodes}
     checks = []
     errors = []
@@ -184,6 +202,137 @@ def main() -> int:
     if not audit_ok:
         errors.append("watercourse reference audit missing")
 
+    semantic_source_ids = [source.get("id") for source in semantic_sources]
+    duplicate_source_ids = sorted({sid for sid in semantic_source_ids if sid and semantic_source_ids.count(sid) > 1})
+    bad_sources = [
+        source.get("id", "<missing-id>")
+        for source in semantic_sources
+        if not source.get("id") or not source.get("publisher") or not source.get("url")
+    ]
+    source_failures = duplicate_source_ids + bad_sources
+    checks.append({"id": "semantic_sources_valid", "pass": not source_failures, "failures": source_failures})
+    errors.extend(f"invalid semantic source: {x}" for x in source_failures)
+    source_id_set = {sid for sid in semantic_source_ids if sid}
+
+    entity_groups = {
+        "place": nodes,
+        "tree": trees,
+        "historical_figure": figures,
+        "artwork": artworks,
+        "collection": collections,
+    }
+    entity_rows = [(kind, row) for kind, rows in entity_groups.items() for row in rows]
+    entity_ids = [row.get("id") for _, row in entity_rows]
+    duplicate_entity_ids = sorted({eid for eid in entity_ids if eid and entity_ids.count(eid) > 1})
+    missing_entity_ids = [kind for kind, row in entity_rows if not row.get("id")]
+    entity_failures = duplicate_entity_ids + [f"missing-id:{kind}" for kind in missing_entity_ids]
+    checks.append({"id": "semantic_entity_ids_unique", "pass": not entity_failures, "failures": entity_failures})
+    errors.extend(f"invalid semantic entity id: {x}" for x in entity_failures)
+    entity_id_set = {eid for eid in entity_ids if eid}
+
+    bad_entity_sources = []
+    for kind, row in entity_rows:
+        if kind in {"place", "tree"}:
+            continue
+        refs = row.get("source_ids", [])
+        if not refs or any(ref not in source_id_set for ref in refs):
+            bad_entity_sources.append(row.get("id", f"<missing-{kind}-id>"))
+    checks.append({"id": "semantic_entities_have_sources", "pass": not bad_entity_sources, "failures": bad_entity_sources})
+    errors.extend(f"semantic entity source unresolved: {x}" for x in bad_entity_sources)
+
+    edge_ids = [edge.get("id") for edge in semantic_edges]
+    duplicate_semantic_edge_ids = sorted({eid for eid in edge_ids if eid and edge_ids.count(eid) > 1})
+    edge_keys = [(edge.get("from"), edge.get("relation"), edge.get("to")) for edge in semantic_edges]
+    duplicate_semantic_relations = sorted({key for key in edge_keys if edge_keys.count(key) > 1})
+    bad_semantic_edges = []
+    allowed_confidence = {"high", "medium", "low"}
+    for edge in semantic_edges:
+        refs = edge.get("source_ids", [])
+        provenance = edge.get("provenance", {})
+        if (
+            not edge.get("id")
+            or edge.get("from") not in entity_id_set
+            or edge.get("to") not in entity_id_set
+            or edge.get("from") == edge.get("to")
+            or not edge.get("relation")
+            or edge.get("confidence") not in allowed_confidence
+            or not refs
+            or any(ref not in source_id_set for ref in refs)
+            or not provenance.get("basis")
+            or not provenance.get("assertion")
+            or not provenance.get("qualification")
+        ):
+            bad_semantic_edges.append(edge.get("id", "<missing-id>"))
+    semantic_edge_failures = (
+        duplicate_semantic_edge_ids
+        + [f"duplicate:{a}|{r}|{b}" for a, r, b in duplicate_semantic_relations]
+        + bad_semantic_edges
+    )
+    checks.append({"id": "semantic_relations_valid", "pass": not semantic_edge_failures, "failures": semantic_edge_failures})
+    errors.extend(f"invalid semantic relation: {x}" for x in semantic_edge_failures)
+
+    required_relations = {
+        ("person-landgraf-karl-von-hessen-kassel", "commissioned", "herkules"),
+        ("person-giovanni-francesco-guerniero", "lead_designer_of", "herkules"),
+        ("person-giovanni-francesco-guerniero", "lead_designer_of", "kaskaden"),
+        ("person-heinrich-christoph-jussow", "designed", "loewenburg"),
+        ("person-heinrich-christoph-jussow", "designed", "aquaedukt"),
+        ("person-heinrich-christoph-jussow", "planned_landscape_setting_for", "teufelsbruecke"),
+        ("person-rembrandt-van-rijn", "created", "artwork-der-segen-jakobs"),
+        ("artwork-der-segen-jakobs", "member_of_collection", "collection-gemaeldegalerie-alte-meister"),
+        ("collection-gemaeldegalerie-alte-meister", "located_at", "schloss"),
+    }
+    missing_required_relations = sorted(required_relations - set(edge_keys))
+    checks.append({"id": "phase3_required_relations_present", "pass": not missing_required_relations, "failures": missing_required_relations})
+    errors.extend(f"missing required Phase-3 relation: {a}|{r}|{b}" for a, r, b in missing_required_relations)
+
+    creator_errors = [
+        artwork.get("id")
+        for artwork in artworks
+        if artwork.get("creator_id") not in entity_id_set
+    ]
+    collection_location_errors = [
+        collection.get("id")
+        for collection in collections
+        if collection.get("current_place_id") not in node_ids
+    ]
+    artwork_entity_failures = creator_errors + collection_location_errors
+    checks.append({"id": "artworks_and_collections_are_entities", "pass": not artwork_entity_failures, "failures": artwork_entity_failures})
+    errors.extend(f"invalid artwork/collection entity: {x}" for x in artwork_entity_failures)
+
+    composition_failures = []
+    expected_graph_layers = {
+        "trees": {row["id"] for row in trees},
+        "figures": {row["id"] for row in figures},
+        "artworks": {row["id"] for row in artworks},
+        "collections": {row["id"] for row in collections},
+        "semantic_edges": {row["id"] for row in semantic_edges},
+    }
+    for key, expected_ids in expected_graph_layers.items():
+        actual_ids = {row.get("id") for row in graph.get(key, [])}
+        if actual_ids != expected_ids:
+            composition_failures.append(key)
+    if graph.get("provenance", {}).get("semantic_source_registry") != "data/semantic.json#sources":
+        composition_failures.append("semantic_source_registry")
+    checks.append({"id": "graph_composes_curated_layers", "pass": not composition_failures, "failures": composition_failures})
+    errors.extend(f"graph layer composition mismatch: {x}" for x in composition_failures)
+
+    spatial_composition_failures = []
+    if graph.get("nodes") != nodes:
+        spatial_composition_failures.append("nodes")
+    if graph.get("edges") != edges:
+        spatial_composition_failures.append("edges")
+    checks.append(
+        {
+            "id": "graph_preserves_canonical_phase2_spatial_layers",
+            "pass": not spatial_composition_failures,
+            "failures": spatial_composition_failures,
+        }
+    )
+    errors.extend(
+        f"graph Phase-2 spatial layer mismatch: {x}" for x in spatial_composition_failures
+    )
+
     status = "pass" if not errors else "fail"
     out = {
         "schema_version": 1,
@@ -192,6 +341,12 @@ def main() -> int:
         "summary": {
             "place_nodes": len(nodes),
             "directed_path_edges": len(edges),
+            "catalogued_trees": len(trees),
+            "historical_figures": len(figures),
+            "artworks": len(artworks),
+            "collections": len(collections),
+            "semantic_relations": len(semantic_edges),
+            "semantic_sources": len(semantic_sources),
             "errors": len(errors),
             "warnings": len(warnings),
         },
@@ -203,8 +358,13 @@ def main() -> int:
             "Elevation profiles use the 90 m Copernicus GLO-90 DEM and are approximate; they are not survey-grade measurements.",
             "Surface/accessibility fields are OSM-tag-derived and are not a substitute for field inspection.",
             "Naismith-style walking times use 5 km/h plus 1 minute per 10 m ascent and do not model individual mobility.",
-            "Semantic/figure and tree layers are placeholders until Phases 3 and 4.",
             "The supplied seed bbox was rejected because it excludes Herkules; see source_manifest.json.",
+        ],
+        "phase_3_known_limits": [
+            "Historical authorship/patronage edges encode only the scope explicitly supported by their cited sources; later restoration or replacement phases are not silently folded into earlier design relations.",
+            "Phase-2 place nodes expose coordinate source/method/confidence and GLO-90 terrain elevation, but numeric horizontal/vertical accuracy fields are not yet normalized across every mapped entity.",
+            "Explicit sampled path topology is now durable as a standalone layer in data/path_topology.json (intersections/turns and material gradient/surface/access changes), but Phase 3 does not compose that layer into graph.json yet.",
+            "Bench POIs are now durable as a standalone first-class layer in data/benches.json; Phase 3 does not compose benches into graph.json yet.",
         ],
     }
     (DATA / "validation.json").write_text(json.dumps(out, ensure_ascii=False, indent=2) + "\n")

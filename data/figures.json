@@ -1,5 +1,92 @@
 {
   "schema_version": 1,
-  "figures": [],
-  "status": "pending_phase_3"
+  "figures": [
+    {
+      "id": "person-landgraf-karl-von-hessen-kassel",
+      "kind": "historical_figure",
+      "name": {
+        "de": "Landgraf Karl von Hessen-Kassel",
+        "en": "Landgrave Charles of Hesse-Kassel"
+      },
+      "roles": [
+        "landgrave",
+        "patron"
+      ],
+      "source_ids": [
+        "hkh-herkules",
+        "unesco-bergpark-world-heritage"
+      ]
+    },
+    {
+      "id": "person-giovanni-francesco-guerniero",
+      "kind": "historical_figure",
+      "name": {
+        "de": "Giovanni Francesco Guerniero",
+        "en": "Giovanni Francesco Guerniero"
+      },
+      "roles": [
+        "architect",
+        "designer"
+      ],
+      "source_ids": [
+        "unesco-icomos-2013-evaluation",
+        "museum-kassel-guerniero-gs9734"
+      ]
+    },
+    {
+      "id": "person-heinrich-christoph-jussow",
+      "kind": "historical_figure",
+      "name": {
+        "de": "Heinrich Christoph Jussow",
+        "en": "Heinrich Christoph Jussow"
+      },
+      "roles": [
+        "architect",
+        "landscape_designer"
+      ],
+      "authority_ids": {
+        "gnd": "118714309"
+      },
+      "source_ids": [
+        "deutsche-biographie-jussow",
+        "museum-kassel-jussow-aquaedukt-gs5727",
+        "museum-kassel-jussow-teufelsbruecke-gs5860",
+        "museum-kassel-jussow-loewenburg-gs5708"
+      ]
+    },
+    {
+      "id": "person-rembrandt-van-rijn",
+      "kind": "historical_figure",
+      "name": {
+        "de": "Rembrandt van Rijn",
+        "en": "Rembrandt van Rijn"
+      },
+      "roles": [
+        "painter"
+      ],
+      "source_ids": [
+        "hkh-gemaeldegalerie-collection",
+        "hkh-gemaeldegalerie-location"
+      ]
+    },
+    {
+      "id": "person-wilhelm-ix-von-hessen-kassel",
+      "kind": "historical_figure",
+      "name": {
+        "de": "Landgraf Wilhelm IX. / Kurfürst Wilhelm I.",
+        "en": "Landgrave William IX / Elector William I"
+      },
+      "roles": [
+        "landgrave",
+        "elector",
+        "patron"
+      ],
+      "source_ids": [
+        "hkh-loewenburg",
+        "unesco-icomos-2013-evaluation"
+      ]
+    }
+  ],
+  "source_registry": "data/semantic.json#sources",
+  "status": "phase_3_sourced"
 }

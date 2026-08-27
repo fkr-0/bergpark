@@ -1,5 +1,327 @@
 {
   "schema_version": 1,
-  "semantic_edges": [],
-  "status": "pending_phase_3"
+  "sources": [
+    {
+      "id": "unesco-bergpark-world-heritage",
+      "publisher": "UNESCO World Heritage Centre",
+      "title": "Bergpark Wilhelmshöhe",
+      "url": "https://whc.unesco.org/en/list/1413",
+      "source_type": "world_heritage_record",
+      "retrieved_utc": "2026-08-27"
+    },
+    {
+      "id": "unesco-icomos-2013-evaluation",
+      "publisher": "ICOMOS / UNESCO World Heritage Centre",
+      "title": "Evaluations of Nominations of Cultural and Mixed Properties to the World Heritage List: Bergpark Wilhelmshöhe",
+      "url": "https://whc.unesco.org/document/152607",
+      "source_type": "advisory_body_evaluation",
+      "retrieved_utc": "2026-08-27"
+    },
+    {
+      "id": "hkh-herkules",
+      "publisher": "Hessen Kassel Heritage",
+      "title": "Herkules im Bergpark Wilhelmshöhe",
+      "url": "https://www.heritage-kassel.de/standorte/herkules",
+      "source_type": "official_heritage_site",
+      "retrieved_utc": "2026-08-27"
+    },
+    {
+      "id": "museum-kassel-guerniero-gs9734",
+      "publisher": "Museumslandschaft Hessen Kassel",
+      "title": "Kassel-Wilhelmshöhe, Oktogon, Entwurf zur Pyramide, GS 9734",
+      "url": "https://architekturzeichnungen.museum-kassel.de/12020/",
+      "source_type": "museum_collection_catalogue",
+      "retrieved_utc": "2026-08-27"
+    },
+    {
+      "id": "deutsche-biographie-jussow",
+      "publisher": "Deutsche Biographie",
+      "title": "Jussow, Heinrich Christoph",
+      "url": "https://www.deutsche-biographie.de/gnd118714309.html",
+      "source_type": "scholarly_biographical_reference",
+      "retrieved_utc": "2026-08-27"
+    },
+    {
+      "id": "museum-kassel-jussow-aquaedukt-gs5727",
+      "publisher": "Museumslandschaft Hessen Kassel",
+      "title": "Kassel-Wilhelmshöhe, Entwurf zum Aquädukt und zur Ruine auf dem Apolloberg, GS 5727",
+      "url": "https://architekturzeichnungen.museum-kassel.de/11358/",
+      "source_type": "museum_collection_catalogue",
+      "retrieved_utc": "2026-08-27"
+    },
+    {
+      "id": "museum-kassel-jussow-teufelsbruecke-gs5860",
+      "publisher": "Museumslandschaft Hessen Kassel",
+      "title": "Entwurf zur Plutogrotte mit dem Höllenbassin und der Teufelsbrücke, GS 5860",
+      "url": "https://architekturzeichnungen.museum-kassel.de/11467/0/0/0/1/objekt.html",
+      "source_type": "museum_collection_catalogue",
+      "retrieved_utc": "2026-08-27"
+    },
+    {
+      "id": "museum-kassel-jussow-loewenburg-gs5708",
+      "publisher": "Museumslandschaft Hessen Kassel",
+      "title": "Kassel-Wilhelmshöhe, Löwenburg, Entwurf zur Kuppeldekoration des Rittersaals, GS 5708",
+      "url": "https://architekturzeichnungen.museum-kassel.de/11339/0/0/0/1/objekt.html",
+      "source_type": "museum_collection_catalogue",
+      "retrieved_utc": "2026-08-27"
+    },
+    {
+      "id": "hkh-loewenburg",
+      "publisher": "Hessen Kassel Heritage",
+      "title": "Löwenburg",
+      "url": "https://www.heritage-kassel.de/standorte/loewenburg",
+      "source_type": "official_heritage_site",
+      "retrieved_utc": "2026-08-27"
+    },
+    {
+      "id": "hkh-gemaeldegalerie-collection",
+      "publisher": "Hessen Kassel Heritage",
+      "title": "Gemäldegalerie Alte Meister — Sammlung",
+      "url": "https://www.heritage-kassel.de/sammlung-und-forschung/sammlungen/gemaeldegalerie-alte-meister",
+      "source_type": "official_collection_record",
+      "retrieved_utc": "2026-08-27"
+    },
+    {
+      "id": "hkh-gemaeldegalerie-location",
+      "publisher": "Hessen Kassel Heritage",
+      "title": "Gemäldegalerie Alte Meister im Schloss Wilhelmshöhe",
+      "url": "https://www.heritage-kassel.de/standorte/gemaeldegalerie-alte-meister",
+      "source_type": "official_museum_location_record",
+      "retrieved_utc": "2026-08-27"
+    }
+  ],
+  "artworks": [
+    {
+      "id": "artwork-der-segen-jakobs",
+      "kind": "artwork",
+      "object_type": "painting",
+      "name": {
+        "de": "Der Segen Jakobs",
+        "en": "Jacob Blessing the Sons of Joseph"
+      },
+      "creator_id": "person-rembrandt-van-rijn",
+      "source_ids": [
+        "hkh-gemaeldegalerie-collection",
+        "hkh-gemaeldegalerie-location"
+      ]
+    }
+  ],
+  "collections": [
+    {
+      "id": "collection-gemaeldegalerie-alte-meister",
+      "kind": "collection",
+      "name": {
+        "de": "Gemäldegalerie Alte Meister",
+        "en": "Old Masters Picture Gallery"
+      },
+      "current_place_id": "schloss",
+      "source_ids": [
+        "hkh-gemaeldegalerie-collection",
+        "hkh-gemaeldegalerie-location"
+      ]
+    }
+  ],
+  "semantic_edges": [
+    {
+      "id": "sem-karl-commissioned-herkules",
+      "from": "person-landgraf-karl-von-hessen-kassel",
+      "to": "herkules",
+      "relation": "commissioned",
+      "confidence": "high",
+      "source_ids": [
+        "hkh-herkules"
+      ],
+      "provenance": {
+        "basis": "explicit_official_heritage_statement",
+        "assertion": "Hessen Kassel Heritage states that Landgrave Carl chose Hercules as a symbol of his power and had the monumental statue erected.",
+        "qualification": "The relation records patronage/commissioning; it does not assert that Carl personally designed the monument."
+      }
+    },
+    {
+      "id": "sem-karl-initiated-kaskaden",
+      "from": "person-landgraf-karl-von-hessen-kassel",
+      "to": "kaskaden",
+      "relation": "initiated",
+      "confidence": "high",
+      "source_ids": [
+        "unesco-bergpark-world-heritage"
+      ],
+      "provenance": {
+        "basis": "explicit_world_heritage_statement",
+        "assertion": "UNESCO states that the monumental water displays were begun by Landgrave Carl from 1689.",
+        "qualification": "This relation denotes initiation of the Baroque water-display project, not sole design authorship of every later water feature."
+      }
+    },
+    {
+      "id": "sem-guerniero-lead-designer-herkules",
+      "from": "person-giovanni-francesco-guerniero",
+      "to": "herkules",
+      "relation": "lead_designer_of",
+      "confidence": "high",
+      "source_ids": [
+        "unesco-icomos-2013-evaluation",
+        "museum-kassel-guerniero-gs9734"
+      ],
+      "provenance": {
+        "basis": "advisory_body_history_plus_direct_architectural_drawing",
+        "assertion": "The ICOMOS evaluation says Carl appointed Guerniero to take charge of the design; the Kassel catalogue attributes the 1713 pyramid design for the Octagon to Guerniero.",
+        "qualification": "The place node represents the Hercules/Octagon monument ensemble rather than a single drawing."
+      }
+    },
+    {
+      "id": "sem-guerniero-lead-designer-kaskaden",
+      "from": "person-giovanni-francesco-guerniero",
+      "to": "kaskaden",
+      "relation": "lead_designer_of",
+      "confidence": "high",
+      "source_ids": [
+        "unesco-icomos-2013-evaluation"
+      ],
+      "provenance": {
+        "basis": "advisory_body_historical_assessment",
+        "assertion": "ICOMOS places Guerniero in charge of the design of Carl's Baroque water-display project, whose Grand Cascade is the principal surviving axis.",
+        "qualification": "This is a design-lead relation for the Baroque project, not a claim that all later cascade alterations are Guerniero's work."
+      }
+    },
+    {
+      "id": "sem-wilhelm-ix-commissioned-loewenburg",
+      "from": "person-wilhelm-ix-von-hessen-kassel",
+      "to": "loewenburg",
+      "relation": "commissioned",
+      "confidence": "high",
+      "source_ids": [
+        "hkh-loewenburg"
+      ],
+      "provenance": {
+        "basis": "explicit_official_heritage_statement",
+        "assertion": "Hessen Kassel Heritage states that Wilhelm IX had the Löwenburg built between 1793 and 1801.",
+        "qualification": "The relation records the patron/commissioner role, not architectural authorship."
+      }
+    },
+    {
+      "id": "sem-jussow-designed-loewenburg",
+      "from": "person-heinrich-christoph-jussow",
+      "to": "loewenburg",
+      "relation": "designed",
+      "confidence": "high",
+      "source_ids": [
+        "deutsche-biographie-jussow",
+        "museum-kassel-jussow-loewenburg-gs5708"
+      ],
+      "provenance": {
+        "basis": "scholarly_biography_plus_architectural_drawing_catalogue",
+        "assertion": "Deutsche Biographie explicitly identifies Jussow with the planning of Löwenburg; the Kassel drawing catalogue preserves attributed Löwenburg designs by him.",
+        "qualification": "The relation concerns the designed Löwenburg complex and does not imply sole execution of every later restoration phase."
+      }
+    },
+    {
+      "id": "sem-jussow-designed-aquaedukt",
+      "from": "person-heinrich-christoph-jussow",
+      "to": "aquaedukt",
+      "relation": "designed",
+      "confidence": "high",
+      "source_ids": [
+        "museum-kassel-jussow-aquaedukt-gs5727"
+      ],
+      "provenance": {
+        "basis": "direct_architectural_drawing_catalogue",
+        "assertion": "The Kassel catalogue attributes the Aqueduct design GS 5727 to Jussow and notes that the depicted Aqueduct already corresponds closely to the execution begun in 1788.",
+        "qualification": "A separate first proposal is documented as unexecuted; this relation relies on the later design associated closely with the executed Aqueduct."
+      }
+    },
+    {
+      "id": "sem-jussow-planned-teufelsbruecke-setting",
+      "from": "person-heinrich-christoph-jussow",
+      "to": "teufelsbruecke",
+      "relation": "planned_landscape_setting_for",
+      "confidence": "high",
+      "source_ids": [
+        "museum-kassel-jussow-teufelsbruecke-gs5860"
+      ],
+      "provenance": {
+        "basis": "direct_architectural_landscape_plan_catalogue",
+        "assertion": "The Kassel catalogue attributes to Jussow a circa-1791 plan of the Pluto Grotto, Höllenteich and Devil's Bridge landscape setting.",
+        "qualification": "This deliberately does not encode unqualified authorship of the present bridge; the evidence establishes Jussow's design role for the earlier landscape/site phase."
+      }
+    },
+    {
+      "id": "sem-jussow-planned-plutogrotte-setting",
+      "from": "person-heinrich-christoph-jussow",
+      "to": "plutogrotte",
+      "relation": "planned_landscape_setting_for",
+      "confidence": "high",
+      "source_ids": [
+        "museum-kassel-jussow-teufelsbruecke-gs5860"
+      ],
+      "provenance": {
+        "basis": "direct_architectural_landscape_plan_catalogue",
+        "assertion": "Jussow's circa-1791 plan documents the reworked landscape composition around the existing Pluto Grotto, Höllenteich and Devil's Bridge.",
+        "qualification": "The Plutogrotte predates this plan, so the relation is to its landscape setting rather than original authorship of the grotto."
+      }
+    },
+    {
+      "id": "sem-rembrandt-created-segen-jakobs",
+      "from": "person-rembrandt-van-rijn",
+      "to": "artwork-der-segen-jakobs",
+      "relation": "created",
+      "confidence": "high",
+      "source_ids": [
+        "hkh-gemaeldegalerie-collection",
+        "hkh-gemaeldegalerie-location"
+      ],
+      "provenance": {
+        "basis": "official_collection_attribution",
+        "assertion": "Hessen Kassel Heritage lists Der Segen Jakobs among the celebrated Rembrandt works in the Old Masters collection.",
+        "qualification": "No acquisition or commission history is inferred from this attribution."
+      }
+    },
+    {
+      "id": "sem-segen-jakobs-in-alte-meister",
+      "from": "artwork-der-segen-jakobs",
+      "to": "collection-gemaeldegalerie-alte-meister",
+      "relation": "member_of_collection",
+      "confidence": "high",
+      "source_ids": [
+        "hkh-gemaeldegalerie-collection"
+      ],
+      "provenance": {
+        "basis": "official_collection_record",
+        "assertion": "The official collection page names Der Segen Jakobs as a Rembrandt work in the Gemäldegalerie Alte Meister.",
+        "qualification": "The relation records current collection membership only."
+      }
+    },
+    {
+      "id": "sem-alte-meister-located-at-schloss",
+      "from": "collection-gemaeldegalerie-alte-meister",
+      "to": "schloss",
+      "relation": "located_at",
+      "confidence": "high",
+      "source_ids": [
+        "hkh-gemaeldegalerie-collection",
+        "hkh-gemaeldegalerie-location"
+      ],
+      "provenance": {
+        "basis": "official_collection_and_location_records",
+        "assertion": "Hessen Kassel Heritage states that the Gemäldegalerie Alte Meister has been housed in Schloss Wilhelmshöhe since 1974.",
+        "qualification": "The stable graph place id schloss represents Schloss Wilhelmshöhe; no content-id migration is introduced."
+      }
+    },
+    {
+      "id": "sem-segen-jakobs-displayed-at-schloss",
+      "from": "artwork-der-segen-jakobs",
+      "to": "schloss",
+      "relation": "displayed_at",
+      "confidence": "high",
+      "source_ids": [
+        "hkh-gemaeldegalerie-location"
+      ],
+      "provenance": {
+        "basis": "official_museum_location_record",
+        "assertion": "The official Schloss Wilhelmshöhe gallery page names Der Segen Jakobs among the Rembrandt paintings shown in the Gemäldegalerie Alte Meister there.",
+        "qualification": "This models the museum display/location relation and does not infer ownership or acquisition history."
+      }
+    }
+  ],
+  "evidence_guardrails": "data/semantic_source_manifest.json",
+  "status": "phase_3_sourced"
 }

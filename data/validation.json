@@ -1,10 +1,16 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-27T06:13:54.720505+00:00",
+  "generated_at": "2026-08-27T06:49:37.622300+00:00",
   "status": "pass",
   "summary": {
     "place_nodes": 30,
     "directed_path_edges": 122,
+    "catalogued_trees": 569,
+    "historical_figures": 5,
+    "artworks": 1,
+    "collections": 1,
+    "semantic_relations": 13,
+    "semantic_sources": 11,
     "errors": 0,
     "warnings": 0
   },
@@ -79,6 +85,46 @@
       "id": "watercourse_reference_audit_present",
       "pass": true,
       "failures": []
+    },
+    {
+      "id": "semantic_sources_valid",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "semantic_entity_ids_unique",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "semantic_entities_have_sources",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "semantic_relations_valid",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "phase3_required_relations_present",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "artworks_and_collections_are_entities",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "graph_composes_curated_layers",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "graph_preserves_canonical_phase2_spatial_layers",
+      "pass": true,
+      "failures": []
     }
   ],
   "errors": [],
@@ -87,7 +133,12 @@
     "Elevation profiles use the 90 m Copernicus GLO-90 DEM and are approximate; they are not survey-grade measurements.",
     "Surface/accessibility fields are OSM-tag-derived and are not a substitute for field inspection.",
     "Naismith-style walking times use 5 km/h plus 1 minute per 10 m ascent and do not model individual mobility.",
-    "Semantic/figure and tree layers are placeholders until Phases 3 and 4.",
     "The supplied seed bbox was rejected because it excludes Herkules; see source_manifest.json."
+  ],
+  "phase_3_known_limits": [
+    "Historical authorship/patronage edges encode only the scope explicitly supported by their cited sources; later restoration or replacement phases are not silently folded into earlier design relations.",
+    "Phase-2 place nodes expose coordinate source/method/confidence and GLO-90 terrain elevation, but numeric horizontal/vertical accuracy fields are not yet normalized across every mapped entity.",
+    "Explicit sampled path topology is now durable as a standalone layer in data/path_topology.json (intersections/turns and material gradient/surface/access changes), but Phase 3 does not compose that layer into graph.json yet.",
+    "Bench POIs are now durable as a standalone first-class layer in data/benches.json; Phase 3 does not compose benches into graph.json yet."
   ]
 }

@@ -2,7 +2,9 @@
 """Build the Bergpark place/path graph from public spatial snapshots.
 
 No third-party Python packages are required. Phase 2 enriches the Phase-1 OSM
-graph with a preserved Copernicus GLO-90 terrain snapshot.
+graph with a preserved Copernicus GLO-90 terrain snapshot. Phase 3 composes the
+curated semantic and tree layers into graph.json without regenerating or
+overwriting those independently owned layer files.
 """
 
 from __future__ import annotations
@@ -715,6 +717,22 @@ def dump(name: str, obj: Any) -> None:
     (DATA / name).write_text(json.dumps(obj, ensure_ascii=False, indent=2) + "\n")
 
 
+def load_curated_layer(name: str, fallback: dict[str, Any]) -> dict[str, Any]:
+    """Read independently owned graph layers from canonical data.
+
+    BERGPARK_OUTPUT_DATA intentionally redirects only generated graph outputs.
+    Curated semantic/tree layers remain canonical inputs so isolated builds can
+    qualify graph composition without copying or mutating those files.
+    """
+    path = CANONICAL_DATA / name
+    if not path.is_file():
+        return fallback
+    doc = json.loads(path.read_text())
+    if not isinstance(doc, dict):
+        raise TypeError(f"curated layer {name} must contain a JSON object")
+    return doc
+
+
 def main() -> None:
     DATA.mkdir(parents=True, exist_ok=True)
     elevations, elevation_source = load_elevations()
@@ -724,9 +742,23 @@ def main() -> None:
     edges = directed_edges(places, pair_routes, elevations)
     watercourse_audit = watercourse_reference_audit(places)
 
-    empty_trees = {"schema_version": 1, "trees": [], "status": "pending_phase_4"}
-    empty_figures = {"schema_version": 1, "figures": [], "status": "pending_phase_3"}
-    empty_semantic = {"schema_version": 1, "semantic_edges": [], "status": "pending_phase_3"}
+    trees_doc = load_curated_layer(
+        "trees.json", {"schema_version": 1, "trees": [], "status": "pending_tree_phase"}
+    )
+    figures_doc = load_curated_layer(
+        "figures.json", {"schema_version": 1, "figures": [], "status": "pending_phase_3"}
+    )
+    semantic_doc = load_curated_layer(
+        "semantic.json",
+        {
+            "schema_version": 1,
+            "sources": [],
+            "artworks": [],
+            "collections": [],
+            "semantic_edges": [],
+            "status": "pending_phase_3",
+        },
+    )
     nodes_doc = {
         "schema_version": 1,
         "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -744,13 +776,20 @@ def main() -> None:
         "bbox": PARK_BBOX,
         "nodes": places,
         "edges": edges,
-        "trees": [],
-        "figures": [],
-        "semantic_edges": [],
+        "trees": trees_doc.get("trees", []),
+        "figures": figures_doc.get("figures", []),
+        "artworks": semantic_doc.get("artworks", []),
+        "collections": semantic_doc.get("collections", []),
+        "semantic_edges": semantic_doc.get("semantic_edges", []),
         "provenance": {
             "coordinate_primary": "OpenStreetMap",
             "path_primary": "OpenStreetMap",
             "elevation_primary": "Open-Meteo / Copernicus DEM GLO-90",
+            "semantic_source_registry": "data/semantic.json#sources",
+            "semantic_evidence_guardrails": semantic_doc.get(
+                "evidence_guardrails", "data/semantic_source_manifest.json"
+            ),
+            "semantic_source_ids": [source.get("id") for source in semantic_doc.get("sources", [])],
             "osm_license": "ODbL-1.0",
             "source_snapshots": [
                 "data/sources/osm-pois.json",
@@ -843,9 +882,6 @@ def main() -> None:
 
     dump("nodes.json", nodes_doc)
     dump("edges.json", edges_doc)
-    dump("trees.json", empty_trees)
-    dump("figures.json", empty_figures)
-    dump("semantic.json", empty_semantic)
     dump("graph.json", graph)
     dump("source_manifest.json", source_manifest)
 
