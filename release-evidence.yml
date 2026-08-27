@@ -7,8 +7,8 @@ release:
   previous_tag: v0.1.0-alpha.2
   previous_tag_revision: 43c76838764a142fede0480b30c6f5228b99808b
   source_head_before_release_metadata: 9a3d5aaf1cabb9714c2809074f7b2086daf7f533
-  release_metadata_commit: pending_until_candidate_commit
-  release_evidence_commit: resolved_by_tag_target_after_clean_gate
+  release_metadata_commit: 3f418280949d4e49f93ac386204468dd2e9659e2
+  release_evidence_commit: this_commit
   publish_authorized: true
   target_repository: fkr-0/bergpark
   target_url: https://bergpark.fkr.dev
@@ -63,13 +63,13 @@ preflight_verification:
     result: pass
     details: pnpm 11.3.0; lockfile up to date
   - command: pnpm run check:e2e
-    location: shared checkout
-    result: pending_requalification_after_vitest_biome
-    details: alpha.4 tooling gate will record Biome, Node, Vitest, Python, Vite and Chromium results before commit/push
+    location: clean worktree at 3f418280949d4e49f93ac386204468dd2e9659e2
+    result: pass
+    details: Biome warnings-fatal PASS; 22/22 Node tests PASS; 2/2 Vitest tests PASS; 65/65 Python tests PASS; Vite 8.2.2 build PASS; 11/11 Chromium Playwright E2E PASS
   - command: pnpm run build
-    location: shared checkout
-    result: pending_requalification_after_vitest_biome
-    details: explicitly requested standalone pnpm production-build verification
+    location: clean worktree at 3f418280949d4e49f93ac386204468dd2e9659e2
+    result: pass
+    details: explicit standalone Vite 8.2.2 production build PASS before the full release gate
   - command: npx playwright test tests/e2e/phase2-visitor.spec.js --config=.work/bergpark-webapp-phase2/playwright-firefox.config.mjs --workers=1
     location: shared checkout against explicit built preview
     result: pass
@@ -79,17 +79,18 @@ preflight_verification:
     result: pass
     details: no npm install/run/cache commands remain in release-facing project configuration
 release_gate:
-  exact_clean_worktree_check: pending
-  git_diff_check: pending
+  exact_clean_worktree_check: pass_at_3f418280949d4e49f93ac386204468dd2e9659e2
+  git_diff_check: pass
   tag_created: false
-  pushed: false
+  pushed: pending_authorized_push_after_evidence_commit
   github_release_created: false
   ci_workflow: pending
   pages_workflow: pending
   production_e2e: pending
 artifacts:
-  dist_tree_sha256_manifest_sha256: pending_clean_candidate_build
-  dist_bytes: pending_clean_candidate_build
+  dist_tree_sha256_manifest_sha256: 54031058e725cb98adedec4470ed45daf6239f9cd101439a04b66444ba4fa8dd
+  dist_bytes: 4683016
+  dist_files: 22
 known_limitations:
   - Bundled landmark 3D assets are schematic interaction models, not surveyed architectural reconstructions.
   - Full Firefox 3D and iOS Safari/WebKit production qualification remain beta gates.
