@@ -1,0 +1,1311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="openstreetmap-cgimap 2.1.0 (1714940 spike-08.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <node id="3596364342" visible="true" version="8" changeset="70242142" timestamp="2019-05-14T15:53:51Z" user="Jo Cassel" uid="2585690" lat="51.3167198" lon="9.4191868">
+  <tag k="circumference" v="2.90"/>
+  <tag k="denotation" v="landmark"/>
+  <tag k="description" v="Heimat: Westliches Nordamerika. Die Borke ist stark und dunkel gefurcht und hat glatte gelblich bis rötlich-braune sowie rosa getönte Platten. Teil einer Gelbkieferngruppe."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_21_2018-09-14_b.JPG"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="needleleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="21"/>
+  <tag k="source:circumference" v="Messung 2018-09-14 in h=1,30 m"/>
+  <tag k="species" v="Pinus ponderosa"/>
+  <tag k="species:de" v="Gelbkiefer"/>
+  <tag k="species:en" v="ponderosa pine"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 250 m nordöstlich von Schloss Wilhelmshöhe, nördlich der Wilhelmshöher Allee"/>
+  <tag k="wikimedia_commons" v="Category:Baum 21 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="5223378610" visible="true" version="8" changeset="82761634" timestamp="2020-03-28T18:52:18Z" user="Jo Cassel" uid="2585690" lat="51.3141518" lon="9.4198765">
+  <tag k="circumference" v="4.10"/>
+  <tag k="denotation" v="landmark"/>
+  <tag k="description" v="Heimat: östliches Nordamerika. Lord Weymouth etablierte im 18. Jahrhundert die Art in England als Forstbaum. Junge Bäume haben einen auffallend glatten Stamm, der erst im Alter rissig und dunkler wird. Nachpflanzung (1985) neben Altbaum."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_284_2020-03-27_a.JPG"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="needleleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="284"/>
+  <tag k="source:circumference" v="Messung 2017-11-11 in h=1,30 m bei Hangmitte"/>
+  <tag k="species" v="Pinus strobus"/>
+  <tag k="species:de" v="Weymouthskiefer"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Nordrand des Lac, ca. 250 m östlich von Schloss Wilhelmshöhe"/>
+  <tag k="wikimedia_commons" v="Category:Baum 284 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="5226880737" visible="true" version="6" changeset="83207343" timestamp="2020-04-07T15:55:39Z" user="Jo Cassel" uid="2585690" lat="51.3161455" lon="9.4180856">
+  <tag k="description" v="Die Pyramiden- oder Säulenform der Hainbuche verfügt über einen pyramidalen Wuchs. Ein zweiter Baum steht auf der anderen Seite des Weges."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_23_2019-05-12.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="23"/>
+  <tag k="species" v="Carpinus betulus 'Fastigiata'"/>
+  <tag k="species:de" v="Pyramiden-Hainbuche"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 200 m nordöstlich von Schloss Wilhelmshöhe, südlich der Wilhelmshöher Allee"/>
+  <tag k="wikimedia_commons" v="Category:Baum 23 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="5226880768" visible="true" version="5" changeset="87290237" timestamp="2020-06-29T11:03:48Z" user="Jo Cassel" uid="2585690" lat="51.3165389" lon="9.4209161">
+  <tag k="description" v="Heimat: Nordamerika. Benannt nach den großen Eicheln mit bis zu 5 cm Durchmesser. Deren Fruchtbecher umhüllt die halbe Eichel."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_16_2020-06-29_e.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="16"/>
+  <tag k="species" v="Quercus macrocarpa"/>
+  <tag k="species:de" v="Grossfruchtige Eiche"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 250 m nordöstlich von Schloss Wilhelmshöhe, an der Wilhelmshöher Allee"/>
+  <tag k="wikimedia_commons" v="Category:Baum 16 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="5226880787" visible="true" version="6" changeset="87309110" timestamp="2020-06-29T18:33:16Z" user="Jo Cassel" uid="2585690" lat="51.3164906" lon="9.4208032">
+  <tag k="circumference" v="2.95"/>
+  <tag k="denotation" v="landmark"/>
+  <tag k="description" v="Heimat: Österreich und Balkan. Die Rinde ist schwarzgrau mit tiefen Kerben. Die steifen, dunkelgrünen Nadeln stehen paarweise und werden 9 - 14 cm lang. Gegenwärtig 2 Bäume am Standort."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_17_2019-07-18.JPG"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="needleleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="17"/>
+  <tag k="source:circumference" v="Messung 2017-12-08 in h=1,30 m bei Hangmitte"/>
+  <tag k="species" v="Pinus nigra subsp. nigra"/>
+  <tag k="species:de" v="Österreichische Schwarzkiefer"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 250 m nordöstlich von Schloss Wilhelmshöhe, an der Wilhelmshöher Allee"/>
+  <tag k="wikimedia_commons" v="Category:Baum 17 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="5239919055" visible="true" version="6" changeset="87043435" timestamp="2020-06-23T16:32:10Z" user="Jo Cassel" uid="2585690" lat="51.3150868" lon="9.4239027">
+  <tag k="circumference" v="3.25"/>
+  <tag k="denotation" v="landmark"/>
+  <tag k="description" v="Die Weißbunte Rotbuche ist eine Variation der heimischen Rotbuche. Das grüne Laub ist etwas schmaler und der Blattrand ist unregelmäßig weiß gesäumt - hier nur noch in Teilbereichen der Krone erkennbar."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_13a_2019-05-09.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="13a"/>
+  <tag k="source:circumference" v="Messung 2019-05-09 in h=1,30 m"/>
+  <tag k="species" v="Fagus sylvatica 'Albovariegata'"/>
+  <tag k="species:de" v="Rotbuche 'Albovariegata'"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, Ostteil, an der Wilhelmshöher Allee, südlich des Besucherzentrums"/>
+  <tag k="wikimedia_commons" v="Category:Baum 13a (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="5249029205" visible="true" version="3" changeset="70892501" timestamp="2019-06-03T16:33:31Z" user="Jo Cassel" uid="2585690" lat="51.3146319" lon="9.4178685">
+  <tag k="circumference" v="3.10"/>
+  <tag k="denotation" v="landmark"/>
+  <tag k="description" v="Heimat: Südöstliches Nordamerika, dort ist der Tulpenbaum eine der wichtigsten Laubbaumarten. Der Name bezieht sich auf die Tulpen-ähnlichen Blüten."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_279_2019-05-31a.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="279"/>
+  <tag k="source:circumference" v="Messung 2017-11-26 in h=1,30 m"/>
+  <tag k="species" v="Liriodendron tulipifera"/>
+  <tag k="species:de" v="Tulpenbaum"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 100 m östlich unterhalb von Schloss Wilhelmshöhe, nördlich des Lac"/>
+  <tag k="wikimedia_commons" v="Category:Baum 279 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="5249029207" visible="true" version="4" changeset="88885097" timestamp="2020-08-03T15:56:14Z" user="Jo Cassel" uid="2585690" lat="51.3146927" lon="9.4179393">
+  <tag k="circumference" v="4.25"/>
+  <tag k="denotation" v="landmark"/>
+  <tag k="description" v="Heimat: Europa und Vorderasien. Der Name Traubeneiche bezieht sich auf die traubenartig, gehäuft wachsenden Eicheln."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_280_2019-06-14.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="280"/>
+  <tag k="source:circumference" v="Messung 2017-11-26 in h=1,30 m"/>
+  <tag k="species" v="Quercus petraea"/>
+  <tag k="species:de" v="Traubeneiche"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 100 m östlich unterhalb von Schloss Wilhelmshöhe, nördlich des Lac"/>
+  <tag k="wikimedia_commons" v="Category:Baum 280 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="5275363217" visible="true" version="6" changeset="71252943" timestamp="2019-06-14T13:05:50Z" user="Jo Cassel" uid="2585690" lat="51.3144265" lon="9.4182952">
+  <tag k="description" v="Eine bekannte Zuchtform der Silberweide (siehe 309) ist die in Frankreich um 1815 entstandene Trauerweide. Ihre langen dünnen Zweige hängen schlaff herab. Dieser Baum liegt fast waagerecht über dem Lac."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_282_2019-04-18_a.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="282"/>
+  <tag k="species" v="Salix alba 'Tristis'"/>
+  <tag k="species:de" v="Trauerweide"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Nordrand des Lac, ca. 150 m östlich von Schloss Wilhelmshöhe"/>
+  <tag k="wikimedia_commons" v="Category:Baum 282 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6139180616" visible="true" version="4" changeset="81694102" timestamp="2020-03-02T18:31:40Z" user="Jo Cassel" uid="2585690" lat="51.3167799" lon="9.4124839">
+  <tag k="description" v="Heimat: Westhänge der Sierra Nevada in Kalifornien in Höhen zwischen 1350 und 2500 Metern. Der Baum kann Höhen bis zu 95 m und einen Stammdurchmesser von bis zu 17 m an der ausladenden Basis erreichen."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_100_2019-06-15.JPG"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="needleleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="100"/>
+  <tag k="species" v="Sequoiadendron giganteum"/>
+  <tag k="species:de" v="Riesenmammutbaum"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 350 m nordwestlich von Schloss Wilhelmshöhe, auf dem dem Apolloberg"/>
+  <tag k="wikimedia_commons" v="Category:Baum 100 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6139180622" visible="true" version="2" changeset="71374828" timestamp="2019-06-18T17:35:51Z" user="Jo Cassel" uid="2585690" lat="51.3163997" lon="9.4138689">
+  <tag k="description" v="Heimat: Europa und Vorderasien. Die Früchte der kleinen Apfel-Baumart sind essbar, werden aber seit der Züchtung von Kulturäpfeln nicht mehr genutzt."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_119_2019-06-16.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="119"/>
+  <tag k="species" v="Malus sylvestris"/>
+  <tag k="species:de" v="Holzapfel"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 200 m nordwestlich von Schloss Wilhelmshöhe, am Ostrand des Apolloberges, südwestlich des Großen Gewächshaus"/>
+ </node>
+ <node id="6153834179" visible="true" version="6" changeset="88203192" timestamp="2020-07-19T15:07:22Z" user="Jo Cassel" uid="2585690" lat="51.3124155" lon="9.4170203">
+  <tag k="description" v="Heimat: Mittelmeerregion. Die Art erreicht nur Höhen von 3 bis 10 m. Die dreilappigen, ledrigen Blätter entfalten sich noch vor den gelbgrünen Blüten."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_315_2019-07-16.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="315"/>
+  <tag k="species" v="Acer monspessulanum"/>
+  <tag k="species:de" v="Französischer Ahorn"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 250 m südlich von Schloss Wilhelmshöhe, südwestlich des Lac, bei der Küche nördlich des Dorf Mulang"/>
+  <tag k="wikimedia_commons" v="Category:Baum 315 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6161181062" visible="true" version="4" changeset="88993393" timestamp="2020-08-05T17:02:51Z" user="Jo Cassel" uid="2585690" lat="51.3147848" lon="9.4127591">
+  <tag k="description" v="Heimat: Balkan und Südosteuropa. Die stark gebuchteten Blätter messen 10 - 20 cm und mehr, sie sind damit länger als die der einheimischen Stieleiche. Gegenwärtig 3 Ungarische Eichen am Standort."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_189_2019-05-24.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="189"/>
+  <tag k="species" v="Quercus frainetto"/>
+  <tag k="species:de" v="Ungarische Eiche"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 200 m westlich von Schloss Wilhelmshöhe, am Südwestrand des Bowlinggreen, östlich vom Fontänenteich"/>
+  <tag k="wikimedia_commons" v="Category:Baum 189 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6172485412" visible="true" version="4" changeset="83834000" timestamp="2020-04-20T17:00:53Z" user="Jo Cassel" uid="2585690" lat="51.3128912" lon="9.4142851">
+  <tag k="description" v="Heimat: China. Eine Wildapfelform mit vergleichsweise großen Früchten. Gegenwärtig 2 Bäume am Standort."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_306b_2019-05-27.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="306b"/>
+  <tag k="species" v="Malus prunifolia 'Hyslop'"/>
+  <tag k="species:de" v="Pflaumenblättriger Zierapfel 'Hyslop'"/>
+  <tag k="start_date" v="1965"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 150 m südlich von Schloss Wilhelmshöhe, westlich des Lac"/>
+  <tag k="wikimedia_commons" v="Category:Baum 306b (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6173317440" visible="true" version="6" changeset="82938021" timestamp="2020-04-01T17:21:51Z" user="Jo Cassel" uid="2585690" lat="51.3135978" lon="9.4129672">
+  <tag k="description" v="Heimat: Ostasien. Die Art trägt auffällig, dekorative Hochblätter und essbaren Früchte."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_203_2019-05-24.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="shrub"/>
+  <tag k="ref" v="203"/>
+  <tag k="species" v="Cornus kousa subsp. chinensis"/>
+  <tag k="species:de" v="Chinesischer Blütenhartriegel"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 200 m südwestlich von Schloss Wilhelmshöhe, südöstlich des Fontänenteichs, östlich des Seearms"/>
+  <tag k="wikimedia_commons" v="Category:Baum 203 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6175069075" visible="true" version="5" changeset="83830002" timestamp="2020-04-20T15:27:23Z" user="Jo Cassel" uid="2585690" lat="51.3137974" lon="9.4137837">
+  <tag k="description" v="Heimat: Östliches Nordamerika. Die Buscheiche bildet Großsträucher oder kleine Bäume mit einer Höhe von 4 bis 6 m. Die Blätter sind 5 - 12 cm lang und 3 - 9 cm breit und haben eine verkehrt eiförmige bis elliptische Form. Gegenwärtig 3 Bäume am Standort."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_222_2019-05-31.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="222"/>
+  <tag k="species" v="Quercus ilicifolia"/>
+  <tag k="species:de" v="Buscheiche"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 150 m südwestlich von Schloss Wilhelmshöhe, im Tal der Flora, westlich der Jussow-Kaskade"/>
+  <tag k="wikimedia_commons" v="Category:Baum 222 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6175125100" visible="true" version="3" changeset="82679051" timestamp="2020-03-26T19:20:46Z" user="Jo Cassel" uid="2585690" lat="51.3144139" lon="9.4144031">
+  <tag k="description" v="Der in Ostasien heimische Fächerahorn bildet große, baumartige Sträucher. Diese Zuchtform hat von Frühjahr bis Sommer rotes tief geschlitztes Laub, dass im Herbst leuchtend rot wird."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_260_2019-06-10.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="shrub"/>
+  <tag k="ref" v="260"/>
+  <tag k="species" v="Acer palmatum 'Atropurpureum'"/>
+  <tag k="species:de" v="Roter Fächerahorn 'Atropurpureum'"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 100 m westlich von Schloss Wilhelmshöhe, südlich des Bowlinggreen, im Tal der Flora"/>
+  <tag k="wikimedia_commons" v="Category:Baum 260 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6221475924" visible="true" version="2" changeset="71110547" timestamp="2019-06-10T16:52:40Z" user="Jo Cassel" uid="2585690" lat="51.3140940" lon="9.4127579">
+  <tag k="description" v="Rhododendron aus der &quot;Catawbiense-Hybridum&quot;-Gruppe. Der Strauch ist einer der bekanntesten weißblühenden Sorten."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_243_2019-06-10.JPG"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="shrub"/>
+  <tag k="ref" v="243"/>
+  <tag k="species" v="Rhododendron 'Album Novum'"/>
+  <tag k="species:de" v="Rhododendron 'Album Novum'"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 200 m südwestlich von Schloss Wilhelmshöhe, im Tal der Flora, südwestlich des Musikpavillon"/>
+ </node>
+ <node id="6236248735" visible="true" version="3" changeset="83375474" timestamp="2020-04-10T16:54:02Z" user="Jo Cassel" uid="2585690" lat="51.3144779" lon="9.4138408">
+  <tag k="description" v="Heimat: östliches Nordamerika. Lord Weymouth etablierte im 18. Jahrhundert die Art in England als Forstbaum. Hier bilden die hellgrünen Nadeln einen sommerlichen Farbkontrast zur benachbarten rotlaubigen Buche 249."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_248_2019-06-10.JPG"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="needleleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="248"/>
+  <tag k="species" v="Pinus strobus"/>
+  <tag k="species:de" v="Weymouthskiefer"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 150 m westlich von Schloss Wilhelmshöhe, im Tal der Flora, nördlich der Statue"/>
+  <tag k="wikimedia_commons" v="Category:Baum 248 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6236442005" visible="true" version="5" changeset="85596023" timestamp="2020-05-22T08:10:05Z" user="Jo Cassel" uid="2585690" lat="51.3154095" lon="9.4115927">
+  <tag k="description" v="Eine Form der heimischen Rotbuche mit gebogenen und herabhängenden Zweigen. Die Hängebuche gilt als die größte mitteleuropäische 'Pendula'-, auch Hänge- oder Trauer-Form einer Baumart."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_138_2020-05-14_b.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="138"/>
+  <tag k="species" v="Fagus sylvatica 'Pendula'"/>
+  <tag k="species:de" v="Hängebuche"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 300 m westlich von Schloss Wilhelmshöhe, südlich des Jussow-Tempel"/>
+  <tag k="wikimedia_commons" v="Category:Baum 138 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6236519002" visible="true" version="6" changeset="105373445" timestamp="2021-05-26T17:52:30Z" user="Jo Cassel" uid="2585690" lat="51.3154832" lon="9.4117529">
+  <tag k="description" v="Eine Form des Chinesischen Wacholders mit vereinzelt hellen Triebspitzen."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_139_2019-06-24.JPG"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="needleleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="139"/>
+  <tag k="species" v="Juniperus chinensis 'Variegata'"/>
+  <tag k="species:de" v="Chinesischer Wacholder 'Variegata'"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 300 m westlich von Schloss Wilhelmshöhe, südlich des Jussow-Tempel"/>
+  <tag k="wikimedia_commons" v="Category:Baum 139 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6432776267" visible="true" version="6" changeset="95342803" timestamp="2020-12-05T17:46:24Z" user="Jo Cassel" uid="2585690" lat="51.3156454" lon="9.4117679">
+  <tag k="circumference" v="2.45"/>
+  <tag k="description" v="Form der in Nordamerika beheimateten Lawsons Scheinzypresse, siehe 213b und 335a, mit leicht bläulichen Nadeln."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_135_2019-06-24.JPG"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="needleleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="135"/>
+  <tag k="source:circumference" v="Messung 2020-12-03 in h=1,30 m"/>
+  <tag k="species" v="Chamaecyparis lawsoniana 'Glauca'"/>
+  <tag k="species:de" v="Blaue Lawsons Scheinzypresse"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 300 m westlich von Schloss Wilhelmshöhe, direkt nördlich neben dem Jussow-Tempel"/>
+  <tag k="wikimedia_commons" v="Category:Baum 135 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6440874629" visible="true" version="3" changeset="77286334" timestamp="2019-11-19T18:14:33Z" user="Jo Cassel" uid="2585690" lat="51.3165594" lon="9.4122232">
+  <tag k="description" v="Heimat: Griechenland. Diese Tanne kommt in Höhenlagen von 400 bis 2100 Metern vor. Von der Weißtanne (Abies alba) unterscheidet sie sich durch ihre geringere Wuchshöhe, längere Nadeln und graubrauner Borke. 2 Bäume in dieser Tannengruppe."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_108b_2019-06-16.JPG"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="needleleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="108b"/>
+  <tag k="species" v="Abies cephalonica"/>
+  <tag k="species:de" v="Griechische Tanne"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 350 m nordwestlich von Schloss Wilhelmshöhe, in der Tannengruppe auf dem dem Apolloberg"/>
+ </node>
+ <node id="6449616279" visible="true" version="2" changeset="71282354" timestamp="2019-06-15T15:22:32Z" user="Jo Cassel" uid="2585690" lat="51.3168873" lon="9.4128817">
+  <tag k="description" v="Form der in Japan beheimateten Sawara-Scheinzypresse (siehe 94) mit teilweise gelben Nadeln und Zweigen. Teil einer Gelben Sawara-Scheinzypressengruppe."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_98c_2019-06-15.JPG"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="needleleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="98c"/>
+  <tag k="species" v="Chamaecyparis pisifera 'Aurea'"/>
+  <tag k="species:de" v="Gelbe Sawara-Scheinzypresse"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 300 m nordwestlich von Schloss Wilhelmshöhe, am Ostrand des Apolloberges, westlich des Großen Gewächshaus"/>
+ </node>
+ <node id="6449622294" visible="true" version="3" changeset="71283483" timestamp="2019-06-15T16:16:53Z" user="Jo Cassel" uid="2585690" lat="51.3167679" lon="9.4129779">
+  <tag k="description" v="Heimat: Nordwestafrika, Europa und Vorderasien, die einzige europäische Art der Eiben. Alle Pflanzenteile, auch der rote Samenmantel, sind giftig. In allen europäischen Ländern ist der Baum eine geschützte Art."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_99c_2019-06-15.JPG"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="needleleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="99c"/>
+  <tag k="species" v="Taxus baccata"/>
+  <tag k="species:de" v="Europäische Eibe"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 300 m nordwestlich von Schloss Wilhelmshöhe, am Ostrand des Apolloberges, westlich des Großen Gewächshaus"/>
+ </node>
+ <node id="6449622314" visible="true" version="4" changeset="86147315" timestamp="2020-06-03T17:23:59Z" user="Jo Cassel" uid="2585690" lat="51.3159936" lon="9.4147805">
+  <tag k="description" v="Eine Mutation der heimischen Rotbuche mit roter Blattfärbung, insbesondere im Frühjahr. Nahezu alle heute existierenden Exemplare sollen auf die Mutterblutbuche aus dem Jahr 1690 nahe der thüringischen Stadt Sondershausen zurückgehen."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_163_2019-05-18.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="163"/>
+  <tag k="species" v="Fagus sylvatica 'Atropunicea'"/>
+  <tag k="species:de" v="Blutbuche"/>
+  <tag k="start_date" v="1984"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 100 m nordwestlich von Schloss Wilhelmshöhe, auf dem Bowlinggreen"/>
+  <tag k="wikimedia_commons" v="Category:Baum 163 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6455559489" visible="true" version="2" changeset="71282354" timestamp="2019-06-15T15:22:32Z" user="Jo Cassel" uid="2585690" lat="51.3169236" lon="9.4130637">
+  <tag k="description" v="Form des im westlichen Nordamerika beheimateten Riesenlebensbaums, siehe 20, 99d, 105b, 145, 213 und andere. 'Excelsa' ist dunkelgrün und wächst säulenartig."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_98a_2019-06-15.JPG"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="needleleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="98a"/>
+  <tag k="species" v="Thuja plicata 'Excelsa'"/>
+  <tag k="species:de" v="Dunkelgrüner Riesenlebensbaum"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 300 m nordwestlich von Schloss Wilhelmshöhe, am Ostrand des Apolloberges, westlich des Großen Gewächshaus"/>
+ </node>
+ <node id="6480814909" visible="true" version="2" changeset="93433345" timestamp="2020-11-02T17:34:55Z" user="Jo Cassel" uid="2585690" lat="51.3170321" lon="9.4169861">
+  <tag k="description" v="Heimat: Europa und Asien. In Mitteleuropa ist die auch &quot;Sandbirke&quot; genannte anspruchslose Art ein wichtiger Pionierbaum, der als erster Brach-, Trümmer- und Kahlflächen besiedelt."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_36_2019-05-17.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="36"/>
+  <tag k="species" v="Betula pendula"/>
+  <tag k="species:de" v="Hängebirke"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 200 m nördlich von Schloss Wilhelmshöhe, direkt nördlich an der Wilhelmshöher Allee, östlich neben der Alten Wache"/>
+  <tag k="wikimedia_commons" v="Category:Baum 36 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6480814918" visible="true" version="5" changeset="83750028" timestamp="2020-04-18T17:08:02Z" user="Jo Cassel" uid="2585690" lat="51.3162835" lon="9.4173677">
+  <tag k="description" v="Eine Form der in Asien heimischen Tulpenmagnolie (siehe 157). 'Amabilis' trägt weiße Blüten im April. Direkt nördlich nebenan, 33a, 'Rustica Rubra' mit rötlichen Blüten."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_33_2020-04-18_a.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="33"/>
+  <tag k="species" v="Magnolia × soulangeana 'Amabilis'"/>
+  <tag k="species:de" v="Tulpenmagnolie 'Amabilis'"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 100 m nordöstlich von Schloss Wilhelmshöhe, südlich der Wilhelmshöher Allee"/>
+  <tag k="wikimedia_commons" v="Category:Baum 33 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6482050714" visible="true" version="3" changeset="90040233" timestamp="2020-08-27T17:57:51Z" user="Jo Cassel" uid="2585690" lat="51.3168663" lon="9.4146699">
+  <tag k="description" v="Form der in Nordamerika beheimateten Lawsons Scheinzypresse, siehe 213b und 335a, mit ganzjährig frischgrüner Farbe. 2 Bäume stehen als flankierende Doppelpflanzung nördlich vor dem Großen Gewächshaus."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_44_2020-08-27_a.JPG"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="needleleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="44"/>
+  <tag k="species" v="Chamaecyparis lawsoniana 'Erecta Viridis'"/>
+  <tag k="species:de" v="Grüne Lawsons Scheinzypresse"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 150 m nordwestlich von Schloss Wilhelmshöhe, direkt südlich an der Wilhelmshöher Allee, als flankierende Doppelpflanzung nördlich vor dem Großen Gewächshaus"/>
+  <tag k="wikimedia_commons" v="Category:Baum 44 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6482192686" visible="true" version="3" changeset="93433345" timestamp="2020-11-02T17:34:55Z" user="Jo Cassel" uid="2585690" lat="51.3173109" lon="9.4142459">
+  <tag k="description" v="Heimat: Ostasien. Die auch &quot;Chinesische Wisteria&quot; genannte, linkswindende Kletterpflanze hat armdicke Stämme mit dünnen Ästen. Die giftige Art kann 20 - 30 m lang an anderen Bäumen entlangklettern oder selbsttragend eine Höhe von 10 m erreichen."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_48b_2019-05-17.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="shrub"/>
+  <tag k="ref" v="48b"/>
+  <tag k="species" v="Wisteria sinensis"/>
+  <tag k="species:de" v="Chinesischer Blauregen"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 250 m nordwestlich von Schloss Wilhelmshöhe, nördlich der Wilhelmshöher Allee, beim Kavalierhaus"/>
+  <tag k="wikimedia_commons" v="Category:Baum 48b (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6482192687" visible="true" version="2" changeset="84945928" timestamp="2020-05-09T17:21:53Z" user="Jo Cassel" uid="2585690" lat="51.3172824" lon="9.4146449">
+  <tag k="description" v="Heimat: Südosteuropa und Vorderasien, im Jahr 1560 wurde die Pflanze aus Konstantinopel nach Wien gebracht. Die Art wächst als Strauch oder kleiner Baum mit Wuchshöhen zwischen 2 und 6 m. Hier stehen zwei Reihen als Hochstämme."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_48a_2020-05-09_f.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="48a"/>
+  <tag k="species" v="Syringa vulgaris"/>
+  <tag k="species:de" v="Gemeiner Flieder"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 200 m nordwestlich von Schloss Wilhelmshöhe, nördlich der Wilhelmshöher Allee, als flankierende Doppelpflanzung südlich vor dem Eingang zum Marstall"/>
+  <tag k="wikimedia_commons" v="Category:Baum 48a (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6482192691" visible="true" version="1" changeset="70382814" timestamp="2019-05-18T09:40:23Z" user="Jo Cassel" uid="2585690" lat="51.3170284" lon="9.4151912">
+  <tag k="description" v="Eine Hybride aus dem Gewöhnlichen Flieder (Syringa vulgaris, siehe 48a gegenüber) und dem Persischen Flieder (Syringa x persica). Syringa x chinensis wurde zufällig in einem Botanischen Garten entdeckt."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_46_2019-05-17.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="shrub"/>
+  <tag k="ref" v="46"/>
+  <tag k="species" v="Syringa x chinensis"/>
+  <tag k="species:de" v="Chinesischer Flieder"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 150 m nordwestlich von Schloss Wilhelmshöhe, direkt nördlich an der Wilhelmshöher Allee, gegenüber dem Großen Gewächshaus"/>
+ </node>
+ <node id="6483516647" visible="true" version="1" changeset="70404633" timestamp="2019-05-19T09:03:12Z" user="Jo Cassel" uid="2585690" lat="51.3154380" lon="9.4131188">
+  <tag k="description" v="Heimat: Die Ostküstenregion Nordamerikas. Die Art, nach dem Entdeckungsgebiet, dem Nootka-Sund bei der Insel Vancouver benannt, wurde lange in der Gattung Chamaecyparis geführt."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_146_2019-05-18.JPG"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="needleleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="146"/>
+  <tag k="species" v="Xanthocyparis nootkatensis"/>
+  <tag k="species:de" v="Nootka-Scheinzypresse"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 200 m westlich von Schloss Wilhelmshöhe, auf dem Bowlinggreen"/>
+ </node>
+ <node id="6483572119" visible="true" version="2" changeset="86990445" timestamp="2020-06-22T16:45:21Z" user="Jo Cassel" uid="2585690" lat="51.3159895" lon="9.4145474">
+  <tag k="description" v="Eine Hybride zwischen der von der Balkanhalbinsel stammenden Gewöhnlichen Rosskastanie (Aesculus hippocastanum) und der nordamerikanischen Roten Rosskastanie (Aesculus pavia). 2018 erfolgte Neuanlage einer historischen Bepflanzung."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_161_2019-05-18.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="161"/>
+  <tag k="species" v="Aesculus × carnea"/>
+  <tag k="species:de" v="Rotblühende Rosskastanie"/>
+  <tag k="start_date" v="2018"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 150 m nordwestlich von Schloss Wilhelmshöhe, auf dem Bowlinggreen"/>
+  <tag k="wikimedia_commons" v="Category:Baum 161 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6486149796" visible="true" version="2" changeset="85642838" timestamp="2020-05-23T08:08:25Z" user="Jo Cassel" uid="2585690" lat="51.3156111" lon="9.4151114">
+  <tag k="description" v="Heimat: östliches Nordamerika, dort ist die Pflanze Bestandteil der Strauch- und Unterholzflora in Laubmischwäldern."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_171a_2020-05-22_a.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="shrub"/>
+  <tag k="ref" v="171a"/>
+  <tag k="species" v="Hamamelis virginiana"/>
+  <tag k="species:de" v="Virginische Zaubernuss"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, nordwestlich vor Schloss Wilhelmshöhe, auf dem Bowlinggreen"/>
+  <tag k="wikimedia_commons" v="Category:Baum 171a (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6497006056" visible="true" version="2" changeset="76061780" timestamp="2019-10-22T17:22:46Z" user="Jo Cassel" uid="2585690" lat="51.3146529" lon="9.4143857">
+  <tag k="description" v="Hortensiengruppe"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="shrub"/>
+  <tag k="note" v="diverse Sträucher, teilweise mit Nummer, Zuordnung fraglich"/>
+  <tag k="ref" v="181x"/>
+ </node>
+ <node id="6497006058" visible="true" version="3" changeset="85689303" timestamp="2020-05-24T17:14:42Z" user="Jo Cassel" uid="2585690" lat="51.3147301" lon="9.4144163">
+  <tag k="description" v="Heimat: Nordamerika. Die Fruchthüllen sind glatt, im Gegensatz zur weißblühenden Rosskastanie. Neugepflanzt 2018."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_180_2020-05-24.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="180"/>
+  <tag k="species" v="Aesculus flava"/>
+  <tag k="species:de" v="Gelbe Rosskastanie"/>
+  <tag k="start_date" v="2018"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 100 m westlich vor Schloss Wilhelmshöhe, am Südrand des Bowlinggreen"/>
+  <tag k="wikimedia_commons" v="Category:Baum 180 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6497006059" visible="true" version="4" changeset="85727218" timestamp="2020-05-25T17:41:24Z" user="Jo Cassel" uid="2585690" lat="51.3147777" lon="9.4144777">
+  <tag k="description" v="Form des in Nordamerika heimischen Tulpenbaums (siehe 179 direkt östlich) mit unregelmäßigem, goldgelbem Blattrand und grüner Blattmitte. Neugepflanzt 2018."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_179a_2020-05-25_a.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="179a"/>
+  <tag k="species" v="Liriodendron tulipifera 'Aureomarginatum'"/>
+  <tag k="species:de" v="Gelbbunter Tulpenbaum"/>
+  <tag k="start_date" v="2018"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 100 m westlich vor Schloss Wilhelmshöhe, am Südrand des Bowlinggreen"/>
+  <tag k="wikimedia_commons" v="Category:Baum 179a (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6497902819" visible="true" version="2" changeset="83779770" timestamp="2020-04-19T17:14:54Z" user="Jo Cassel" uid="2585690" lat="51.3145782" lon="9.4131342">
+  <tag k="description" v="Form des in Nordamerika beheimateten Eschenahorns (siehe 4a) mit gelben Blättern. 2018 Neugepflanzt."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_188_2019-05-24.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="188"/>
+  <tag k="species" v="Acer negundo 'Auratum'"/>
+  <tag k="species:de" v="Eschenahorn 'Auratum'"/>
+  <tag k="start_date" v="2018"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 150 m westlich von Schloss Wilhelmshöhe, südlich des Bowlinggreen"/>
+  <tag k="wikimedia_commons" v="Category:Baum 188 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6501531228" visible="true" version="3" changeset="82881350" timestamp="2020-03-31T16:34:19Z" user="Jo Cassel" uid="2585690" lat="51.3132233" lon="9.4162808">
+  <tag k="description" v="Heimat: östliches Nordamerika, dort ist die Pflanze Bestandteil der Strauch- und Unterholzflora in Laubmischwäldern."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_299_2019-05-25.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="shrub"/>
+  <tag k="ref" v="299"/>
+  <tag k="species" v="Hamamelis virginiana"/>
+  <tag k="species:de" v="Virginische Zaubernuss"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, auf der Roseninsel"/>
+  <tag k="wikimedia_commons" v="Category:Baum 299 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6501748217" visible="true" version="4" changeset="85596023" timestamp="2020-05-22T08:10:05Z" user="Jo Cassel" uid="2585690" lat="51.3133966" lon="9.4160324">
+  <tag k="description" v="Heimat: Europa und Westasien. Der Sadebaum ist ein Strauch, der meist Wuchshöhen von nur 1 bis 2, selten 5 m erreicht. Die auch Stink-Wacholder oder Gift-Wacholder genannte Pflanzenart ist giftig, Hauptwirkstoff ist das ätherische Sadebaumöl."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_302_2020-03-21_a.JPG"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="needleleaved"/>
+  <tag k="natural" v="shrub"/>
+  <tag k="ref" v="302"/>
+  <tag k="species" v="Juniperus sabina"/>
+  <tag k="species:de" v="Sadebaum"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, auf der Roseninsel"/>
+  <tag k="wikimedia_commons" v="Category:Baum 302 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6501748230" visible="true" version="2" changeset="100797448" timestamp="2021-03-10T19:25:00Z" user="Jo Cassel" uid="2585690" lat="51.3131393" lon="9.4168947">
+  <tag k="description" v="Eine Form der heimischen Fichte mit pyramidalen Wuchs. Äste und Zweige wachsen steil aufwärts."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_301_2021-03-10_a.JPG"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="needleleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="301"/>
+  <tag k="species" v="Picea abies 'Pyramidata'"/>
+  <tag k="species:de" v="Pyramidenfichte"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, auf der Roseninsel"/>
+  <tag k="wikimedia_commons" v="Category:Baum 301 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6501748239" visible="true" version="2" changeset="90040233" timestamp="2020-08-27T17:57:51Z" user="Jo Cassel" uid="2585690" lat="51.3130972" lon="9.4166536">
+  <tag k="description" v="Form des in Ostkanada und den nordöstlichen USA beheimateten Abendländischen Lebensbaums. Die Zweige sind kurz, spiralig gedreht und aufwärts gebogen."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_300_2020-08-27_a.JPG"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="needleleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="300"/>
+  <tag k="species" v="Thuja occidentalis 'Spiralis'"/>
+  <tag k="species:de" v="Abendländischer Lebensbaum 'Spiralis'"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, auf der Roseninsel"/>
+  <tag k="wikimedia_commons" v="Category:Baum 300 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6501748240" visible="true" version="3" changeset="83407022" timestamp="2020-04-11T17:42:51Z" user="Jo Cassel" uid="2585690" lat="51.3133117" lon="9.4163967">
+  <tag k="description" v="Form der in Japan beheimateten Kobushi-Magnolie (siehe 168). 'Borealis' bildet große Magnolien-Pflanzen. Die Blütezeit dieses Baumes auf der Roseninsel ist Mitte April."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_299a_2020-04-08_c.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="299a"/>
+  <tag k="species" v="Magnolia kobus var. borealis"/>
+  <tag k="species:de" v="Kobushi-Magnolie 'Borealis'"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, auf der Roseninsel"/>
+  <tag k="wikimedia_commons" v="Category:Baum 299a (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6506398078" visible="true" version="2" changeset="108438347" timestamp="2021-07-22T15:53:36Z" user="Jo Cassel" uid="2585690" lat="51.3124019" lon="9.4161258">
+  <tag k="description" v="Heimat: Europa und Vorderasien. Die Blätter wirken silbrig glänzend durch deren Behaarung. Diese ist oberseits dünn und seidig, unterseits dicht und längs ausgerichtet. Hier ein Stumpf mit Neuaustrieb."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_309_2021-07-22_b.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="309"/>
+  <tag k="species" v="Salix alba"/>
+  <tag k="species:de" v="Silberweide"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 200 m südlich von Schloss Wilhelmshöhe, südwestlich des Lac"/>
+  <tag k="wikimedia_commons" v="Category:Baum 309 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6510706684" visible="true" version="1" changeset="70760745" timestamp="2019-05-30T08:47:00Z" user="Jo Cassel" uid="2585690" lat="51.3117451" lon="9.4169511">
+  <tag k="denotation" v="landmark"/>
+  <tag k="description" v="Heimat: Mittel- und Südeuropa. Die hellgrünen Blätter sind herzförmig, behaart, scharf gesägt und bis zu 12 cm lang. Auf der anderen Wegseite steht Baum 330 eine Holländische Linde."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_329_2019-05-29.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="329"/>
+  <tag k="species" v="Tilia platyphyllos"/>
+  <tag k="species:de" v="Sommerlinde"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 300 m südlich von Schloss Wilhelmshöhe, nordöstlich der Pagode im Dorf Mulang"/>
+ </node>
+ <node id="6510795115" visible="true" version="2" changeset="76555749" timestamp="2019-11-03T16:18:09Z" user="Jo Cassel" uid="2585690" lat="51.3117565" lon="9.4149539">
+  <tag k="description" v="'Pendula' bzw. Hängeform der im Osten Nordamerikas beheimateten Nootka-Scheinzypresse (siehe 146, 191 u.a.) mit herabhängenden Zweigen."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_335_2019-05-29.JPG"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="needleleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="335"/>
+  <tag k="species" v="Xanthocyparis nootkatensis 'Pendula'"/>
+  <tag k="species:de" v="Hänge-Nootka-Scheinzypresse"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 300 m südlich von Schloss Wilhelmshöhe, nördlich vom Dorf Mulang, direkt südöstlich beim Schwanenkamp."/>
+  <tag k="wikimedia_commons" v="Category:Baum 335 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6510795122" visible="true" version="3" changeset="76555749" timestamp="2019-11-03T16:18:09Z" user="Jo Cassel" uid="2585690" lat="51.3116544" lon="9.4147841">
+  <tag k="description" v="Heimat: Der Südosten der USA. Die Echte Sumpfzypresse bevorzugt feuchte Böden und bildet Atemknie (Pneumatophoren) aus. Diese kleinen, holzigen Hügel in Stamnähe werden bis 40 cm hoch."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_334_2019-05-29.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="needleleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="334"/>
+  <tag k="species" v="Taxodium distichum"/>
+  <tag k="species:de" v="Echte Sumpfzypresse"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 300 m südlich von Schloss Wilhelmshöhe, nördlich vom Dorf Mulang, direkt südöstlich beim Schwanenkamp."/>
+  <tag k="wikimedia_commons" v="Category:Baum 334 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6511029389" visible="true" version="2" changeset="85152393" timestamp="2020-05-13T15:09:36Z" user="Jo Cassel" uid="2585690" lat="51.3115040" lon="9.4152712">
+  <tag k="description" v="Heimat: westliches Nordamerika. Die Herbstfärbung der 7 bis 9-lappigen Blätter ist goldgelb bis leuchtend karminrot. Gegenwärtig 2 Bäume am Standort."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_337b_2019-05-29.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="337b"/>
+  <tag k="species" v="Acer circinatum"/>
+  <tag k="species:de" v="Weinblatt-Ahorn"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 350 m südlich von Schloss Wilhelmshöhe, nördlich vom Dorf Mulang, südöstlich vom Schwanenkamp."/>
+  <tag k="wikimedia_commons" v="Category:Baum 337b (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6511029390" visible="true" version="3" changeset="89102411" timestamp="2020-08-07T16:53:04Z" user="Jo Cassel" uid="2585690" lat="51.3114484" lon="9.4153300">
+  <tag k="description" v="Heimat: Nordamerika. Die Blätter dieser Ahornart sind gefiedert, mit jeweils drei bis sieben Fiederblättern. Daher ähneln sie Blättern der Esche. Neugepflanzt 2018."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_337_2020-08-07_a.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="337"/>
+  <tag k="species" v="Acer negundo"/>
+  <tag k="species:de" v="Eschenahorn"/>
+  <tag k="start_date" v="2018"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 350 m südlich von Schloss Wilhelmshöhe, nördlich vom Dorf Mulang, südöstlich vom Schwanenkamp."/>
+  <tag k="wikimedia_commons" v="Category:Baum 337 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6512834688" visible="true" version="4" changeset="101589173" timestamp="2021-03-23T17:04:38Z" user="Jo Cassel" uid="2585690" lat="51.3121366" lon="9.4148017">
+  <tag k="description" v="Heimat: China. Der Strauch trägt ab Mai kleine weiße traubenartig angeordnete Blüten."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_346b_2021-03-23_b.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="shrub"/>
+  <tag k="note" v="Im März 2021 bis zur Wurzel beseitigt, weiterbestehen fraglich."/>
+  <tag k="ref" v="346b"/>
+  <tag k="species" v="Exochorda giraldii"/>
+  <tag k="species:de" v="Dahurische Radspiere"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 250 m südlich von Schloss Wilhelmshöhe, nördlich des Schwanenkamp."/>
+  <tag k="wikimedia_commons" v="Category:Baum 346b (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6512834698" visible="true" version="3" changeset="75605237" timestamp="2019-10-12T16:54:14Z" user="Jo Cassel" uid="2585690" lat="51.3114836" lon="9.4135469">
+  <tag k="denotation" v="landmark"/>
+  <tag k="description" v="Heimat: Österreich und Balkan. Die Rinde ist schwarzgrau mit tiefen Kerben. Die steifen, dunkelgrünen Nadeln stehen paarweise und werden 9 - 14 cm lang. Teil einer Baumgruppe Österreichischer Schwarzkiefern."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_346_2019-10-12_e.JPG"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="needleleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="346"/>
+  <tag k="species" v="Pinus nigra subsp. nigra"/>
+  <tag k="species:de" v="Österreichische Schwarzkiefer"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 400 m südwestlich von Schloss Wilhelmshöhe, im Tal südwestlich des Schwanenkamp."/>
+  <tag k="wikimedia_commons" v="Category:Baum 346 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6521705559" visible="true" version="2" changeset="86118398" timestamp="2020-06-03T07:29:02Z" user="Jo Cassel" uid="2585690" lat="51.3138008" lon="9.4138869">
+  <tag k="description" v="Heimat: Europa, Nordafrika und Westasien. Der Buchsbaum wächst sehr langsam als immergrüner Strauch oder selten kleiner Baum. 2 große Sträucher stehen beidseits eines Weges, 1 weiterer an der Kaskade."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_226_2020-06-02_a.JPG"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="shrub"/>
+  <tag k="ref" v="226"/>
+  <tag k="species" v="Buxus sempervirens"/>
+  <tag k="species:de" v="Gewöhnlicher Buchsbaum"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 150 m südwestlich von Schloss Wilhelmshöhe, im Tal der Flora, direkt westlich an der Jussow-Kaskade"/>
+  <tag k="wikimedia_commons" v="Category:Baum 226 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6537301679" visible="true" version="2" changeset="92780584" timestamp="2020-10-20T16:32:53Z" user="Jo Cassel" uid="2585690" lat="51.3139041" lon="9.4133639">
+  <tag k="description" v="Heimat: westliches Nordamerika. Die Nadeln stehen dicht und radial an den Zweigen und die Zapfen sind deutlich größer als bei anderen Arten der Hemlocktanne. Baum mit Zwillingsstamm."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_236_2020-10-20_a.JPG"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="needleleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="236"/>
+  <tag k="species" v="Tsuga mertensiana"/>
+  <tag k="species:de" v="Berg-Hemlocktanne"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 200 m südwestlich von Schloss Wilhelmshöhe, im Tal der Flora, südwestlich der Statue"/>
+  <tag k="wikimedia_commons" v="Category:Baum 236 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6537301680" visible="true" version="3" changeset="92724225" timestamp="2020-10-19T18:20:36Z" user="Jo Cassel" uid="2585690" lat="51.3139100" lon="9.4133252">
+  <tag k="description" v="Heimat: Japan. Die weißen Blüten des kleinen Baumes erscheinen von Juli bis August."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_235_2020-10-19_b.jpg"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="235"/>
+  <tag k="species" v="Stewartia pseudocamellia"/>
+  <tag k="species:de" v="Japanische Scheinkamelie"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 200 m südwestlich von Schloss Wilhelmshöhe, im Tal der Flora, südwestlich der Statue"/>
+  <tag k="wikimedia_commons" v="Category:Baum 235 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6537571757" visible="true" version="2" changeset="83830002" timestamp="2020-04-20T15:27:23Z" user="Jo Cassel" uid="2585690" lat="51.3144310" lon="9.4138166">
+  <tag k="description" v="Eine im 19. Jahrhundert entstanden Form der Rotbuche mit kupferfarbigen Laub."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_249_2019-06-10.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="249"/>
+  <tag k="species" v="Fagus sylvatica 'Cuprea'"/>
+  <tag k="species:de" v="Rotbuche 'Cuprea'"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 150 m westlich von Schloss Wilhelmshöhe, im Tal der Flora, nördlich der Statue"/>
+  <tag k="wikimedia_commons" v="Category:Baum 249 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6537582489" visible="true" version="1" changeset="71110547" timestamp="2019-06-10T16:52:40Z" user="Jo Cassel" uid="2585690" lat="51.3141343" lon="9.4128849">
+  <tag k="description" v="Ein sehr häufig kultivierter, fliederblauer Rhododendron."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_247_2019-06-10.JPG"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="shrub"/>
+  <tag k="ref" v="247"/>
+  <tag k="species" v="Rhododendron catawbiense 'Grandiflorum'"/>
+  <tag k="species:de" v="Catawba-Rhododendron 'Grandiflorum'"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 200 m südwestlich von Schloss Wilhelmshöhe, im Tal der Flora, südwestlich am Musikpavillon"/>
+ </node>
+ <node id="6537696853" visible="true" version="4" changeset="103422376" timestamp="2021-04-22T15:20:29Z" user="Jo Cassel" uid="2585690" lat="51.3142374" lon="9.4135028">
+  <tag k="description" v="Form der in Japan beheimateten Kobushi-Magnolie (siehe 168). 'Borealis' bildet große Magnolien-Pflanzen. Die Blütezeit dieses Baumes ist Mitte April."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_255_2021-04-22_a.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="255"/>
+  <tag k="species" v="Magnolia kobus var. borealis"/>
+  <tag k="species:de" v="Kobushi-Magnolie 'Borealis'"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 150 m südwestlich von Schloss Wilhelmshöhe, im Tal der Flora, südwestlich der Statue"/>
+  <tag k="wikimedia_commons" v="Category:Baum 255 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6539883069" visible="true" version="1" changeset="71145572" timestamp="2019-06-11T15:07:34Z" user="Jo Cassel" uid="2585690" lat="51.3144906" lon="9.4147924">
+  <tag k="description" v="Heimat: Nordwestafrika, Europa und Vorderasien, die einzige europäische Art der Eiben. Alle Pflanzenteile, auch der rote Samenmantel, sind giftig. In allen europäischen Ländern ist der Baum eine geschützte Art."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_258_2019-06-10.JPG"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="needleleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="258"/>
+  <tag k="species" v="Taxus baccata"/>
+  <tag k="species:de" v="Europäische Eibe"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 50 m westlich vor Schloss Wilhelmshöhe, südlich des Bowlinggreen, zwischen den Treppen"/>
+ </node>
+ <node id="6546819582" visible="true" version="2" changeset="87094171" timestamp="2020-06-24T15:40:37Z" user="Jo Cassel" uid="2585690" lat="51.3141440" lon="9.4147088">
+  <tag k="description" v="Heimat: Nordwestafrika, Europa und Vorderasien, die einzige europäische Art der Eiben. Alle Pflanzenteile, auch der rote Samenmantel, sind giftig. In allen europäischen Ländern ist der Baum eine geschützte Art."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_271_2019-06-13.JPG"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="needleleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="271"/>
+  <tag k="species" v="Taxus baccata"/>
+  <tag k="species:de" v="Europäische Eibe"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 50 m südwestlich vor Schloss Wilhelmshöhe, südlich der Treppen"/>
+  <tag k="wikimedia_commons" v="Category:Baum 271 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6546833096" visible="true" version="3" changeset="90110890" timestamp="2020-08-29T08:27:29Z" user="Jo Cassel" uid="2585690" lat="51.3139411" lon="9.4149266">
+  <tag k="description" v="Heimat: Japan. Die Japanische Lärche wird, wie die Europäische Lärche, forstwirtschaftlich genutzt. Das rötliche Holz der Japanischen Lärche ist harzärmer als das der europäischen Art. Neugepflanzt 2018."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_272_2020-08-27_a.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="needleleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="272"/>
+  <tag k="species" v="Larix kaempferi"/>
+  <tag k="species:de" v="Japanische Lärche"/>
+  <tag k="start_date" v="2018"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, direkt südwestlich vor dem Weißensteinflügel von Schloss Wilhelmshöhe"/>
+  <tag k="wikimedia_commons" v="Category:Baum 272 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6547433431" visible="true" version="3" changeset="89296119" timestamp="2020-08-12T10:01:09Z" user="Jo Cassel" uid="2585690" lat="51.3137633" lon="9.4148545">
+  <tag k="description" v="'Pendula'-Form der europäischen Esche, siehe 212, 267, 394, 409, 484. Alle heutigen Trauereschen stammen von nur einem einzigen Exemplar ab, das Anfang des 18. Jahrhunderts auf den britischen Inseln in Cambridgeshire gefunden wurde."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_274_2020-08-10_a.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="274"/>
+  <tag k="species" v="Fraxinus excelsior 'Pendula'"/>
+  <tag k="species:de" v="Traueresche"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 50 m südwestlich vor dem Weißensteinflügel von Schloss Wilhelmshöhe, östlich der Jussow-Kaskade"/>
+  <tag k="wikimedia_commons" v="Category:Baum 274 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6551354068" visible="true" version="2" changeset="72315775" timestamp="2019-07-16T17:21:31Z" user="Jo Cassel" uid="2585690" lat="51.3170766" lon="9.4118727">
+  <tag k="description" v="Eine Form des in Ostasien heimischen Chinesischen Wacholders mit goldgelben Schuppenblättern."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_105e_2019-07-15.JPG"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="needleleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="105e"/>
+  <tag k="species" v="Juniperus chinensis 'Aurea'"/>
+  <tag k="species:de" v="Chinesischer Wacholder 'Aurea'"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 400 m nordwestlich von Schloss Wilhelmshöhe, auf dem Apolloberg"/>
+ </node>
+ <node id="6551354077" visible="true" version="1" changeset="71305326" timestamp="2019-06-16T16:52:34Z" user="Jo Cassel" uid="2585690" lat="51.3171229" lon="9.4120085">
+  <tag k="description" v="Form der in Japan beheimateten Sawara-Scheinzypresse (siehe 94). 'Plumosa Aurea' hat eine gelbgrüne Färbung. Teil einer Gruppe Sawara-Scheinzypressen 'Plumosa Aurea'."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_105_2019-06-16.JPG"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="needleleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="105"/>
+  <tag k="species" v="Chamaecyparis pisifera 'Plumosa Aurea'"/>
+  <tag k="species:de" v="Sawara-Scheinzypresse 'Plumosa Aurea'"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 400 m nordwestlich von Schloss Wilhelmshöhe, auf dem Apolloberg"/>
+ </node>
+ <node id="6568072543" visible="true" version="1" changeset="71565511" timestamp="2019-06-24T15:14:04Z" user="Jo Cassel" uid="2585690" lat="51.3153056" lon="9.4117331">
+  <tag k="description" v="Heimat: Nordwestafrika, Europa und Vorderasien, die einzige europäische Art der Eiben. Alle Pflanzenteile, auch der rote Samenmantel, sind giftig. In allen europäischen Ländern ist der Baum eine geschützte Art. Teil einer Eibengruppe."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_137_2019-06-24.JPG"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="needleleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="137"/>
+  <tag k="species" v="Taxus baccata"/>
+  <tag k="species:de" v="Europäische Eibe"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 300 m westlich von Schloss Wilhelmshöhe, südlich des Jussow-Tempel, am Fontänenteich"/>
+ </node>
+ <node id="6610239312" visible="true" version="3" changeset="161645160" timestamp="2025-01-22T16:37:54Z" user="user_5589" uid="5589" lat="51.3176492" lon="9.4116312">
+  <tag k="denotation" v="landmark"/>
+  <tag k="description" v="Eine Kreuzung aus Tilia cordata (Winterlinde) und Tilia platyphyllos (Sommerlinde). Die Holländische Linde ist in Europa als Straßen- und Parkbaum weit verbreitet. In Kassel sind viele Straßenbäume aus Beuys &quot;7000 Eichen&quot; Holländische Linden."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_497_2019-07-12.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="497"/>
+  <tag k="species" v="Tilia × europaea"/>
+  <tag k="species:de" v="Holländische Linde"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 400 m nordwestlich von Schloss Wilhelmshöhe, südlich des Neuen Wasserfalls"/>
+  <tag k="wikimedia_commons" v="Category:Baum 497 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6624253551" visible="true" version="3" changeset="104124434" timestamp="2021-05-04T12:29:17Z" user="Jo Cassel" uid="2585690" lat="51.3161382" lon="9.4137120">
+  <tag k="description" v="Heimat: Ostasien. Der Strauch oder kleine Baum blüht von April bis Juli, die Früchte reifen von September bis Dezember. Der Blüten wegen wird die Art auch &quot;Japanischer Schneeglöckchenbaum&quot; genannt."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_114_2019-07-15.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="shrub"/>
+  <tag k="ref" v="114"/>
+  <tag k="species" v="Styrax japonicus"/>
+  <tag k="species:de" v="Japanischer Storaxbaum"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 200 m nordwestlich von Schloss Wilhelmshöhe, am Ostrand des Apolloberges, südwestlich des Großen Gewächshaus"/>
+  <tag k="wikimedia_commons" v="Category:Baum 114 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6631568952" visible="true" version="1" changeset="72433475" timestamp="2019-07-19T14:07:10Z" user="Jo Cassel" uid="2585690" lat="51.3174922" lon="9.4140966">
+  <tag k="description" v="Heimat: östliches Mittelmeergebiet und Balkanhalbinsel sowie Vorder- und Mittelasien."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_56_2019-07-19.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="56"/>
+  <tag k="species" v="Juglans regia"/>
+  <tag k="species:de" v="Echte Walnuss"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 300 m nordwestlich von Schloss Wilhelmshöhe, nördlich der Wilhelmshöher Allee, auf dem Gelände der Gärtnerei"/>
+ </node>
+ <node id="6631568953" visible="true" version="3" changeset="101201143" timestamp="2021-03-17T16:05:01Z" user="Jo Cassel" uid="2585690" lat="51.3174998" lon="9.4140211">
+  <tag k="description" v="Heimat: Südeuropa und Vorderasien. Die Kornelkirsche trägt essbare Früchte, sie reifen von August bis September."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_55_2021-03-17_a.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="shrub"/>
+  <tag k="ref" v="55"/>
+  <tag k="species" v="Cornus mas"/>
+  <tag k="species:de" v="Kornelkirsche"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 300 m nordwestlich von Schloss Wilhelmshöhe, nördlich der Wilhelmshöher Allee, auf dem Gelände der Gärtnerei"/>
+  <tag k="wikimedia_commons" v="Category:Baum 55 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6631568956" visible="true" version="1" changeset="72433475" timestamp="2019-07-19T14:07:10Z" user="Jo Cassel" uid="2585690" lat="51.3176077" lon="9.4141580">
+  <tag k="description" v="Heimat: Die Ostküstenregion Nordamerikas. Die Art, nach dem Entdeckungsgebiet, dem Nootka-Sund bei der Insel Vancouver benannt, wurde lange in der Gattung Chamaecyparis geführt."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_54_2019-07-19.JPG"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="needleleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="54"/>
+  <tag k="species" v="Xanthocyparis nootkatensis"/>
+  <tag k="species:de" v="Nootka-Scheinzypresse"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 300 m nordwestlich von Schloss Wilhelmshöhe, nördlich der Wilhelmshöher Allee, auf dem Gelände der Gärtnerei"/>
+ </node>
+ <node id="6631568957" visible="true" version="1" changeset="72433475" timestamp="2019-07-19T14:07:10Z" user="Jo Cassel" uid="2585690" lat="51.3175653" lon="9.4141762">
+  <tag k="description" v="Form der in Nordamerika beheimateten Lawsons Scheinzypresse, siehe 213b und 335a, mit bläulichen Nadeln."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_53_2019-07-19.JPG"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="needleleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="53"/>
+  <tag k="species" v="Chamaecyparis lawsoniana 'Glauca'"/>
+  <tag k="species:de" v="Blaue Lawsons Scheinzypresse"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 300 m nordwestlich von Schloss Wilhelmshöhe, nördlich der Wilhelmshöher Allee, auf dem Gelände der Gärtnerei"/>
+ </node>
+ <node id="6631568958" visible="true" version="1" changeset="72433475" timestamp="2019-07-19T14:07:10Z" user="Jo Cassel" uid="2585690" lat="51.3175077" lon="9.4141958">
+  <tag k="description" v="Form der in Nordamerika beheimateten Lawsons Scheinzypresse, siehe 213b und 335a, mit ganzjährig frischgrüner Farbe."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_52_2019-07-19.JPG"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="needleleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="52"/>
+  <tag k="species" v="Chamaecyparis lawsoniana 'Erecta Viridis'"/>
+  <tag k="species:de" v="Grüne Lawsons Scheinzypresse"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 300 m nordwestlich von Schloss Wilhelmshöhe, nördlich der Wilhelmshöher Allee, auf dem Gelände der Gärtnerei"/>
+ </node>
+ <node id="6631731496" visible="true" version="1" changeset="72436505" timestamp="2019-07-19T15:18:52Z" user="Jo Cassel" uid="2585690" lat="51.3174216" lon="9.4136585">
+  <tag k="description" v="Form der Kaukasus Fichte (siehe 104, 211, 264 u.a.) mit goldgelben Trieben."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_69_2019-07-19.JPG"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="needleleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="69"/>
+  <tag k="species" v="Picea orientalis 'Aurea'"/>
+  <tag k="species:de" v="Kaukasus-Fichte 'Aurea'"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 300 m nordwestlich von Schloss Wilhelmshöhe, nördlich der Wilhelmshöher Allee, auf dem Gelände der Gärtnerei"/>
+ </node>
+ <node id="6631731497" visible="true" version="2" changeset="86817890" timestamp="2020-06-18T09:57:10Z" user="Jo Cassel" uid="2585690" lat="51.3172958" lon="9.4135865">
+  <tag k="description" v="Heimat: Asien. Der auch &quot;Davids-Glanzmispel&quot;, nach einem französischen Missionar und Naturforscher, genannte Strauch gehört zu den immergrünen Glanzmispeln."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_66_2020-06-17_a.JPG"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="shrub"/>
+  <tag k="ref" v="66"/>
+  <tag k="species" v="Photinia davidiana"/>
+  <tag k="species:de" v="Glanzmispel"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 300 m nordwestlich von Schloss Wilhelmshöhe, nördlich der Wilhelmshöher Allee, auf dem Gelände der Gärtnerei"/>
+  <tag k="wikimedia_commons" v="Category:Baum 66 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6631731511" visible="true" version="3" changeset="103282157" timestamp="2021-04-20T15:55:01Z" user="Jo Cassel" uid="2585690" lat="51.3175497" lon="9.4138377">
+  <tag k="description" v="Heimat: Süditalien und Balkan. Dort wächst der Baum in einigen Bergregionen. Auffällig ist die aschgraue, in ungleichmäßig trapezförmige Platten zerteilte und mit kleinen, glänzenden Schuppen bedeckte Borke bei älteren Bäume."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_59_2021-04-20.JPG"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="needleleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="59"/>
+  <tag k="species" v="Pinus heldreichii"/>
+  <tag k="species:de" v="Schlangenhaut-Kiefer"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 300 m nordwestlich von Schloss Wilhelmshöhe, nördlich der Wilhelmshöher Allee, auf dem Gelände der Gärtnerei"/>
+  <tag k="wikimedia_commons" v="Category:Baum 59 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6641037143" visible="true" version="2" changeset="100368985" timestamp="2021-03-03T18:17:34Z" user="Jo Cassel" uid="2585690" lat="51.3175697" lon="9.4135441">
+  <tag k="description" v="Heimat: Japan und Korea. In Japan ist die langsamwachsende Baumart inzwischen unter Schutz gestellt. Gruppe aus gegenwärtig 3 Japanischen Nusseiben."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_68_2021-03-03_a.JPG"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="needleleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="68"/>
+  <tag k="species" v="Torreya nucifera"/>
+  <tag k="species:de" v="Japanische Nusseibe"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 300 m nordwestlich von Schloss Wilhelmshöhe, nördlich der Wilhelmshöher Allee, auf dem Gelände der Gärtnerei"/>
+  <tag k="wikimedia_commons" v="Category:Baum 68 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6802123332" visible="true" version="3" changeset="79578227" timestamp="2020-01-14T18:37:31Z" user="Jo Cassel" uid="2585690" lat="51.3116488" lon="9.4157683">
+  <tag k="denotation" v="landmark"/>
+  <tag k="description" v="Heimat: Balkan, erst im 16. Jahrhundert gelangte die Rosskastanie mit den Osmanen, die sie als Pferdefutter nutzten, nach Mitteleuropa."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_333_Nord_2019-09-17_b.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="note" v="Eine zweite Rosskastanie mit der Kennung 333 steht ca. 40 m weiter südöstlich."/>
+  <tag k="ref" v="333"/>
+  <tag k="species" v="Aesculus hippocastanum"/>
+  <tag k="species:de" v="Gewöhnliche Rosskastanie"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 350 m südlich von Schloss Wilhelmshöhe, ca. 70 m westlich der Pagode im Dorf Mulang"/>
+  <tag k="wikimedia_commons" v="Category:Baum 333 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6869614699" visible="true" version="3" changeset="119198899" timestamp="2022-04-01T11:43:15Z" user="Jo Cassel" uid="2585690" lat="51.3143151" lon="9.4124315">
+  <tag k="description" v="Heimat: Japan und Taiwan. Diese Scheinhaselart blüht von Mai bis Juli, die Früchte reifen von Juli bis September."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_196_2022-03-27_a.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="shrub"/>
+  <tag k="ref" v="196"/>
+  <tag k="species" v="Corylopsis pauciflora"/>
+  <tag k="species:de" v="Armblütige Scheinhasel"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 250 m westlich von Schloss Wilhelmshöhe, südöstlich des Fontänenteichs"/>
+  <tag k="wikimedia_commons" v="Category:Baum 196 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6869614701" visible="true" version="2" changeset="82761634" timestamp="2020-03-28T18:52:18Z" user="Jo Cassel" uid="2585690" lat="51.3143504" lon="9.4124259">
+  <tag k="description" v="Heimat: China. Die Blütezeit reicht in Mitteleuropa von Januar bis März, in der Heimat in China dagegen von April bis Mai."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_195_2020-03-02_a.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="shrub"/>
+  <tag k="ref" v="195"/>
+  <tag k="species" v="Hamamelis mollis"/>
+  <tag k="species:de" v="Chinesische Zaubernuss"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 250 m westlich von Schloss Wilhelmshöhe, südöstlich des Fontänenteichs"/>
+  <tag k="wikimedia_commons" v="Category:Baum 195 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6869614714" visible="true" version="2" changeset="82761634" timestamp="2020-03-28T18:52:18Z" user="Jo Cassel" uid="2585690" lat="51.3143953" lon="9.4124287">
+  <tag k="description" v="Heimat: Japan. Die leicht duftenden Blüten erscheinen von Januar bis März an den einjährigen Zweigen."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_195a_2020-03-02_a.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="shrub"/>
+  <tag k="ref" v="195a"/>
+  <tag k="species" v="Hamamelis japonica"/>
+  <tag k="species:de" v="Japanische Zaubernuss"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 250 m westlich von Schloss Wilhelmshöhe, südöstlich des Fontänenteichs"/>
+  <tag k="wikimedia_commons" v="Category:Baum 195a (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6869614719" visible="true" version="2" changeset="84480356" timestamp="2020-05-01T15:55:05Z" user="Jo Cassel" uid="2585690" lat="51.3155608" lon="9.4124270">
+  <tag k="description" v="Heimat: Nordosteuropa und Asien. Der Tatarische Hartriegel wird häufig als Zierstrauch verwendet, vorallem wegen der rotfarbigen Zweige (des Neuaustriebs) im Winter."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_141_2019-10-11.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="shrub"/>
+  <tag k="ref" v="141"/>
+  <tag k="species" v="Cornus alba"/>
+  <tag k="species:de" v="Tatarischer Hartriegel"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 250 m westlich von Schloss Wilhelmshöhe, westlich des Bowlinggreen, am Nordrand des Fontänenteichs"/>
+  <tag k="wikimedia_commons" v="Category:Baum 141 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6906566955" visible="true" version="2" changeset="89643074" timestamp="2020-08-19T15:35:09Z" user="Jo Cassel" uid="2585690" lat="51.3146586" lon="9.4144076">
+  <tag k="description" v="Unterart der in Asien beheimateten Rauen Hortensie. Auch Fellhortensie genannt, wegen ihrer behaarten Blätter. Die Hydrangea aspera ssp. sargentiana blüht von Juli bis August."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_181a_2020-08-19_a.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="shrub"/>
+  <tag k="ref" v="181a"/>
+  <tag k="species" v="Hydrangea aspera ssp. sargentiana"/>
+  <tag k="species:de" v="Samthortensie"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 100 m westlich vor Schloss Wilhelmshöhe, südlich des Bowlinggreen"/>
+  <tag k="wikimedia_commons" v="Category:Baum 181a (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6906566957" visible="true" version="1" changeset="76061780" timestamp="2019-10-22T17:22:46Z" user="Jo Cassel" uid="2585690" lat="51.3146542" lon="9.4145413">
+  <tag k="description" v="Form der in Asien beheimateten Rauen Hortensie, auch Fellhortensie oder Samthortensie. Auch als Hydrangea aspera var. macrophylla eingeordnet, Blütezeit: Juli - August"/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_181e_2019-10-22.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="shrub"/>
+  <tag k="ref" v="181e"/>
+  <tag k="species" v="Hydrangea aspera ssp. strigosa"/>
+  <tag k="species:de" v="Großblättrige Hortensie"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 100 m westlich vor Schloss Wilhelmshöhe, südlich des Bowlinggreen"/>
+ </node>
+ <node id="6973976040" visible="true" version="2" changeset="87828947" timestamp="2020-07-10T17:55:25Z" user="Jo Cassel" uid="2585690" lat="51.3161324" lon="9.4136677">
+  <tag k="description" v="Heimat: Asien. Der Strauch kann 2 bis 5 Meter hoch werden, mitunter auch noch größer. Er blüht von Juni bis Juli, die Früchte reifen von September bis Oktober."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_113_2020-07-09_a.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="shrub"/>
+  <tag k="ref" v="113"/>
+  <tag k="species" v="Hydrangea heteromalla"/>
+  <tag k="species:de" v="Chinesische Hortensie"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 200 m nordwestlich von Schloss Wilhelmshöhe, am Ostrand des Apolloberges, südwestlich des Großen Gewächshaus"/>
+  <tag k="wikimedia_commons" v="Category:Baum 113 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6973976043" visible="true" version="2" changeset="83860054" timestamp="2020-04-21T07:01:56Z" user="Jo Cassel" uid="2585690" lat="51.3160618" lon="9.4137534">
+  <tag k="description" v="Heimat: Ostasien. Die Blüten von März bis April sind scharlachrot. Die Früchte sind gelb und essbar."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_114b_2020-04-20.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="shrub"/>
+  <tag k="ref" v="114b"/>
+  <tag k="species" v="Chaenomeles speciosa"/>
+  <tag k="species:de" v="Chinesische Zierquitte"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 200 m nordwestlich von Schloss Wilhelmshöhe, am Ostrand des Apolloberges, südwestlich des Großen Gewächshaus"/>
+  <tag k="wikimedia_commons" v="Category:Baum 114b (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6982190323" visible="true" version="2" changeset="84945928" timestamp="2020-05-09T17:21:53Z" user="Jo Cassel" uid="2585690" lat="51.3170777" lon="9.4140935">
+  <tag k="description" v="Heimat: Südeuropa und Asien. Namensgebend sind die herbstlichen, perückenartigen Fruchtstände."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_85_2020-05-09_a.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="shrub"/>
+  <tag k="ref" v="85"/>
+  <tag k="species" v="Cotinus coggygria"/>
+  <tag k="species:de" v="Perückenstrauch"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 250 m nordwestlich von Schloss Wilhelmshöhe, nördlich der Wilhelmshöher Allee, südlich des Kavalierhauses"/>
+  <tag k="wikimedia_commons" v="Category:Baum 85 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6990554969" visible="true" version="2" changeset="105772107" timestamp="2021-06-03T10:42:13Z" user="Jo Cassel" uid="2585690" lat="51.3176684" lon="9.4134827">
+  <tag k="description" v="Heimat: Europa. Die lilapurpurnen Blüten, in Mai bis Juni, wachsen in 10 bis 18 Zentimeter langen, schmal kegelförmigen, fein behaarten und meist aufrecht stehenden Rispen."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_57_2019-11-19.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="shrub"/>
+  <tag k="ref" v="57"/>
+  <tag k="species" v="Syringa josikaea"/>
+  <tag k="species:de" v="Ungarischer Flieder"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 300 m nordwestlich von Schloss Wilhelmshöhe, nördlich der Wilhelmshöher Allee, auf dem Gelände der Gärtnerei"/>
+  <tag k="wikimedia_commons" v="Category:Baum 57 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6993183083" visible="true" version="1" changeset="77338055" timestamp="2019-11-20T17:17:44Z" user="Jo Cassel" uid="2585690" lat="51.3173048" lon="9.4137533">
+  <tag k="description" v="Heimat: China. Die immergrünen Blätter sind runzelig und netzartig, die Blattoberseite ist intensiv grün, die Unterseite heller. Der doldenähnliche Blütenstand enthält viele helle Blüten, aus denen sich zunächst rote, später schwarze Früchte entwickeln."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_65_2019-11-20.JPG"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="shrub"/>
+  <tag k="ref" v="65"/>
+  <tag k="species" v="Viburnum rhytidophyllum"/>
+  <tag k="species:de" v="Runzelblättriger Schneeball"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 300 m nordwestlich von Schloss Wilhelmshöhe, nördlich der Wilhelmshöher Allee, auf dem Gelände der Gärtnerei"/>
+ </node>
+ <node id="6993191187" visible="true" version="3" changeset="122338151" timestamp="2022-06-13T18:40:00Z" user="pittrichimica" uid="497524" lat="51.3176032" lon="9.4136896">
+  <tag k="description" v="Heimat: Asien. Die weißen Rispenblüten erscheinen im Juni."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_63_2019-11-20.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="shrub"/>
+  <tag k="ref" v="63"/>
+  <tag k="species" v="Pterostyrax hispidus"/>
+  <tag k="species:de" v="Borstiger Flügelstorax"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 300 m nordwestlich von Schloss Wilhelmshöhe, nördlich der Wilhelmshöher Allee, auf dem Gelände der Gärtnerei"/>
+  <tag k="wikimedia_commons" v="Category:Baum 63 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="6993191188" visible="true" version="4" changeset="104524347" timestamp="2021-05-11T16:24:09Z" user="Jo Cassel" uid="2585690" lat="51.3174889" lon="9.4137958">
+  <tag k="description" v="Heimat: Japan. Die sternförmigen, weißen Blüten zeigen sich im März und April."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_62_2021-05-10_a.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="shrub"/>
+  <tag k="ref" v="62"/>
+  <tag k="species" v="Magnolia stellata"/>
+  <tag k="species:de" v="Stern-Magnolie"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 300 m nordwestlich von Schloss Wilhelmshöhe, nördlich der Wilhelmshöher Allee, auf dem Gelände der Gärtnerei"/>
+  <tag k="wikimedia_commons" v="Category:Baum 62 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="7131572758" visible="true" version="3" changeset="106483372" timestamp="2021-06-16T17:50:44Z" user="Jo Cassel" uid="2585690" lat="51.3174896" lon="9.4134979">
+  <tag k="description" v="Heimat: Ostasien. Eine Verwandte der Chinesischen Stachelbeere (Actinidia deliciosa), die einen Großteil der weltweiten Kiwifrüchte liefert."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_58_2021-06-15_a.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="shrub"/>
+  <tag k="ref" v="58"/>
+  <tag k="species" v="Actinidia kolomikta"/>
+  <tag k="species:de" v="Kolomikta-Strahlengriffel"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 300 m nordwestlich von Schloss Wilhelmshöhe, nördlich der Wilhelmshöher Allee, auf dem Gelände der Gärtnerei"/>
+  <tag k="wikimedia_commons" v="Category:Baum 58 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="7340083891" visible="true" version="2" changeset="82750357" timestamp="2020-03-28T11:13:04Z" user="Jo Cassel" uid="2585690" lat="51.3115192" lon="9.4157985">
+  <tag k="description" v="Heimat: nördlicher Iran und Kaukasus. Die auch Persischer Eisenholzbaum genannte Art ist ein kleiner Baum mit abblätternder Schuppenborke."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_333a_2020-03-27_d.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="333a"/>
+  <tag k="species" v="Parrotia persica"/>
+  <tag k="species:de" v="Parrotie"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 350 m südlich von Schloss Wilhelmshöhe, ca. 70 m westlich der Pagode im Dorf Mulang"/>
+  <tag k="wikimedia_commons" v="Category:Baum 333a (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="7550834447" visible="true" version="1" changeset="85644550" timestamp="2020-05-23T09:03:10Z" user="Jo Cassel" uid="2585690" lat="51.3156402" lon="9.4151682">
+  <tag k="description" v="Kreuzung aus Syringa afghanica und Syringa laciniata mit schmalen, lanzettigen Blättern. In der Gehölzguppe finden sich mehrere Sträucher, dazwischen, im Norden, auch Gemeiener Flieder (Syringa vulgaris)."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_169a_2020-05-22_a.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="shrub"/>
+  <tag k="ref" v="169a"/>
+  <tag k="species" v="Syringa × persica"/>
+  <tag k="species:de" v="Persischer Flieder"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, nordwestlich vor Schloss Wilhelmshöhe, auf dem Bowlinggreen"/>
+  <tag k="wikimedia_commons" v="Category:Baum 169a (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="7629902966" visible="true" version="1" changeset="86784562" timestamp="2020-06-17T16:53:56Z" user="Jo Cassel" uid="2585690" lat="51.3131526" lon="9.4135555">
+  <tag k="description" v="Heimat: Ostasien. Der im Sommer mit seinen grünen Blättern unauffällige Strauch bekommt eine spektakulären karminroten Herbstfärbung, daher in Amerika auch „Burning Bush“ genannt. Alle Pflanzenteile sind giftig. Reihe aus gegenwärtig 4 Sträuchern."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_211a_2020-06-17_a.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="shrub"/>
+  <tag k="ref" v="211a"/>
+  <tag k="species" v="Euonymus alatus"/>
+  <tag k="species:de" v="Flügel-Spindelstrauch"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 250 m südwestlich von Schloss Wilhelmshöhe"/>
+  <tag k="wikimedia_commons" v="Category:Baum 211a (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="7631928542" visible="true" version="1" changeset="86817890" timestamp="2020-06-18T09:57:10Z" user="Jo Cassel" uid="2585690" lat="51.3173693" lon="9.4139062">
+  <tag k="description" v="Form der Europäischen Eibe (siehe 11, 227, 286, 346a u.a.). Die Nadeln sind nur etwa 1 cm lang."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_64_2020-06-17_a.JPG"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="needleleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="64"/>
+  <tag k="species" v="Taxus baccata 'Adpressa'"/>
+  <tag k="species:de" v="Kurznadelige Eibe"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 300 m nordwestlich von Schloss Wilhelmshöhe, nördlich der Wilhelmshöher Allee, auf dem Gelände der Gärtnerei"/>
+  <tag k="wikimedia_commons" v="Category:Baum 64 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="8032912770" visible="true" version="2" changeset="92846246" timestamp="2020-10-21T17:09:49Z" user="Jo Cassel" uid="2585690" lat="51.3143957" lon="9.4119631">
+  <tag k="description" v="Heimat: südlichen Mittel- und Osteuropa. Auffällig sind die namensgebenden gelben Blüten von Mai bis Juni. Alle Pflanzenteile des Goldregens sind giftig."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_377_2020-10-21_b.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="shrub"/>
+  <tag k="ref" v="377"/>
+  <tag k="species" v="Laburnum anagyroides"/>
+  <tag k="species:de" v="Gemeiner Goldregen"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 300 m westlich von Schloss Wilhelmshöhe, an der Brücke südlich des Fontänenteich"/>
+  <tag k="wikimedia_commons" v="Category:Baum 377 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="8078517759" visible="true" version="4" changeset="105045435" timestamp="2021-05-20T18:25:11Z" user="Jo Cassel" uid="2585690" lat="51.3177116" lon="9.4133048">
+  <tag k="description" v="Heimat: Ostasien. Die auch &quot;Japanischer Wildapfel&quot; genannte Art wächst strauchartig klein. Die Äste sind bogenförmig überhängend oder waagerecht abstehend, die Zweige oft dornig."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_72_2021-05-20_a.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="72"/>
+  <tag k="species" v="Malus sargentii"/>
+  <tag k="species:de" v="Sargents Apfel"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 300 m nordwestlich von Schloss Wilhelmshöhe, nördlich der Wilhelmshöher Allee, auf dem Gelände der Gärtnerei"/>
+  <tag k="wikimedia_commons" v="Category:Baum 72 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="8142961245" visible="true" version="1" changeset="94445657" timestamp="2020-11-19T15:21:29Z" user="Jo Cassel" uid="2585690" lat="51.3176076" lon="9.4137664">
+  <tag k="description" v="Der auch &quot;Nelkenpfeffer&quot; genannte Strauch verströmt charakteristische Gerüche aus Holz, Rinde und insbesondere seinen Blüten. Die Blütezeit reicht von Juni bis Juli."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_74_2020-11-19_a.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="shrub"/>
+  <tag k="ref" v="74"/>
+  <tag k="species" v="Calycanthus floridus"/>
+  <tag k="species:de" v="Echter Gewürzstrauch"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 300 m nordwestlich von Schloss Wilhelmshöhe, nördlich der Wilhelmshöher Allee, auf dem Gelände der Gärtnerei"/>
+  <tag k="wikimedia_commons" v="Category:Baum 74 (Bergpark Wilhelmshöhe)"/>
+ </node>
+ <node id="8155095835" visible="true" version="3" changeset="94715104" timestamp="2020-11-24T15:22:52Z" user="Jo Cassel" uid="2585690" lat="51.3174588" lon="9.4135525">
+  <tag k="description" v="Heimat: Japan, Korea und China. Auffällig ist die intensive Herbstfärbung. In Japan ist er der wichtigste Baum der traditionellen Gartengestaltung und kündigt den Herbst an."/>
+  <tag k="image" v="https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmshöhe_-_Baum_70_2020-11-24_a.JPG"/>
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+  <tag k="ref" v="70"/>
+  <tag k="species" v="Acer palmatum"/>
+  <tag k="species:de" v="Fächerahorn"/>
+  <tag k="tree_location:city" v="Kassel"/>
+  <tag k="tree_location:full" v="Bergpark Wilhelmshöhe, ca. 300 m nordwestlich von Schloss Wilhelmshöhe, nördlich der Wilhelmshöher Allee, auf dem Gelände der Gärtnerei"/>
+  <tag k="wikimedia_commons" v="Category:Baum 70 (Bergpark Wilhelmshöhe)"/>
+ </node>
+</osm>

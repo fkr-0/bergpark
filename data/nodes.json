@@ -1,0 +1,774 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-27T05:25:09.529685+00:00",
+  "bbox": {
+    "south": 51.307,
+    "west": 9.385,
+    "north": 51.323,
+    "east": 9.425
+  },
+  "nodes": [
+    {
+      "id": "herkules",
+      "kind": "place",
+      "name": {
+        "de": "Herkules / Oktogon",
+        "en": "Hercules Monument / Octagon"
+      },
+      "aliases": [],
+      "type": "monument",
+      "lat": 51.3161018,
+      "lng": 9.3932069,
+      "elevation_m": null,
+      "coordinate_confidence": "medium",
+      "coordinate_method": "osm_bounds_midpoint",
+      "coordinate_source": {
+        "provider": "OpenStreetMap",
+        "element": "relation/164756",
+        "license": "ODbL-1.0"
+      },
+      "osm_tags": {
+        "historic": "monument",
+        "tourism": "attraction",
+        "building": "yes",
+        "wikidata": "Q321252",
+        "wikipedia": "de:Herkules (Kassel)",
+        "start_date": "1717"
+      }
+    },
+    {
+      "id": "kaskaden",
+      "kind": "place",
+      "name": {
+        "de": "Große Kaskaden",
+        "en": "Great Cascades"
+      },
+      "aliases": [
+        "Kaskaden"
+      ],
+      "type": "waterfeature",
+      "lat": 51.3159319,
+      "lng": 9.3963653,
+      "elevation_m": null,
+      "coordinate_confidence": "high",
+      "coordinate_method": "osm_node",
+      "coordinate_source": {
+        "provider": "OpenStreetMap",
+        "element": "node/3923243905",
+        "license": "ODbL-1.0"
+      },
+      "osm_tags": {
+        "historic": "yes",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "id": "neptunbecken",
+      "kind": "place",
+      "name": {
+        "de": "Neptunbecken",
+        "en": "Neptune Basin"
+      },
+      "aliases": [],
+      "type": "waterfeature",
+      "lat": 51.3149902,
+      "lng": 9.3984822,
+      "elevation_m": null,
+      "coordinate_confidence": "high",
+      "coordinate_method": "osm_node",
+      "coordinate_source": {
+        "provider": "OpenStreetMap",
+        "element": "node/2912938750",
+        "license": "ODbL-1.0"
+      },
+      "osm_tags": {}
+    },
+    {
+      "id": "felseneck",
+      "kind": "place",
+      "name": {
+        "de": "Felseneck",
+        "en": "Felseneck"
+      },
+      "aliases": [],
+      "type": "viewpoint",
+      "lat": 51.3164498,
+      "lng": 9.4004228,
+      "elevation_m": null,
+      "coordinate_confidence": "high",
+      "coordinate_method": "osm_bounds_midpoint",
+      "coordinate_source": {
+        "provider": "OpenStreetMap",
+        "element": "way/389165294",
+        "license": "ODbL-1.0"
+      },
+      "osm_tags": {
+        "historic": "yes",
+        "building": "yes",
+        "start_date": "1794"
+      }
+    },
+    {
+      "id": "steinhofer-wasserfall",
+      "kind": "place",
+      "name": {
+        "de": "Steinhöfer Wasserfall",
+        "en": "Steinhöfer Waterfall"
+      },
+      "aliases": [],
+      "type": "waterfeature",
+      "lat": 51.3120155,
+      "lng": 9.4021889,
+      "elevation_m": null,
+      "coordinate_confidence": "high",
+      "coordinate_method": "osm_bounds_midpoint",
+      "coordinate_source": {
+        "provider": "OpenStreetMap",
+        "element": "way/600205054",
+        "license": "ODbL-1.0"
+      },
+      "osm_tags": {
+        "historic": "yes",
+        "natural": "bare_rock",
+        "start_date": "1792..1793"
+      }
+    },
+    {
+      "id": "teufelsbruecke",
+      "kind": "place",
+      "name": {
+        "de": "Teufelsbrücke",
+        "en": "Devil's Bridge"
+      },
+      "aliases": [],
+      "type": "bridge",
+      "lat": 51.314992,
+      "lng": 9.4056033,
+      "elevation_m": null,
+      "coordinate_confidence": "high",
+      "coordinate_method": "osm_bounds_midpoint",
+      "coordinate_source": {
+        "provider": "OpenStreetMap",
+        "element": "way/541136210",
+        "license": "ODbL-1.0"
+      },
+      "osm_tags": {
+        "historic": "yes",
+        "man_made": "bridge",
+        "start_date": "1826"
+      }
+    },
+    {
+      "id": "aquaedukt",
+      "kind": "place",
+      "name": {
+        "de": "Aquädukt",
+        "en": "Aqueduct"
+      },
+      "aliases": [],
+      "type": "waterfeature",
+      "lat": 51.3165378,
+      "lng": 9.408494,
+      "elevation_m": null,
+      "coordinate_confidence": "high",
+      "coordinate_method": "osm_bounds_midpoint",
+      "coordinate_source": {
+        "provider": "OpenStreetMap",
+        "element": "way/499181982",
+        "license": "ODbL-1.0"
+      },
+      "osm_tags": {
+        "historic": "aqueduct",
+        "man_made": "bridge",
+        "start_date": "1788..1792"
+      }
+    },
+    {
+      "id": "plutogrotte",
+      "kind": "place",
+      "name": {
+        "de": "Plutogrotte",
+        "en": "Pluto Grotto"
+      },
+      "aliases": [],
+      "type": "grotto",
+      "lat": 51.3154849,
+      "lng": 9.4053249,
+      "elevation_m": null,
+      "coordinate_confidence": "high",
+      "coordinate_method": "osm_bounds_midpoint",
+      "coordinate_source": {
+        "provider": "OpenStreetMap",
+        "element": "way/389164993",
+        "license": "ODbL-1.0"
+      },
+      "osm_tags": {
+        "historic": "yes",
+        "building": "yes"
+      }
+    },
+    {
+      "id": "eremitage",
+      "kind": "place",
+      "name": {
+        "de": "Eremitage des Sokrates",
+        "en": "Hermitage of Socrates"
+      },
+      "aliases": [],
+      "type": "grotto",
+      "lat": 51.3138876,
+      "lng": 9.4068715,
+      "elevation_m": null,
+      "coordinate_confidence": "high",
+      "coordinate_method": "osm_bounds_midpoint",
+      "coordinate_source": {
+        "provider": "OpenStreetMap",
+        "element": "way/541728530",
+        "license": "ODbL-1.0"
+      },
+      "osm_tags": {
+        "historic": "yes",
+        "building": "yes"
+      }
+    },
+    {
+      "id": "cestius-pyramide",
+      "kind": "place",
+      "name": {
+        "de": "Cestiuspyramide",
+        "en": "Pyramid of Cestius"
+      },
+      "aliases": [
+        "Cestius-Pyramide"
+      ],
+      "type": "monument",
+      "lat": 51.3147682,
+      "lng": 9.4091681,
+      "elevation_m": null,
+      "coordinate_confidence": "high",
+      "coordinate_method": "osm_bounds_midpoint",
+      "coordinate_source": {
+        "provider": "OpenStreetMap",
+        "element": "way/541144378",
+        "license": "ODbL-1.0"
+      },
+      "osm_tags": {
+        "historic": "yes",
+        "building": "yes",
+        "start_date": "~1775"
+      }
+    },
+    {
+      "id": "vergils-grab",
+      "kind": "place",
+      "name": {
+        "de": "Grabmal des Vergil",
+        "en": "Tomb of Virgil"
+      },
+      "aliases": [
+        "Vergils Grab"
+      ],
+      "type": "monument",
+      "lat": 51.3157434,
+      "lng": 9.4092645,
+      "elevation_m": null,
+      "coordinate_confidence": "high",
+      "coordinate_method": "osm_bounds_midpoint",
+      "coordinate_source": {
+        "provider": "OpenStreetMap",
+        "element": "way/541585797",
+        "license": "ODbL-1.0"
+      },
+      "osm_tags": {
+        "historic": "yes",
+        "building": "yes",
+        "wikidata": "Q1540903",
+        "wikipedia": "de:Grabmal des Vergil (Kassel)",
+        "start_date": "~1775"
+      }
+    },
+    {
+      "id": "jussow-tempel",
+      "kind": "place",
+      "name": {
+        "de": "Jussow-Tempel",
+        "en": "Jussow Temple"
+      },
+      "aliases": [
+        "Apollotempel"
+      ],
+      "type": "temple",
+      "lat": 51.3155627,
+      "lng": 9.4117537,
+      "elevation_m": null,
+      "coordinate_confidence": "high",
+      "coordinate_method": "osm_bounds_midpoint",
+      "coordinate_source": {
+        "provider": "OpenStreetMap",
+        "element": "way/321469909",
+        "license": "ODbL-1.0"
+      },
+      "osm_tags": {
+        "historic": "yes",
+        "building": "yes",
+        "start_date": "1817..1818"
+      }
+    },
+    {
+      "id": "peneuskaskaden",
+      "kind": "place",
+      "name": {
+        "de": "Peneuskaskaden",
+        "en": "Peneus Cascades"
+      },
+      "aliases": [],
+      "type": "waterfeature",
+      "lat": 51.3160524,
+      "lng": 9.4109611,
+      "elevation_m": null,
+      "coordinate_confidence": "high",
+      "coordinate_method": "osm_node",
+      "coordinate_source": {
+        "provider": "OpenStreetMap",
+        "element": "node/3163220629",
+        "license": "ODbL-1.0"
+      },
+      "osm_tags": {
+        "historic": "yes",
+        "tourism": "attraction",
+        "start_date": "~ 1786"
+      }
+    },
+    {
+      "id": "fontaenenteich",
+      "kind": "place",
+      "name": {
+        "de": "Fontänenteich",
+        "en": "Fountain Pond"
+      },
+      "aliases": [],
+      "type": "lake",
+      "lat": 51.3150361,
+      "lng": 9.4118667,
+      "elevation_m": null,
+      "coordinate_confidence": "medium",
+      "coordinate_method": "osm_bounds_midpoint",
+      "coordinate_source": {
+        "provider": "OpenStreetMap",
+        "element": "relation/7321251",
+        "license": "ODbL-1.0"
+      },
+      "osm_tags": {
+        "natural": "water",
+        "water": "pond"
+      }
+    },
+    {
+      "id": "grosse-fontaene",
+      "kind": "place",
+      "name": {
+        "de": "Große Fontäne",
+        "en": "Great Fountain"
+      },
+      "aliases": [],
+      "type": "waterfeature",
+      "lat": 51.3151826,
+      "lng": 9.4117938,
+      "elevation_m": null,
+      "coordinate_confidence": "high",
+      "coordinate_method": "osm_node",
+      "coordinate_source": {
+        "provider": "OpenStreetMap",
+        "element": "node/373197742",
+        "license": "ODbL-1.0"
+      },
+      "osm_tags": {
+        "historic": "yes"
+      }
+    },
+    {
+      "id": "schloss",
+      "kind": "place",
+      "name": {
+        "de": "Schloss Wilhelmshöhe",
+        "en": "Wilhelmshöhe Palace"
+      },
+      "aliases": [],
+      "type": "palace",
+      "lat": 51.3149835,
+      "lng": 9.4159308,
+      "elevation_m": null,
+      "coordinate_confidence": "high",
+      "coordinate_method": "osm_bounds_midpoint",
+      "coordinate_source": {
+        "provider": "OpenStreetMap",
+        "element": "way/183224852",
+        "license": "ODbL-1.0"
+      },
+      "osm_tags": {
+        "historic": "castle",
+        "tourism": "attraction",
+        "building": "yes",
+        "wikidata": "Q687186",
+        "wikipedia": "de:Schloss Wilhelmshöhe"
+      }
+    },
+    {
+      "id": "ballhaus",
+      "kind": "place",
+      "name": {
+        "de": "Ballhaus",
+        "en": "Ballroom"
+      },
+      "aliases": [],
+      "type": "building",
+      "lat": 51.316301,
+      "lng": 9.4159162,
+      "elevation_m": null,
+      "coordinate_confidence": "high",
+      "coordinate_method": "osm_bounds_midpoint",
+      "coordinate_source": {
+        "provider": "OpenStreetMap",
+        "element": "way/33077249",
+        "license": "ODbL-1.0"
+      },
+      "osm_tags": {
+        "historic": "yes",
+        "building": "yes",
+        "wikidata": "Q805247",
+        "wikipedia": "de:Ballhaus (Kassel)",
+        "start_date": "1809..1810"
+      }
+    },
+    {
+      "id": "gewaechshaus",
+      "kind": "place",
+      "name": {
+        "de": "Großes Gewächshaus",
+        "en": "Great Greenhouse"
+      },
+      "aliases": [
+        "Gewächshaus"
+      ],
+      "type": "building",
+      "lat": 51.3167636,
+      "lng": 9.4146284,
+      "elevation_m": null,
+      "coordinate_confidence": "high",
+      "coordinate_method": "osm_bounds_midpoint",
+      "coordinate_source": {
+        "provider": "OpenStreetMap",
+        "element": "way/31735163",
+        "license": "ODbL-1.0"
+      },
+      "osm_tags": {
+        "historic": "yes",
+        "tourism": "attraction",
+        "building": "greenhouse",
+        "wikidata": "Q1527906",
+        "wikipedia": "de:Großes Gewächshaus (Kassel)"
+      }
+    },
+    {
+      "id": "lac",
+      "kind": "place",
+      "name": {
+        "de": "Lac",
+        "en": "Lac"
+      },
+      "aliases": [],
+      "type": "lake",
+      "lat": 51.3136164,
+      "lng": 9.4194115,
+      "elevation_m": null,
+      "coordinate_confidence": "medium",
+      "coordinate_method": "osm_bounds_midpoint",
+      "coordinate_source": {
+        "provider": "OpenStreetMap",
+        "element": "relation/7723238",
+        "license": "ODbL-1.0"
+      },
+      "osm_tags": {
+        "natural": "water",
+        "water": "pond"
+      }
+    },
+    {
+      "id": "loewenburg",
+      "kind": "place",
+      "name": {
+        "de": "Löwenburg",
+        "en": "Löwenburg Castle"
+      },
+      "aliases": [],
+      "type": "castle",
+      "lat": 51.3114009,
+      "lng": 9.4087631,
+      "elevation_m": null,
+      "coordinate_confidence": "medium",
+      "coordinate_method": "osm_bounds_midpoint",
+      "coordinate_source": {
+        "provider": "OpenStreetMap",
+        "element": "relation/6241813",
+        "license": "ODbL-1.0"
+      },
+      "osm_tags": {
+        "historic": "castle",
+        "tourism": "attraction",
+        "wikidata": "Q1651504",
+        "wikipedia": "de:Löwenburg (Kassel)"
+      }
+    },
+    {
+      "id": "mulang",
+      "kind": "place",
+      "name": {
+        "de": "Dorf Mulang",
+        "en": "Mulang Village"
+      },
+      "aliases": [
+        "Parkdorf Mulang"
+      ],
+      "type": "village",
+      "lat": 51.3113991,
+      "lng": 9.416661,
+      "elevation_m": null,
+      "coordinate_confidence": "high",
+      "coordinate_method": "osm_node",
+      "coordinate_source": {
+        "provider": "OpenStreetMap",
+        "element": "node/3923256516",
+        "license": "ODbL-1.0"
+      },
+      "osm_tags": {}
+    },
+    {
+      "id": "entenfang",
+      "kind": "place",
+      "name": {
+        "de": "Entenfang",
+        "en": "Duck Pond"
+      },
+      "aliases": [
+        "Entenpfuhl (seed label)"
+      ],
+      "type": "pond",
+      "lat": 51.3126123,
+      "lng": 9.4048997,
+      "elevation_m": null,
+      "coordinate_confidence": "high",
+      "coordinate_method": "osm_bounds_midpoint",
+      "coordinate_source": {
+        "provider": "OpenStreetMap",
+        "element": "way/83586933",
+        "license": "ODbL-1.0"
+      },
+      "osm_tags": {
+        "historic": "yes",
+        "natural": "water",
+        "water": "pond"
+      }
+    },
+    {
+      "id": "neuer-wasserfall",
+      "kind": "place",
+      "name": {
+        "de": "Neuer Wasserfall",
+        "en": "New Waterfall"
+      },
+      "aliases": [],
+      "type": "waterfeature",
+      "lat": 51.318334,
+      "lng": 9.4097345,
+      "elevation_m": null,
+      "coordinate_confidence": "high",
+      "coordinate_method": "osm_bounds_midpoint",
+      "coordinate_source": {
+        "provider": "OpenStreetMap",
+        "element": "way/547719842",
+        "license": "ODbL-1.0"
+      },
+      "osm_tags": {
+        "historic": "yes",
+        "natural": "bare_rock",
+        "start_date": "after 1822"
+      }
+    },
+    {
+      "id": "halle-des-sokrates",
+      "kind": "place",
+      "name": {
+        "de": "Halle des Sokrates",
+        "en": "Hall of Socrates"
+      },
+      "aliases": [],
+      "type": "temple",
+      "lat": 51.315472,
+      "lng": 9.4138016,
+      "elevation_m": null,
+      "coordinate_confidence": "high",
+      "coordinate_method": "osm_bounds_midpoint",
+      "coordinate_source": {
+        "provider": "OpenStreetMap",
+        "element": "way/321469908",
+        "license": "ODbL-1.0"
+      },
+      "osm_tags": {
+        "historic": "building",
+        "building": "yes",
+        "start_date": "1816"
+      }
+    },
+    {
+      "id": "merkurtempel",
+      "kind": "place",
+      "name": {
+        "de": "Merkurtempel",
+        "en": "Temple of Mercury"
+      },
+      "aliases": [],
+      "type": "temple",
+      "lat": 51.3176783,
+      "lng": 9.4076641,
+      "elevation_m": null,
+      "coordinate_confidence": "high",
+      "coordinate_method": "osm_bounds_midpoint",
+      "coordinate_source": {
+        "provider": "OpenStreetMap",
+        "element": "way/389166242",
+        "license": "ODbL-1.0"
+      },
+      "osm_tags": {
+        "historic": "yes",
+        "building": "yes",
+        "start_date": "1823"
+      }
+    },
+    {
+      "id": "sibyllengrotte",
+      "kind": "place",
+      "name": {
+        "de": "Sibyllengrotte",
+        "en": "Sibyl Grotto"
+      },
+      "aliases": [],
+      "type": "grotto",
+      "lat": 51.3135064,
+      "lng": 9.4088277,
+      "elevation_m": null,
+      "coordinate_confidence": "high",
+      "coordinate_method": "osm_node",
+      "coordinate_source": {
+        "provider": "OpenStreetMap",
+        "element": "node/674079825",
+        "license": "ODbL-1.0"
+      },
+      "osm_tags": {
+        "historic": "yes",
+        "man_made": "adit",
+        "start_date": "1779..1782"
+      }
+    },
+    {
+      "id": "pagode",
+      "kind": "place",
+      "name": {
+        "de": "Pagode",
+        "en": "Pagoda"
+      },
+      "aliases": [],
+      "type": "building",
+      "lat": 51.3116667,
+      "lng": 9.4168145,
+      "elevation_m": null,
+      "coordinate_confidence": "high",
+      "coordinate_method": "osm_bounds_midpoint",
+      "coordinate_source": {
+        "provider": "OpenStreetMap",
+        "element": "way/214802668",
+        "license": "ODbL-1.0"
+      },
+      "osm_tags": {
+        "historic": "yes",
+        "building": "yes",
+        "wikidata": "Q56607433",
+        "wikipedia": "de:Pagode (Wilhelmshöhe)",
+        "start_date": "1776..1782"
+      }
+    },
+    {
+      "id": "kleiner-herkules",
+      "kind": "place",
+      "name": {
+        "de": "Kleiner Herkules",
+        "en": "Little Hercules"
+      },
+      "aliases": [],
+      "type": "ruin",
+      "lat": 51.311451,
+      "lng": 9.3972293,
+      "elevation_m": null,
+      "coordinate_confidence": "high",
+      "coordinate_method": "osm_bounds_midpoint",
+      "coordinate_source": {
+        "provider": "OpenStreetMap",
+        "element": "way/607746853",
+        "license": "ODbL-1.0"
+      },
+      "osm_tags": {
+        "historic": "ruins",
+        "tourism": "attraction",
+        "start_date": "1696"
+      }
+    },
+    {
+      "id": "vexierwassergrotte",
+      "kind": "place",
+      "name": {
+        "de": "Vexierwassergrotte",
+        "en": "Vexing Water Grotto"
+      },
+      "aliases": [],
+      "type": "grotto",
+      "lat": 51.3160508,
+      "lng": 9.394048,
+      "elevation_m": null,
+      "coordinate_confidence": "high",
+      "coordinate_method": "osm_bounds_midpoint",
+      "coordinate_source": {
+        "provider": "OpenStreetMap",
+        "element": "way/646446140",
+        "license": "ODbL-1.0"
+      },
+      "osm_tags": {
+        "historic": "yes",
+        "building": "yes"
+      }
+    },
+    {
+      "id": "fontaenenreservoir",
+      "kind": "place",
+      "name": {
+        "de": "Fontänenreservoir",
+        "en": "Fountain Reservoir"
+      },
+      "aliases": [],
+      "type": "waterfeature",
+      "lat": 51.3152503,
+      "lng": 9.4037807,
+      "elevation_m": null,
+      "coordinate_confidence": "high",
+      "coordinate_method": "osm_bounds_midpoint",
+      "coordinate_source": {
+        "provider": "OpenStreetMap",
+        "element": "way/42022370",
+        "license": "ODbL-1.0"
+      },
+      "osm_tags": {
+        "historic": "yes",
+        "natural": "water",
+        "water": "pond"
+      }
+    }
+  ]
+}

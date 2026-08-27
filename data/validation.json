@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-27T05:25:09.581031+00:00",
+  "status": "pass",
+  "summary": {
+    "place_nodes": 30,
+    "directed_path_edges": 122,
+    "errors": 0,
+    "warnings": 0
+  },
+  "bbox": {
+    "south": 51.307,
+    "west": 9.385,
+    "north": 51.323,
+    "east": 9.425
+  },
+  "checks": [
+    {
+      "id": "place_coordinates_in_research_bbox",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "edge_references_exist",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "no_duplicate_directed_edges",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "bidirectional_edges",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "place_graph_connected",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "edge_distances_not_shorter_than_geodesic",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "path_polylines_anchor_to_places",
+      "pass": true,
+      "failures": []
+    }
+  ],
+  "errors": [],
+  "warnings": [],
+  "phase_1_known_gaps": [
+    "Elevation is intentionally null until Phase 2 terrain enrichment.",
+    "Surface classification is OSM-tag-derived and requires Phase 2 route-by-route review.",
+    "Semantic/figure and tree layers are placeholders until Phases 3 and 4.",
+    "The supplied seed bbox was rejected because it excludes Herkules; see source_manifest.json."
+  ]
+}

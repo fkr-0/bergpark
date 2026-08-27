@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "retrieved_utc": "2026-08-27T05:25:09.529701+00:00",
+  "sources": [
+    {
+      "id": "osm-overpass-pois",
+      "publisher": "OpenStreetMap contributors",
+      "url": "https://overpass-api.de/api/interpreter",
+      "query_file": "data/sources/osm-pois.overpass",
+      "snapshot": "data/sources/osm-pois.json",
+      "license": "ODbL-1.0"
+    },
+    {
+      "id": "osm-api-map",
+      "publisher": "OpenStreetMap contributors",
+      "url": "https://api.openstreetmap.org/api/0.6/map",
+      "snapshots": [
+        "data/sources/osm-map/sw.xml",
+        "data/sources/osm-map/nw.xml",
+        "data/sources/osm-map/se.xml",
+        "data/sources/osm-map/ne.xml"
+      ],
+      "license": "ODbL-1.0"
+    },
+    {
+      "id": "osm-wiki-bergpark",
+      "publisher": "OpenStreetMap Wiki contributors",
+      "url": "https://wiki.openstreetmap.org/wiki/User:Jo_Cassel/Bergpark_Wilhelmsh%C3%B6he",
+      "purpose": "cross-reference of mapped garden architecture and vegetation sources"
+    },
+    {
+      "id": "unesco-1413-map",
+      "publisher": "UNESCO World Heritage Centre",
+      "url": "https://whc.unesco.org/en/list/1413/maps/",
+      "purpose": "World Heritage property geographic cross-check"
+    },
+    {
+      "id": "hkh-bergpark",
+      "publisher": "Hessen Kassel Heritage",
+      "url": "https://www.heritage-kassel.de/standorte/bergpark-wilhelmshoehe",
+      "purpose": "official site/visitor and heritage cross-check"
+    }
+  ],
+  "rejected_seed_assumptions": [
+    {
+      "field": "validation_bbox",
+      "supplied": {
+        "south": 51.312,
+        "west": 9.4,
+        "north": 51.322,
+        "east": 9.42
+      },
+      "reason": "The supplied west boundary 9.400 E excludes the OSM/UNESCO Herkules area around 9.393 E."
+    },
+    {
+      "field": "lac/fontaenenteich",
+      "reason": "OSM maps Lac and Fontänenteich as distinct water bodies; the graph models both separately."
+    },
+    {
+      "field": "entenpfuhl",
+      "reason": "No matching named OSM landmark was found; the mapped historical pond is Entenfang, retained with the seed label only as an alias."
+    },
+    {
+      "field": "neue-wasserkunst",
+      "reason": "Treated as a conceptual group of the romantic water features, not promoted to a fabricated point coordinate."
+    }
+  ],
+  "routing_snap_m": {
+    "aquaedukt": 6.4,
+    "ballhaus": 48.7,
+    "cestius-pyramide": 3.6,
+    "entenfang": 20.9,
+    "eremitage": 3.9,
+    "felseneck": 4.7,
+    "fontaenenreservoir": 22.5,
+    "fontaenenteich": 41.6,
+    "gewaechshaus": 8.8,
+    "grosse-fontaene": 37.2,
+    "halle-des-sokrates": 5.6,
+    "herkules": 19.7,
+    "jussow-tempel": 5.2,
+    "kaskaden": 8.6,
+    "kleiner-herkules": 3.6,
+    "lac": 35.5,
+    "loewenburg": 5.6,
+    "merkurtempel": 3.9,
+    "mulang": 8.3,
+    "neptunbecken": 3.3,
+    "neuer-wasserfall": 12.1,
+    "pagode": 4.1,
+    "peneuskaskaden": 14.2,
+    "plutogrotte": 0.7,
+    "schloss": 2.7,
+    "sibyllengrotte": 2.5,
+    "steinhofer-wasserfall": 14.4,
+    "teufelsbruecke": 10.1,
+    "vergils-grab": 2.7,
+    "vexierwassergrotte": 1.9
+  }
+}
