@@ -14,7 +14,7 @@ accuracy limits or source distinctions.
 Release progression is evidence-driven. A phase is complete only when its data,
 validation, runtime compatibility and provenance gates are all durable.
 
-## Current baseline — 0.1.0-alpha.1
+## Current baseline — 0.1.0-alpha.5 plus durable Graph Phase 8
 
 Durable capabilities at the current repository boundary include:
 
@@ -29,22 +29,22 @@ Durable capabilities at the current repository boundary include:
 - [x] searchable place/entity index;
 - [x] 569 catalogued trees with stable IDs, coordinates, terrain elevation and source provenance;
 - [x] 215 first-class bench POIs from the preserved OSM snapshot, with terrain elevation and explicit source-accuracy limits;
-- [x] explicit route-topology projection with 1,408 path nodes and 2,858 directed segments over the 122 qualified landmark routes;
+- [x] 109 selective visitor POIs plus bounded tree/bench/visitor-layer rendering in the PWA;
+- [x] Graph Phase 8 walking topology with 2,633 path nodes / 7,196 directed segments over a bounded frozen-source scope of 955 included pedestrian-eligible OSM ways, while physical inventory completeness remains explicitly unproven;
 - [x] semantic source/evidence guardrail manifest for the Phase-3 relation tranche;
-- [x] bounded release-time Node/Vite checks;
-- [ ] semantic figures/artworks/relations composed into the canonical graph;
-- [ ] tree/bench/path-topology layers composed into the canonical graph/runtime;
-- [ ] a non-destructive graph composition pipeline for independently generated layers;
-- [ ] complete-park walking topology and true multi-hop route computation;
-- [ ] repository-wide CI gate covering every Python validator/test and runtime build.
+- [x] semantic figures/artworks/relations composed without changing producer schemas and exposed through runtime compatibility adapters;
+- [x] tree/bench/path-topology layers preserved through the non-destructive composition boundary;
+- [x] a non-destructive graph composition pipeline for independently generated layers;
+- [x] graph-side shortest and avoid-known-steps/lower-ascent routing over the bounded Phase-8 topology;
+- [x] repository-wide pnpm verification commands covering Node/Vitest, Python integrity tests and the runtime build, plus Chromium browser qualification;
+- [ ] physically complete park walking inventory; the preserved Phase-8 source boundary includes an explicit unchecked-boundary caveat and must not be promoted to complete coverage;
+- [ ] Safari/iOS WebKit qualification on a host with the required runtime libraries.
 
-The most important architectural rule from this point forward is that independently
-owned layers must not be destroyed by another layer's generator. At the durable
-HEAD reviewed before the active Phase-3 recovery, the spatial builder still reset
-curated layers; the current Phase-3 working diff is already removing those destructive
-writes and composing trees/semantic data read-only. The remaining architectural gate
-is to make that separation explicit and complete for trees, benches, path topology,
-figures/semantic entities and future layers through one validated composition step.
+The most important architectural rule remains that independently owned layers must
+not be destroyed by another layer's generator. That separation is now durable through
+the composition boundary and Graph Phase 8. Future source refreshes must preserve the
+frozen-source completeness caveat, stable IDs and producer ownership rather than
+silently regenerating unrelated content/runtime layers.
 
 ---
 
