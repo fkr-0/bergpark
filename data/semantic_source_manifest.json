@@ -1,0 +1,169 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-27T06:42:00Z",
+  "purpose": "Curated source/evidence boundaries for Phase-3 semantic relations. Evidence scopes are intentionally narrower than possible narrative interpretations.",
+  "sources": [
+    {
+      "id": "unesco-icomos-2013-evaluation",
+      "publisher": "ICOMOS / UNESCO World Heritage Centre",
+      "url": "https://whc.unesco.org/document/152607",
+      "authority": "primary heritage evaluation",
+      "supports": [
+        "Landgrave Carl developed the Baroque water display.",
+        "Carl appointed Giovanni Francesco Guerniero to take charge of the design after his Italy tour.",
+        "Wilhelm IX continued to employ Heinrich Christoph Jussow, Daniel August Schwarzkopf and the water engineer Steinhöfer."
+      ]
+    },
+    {
+      "id": "unesco-nomination-1413",
+      "publisher": "State Party nomination dossier / UNESCO World Heritage Centre",
+      "url": "https://whc.unesco.org/uploads/nominations/1413.pdf",
+      "authority": "World Heritage nomination dossier",
+      "supports": [
+        "The upper Baroque water-display ensemble, including Hercules Monument, Octagon and Grand Cascade, was built under Landgrave Carl in 1689-1717.",
+        "Giovanni Francesco Guerniero supervised the upper works from October 1701.",
+        "The Aqueduct and Devil's Bridge waterfalls are attributed to Heinrich Christoph Jussow together with water engineer Carl Steinhöfer.",
+        "Steinhöfer alone is identified as responsible for the Steinhöfer Waterfall and the New Waterfall."
+      ]
+    },
+    {
+      "id": "hkh-herkules",
+      "publisher": "Hessen Kassel Heritage",
+      "url": "https://www.heritage-kassel.de/standorte/herkules",
+      "authority": "site operator / heritage institution",
+      "supports": [
+        "Landgrave Carl chose Hercules as a symbol of his power and had the giant Hercules statue erected.",
+        "The whole Hercules Monument is described as 70 m high; this is physical monument height, not terrain elevation."
+      ]
+    },
+    {
+      "id": "museum-kassel-guerniero-gs5547",
+      "publisher": "Museumslandschaft Hessen Kassel / architecture drawings catalogue",
+      "url": "https://architekturzeichnungen.museum-kassel.de/11244/",
+      "authority": "collection catalogue",
+      "supports": [
+        "Giovanni Francesco Guerniero is the named architect of a 1713 Octagon design drawing."
+      ]
+    },
+    {
+      "id": "museum-kassel-guerniero-gs9734",
+      "publisher": "Museumslandschaft Hessen Kassel / architecture drawings catalogue",
+      "url": "https://architekturzeichnungen.museum-kassel.de/12020/",
+      "authority": "collection catalogue",
+      "supports": [
+        "Guerniero's 1713 pyramid design was part of his construction contract and the catalogue states that the final Kassel work he supervised was executed from this drawing through 1714.",
+        "The Hercules sculpture itself was installed in 1717; the catalogue does not establish Guerniero as sculptor of the statue."
+      ]
+    },
+    {
+      "id": "museum-kassel-jussow-aquaedukt-gs5846",
+      "publisher": "Museumslandschaft Hessen Kassel / architecture drawings catalogue",
+      "url": "https://architekturzeichnungen.museum-kassel.de/10874/32862/0/0/0/beteiligte.html",
+      "authority": "collection catalogue",
+      "supports": [
+        "Heinrich Christoph Jussow is the architect of the first Aqueduct design drawing, dated before 1789.",
+        "This particular first design was not executed because it was too expensive, so it must not alone be treated as proof that the extant Aqueduct exactly follows GS 5846."
+      ]
+    },
+    {
+      "id": "museum-kassel-jussow-teufelsbruecke-gs5860",
+      "publisher": "Museumslandschaft Hessen Kassel / architecture drawings catalogue",
+      "url": "https://architekturzeichnungen.museum-kassel.de/11467/0/0/0/1/objekt.html",
+      "authority": "collection catalogue",
+      "supports": [
+        "Jussow's drawing documents the landscape/watercourse from Devil's Bridge through Hell Pond toward the Aqueduct around the early Romantic redesign."
+      ]
+    },
+    {
+      "id": "museum-kassel-jussow-teufelsbruecke-gs5850",
+      "publisher": "Museumslandschaft Hessen Kassel / architecture drawings catalogue",
+      "url": "https://architekturzeichnungen.museum-kassel.de/10878/",
+      "authority": "collection catalogue",
+      "supports": [
+        "A circa-1791 design context for Pluto Grotto and Devil's Bridge is attributed to Jussow with catalogue-level uncertainty (fraglich/questioned)."
+      ]
+    },
+    {
+      "id": "deutsche-biographie-jussow",
+      "publisher": "Neue Deutsche Biographie / Deutsche Biographie",
+      "url": "https://www.deutsche-biographie.de/gnd118714309.html",
+      "authority": "scholarly biographical reference",
+      "supports": [
+        "Heinrich Christoph Jussow began planning Löwenburg while shaping the Wilhelmshöhe park in the English style."
+      ]
+    },
+    {
+      "id": "hkh-gemaeldegalerie",
+      "publisher": "Hessen Kassel Heritage",
+      "url": "https://www.heritage-kassel.de/sammlung-und-forschung/sammlungen/gemaeldegalerie-alte-meister",
+      "authority": "collection owner/operator",
+      "supports": [
+        "The Kassel Old Masters collection contains twelve Rembrandt paintings and explicitly names Der Segen Jakobs among the best-known works on display.",
+        "The Gemäldegalerie Alte Meister has been located in Schloss Wilhelmshöhe since 1974."
+      ]
+    }
+  ],
+  "relation_guardrails": [
+    {
+      "subject": "landgraf-carl",
+      "predicate": "patron_of",
+      "object": "herkules",
+      "confidence": "high",
+      "source_ids": ["hkh-herkules", "unesco-nomination-1413"],
+      "note": "Prefer patron/commission-program semantics rather than implying Carl physically designed or sculpted the statue."
+    },
+    {
+      "subject": "giovanni-francesco-guerniero",
+      "predicate": "architectural_designer_of",
+      "object": "herkules",
+      "confidence": "high",
+      "source_ids": ["unesco-icomos-2013-evaluation", "museum-kassel-guerniero-gs5547", "museum-kassel-guerniero-gs9734"],
+      "note": "Relation concerns the Octagon/pyramid/upper architectural ensemble; do not label Guerniero as sculptor of the Hercules figure."
+    },
+    {
+      "subject": "giovanni-francesco-guerniero",
+      "predicate": "architectural_designer_of",
+      "object": "kaskaden",
+      "confidence": "high",
+      "source_ids": ["unesco-icomos-2013-evaluation", "unesco-nomination-1413"]
+    },
+    {
+      "subject": "heinrich-christoph-jussow",
+      "predicate": "designer_of",
+      "object": "loewenburg",
+      "confidence": "high",
+      "source_ids": ["deutsche-biographie-jussow"]
+    },
+    {
+      "subject": "heinrich-christoph-jussow",
+      "predicate": "designer_of",
+      "object": "aquaedukt",
+      "confidence": "high",
+      "source_ids": ["unesco-nomination-1413", "museum-kassel-jussow-aquaedukt-gs5846"],
+      "note": "GS 5846 itself is an unexecuted first design; extant-work authorship is supported by the nomination dossier rather than inferred from GS 5846 alone."
+    },
+    {
+      "subject": "heinrich-christoph-jussow",
+      "predicate": "co_designer_of_water_feature",
+      "object": "teufelsbruecke",
+      "confidence": "medium",
+      "source_ids": ["unesco-nomination-1413", "museum-kassel-jussow-teufelsbruecke-gs5860", "museum-kassel-jussow-teufelsbruecke-gs5850"],
+      "note": "Scope to the Romantic water-feature/site design. Do not claim sole authorship of the later extant cast-iron bridge without phase-specific evidence."
+    },
+    {
+      "subject": "rembrandt-van-rijn",
+      "predicate": "created",
+      "object": "artwork-der-segen-jakobs",
+      "confidence": "high",
+      "source_ids": ["hkh-gemaeldegalerie"]
+    },
+    {
+      "subject": "artwork-der-segen-jakobs",
+      "predicate": "held_in_collection_at",
+      "object": "schloss",
+      "confidence": "high",
+      "source_ids": ["hkh-gemaeldegalerie"],
+      "note": "Model the Gemäldegalerie Alte Meister collection/location explicitly if the semantic schema permits; do not infer acquisition or commission history from this page."
+    }
+  ]
+}
