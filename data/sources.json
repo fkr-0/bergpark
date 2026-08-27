@@ -1,0 +1,228 @@
+{
+  "schemaVersion": 1,
+  "lastVerified": "2026-08-27",
+  "sources": {
+    "unesco-1413": {
+      "title": "Bergpark Wilhelmshöhe — UNESCO World Heritage Centre",
+      "publisher": "UNESCO World Heritage Centre",
+      "url": "https://whc.unesco.org/en/list/1413/",
+      "accessed": "2026-08-27",
+      "scope": ["world-heritage", "hercules", "water-features", "significance"],
+      "notes": "Authoritative World Heritage listing, criteria (iii) and (iv), statement of Outstanding Universal Value."
+    },
+    "unesco-nomination-1413": {
+      "title": "Bergpark Wilhelmshöhe — Nomination File 1413",
+      "publisher": "UNESCO World Heritage Centre / State Party nomination",
+      "url": "https://whc.unesco.org/uploads/nominations/1413.pdf",
+      "accessed": "2026-08-27",
+      "scope": ["history", "architecture", "water-engineering", "inventory"],
+      "notes": "Primary nomination dossier. Historical interpretation remains attributable to the State Party rather than UNESCO itself."
+    },
+    "hkh-bergpark": {
+      "title": "UNESCO Welterbe Bergpark Wilhelmshöhe",
+      "publisher": "Hessen Kassel Heritage",
+      "url": "https://www.heritage-kassel.de/standorte/bergpark-wilhelmshoehe",
+      "accessed": "2026-08-27",
+      "scope": ["park-history", "visitor-info", "accessibility", "plant-collection"]
+    },
+    "hkh-wasserspiele": {
+      "title": "Der Besuchermagnet im Bergpark Wilhelmshöhe — Wasserspiele",
+      "publisher": "Hessen Kassel Heritage",
+      "url": "https://www.heritage-kassel.de/besuch/wasserspiele",
+      "accessed": "2026-08-27",
+      "scope": ["water-features", "schedule", "walking-distance", "accessibility"]
+    },
+    "stadt-wasserspiele": {
+      "title": "Wasserspiele im UNESCO-Welterbe",
+      "publisher": "Stadt Kassel",
+      "url": "https://www.kassel.de/buerger/kunst_und_kultur/parks_und_gaerten/wilhelmshoehe/wasserspiele.php",
+      "accessed": "2026-08-27",
+      "scope": ["water-features", "schedule", "hydraulics", "visitor-info"]
+    },
+    "stadt-herkules": {
+      "title": "Der Herkules in Kassel",
+      "publisher": "Stadt Kassel",
+      "url": "https://www.kassel.de/buerger/kunst_und_kultur/parks_und_gaerten/wilhelmshoehe/sehenswertes/herkules.php",
+      "accessed": "2026-08-27",
+      "scope": ["hercules", "history", "dimensions", "visitor-info"]
+    },
+    "stadt-kaskaden": {
+      "title": "Wasserspiele Station 2 — Kaskaden",
+      "publisher": "Stadt Kassel",
+      "url": "https://www.kassel.de/buerger/kunst_und_kultur/parks_und_gaerten/wilhelmshoehe/wasserspiele/station-2-kaskaden.php",
+      "accessed": "2026-08-27",
+      "scope": ["cascades", "dimensions", "water-features"]
+    },
+    "stadt-teufelsbruecke": {
+      "title": "Wasserspiele Station 4 — Teufelsbrücke",
+      "publisher": "Stadt Kassel",
+      "url": "https://www.kassel.de/buerger/kunst_und_kultur/parks_und_gaerten/wilhelmshoehe/wasserspiele/station-4-teufelsbruecke.php",
+      "accessed": "2026-08-27",
+      "scope": ["teufelsbruecke", "hoellenteich", "jussow", "henschel"]
+    },
+    "stadt-aquaedukt": {
+      "title": "Wasserspiele Station 5 — Aquädukt und Peneuskaskaden",
+      "publisher": "Stadt Kassel",
+      "url": "https://www.kassel.de/buerger/kunst_und_kultur/parks_und_gaerten/wilhelmshoehe/wasserspiele/station-5-aquaedukt-peneuskaskaden.php",
+      "accessed": "2026-08-27",
+      "scope": ["aqueduct", "peneus-cascades", "jussow", "water-engineering"]
+    },
+    "stadt-fontaene": {
+      "title": "Wasserspiele Station 6 — Große Fontäne",
+      "publisher": "Stadt Kassel",
+      "url": "https://www.kassel.de/buerger/kunst_und_kultur/parks_und_gaerten/wilhelmshoehe/wasserspiele/station-6-grosse-fontaene.php",
+      "accessed": "2026-08-27",
+      "scope": ["grand-fountain", "fontaenenteich", "hydraulics"]
+    },
+    "stadt-loewenburg": {
+      "title": "Löwenburg",
+      "publisher": "Stadt Kassel",
+      "url": "https://www.kassel.de/buerger/kunst_und_kultur/parks_und_gaerten/wilhelmshoehe/sehenswertes/loewenburg.php",
+      "accessed": "2026-08-27",
+      "scope": ["loewenburg", "jussow", "visitor-info", "collections"]
+    },
+    "hkh-schloss": {
+      "title": "Schloss Wilhelmshöhe",
+      "publisher": "Hessen Kassel Heritage",
+      "url": "https://www.heritage-kassel.de/standorte/schloss-wilhelmshoehe",
+      "accessed": "2026-08-27",
+      "scope": ["palace", "museum", "visitor-info", "accessibility"]
+    },
+    "hkh-alte-meister": {
+      "title": "Gemäldegalerie Alte Meister — Malerei bis 1800",
+      "publisher": "Hessen Kassel Heritage",
+      "url": "https://www.heritage-kassel.de/sammlung-und-forschung/sammlungen/gemaeldegalerie-alte-meister",
+      "accessed": "2026-08-27",
+      "scope": ["old-masters", "rembrandt", "rubens", "collections"]
+    },
+    "hkh-antiken": {
+      "title": "Gemäldegalerie Alte Meister im Schloss Wilhelmshöhe / Antikensammlung visitor page",
+      "publisher": "Hessen Kassel Heritage",
+      "url": "https://www.heritage-kassel.de/standorte/gemaeldegalerie-alte-meister",
+      "accessed": "2026-08-27",
+      "scope": ["antiquities", "roman", "greek", "cork-models"]
+    },
+    "commons-bergpark": {
+      "title": "Bergpark Wilhelmshöhe",
+      "publisher": "Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/Bergpark_Wilhelmsh%C3%B6he",
+      "accessed": "2026-08-27",
+      "license": "Per-file licenses; verify each media file before reuse",
+      "scope": ["media-index", "landmarks"]
+    },
+    "commons-schloss": {
+      "title": "Category:Schloss Wilhelmshöhe",
+      "publisher": "Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/Category:Schloss_Wilhelmsh%C3%B6he",
+      "accessed": "2026-08-27",
+      "license": "Per-file licenses; category text CC BY-SA",
+      "scope": ["palace-media"]
+    },
+    "osm-derived-mapcarta-kaskaden": {
+      "title": "Große Kaskaden — OpenStreetMap-derived coordinates",
+      "publisher": "Mapcarta / OpenStreetMap contributors",
+      "url": "https://mapcarta.com/N3923243905",
+      "accessed": "2026-08-27",
+      "license": "OpenStreetMap data ODbL; Mapcarta text CC BY-SA 4.0",
+      "scope": ["coordinates", "accessibility"]
+    },
+    "osm-derived-mapcarta-aquaedukt": {
+      "title": "Aquädukt — OpenStreetMap-derived coordinates",
+      "publisher": "Mapcarta / OpenStreetMap contributors",
+      "url": "https://mapcarta.com/de/W499181982",
+      "accessed": "2026-08-27",
+      "license": "OpenStreetMap data ODbL; Mapcarta text CC BY-SA 4.0",
+      "scope": ["coordinates"]
+    },
+    "osm-derived-mapcarta-plutogrotte": {
+      "title": "Plutogrotte — OpenStreetMap-derived coordinates",
+      "publisher": "Mapcarta / OpenStreetMap contributors",
+      "url": "https://mapcarta.com/W389164993",
+      "accessed": "2026-08-27",
+      "license": "OpenStreetMap data ODbL; Mapcarta text CC BY-SA 4.0",
+      "scope": ["coordinates"]
+    },
+    "osm-derived-mapcarta-eremitage": {
+      "title": "Eremitage des Sokrates — OpenStreetMap-derived coordinates",
+      "publisher": "Mapcarta / OpenStreetMap contributors",
+      "url": "https://mapcarta.com/W541728530",
+      "accessed": "2026-08-27",
+      "license": "OpenStreetMap data ODbL; Mapcarta text CC BY-SA 4.0",
+      "scope": ["coordinates"]
+    },
+    "commons-jussowtempel-photo": {
+      "title": "File:Jussowtempel am Fontänenteich.jpg",
+      "publisher": "Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/File:Jussowtempel_am_Font%C3%A4nenteich.jpg",
+      "accessed": "2026-08-27",
+      "scope": ["coordinates", "media"]
+    },
+    "commons-teufelsbruecke-photo": {
+      "title": "File:Bergpark wilhelmshoehe teufelsbruecke.jpg",
+      "publisher": "Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/File:Bergpark_wilhelmshoehe_teufelsbruecke.jpg",
+      "accessed": "2026-08-27",
+      "license": "CC BY-SA 3.0 / GFDL 1.2+ as listed on Commons",
+      "scope": ["coordinates", "media"]
+    },
+    "commons-aquaedukt-photo": {
+      "title": "File:Aquädukt - Bergpark Wilhelmshöhe 01.jpg",
+      "publisher": "Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/File:Aqu%C3%A4dukt_-_Bergpark_Wilhelmsh%C3%B6he_01.jpg",
+      "accessed": "2026-08-27",
+      "scope": ["coordinates", "media"]
+    },
+    "commons-fontaene-photo": {
+      "title": "File:Bergpark Wilhelmshöhe - Große Fontäne 2020-08-05 c.JPG",
+      "publisher": "Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmsh%C3%B6he_-_Gro%C3%9Fe_Font%C3%A4ne_2020-08-05_c.JPG",
+      "accessed": "2026-08-27",
+      "scope": ["coordinates", "media"]
+    },
+    "commons-kaskaden-photo": {
+      "title": "File:Kaskaden1.JPG",
+      "publisher": "Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/File:Kaskaden1.JPG",
+      "accessed": "2026-08-27",
+      "scope": ["media"]
+    },
+    "commons-schloss-photo": {
+      "title": "File:SchlossWilhelmshoehe.jpg",
+      "publisher": "Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/File:SchlossWilhelmshoehe.jpg",
+      "accessed": "2026-08-27",
+      "license": "GFDL 1.2+ and CC BY-SA 3.0 as listed on Commons",
+      "scope": ["media"]
+    },
+    "hkh-eremitage-object": {
+      "title": "Partie im Park Wilhelmshöhe, mit der Eremitage des Sokrates",
+      "publisher": "Hessen Kassel Heritage Objektdatenbank",
+      "url": "https://datenbank.museum-kassel.de/116445/",
+      "accessed": "2026-08-27",
+      "scope": ["eremitage", "historical-image-evidence"]
+    },
+    "lbih-loewenburg-2022": {
+      "title": "Besuchermagnet und historisches Kleinod wieder für Besucher*innen zugänglich",
+      "publisher": "Landesbetrieb Bau und Immobilien Hessen",
+      "url": "https://lbih.hessen.de/presse/besuchermagnet-und-historisches-kleinod-wieder-fuer-besucherinnen-zugaenglich",
+      "accessed": "2026-08-27",
+      "scope": ["loewenburg", "restoration", "bergfried", "interiors"]
+    },
+    "dewiki-bergpark": {
+      "title": "Bergpark Wilhelmshöhe",
+      "publisher": "Wikipedia, deutsch",
+      "url": "https://de.wikipedia.org/wiki/Bergpark_Wilhelmsh%C3%B6he",
+      "accessed": "2026-08-27",
+      "license": "CC BY-SA; use as a secondary orientation source and verify important claims against primary/official sources",
+      "scope": ["secondary-landmarks", "jussow-tempel", "plutogrotte", "eremitage", "chronology"]
+    },
+    "osm-derived-mapcarta-loewenburg": {
+      "title": "Löwenburg — OpenStreetMap-derived coordinates",
+      "publisher": "Mapcarta / OpenStreetMap contributors",
+      "url": "https://mapcarta.com/de/35990360",
+      "accessed": "2026-08-27",
+      "license": "OpenStreetMap data ODbL; Mapcarta text CC BY-SA 4.0",
+      "scope": ["coordinates"]
+    }
+  }
+}
