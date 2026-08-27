@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-27T06:31:50.721327+00:00",
+  "status": "pass",
+  "summary": {
+    "catalog_trees": 569,
+    "species_identified": 566,
+    "circumference_reported": 113,
+    "specimen_height_reported": 0,
+    "duplicate_catalog_refs": 8,
+    "errors": 0
+  },
+  "checks": [
+    {
+      "id": "catalog_tree_count",
+      "pass": true,
+      "actual": 569
+    },
+    {
+      "id": "stable_ids_unique",
+      "pass": true
+    },
+    {
+      "id": "all_catalog_osm_nodes_present",
+      "pass": true
+    },
+    {
+      "id": "coordinates_in_research_bbox",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "position_accuracy_explicit",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "elevation_present",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "height_provenance_consistent",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "duplicate_catalog_refs_preserved_as_non_unique_metadata",
+      "pass": true,
+      "duplicate_ref_count": 8
+    }
+  ],
+  "errors": [],
+  "notes": [
+    "The source snapshots contain no specimen height tags at this revision; height_m remains null rather than deriving height from species descriptions.",
+    "GLO-90 terrain elevation is approximate and is not the physical height of a tree."
+  ]
+}
