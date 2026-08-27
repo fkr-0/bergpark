@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "retrieved_utc": "2026-08-27T06:07:43.553398+00:00",
+  "retrieved_utc": "2026-08-27T17:35:01.035373+00:00",
   "retrieval_scope": "Latest preserved machine retrieval timestamp among generated terrain inputs; OSM map API retrieval timestamps are not preserved separately.",
   "sources": [
     {
@@ -63,6 +63,24 @@
       "vertical_accuracy_m": null,
       "accuracy_status": "not_reported_in_project_source",
       "retrieved_at": "2026-08-27T06:07:43.553398+00:00"
+    },
+    {
+      "id": "phase8-path-topology-elevation-glo90",
+      "publisher": "Open-Meteo / Copernicus Programme",
+      "url": "https://open-meteo.com/en/docs/elevation-api",
+      "snapshot": "data/sources/path-topology-elevation/points.json",
+      "raw_batches": "data/sources/path-topology-elevation/batch-*.json",
+      "dataset": "Copernicus DEM 2021 GLO-90",
+      "resolution_m": 90,
+      "dataset_doi": "10.5270/ESA-c5d3d65",
+      "vertical_accuracy_m": null,
+      "accuracy_status": "not_reported_in_project_source",
+      "selection_input_sha256": "daa2ab17ba5e949907f8c2640ed2c008ca550b0fa84dd30e8093c383040ab413",
+      "selection_count": 2587,
+      "reused_preserved_count": 1415,
+      "phase8_fetched_count": 1172,
+      "retrieved_at": "2026-08-27T17:35:01.035373+00:00",
+      "purpose": "Terrain evidence for the bounded Phase-8 preserved-source walking topology; acquisition is explicit and normal builds remain offline."
     }
   ],
   "rejected_seed_assumptions": [

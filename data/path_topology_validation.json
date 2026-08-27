@@ -1,20 +1,111 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-27T15:40:49.373147+00:00",
+  "generated_at": "2026-08-27T17:35:01.035373+00:00",
   "status": "pass",
   "summary": {
-    "path_nodes": 1408,
-    "directed_segments": 2858,
-    "osm_segments": 2798,
+    "path_nodes": 2633,
+    "directed_segments": 7196,
+    "osm_walkable_chains": 4338,
+    "phase7_osm_adjacencies": 2798,
     "snap_connectors": 60,
-    "ambiguous_osm_adjacencies": 22,
-    "segments_with_grade": 4,
-    "segments_below_dem_resolution": 2854,
-    "errors": 0
+    "segments_with_grade": 638,
+    "segments_below_dem_resolution": 6558,
+    "connected_components": 11,
+    "component_path_node_sizes": [
+      2615,
+      3,
+      3,
+      2,
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1
+    ],
+    "selected_source_ways": 955,
+    "excluded_source_ways": 41,
+    "errors": 0,
+    "warnings": 0
   },
+  "checks": [
+    {
+      "id": "derived_metric_provenance",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "complete_intended_preserved_source_scope",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "path_node_spatial_provenance",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "path_node_segment_references",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "segment_endpoints_and_polyline_distance",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "glo90_short_segment_precision",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "no_private_or_no_foot_leakage",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "representative_connectors_remain_unknown",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "reverse_or_source_backed_one_way",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "reverse_segment_pointers_resolve",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "excluded_source_ways_not_routable",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "blocked_source_adjacencies_not_routable",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "all_selected_source_chains_serialized",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "connected_components_auditable",
+      "pass": true,
+      "failures": []
+    }
+  ],
   "errors": [],
+  "warnings": [],
   "notes": [
-    "This topology covers the already-qualified landmark-route projection, not the complete park path inventory.",
-    "GLO-90 per-short-segment grade is coarse; do not interpret it as survey-grade slope."
+    "Coverage is complete only under the explicit preserved OSM tile + park-boundary selection policy; it is not a claim of complete physical inventory.",
+    "The preserved boundary way itself states that the boundary is not fully checked, so the validator keeps that source limitation explicit rather than widening scope by inference.",
+    "GLO-90 per-short-segment grade remains unknown below 90 m and missing accessibility tags remain unknown."
   ]
 }

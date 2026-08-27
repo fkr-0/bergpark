@@ -313,6 +313,41 @@ These are data records, not executable functions. Direction-specific grade,
 surface/access changes and source IDs must remain serializable so routing and UI
 clients can reason about them independently.
 
+### Phase-8 complete preserved-source scope and routing foundation
+
+Phase 8 expands the standalone topology from the qualified 122-route projection
+to every pedestrian-eligible adjacency in the explicitly bounded preserved OSM
+map-tile scope. `coverage.status=complete_preserved_source_scope_not_physical_inventory`
+is intentional: completeness is relative to the frozen source selection policy,
+not a claim that every physical walking path in Bergpark exists in the snapshot.
+The preserved park boundary itself carries the source note that it has not been
+fully checked, so physical completeness is fail-closed rather than inferred.
+
+Source-derived path nodes use stable `pathnode-osm-<node-id>` IDs where they do
+not already reuse a qualified Phase-7 ID. Intersections, branch points, tagged
+barrier/access/surface changes and chain endpoints become graph nodes; necessary
+intermediate OSM geometry remains in segment polylines without inventing extra
+semantic nodes. The 1,408 Phase-7 path-node IDs and 2,858 Phase-7 segment IDs are
+retained additively when the same source geometry is reused. Place representative
+points and their snap connectors remain distinct from actual source entrances.
+
+`scripts/path_routing.py` is graph/domain code over this factual topology. Its
+policies never rewrite segment facts:
+
+- `shortest` minimizes source-polyline distance;
+- `avoid_known_steps_lower_ascent` lexicographically minimizes known step
+  distance, then an evidence-aware ascent score, then distance. Unknown terrain
+  on sub-90 m segments receives a weighting penalty only; it is never converted
+  to factual ascent.
+
+Both policies retain unknown accessibility as unknown. A route with no known
+negative evidence is labelled `unknown_not_an_accessibility_claim`, not
+"accessible". Private/no-foot source restrictions and disconnected preserved
+source components fail closed. `scripts/validate_path_routing.py` independently
+checks deterministic multi-hop behavior and reproduces the 122 Phase-2 landmark
+connections within a 0.25 m tolerance for legacy one-decimal route-distance
+rounding.
+
 ## Phase-4 composition contract
 
 `data/graph.json` is a composition artifact only. Its sole producer is

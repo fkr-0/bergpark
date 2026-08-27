@@ -14,10 +14,12 @@ from typing import Any
 try:
     from .compose_graph import assert_graph_inputs_current
     from .provenance_contract import validate_metric_profile, validate_spatial_entity
+    from .validate_path_routing import validate_documents as validate_path_routing_documents
     from .validate_visitor_pois import validate_document as validate_visitor_poi_document
 except ImportError:  # Direct `python scripts/validate_graph.py` execution.
     from compose_graph import assert_graph_inputs_current
     from provenance_contract import validate_metric_profile, validate_spatial_entity
+    from validate_path_routing import validate_documents as validate_path_routing_documents
     from validate_visitor_pois import validate_document as validate_visitor_poi_document
 
 
@@ -202,6 +204,20 @@ def main() -> int:
     errors.extend(f"Phase-7 spatial provenance: {failure}" for failure in phase7_spatial_failures)
 
     edge_doc = load("edges.json")
+    routing_checks, routing_errors, routing_warnings, routing_summary = (
+        validate_path_routing_documents(path_topology_doc, edge_doc)
+    )
+    checks.append(
+        {
+            "id": "phase8_multi_hop_routing_foundation_valid",
+            "pass": not routing_errors,
+            "failures": routing_errors[:50],
+            "subchecks": routing_checks,
+            "summary": routing_summary,
+        }
+    )
+    errors.extend(f"Phase-8 routing: {failure}" for failure in routing_errors)
+    warnings.extend(f"Phase-8 routing: {warning}" for warning in routing_warnings)
     edge_metric_failures = validate_metric_profile(
         edge_doc.get("derived_metric_profile"),
         label="data/edges.json",
@@ -578,6 +594,10 @@ def main() -> int:
             "collections": len(collections),
             "semantic_relations": len(semantic_edges),
             "semantic_sources": len(semantic_sources),
+            "routing_phase2_routes_checked": routing_summary["phase2_routes_checked"],
+            "routing_disconnected_components_checked": routing_summary[
+                "disconnected_components_checked"
+            ],
             "errors": len(errors),
             "warnings": len(warnings),
         },
@@ -595,7 +615,7 @@ def main() -> int:
             "Historical authorship/patronage edges encode only the scope explicitly supported by their cited sources; later restoration or replacement phases are not silently folded into earlier design relations.",
         ],
         "phase_4_known_limits": [
-            "The composed path topology remains the qualified landmark-route projection, not a claim of complete park path-network coverage.",
+            "At the Phase-4 boundary the composed path topology was the qualified landmark-route projection; Phase 8 expands that same standalone layer without changing the 122 Phase-2 route rows.",
             "Bench and path-topology rows are composed exactly from their independently owned layers; composition does not upgrade source-reported accuracy or accessibility certainty.",
         ],
         "phase_5_known_limits": [
@@ -615,6 +635,12 @@ def main() -> int:
             "Derived route/path metrics are qualified by document-level machine-readable profiles; source-backed Phase-2 route rows remain unchanged.",
             "Short path segments below 90 m retain endpoint terrain delta but suppress ascent/descent/grade because GLO-90 cannot support those metrics at that scale.",
             "Semantic artwork/collection entities currently have no coordinate fields; spatial OSM artwork rows live in visitor_pois.json and follow the common spatial contract there.",
+        ],
+        "phase_8_known_limits": [
+            "Walking-topology completeness is bounded to the preserved OSM map-tile selection and pedestrian policy; the preserved park boundary itself is explicitly not fully checked, so this is not a physical-inventory claim.",
+            "The avoid-known-steps/lower-ascent route policy is evidence-aware weighting, not accessibility certification; missing access, wheelchair and barrier evidence remains unknown.",
+            "Short-segment ascent/descent/grade remains unknown below the 90 m GLO-90 horizontal resolution; route weighting does not convert that unknown terrain into factual ascent.",
+            "Disconnected preserved-source components remain disconnected and private/no-foot source restrictions are not bypassed by routing.",
         ],
     }
     (DATA / "validation.json").write_text(json.dumps(out, ensure_ascii=False, indent=2) + "\n")

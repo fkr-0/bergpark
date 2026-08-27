@@ -639,6 +639,7 @@ def compose_graph(data_dir: pathlib.Path | None = None) -> dict[str, Any]:
                 "data/sources/osm-map/se.xml",
                 "data/sources/osm-map/ne.xml",
                 "data/sources/elevation/points.json",
+                "data/sources/path-topology-elevation/points.json",
                 "data/sources/visitor-poi-elevation/points.json",
                 "data/sources/commons-geotag-audit.json",
             ],

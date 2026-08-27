@@ -169,6 +169,45 @@ Dense route geometry can still be kept for display, but gross ascent/descent
 must not repeatedly sum quantized DEM changes at a resolution much finer than
 the DEM.
 
+## Phase-8 walking-topology coverage and routing provenance
+
+Phase 8 defines completeness only against an auditable preserved-source scope.
+The topology producer reads the four frozen `data/sources/osm-map/*.xml` tiles,
+uses preserved boundary `way/608171475`, and includes every source adjacency
+that lies in or crosses that boundary under the inherited pedestrian-highway
+policy. It excludes private/no-access ways unless an explicit pedestrian
+exception exists, excludes `foot=no`, and retains blocked source-node adjacency
+as blocked rather than bridging it.
+
+The current frozen selection contains 955 included pedestrian-eligible ways and
+41 touching-but-excluded ways (28 private/no-access without a pedestrian
+exception and 13 outside the inherited walking-highway policy). It yields 11
+source-connected components. These counts are source-scope evidence, not a
+claim of complete physical inventory: the preserved boundary itself says it has
+not been fully checked. `coverage.physical_inventory_claim` therefore remains
+false.
+
+Terrain for newly significant source path nodes is preserved separately in
+`data/sources/path-topology-elevation/points.json`. Its selection hash binds all
+2,587 source-node IDs/coordinates used by the Phase-8 topology. The snapshot
+reuses 1,415 already preserved GLO-90 rows and records 1,172 explicitly fetched
+additional rows. Normal builds never refetch this data; a stale selection hash
+or missing source node fails closed.
+
+Routing is a derived graph operation over immutable segment facts. The routing
+policy is always returned with each result. `shortest` minimizes source-polyline
+distance. `avoid_known_steps_lower_ascent` first minimizes known step distance,
+then an evidence-aware ascent score, then distance. A weighting penalty assigned
+to unknown short-segment terrain is not exported as factual ascent. Likewise,
+an absence of known negative accessibility evidence never becomes a positive
+accessibility statement: route summaries use
+`unknown_not_an_accessibility_claim` unless known negative evidence is present.
+
+Phase-2 landmark-route reproduction is validated against all 122 directed
+qualified rows with a 0.25 m tolerance, accounting only for the older one-decimal
+route-distance rounding versus the finer Phase-8 segment serialization. The
+qualified source facts in those Phase-2 rows are not rewritten by routing.
+
 ## Accessibility evidence
 
 The project distinguishes evidence rather than issuing unsupported guarantees.

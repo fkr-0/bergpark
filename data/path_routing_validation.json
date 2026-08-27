@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-27T17:35:01.035373+00:00",
+  "status": "pass",
+  "summary": {
+    "phase2_routes_checked": 122,
+    "phase2_max_distance_delta_m": 0.11,
+    "phase2_distance_tolerance_m": 0.25,
+    "routing_policies": [
+      "avoid_known_steps_lower_ascent",
+      "shortest"
+    ],
+    "policy_changed_phase2_pairs": 95,
+    "disconnected_components_checked": 10,
+    "errors": 0,
+    "warnings": 0
+  },
+  "checks": [
+    {
+      "id": "required_graph_side_policies_present",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "phase2_landmark_connections_reproduced",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "route_results_are_deterministic",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "routing_never_upgrades_unknown_accessibility",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "avoid_known_steps_policy_is_evidence_aware",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "disconnected_source_components_fail_closed",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "private_and_no_foot_segments_fail_closed",
+      "pass": true,
+      "failures": []
+    }
+  ],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "Routing is deterministic graph/domain logic over factual path-segment metadata; it does not alter source facts.",
+    "The Phase-2 distance tolerance only accounts for legacy route-distance rounding versus the finer Phase-8 segment serialization.",
+    "The avoid-known-steps/lower-ascent policy is a weighting policy, not an accessibility certification; unknown access evidence remains unknown."
+  ]
+}

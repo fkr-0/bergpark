@@ -1,14 +1,14 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-27T15:43:10.815585+00:00",
+  "generated_at": "2026-08-27T18:17:37.443976+00:00",
   "status": "pass",
   "summary": {
     "place_nodes": 30,
     "directed_path_edges": 122,
     "catalogued_trees": 569,
     "benches": 215,
-    "path_nodes": 1408,
-    "directed_path_segments": 2858,
+    "path_nodes": 2633,
+    "directed_path_segments": 7196,
     "visitor_pois": 109,
     "visitor_poi_families": {
       "access": 68,
@@ -24,6 +24,8 @@
     "collections": 1,
     "semantic_relations": 13,
     "semantic_sources": 11,
+    "routing_phase2_routes_checked": 122,
+    "routing_disconnected_components_checked": 10,
     "errors": 0,
     "warnings": 0
   },
@@ -58,6 +60,61 @@
       "id": "phase7_common_spatial_provenance",
       "pass": true,
       "failures": []
+    },
+    {
+      "id": "phase8_multi_hop_routing_foundation_valid",
+      "pass": true,
+      "failures": [],
+      "subchecks": [
+        {
+          "id": "required_graph_side_policies_present",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "phase2_landmark_connections_reproduced",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "route_results_are_deterministic",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "routing_never_upgrades_unknown_accessibility",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "avoid_known_steps_policy_is_evidence_aware",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "disconnected_source_components_fail_closed",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "private_and_no_foot_segments_fail_closed",
+          "pass": true,
+          "failures": []
+        }
+      ],
+      "summary": {
+        "phase2_routes_checked": 122,
+        "phase2_max_distance_delta_m": 0.11,
+        "phase2_distance_tolerance_m": 0.25,
+        "routing_policies": [
+          "avoid_known_steps_lower_ascent",
+          "shortest"
+        ],
+        "policy_changed_phase2_pairs": 95,
+        "disconnected_components_checked": 10,
+        "errors": 0,
+        "warnings": 0
+      }
     },
     {
       "id": "phase7_derived_metric_provenance",
@@ -239,7 +296,7 @@
     "Historical authorship/patronage edges encode only the scope explicitly supported by their cited sources; later restoration or replacement phases are not silently folded into earlier design relations."
   ],
   "phase_4_known_limits": [
-    "The composed path topology remains the qualified landmark-route projection, not a claim of complete park path-network coverage.",
+    "At the Phase-4 boundary the composed path topology was the qualified landmark-route projection; Phase 8 expands that same standalone layer without changing the 122 Phase-2 route rows.",
     "Bench and path-topology rows are composed exactly from their independently owned layers; composition does not upgrade source-reported accuracy or accessibility certainty."
   ],
   "phase_5_known_limits": [
@@ -259,5 +316,11 @@
     "Derived route/path metrics are qualified by document-level machine-readable profiles; source-backed Phase-2 route rows remain unchanged.",
     "Short path segments below 90 m retain endpoint terrain delta but suppress ascent/descent/grade because GLO-90 cannot support those metrics at that scale.",
     "Semantic artwork/collection entities currently have no coordinate fields; spatial OSM artwork rows live in visitor_pois.json and follow the common spatial contract there."
+  ],
+  "phase_8_known_limits": [
+    "Walking-topology completeness is bounded to the preserved OSM map-tile selection and pedestrian policy; the preserved park boundary itself is explicitly not fully checked, so this is not a physical-inventory claim.",
+    "The avoid-known-steps/lower-ascent route policy is evidence-aware weighting, not accessibility certification; missing access, wheelchair and barrier evidence remains unknown.",
+    "Short-segment ascent/descent/grade remains unknown below the 90 m GLO-90 horizontal resolution; route weighting does not convert that unknown terrain into factual ascent.",
+    "Disconnected preserved-source components remain disconnected and private/no-foot source restrictions are not bypassed by routing."
   ]
 }
