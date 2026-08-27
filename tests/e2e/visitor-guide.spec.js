@@ -1,6 +1,7 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
+import { stubThirdPartyMapTiles } from './test-support.js';
 
 async function openVisitorGuide(page, path = '/') {
   await page.goto(path);
@@ -12,7 +13,7 @@ async function openVisitorGuide(page, path = '/') {
 test.beforeEach(async ({ page }) => {
   // The E2E contract is the Bergpark application. Third-party map tile availability
   // must not make the release gate flaky or turn the test suite into a tile crawler.
-  await page.route(/https:\/\/[^/]*tile\.(openstreetmap|opentopomap)\.org\//, (route) => route.abort());
+  await stubThirdPartyMapTiles(page);
 });
 
 test('visitor can switch language, search the index, open a place and show a route', async ({ page }) => {
@@ -154,7 +155,7 @@ test('same-origin glTF landmark asset loads through bounded production loader pa
 test('glTF loader rejects non-embedded secondary resources before network escape', async ({ browser }) => {
   const context = await browser.newContext({ serviceWorkers: 'block' });
   const page = await context.newPage();
-  await page.route(/https:\/\/[^/]*tile\.(openstreetmap|opentopomap)\.org\//, (route) => route.abort());
+  await stubThirdPartyMapTiles(page);
 
   const fixtureUrl = new URL('../../public/models/aquaedukt-schematic.gltf', import.meta.url);
   const malicious = JSON.parse(await readFile(fixtureUrl, 'utf8'));
@@ -184,7 +185,7 @@ test('3D viewer fails closed to an accessible fallback when WebGL is unavailable
       return original.call(this, type, ...args);
     };
   });
-  await page.route(/https:\/\/[^/]*tile\.(openstreetmap|opentopomap)\.org\//, (route) => route.abort());
+  await stubThirdPartyMapTiles(page);
 
   await openVisitorGuide(page, '/#place=herkules');
   await page.locator('[data-model-launch]').click();

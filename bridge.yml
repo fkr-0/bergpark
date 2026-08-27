@@ -17,5 +17,5 @@ commands:
     run: ["pnpm", "run", "check"]
     category: custom
   dev:
-    run: ["pnpm", "run", "dev", "--", "--host", "127.0.0.1"]
+    run: ["pnpm", "exec", "vite", "--host", "127.0.0.1"]
     category: dev

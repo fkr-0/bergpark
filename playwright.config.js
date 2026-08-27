@@ -23,7 +23,7 @@ export default defineConfig({
   webServer: externalBaseUrl
     ? undefined
     : {
-        command: 'npm run preview -- --host 127.0.0.1 --port 4174 --strictPort',
+        command: 'pnpm exec vite preview --host 127.0.0.1 --port 4174 --strictPort',
         url: localBaseUrl,
         reuseExistingServer: !process.env.CI,
         timeout: 120_000,

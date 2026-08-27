@@ -8,19 +8,20 @@ multi-layer data pipeline.
 Install dependencies and run the development server:
 
 ```sh
-npm ci
-npm run dev
+pnpm install --frozen-lockfile
+pnpm run dev
 ```
 
 Run the current browser-side release gate:
 
 ```sh
-npm run check
+pnpm run check
 ```
 
-`npm run check` currently runs Node tests and the Vite production build. It is
-not yet a complete repository verification command; Python layer validators and
-tests must also run for the data shipped by a release.
+`pnpm run check` is the repository release gate for Biome, Node compatibility
+tests, Vitest, Python repository-integrity tests, and the Vite production build.
+Use `pnpm run check:e2e` when the Chromium browser/offline/accessibility gate is
+also required.
 
 ## Spatial graph verification
 
@@ -157,8 +158,8 @@ Before committing, inspect staged paths and run `git diff --check`.
 
 ## Desired repository-wide verification command
 
-Before beta, add one documented command such as `npm run verify` or an equivalent
-script that runs in deterministic order:
+Before beta, keep `pnpm run check:e2e` as the documented deterministic verification
+entry point and extend it as additional release validators become durable:
 
 1. structural/schema validation;
 2. graph validator + graph tests;

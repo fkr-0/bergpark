@@ -22,8 +22,9 @@ Durable repository facts at review time:
   outputs were still an active claimed working tranche during this review;
 - combined `graph.json` currently embeds 30 places / 122 edges but 0 trees,
   0 benches, 0 figures, 0 semantic edges and 0 path-topology entities;
-- the Pages workflow runs `npm run check`, which currently covers Node tests and
-  the Vite build but not the Python data validators/tests.
+- at the review snapshot, Pages used a legacy package-manager check that covered
+  Node tests and the Vite build but not the Python data validators/tests; this was
+  later superseded by the pnpm release gate.
 
 The working tree contains concurrent knowledge/research activity. Findings here
 do not authorize edits to those claimed paths.
@@ -76,9 +77,9 @@ loader and make all release-shipped layers part of offline packaging and tests.
 
 ### 4. Deployment CI does not validate the full data product
 
-`.github/workflows/pages.yml` runs `npm run check`, which currently runs Node
-tests and Vite build. Python graph/tree/bench/semantic validators and tests are
-not part of the deployment gate.
+At the review snapshot, `.github/workflows/pages.yml` used the legacy partial
+frontend check. The current release path is pnpm-authoritative and includes Python
+repository-integrity tests before deployment.
 
 **Risk:** a broken committed data layer can deploy if the browser build still
 succeeds.
