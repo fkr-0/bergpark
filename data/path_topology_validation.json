@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-27T06:39:32.278979+00:00",
+  "status": "pass",
+  "summary": {
+    "path_nodes": 1408,
+    "directed_segments": 2858,
+    "osm_segments": 2798,
+    "snap_connectors": 60,
+    "ambiguous_osm_adjacencies": 22,
+    "segments_with_grade": 4,
+    "segments_below_dem_resolution": 2854,
+    "errors": 0
+  },
+  "errors": [],
+  "notes": [
+    "This topology covers the already-qualified landmark-route projection, not the complete park path inventory.",
+    "GLO-90 per-short-segment grade is coarse; do not interpret it as survey-grade slope."
+  ]
+}
