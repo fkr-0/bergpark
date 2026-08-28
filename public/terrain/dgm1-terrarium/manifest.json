@@ -1,0 +1,530 @@
+{
+  "attribution": {
+    "dataset": "ATKIS-DGM1",
+    "license": "dl-zero-de/2.0",
+    "license_url": "https://www.govdata.de/dl-de/zero-2-0",
+    "product_url": "https://hvbg.hessen.de/landesvermessung/geotopographie/3d-daten/digitale-gelaendemodelle",
+    "provider": "Hessisches Landesamt für Bodenmanagement und Geoinformation (HVBG)"
+  },
+  "camera": {
+    "fit_max_zoom": 14.75,
+    "initial_bearing_deg": 0.0,
+    "initial_pitch_deg": 45.0,
+    "max_pitch_deg": 60.0,
+    "max_zoom": 18.0,
+    "min_zoom": 13.0
+  },
+  "edge_policy": "nearest reviewed DGM1 sample outside source extent within edge tiles; renderer bounds remain canonical park AOI",
+  "encoding": "terrarium",
+  "format": "maplibre-raster-dem-terrarium-v1",
+  "generation_command": "python terrain/pipeline/maplibre_dem.py build",
+  "max_derivative_bytes": 8388608,
+  "provenance": {
+    "phase3_artifact": {
+      "bytes": 12555951,
+      "path": "terrain/artifacts/bergpark-dgm1.npz",
+      "sha256": "cdff4e9d51f8bb1679b6a0e4f9ca6c1aeaa603488644faedafe3685e74989b4b"
+    },
+    "phase3_artifact_manifest": {
+      "path": "terrain/artifacts/bergpark-dgm1.manifest.json",
+      "sha256": "d292f8d7dd5c10f5ffa290705a7938e5f2fccd1b3779e37d046c4c5847ffecc3"
+    },
+    "phase3_source_manifest": {
+      "path": "terrain/sources/hessen-dgm1.yml",
+      "sha256": "aa6d1ed921fc51321180c1367d42975fe86e8b906e1dacce54b781c45fc9946e"
+    }
+  },
+  "renderer_bounds_wgs84": [
+    9.385,
+    51.307,
+    9.425,
+    51.323
+  ],
+  "resampling": "bilinear from Phase-3 1 m Float32 grid to WebMercator pixel centres",
+  "schema_version": 1,
+  "source_axis_order": [
+    "E",
+    "N"
+  ],
+  "source_bounds_epsg25832": [
+    526677.0,
+    5683885.0,
+    529775.0,
+    5685981.0
+  ],
+  "source_bounds_wgs84": [
+    9.382699396682574,
+    51.30549856429448,
+    9.427316068756445,
+    51.324499059153744
+  ],
+  "source_crs": "EPSG:25832",
+  "terrain_exaggeration": 1.0,
+  "terrarium_quantization_m": 0.00390625,
+  "tile_bytes": 4670817,
+  "tile_count": 56,
+  "tile_counts": {
+    "14": 4,
+    "15": 12,
+    "16": 40
+  },
+  "tile_size": 256,
+  "tile_url_template": "terrain/dgm1-terrarium/{z}/{x}/{y}.png",
+  "tiles": [
+    {
+      "bytes": 69300,
+      "path": "14/8619/5461.png",
+      "sha256": "4fd9eafd4577de449ab8d315ad736a0449aa53d848fd203ef1806a6692b490be",
+      "x": 8619,
+      "y": 5461,
+      "z": 14
+    },
+    {
+      "bytes": 92979,
+      "path": "14/8619/5462.png",
+      "sha256": "cceba1ce1469dd501548cd93b9fd269f5078a6116ae24d0289b6e0bf0acfefec",
+      "x": 8619,
+      "y": 5462,
+      "z": 14
+    },
+    {
+      "bytes": 66614,
+      "path": "14/8620/5461.png",
+      "sha256": "c32f82f0eb8e81bd79030576b18c990fc87e5d07c0a7a939d06fd2b7ce560ea9",
+      "x": 8620,
+      "y": 5461,
+      "z": 14
+    },
+    {
+      "bytes": 91691,
+      "path": "14/8620/5462.png",
+      "sha256": "3f9ca5f384d6be2928b524c9b343e0a48d544d26e948352d9ca705754cbb51dc",
+      "x": 8620,
+      "y": 5462,
+      "z": 14
+    },
+    {
+      "bytes": 83164,
+      "path": "15/17238/10923.png",
+      "sha256": "0cbe9b708c17be8e5e364b70b7a9e717958c2bcae769bafdc32bbb5dd9248593",
+      "x": 17238,
+      "y": 10923,
+      "z": 15
+    },
+    {
+      "bytes": 94147,
+      "path": "15/17238/10924.png",
+      "sha256": "7d2d73841fcb8939972e0b98cdfc54a44a6fc978858b9af46bf835f017d71573",
+      "x": 17238,
+      "y": 10924,
+      "z": 15
+    },
+    {
+      "bytes": 69383,
+      "path": "15/17238/10925.png",
+      "sha256": "e4e818098c3ce711ac33cf3c1b74d2a429739111efb7f9e0c53123c3e79a26b9",
+      "x": 17238,
+      "y": 10925,
+      "z": 15
+    },
+    {
+      "bytes": 98988,
+      "path": "15/17239/10923.png",
+      "sha256": "fc6e87d83d3f8801775652cd15bab05763f8bd67905b6ac6c04a0a3f8b999ae2",
+      "x": 17239,
+      "y": 10923,
+      "z": 15
+    },
+    {
+      "bytes": 102529,
+      "path": "15/17239/10924.png",
+      "sha256": "b661d4139b24df4f623c35acba2d3e9974fa85dabc12ebe01a268f2dbe4c3327",
+      "x": 17239,
+      "y": 10924,
+      "z": 15
+    },
+    {
+      "bytes": 73005,
+      "path": "15/17239/10925.png",
+      "sha256": "36323b817ab72233508dda87701bf6c07f14884284ab1440a45f5397c183f6a6",
+      "x": 17239,
+      "y": 10925,
+      "z": 15
+    },
+    {
+      "bytes": 96006,
+      "path": "15/17240/10923.png",
+      "sha256": "1230fcfa10cf8f13c15f43b480ee0d98f4c75ca79cdb4d85b75a678bf75eaa10",
+      "x": 17240,
+      "y": 10923,
+      "z": 15
+    },
+    {
+      "bytes": 97596,
+      "path": "15/17240/10924.png",
+      "sha256": "da3b413c325be2c7875706c3c0cc3e0e17bf0940a46026196ee94b9b4e186881",
+      "x": 17240,
+      "y": 10924,
+      "z": 15
+    },
+    {
+      "bytes": 70946,
+      "path": "15/17240/10925.png",
+      "sha256": "ae4dff6c7424a8fcd7cde4c5d51f0cf794ac6d085448bed5521c36f4dc270c33",
+      "x": 17240,
+      "y": 10925,
+      "z": 15
+    },
+    {
+      "bytes": 85268,
+      "path": "15/17241/10923.png",
+      "sha256": "614dfac3380d6928c4d3489b7dc78c4496617548e58ea1fe0de8c9da2869d132",
+      "x": 17241,
+      "y": 10923,
+      "z": 15
+    },
+    {
+      "bytes": 91705,
+      "path": "15/17241/10924.png",
+      "sha256": "2ca49c5cc3ebfdde7e46e194f82b263fea0eb5b09dde101da65202dd1c15ecb7",
+      "x": 17241,
+      "y": 10924,
+      "z": 15
+    },
+    {
+      "bytes": 68223,
+      "path": "15/17241/10925.png",
+      "sha256": "f0f47ef0eb3ed16ad2c1b00d23ae8b9e04a3ac7d9de9008cde30fccacd4c4e43",
+      "x": 17241,
+      "y": 10925,
+      "z": 15
+    },
+    {
+      "bytes": 70521,
+      "path": "16/34476/21846.png",
+      "sha256": "1806a4626b68f1ff7d4dfbd31ba849799038723b8ac0fbfb1d009ff58a061ad8",
+      "x": 34476,
+      "y": 21846,
+      "z": 16
+    },
+    {
+      "bytes": 57325,
+      "path": "16/34476/21847.png",
+      "sha256": "66649a78a0d2719180cbff09b7b9605f125974cb4ad4156b27749f0c61e4c70c",
+      "x": 34476,
+      "y": 21847,
+      "z": 16
+    },
+    {
+      "bytes": 70711,
+      "path": "16/34476/21848.png",
+      "sha256": "867e5fa5d678e5c0461300cdd5eb2a1ae0a442451b4a7c93a4fcad9daa7fc607",
+      "x": 34476,
+      "y": 21848,
+      "z": 16
+    },
+    {
+      "bytes": 80089,
+      "path": "16/34476/21849.png",
+      "sha256": "f63de3f188c28aaf417d67a6aefc0057c3401506ca8a0eaa4d90a83b7e892dd5",
+      "x": 34476,
+      "y": 21849,
+      "z": 16
+    },
+    {
+      "bytes": 80636,
+      "path": "16/34476/21850.png",
+      "sha256": "2e6b95b5db7a046ffc190db74e521bce6021eb77cfca5243d6f7c9fed9cd97ba",
+      "x": 34476,
+      "y": 21850,
+      "z": 16
+    },
+    {
+      "bytes": 75177,
+      "path": "16/34477/21846.png",
+      "sha256": "6491de160ff661f5c43bed4796edc7fe89abb5ab06f6d5aaf79a4f13f261c2f2",
+      "x": 34477,
+      "y": 21846,
+      "z": 16
+    },
+    {
+      "bytes": 75279,
+      "path": "16/34477/21847.png",
+      "sha256": "0e878b2df078ed72a518997f7529bca6a36a7a353ec433b47724391da7e0b652",
+      "x": 34477,
+      "y": 21847,
+      "z": 16
+    },
+    {
+      "bytes": 84250,
+      "path": "16/34477/21848.png",
+      "sha256": "46c2979ca7a7c8f56da312739d30cc7664ca01313ee97c867e81d240d3a8a2c1",
+      "x": 34477,
+      "y": 21848,
+      "z": 16
+    },
+    {
+      "bytes": 92836,
+      "path": "16/34477/21849.png",
+      "sha256": "c2608c0798af1f8f91f2e8f17aaf1127a1c84cf49df7a5670c8459c61cd4f893",
+      "x": 34477,
+      "y": 21849,
+      "z": 16
+    },
+    {
+      "bytes": 90279,
+      "path": "16/34477/21850.png",
+      "sha256": "19a9fa4976dbf7c8ff76af4a33af318c743682d9ce5119cc09286bbf0c24fbf2",
+      "x": 34477,
+      "y": 21850,
+      "z": 16
+    },
+    {
+      "bytes": 87271,
+      "path": "16/34478/21846.png",
+      "sha256": "8792d26dc08dc23429b299d305ceedd3fc8e3dfd04d2c9c71863009f3ec40410",
+      "x": 34478,
+      "y": 21846,
+      "z": 16
+    },
+    {
+      "bytes": 90823,
+      "path": "16/34478/21847.png",
+      "sha256": "0ac5dfa6dd34f81936689b72afb9bd9bf1f89aa968cb4e73ad49fa30f0477aff",
+      "x": 34478,
+      "y": 21847,
+      "z": 16
+    },
+    {
+      "bytes": 93702,
+      "path": "16/34478/21848.png",
+      "sha256": "332d27d9ac63c213c774583e4883ad9d756d0ea48fb6dee0f68f768ea65dd865",
+      "x": 34478,
+      "y": 21848,
+      "z": 16
+    },
+    {
+      "bytes": 100321,
+      "path": "16/34478/21849.png",
+      "sha256": "6848967dd5e1850a88f7a055f4ab39e32258a05aaadef3eb6981fa15ecd78dca",
+      "x": 34478,
+      "y": 21849,
+      "z": 16
+    },
+    {
+      "bytes": 95121,
+      "path": "16/34478/21850.png",
+      "sha256": "907ef872ade58bfef34a1d6488503a22288392694c88c45858977d67372d790c",
+      "x": 34478,
+      "y": 21850,
+      "z": 16
+    },
+    {
+      "bytes": 94818,
+      "path": "16/34479/21846.png",
+      "sha256": "8d7d043788c3d61b539a0cc3a019ea37f3c04ad4a3c19b812c3fd92420042e76",
+      "x": 34479,
+      "y": 21846,
+      "z": 16
+    },
+    {
+      "bytes": 78377,
+      "path": "16/34479/21847.png",
+      "sha256": "7863ae21f33221df3c95e6d6a4e209e3f0b8a28d9cab5215886da47af5be094b",
+      "x": 34479,
+      "y": 21847,
+      "z": 16
+    },
+    {
+      "bytes": 82565,
+      "path": "16/34479/21848.png",
+      "sha256": "2283416f9143b607ed8d2a684f4cccd4e80fa40cb02726cf3f68240fc92482bb",
+      "x": 34479,
+      "y": 21848,
+      "z": 16
+    },
+    {
+      "bytes": 97573,
+      "path": "16/34479/21849.png",
+      "sha256": "97ae842411ae763c16e72dbaa9ad4fc6ce277b4cf78682e591ba53d4714300ec",
+      "x": 34479,
+      "y": 21849,
+      "z": 16
+    },
+    {
+      "bytes": 94912,
+      "path": "16/34479/21850.png",
+      "sha256": "3fcce9d06e52be2de80e704a74b8e94c76e7aadd7f47bb9113da96d2edf36246",
+      "x": 34479,
+      "y": 21850,
+      "z": 16
+    },
+    {
+      "bytes": 84633,
+      "path": "16/34480/21846.png",
+      "sha256": "48d49c111734a8829514802df475540f11b5d80023660797583b0f35ca5403dc",
+      "x": 34480,
+      "y": 21846,
+      "z": 16
+    },
+    {
+      "bytes": 87158,
+      "path": "16/34480/21847.png",
+      "sha256": "ce8350d39395c35ee6caf2bad897280392e188d7ade0dac535ba11ead2393eed",
+      "x": 34480,
+      "y": 21847,
+      "z": 16
+    },
+    {
+      "bytes": 84941,
+      "path": "16/34480/21848.png",
+      "sha256": "36cdf72f1e27c5235597fb603a9dba62e0ed4205e540384309090244359a1523",
+      "x": 34480,
+      "y": 21848,
+      "z": 16
+    },
+    {
+      "bytes": 91449,
+      "path": "16/34480/21849.png",
+      "sha256": "f6bae5fce0e39ecde04f3217160b70a9695001a8cb83d85de777a828a78e93f0",
+      "x": 34480,
+      "y": 21849,
+      "z": 16
+    },
+    {
+      "bytes": 90373,
+      "path": "16/34480/21850.png",
+      "sha256": "9d29c18c1bb5d24fbbdd64fa280381c116a8249084254f61b51a97d5cf156b14",
+      "x": 34480,
+      "y": 21850,
+      "z": 16
+    },
+    {
+      "bytes": 82466,
+      "path": "16/34481/21846.png",
+      "sha256": "47fe0d8bbb1d5b7de09aeed9e66b928c9139d93524b07d2b17b5cd0e4da10217",
+      "x": 34481,
+      "y": 21846,
+      "z": 16
+    },
+    {
+      "bytes": 78477,
+      "path": "16/34481/21847.png",
+      "sha256": "ede12ba32855c260c8cdf7a7e740ef7d3cda02cedc57f150837ff4569200a40c",
+      "x": 34481,
+      "y": 21847,
+      "z": 16
+    },
+    {
+      "bytes": 79789,
+      "path": "16/34481/21848.png",
+      "sha256": "f578d2b9474f6427c2f22d58a03228f35cf55b5c55ab8add6ebf1ee50cf1b9d3",
+      "x": 34481,
+      "y": 21848,
+      "z": 16
+    },
+    {
+      "bytes": 88973,
+      "path": "16/34481/21849.png",
+      "sha256": "3359938b7021d2585c105c259cc8c24a0fffeb0704c17bad5c6d8f51dc37cc18",
+      "x": 34481,
+      "y": 21849,
+      "z": 16
+    },
+    {
+      "bytes": 92040,
+      "path": "16/34481/21850.png",
+      "sha256": "dedf8ad9bd27c54a8118e07d43f8a09d80fae281ae21199e015c4e52b6801ea5",
+      "x": 34481,
+      "y": 21850,
+      "z": 16
+    },
+    {
+      "bytes": 75780,
+      "path": "16/34482/21846.png",
+      "sha256": "d7697d0a51e9b099e22b99b2d9b4891de8c7472fe254b969328601846a5b0403",
+      "x": 34482,
+      "y": 21846,
+      "z": 16
+    },
+    {
+      "bytes": 76871,
+      "path": "16/34482/21847.png",
+      "sha256": "64baff0fbeda74c56eef58ec11886ddfb289eb4eba8d898d512c6ad30e9ac39a",
+      "x": 34482,
+      "y": 21847,
+      "z": 16
+    },
+    {
+      "bytes": 75079,
+      "path": "16/34482/21848.png",
+      "sha256": "619ac12e94d9f3707fac106e722fb76c45601397248ee3efbd27ce3e71aef51b",
+      "x": 34482,
+      "y": 21848,
+      "z": 16
+    },
+    {
+      "bytes": 83644,
+      "path": "16/34482/21849.png",
+      "sha256": "728b4af569bb84a6bf6b3a7091f9b8fda2467bf37008c6c63133773c80251a52",
+      "x": 34482,
+      "y": 21849,
+      "z": 16
+    },
+    {
+      "bytes": 81951,
+      "path": "16/34482/21850.png",
+      "sha256": "d6c4aa94b1a8507746d49fbfc49fdbe4ea98135e41fc7b3193cf3d308972c284",
+      "x": 34482,
+      "y": 21850,
+      "z": 16
+    },
+    {
+      "bytes": 63044,
+      "path": "16/34483/21846.png",
+      "sha256": "603905156a9d3601cfa0e3b3bb081f13cac2828cb10919c574ad10ab95fe8d6a",
+      "x": 34483,
+      "y": 21846,
+      "z": 16
+    },
+    {
+      "bytes": 70882,
+      "path": "16/34483/21847.png",
+      "sha256": "911e93cb24bf884de6d63ee821a14a5e943818d245bc70b96d038d56d4ab737a",
+      "x": 34483,
+      "y": 21847,
+      "z": 16
+    },
+    {
+      "bytes": 76526,
+      "path": "16/34483/21848.png",
+      "sha256": "6a3742fc5e10b1bfaa570265e252ed2c36edf3ff7bb16d1177c1c8585de9dbac",
+      "x": 34483,
+      "y": 21848,
+      "z": 16
+    },
+    {
+      "bytes": 82104,
+      "path": "16/34483/21849.png",
+      "sha256": "e90d629c6e7c502ed6607ef7254da659fc8f7d132c08e7ab319a8d9f8a848b4d",
+      "x": 34483,
+      "y": 21849,
+      "z": 16
+    },
+    {
+      "bytes": 80507,
+      "path": "16/34483/21850.png",
+      "sha256": "d5f8bb5bb331572cc82e9f2f37a2d39386f52106b1f5f9351fe8ca7c58272cea",
+      "x": 34483,
+      "y": 21850,
+      "z": 16
+    }
+  ],
+  "vertical_reference": "DHHN2016_NH",
+  "vertical_units": "metres",
+  "zooms": [
+    14,
+    15,
+    16
+  ]
+}

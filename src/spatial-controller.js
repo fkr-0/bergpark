@@ -16,7 +16,11 @@ export function readSpatialPreference({ search = '', storage = null } = {}) {
   }
 }
 
-export function detectSpatialCapabilities({ documentRef = globalThis.document, navigatorRef = globalThis.navigator } = {}) {
+export function detectSpatialCapabilities({
+  documentRef = globalThis.document,
+  navigatorRef = globalThis.navigator,
+  terrainAvailable = true,
+} = {}) {
   let webgl2 = false;
   try {
     const canvas = documentRef?.createElement?.('canvas');
@@ -28,7 +32,7 @@ export function detectSpatialCapabilities({ documentRef = globalThis.document, n
     || (Number.isFinite(navigatorRef?.deviceMemory) && navigatorRef.deviceMemory <= 2);
   return Object.freeze({
     leaflet: true,
-    terrain: false,
+    terrain: terrainAvailable === true,
     webgl2,
     reducedPower,
   });
@@ -36,7 +40,9 @@ export function detectSpatialCapabilities({ documentRef = globalThis.document, n
 
 export function selectSpatialRenderer({ preference = 'auto', capabilities = {} } = {}) {
   const requested = normalizeSpatialPreference(preference);
-  if (requested === 'leaflet') return Object.freeze({ renderer: 'leaflet', requested, fallbackReason: null });
+  // Leaflet remains the production/default renderer. Terrain is intentionally
+  // opt-in until its interaction and performance parity are independently proven.
+  if (requested !== 'terrain') return Object.freeze({ renderer: 'leaflet', requested, fallbackReason: null });
   if (capabilities.reducedPower) {
     return Object.freeze({ renderer: 'leaflet', requested, fallbackReason: 'reduced-power' });
   }
@@ -67,6 +73,10 @@ export function createSpatialController(adapter, selection, capabilities = {}) {
     clearRoute: requireAdapterMethod(adapter, 'clearRoute'),
     setUserPosition: requireAdapterMethod(adapter, 'setUserPosition'),
     setWalkingNetwork: requireAdapterMethod(adapter, 'setWalkingNetwork'),
+    setWorld: requireAdapterMethod(adapter, 'setWorld'),
+    setTreeVisibility: requireAdapterMethod(adapter, 'setTreeVisibility'),
+    setTreeFilter: requireAdapterMethod(adapter, 'setTreeFilter'),
+    setVisitorKinds: requireAdapterMethod(adapter, 'setVisitorKinds'),
     setLanguage: requireAdapterMethod(adapter, 'setLanguage'),
     invalidate: requireAdapterMethod(adapter, 'invalidate'),
     destroy: requireAdapterMethod(adapter, 'destroy'),
@@ -77,7 +87,16 @@ export function createSpatialController(adapter, selection, capabilities = {}) {
   });
 }
 
-export async function createBrowserSpatialController({ element, graph, world, language, onSelectPlace, onLocationError }) {
+export async function createBrowserSpatialController({
+  element,
+  graph,
+  world,
+  language,
+  onSelectPlace,
+  onSelectTree,
+  onSelectFeature,
+  onLocationError,
+}) {
   let storage = null;
   try {
     storage = globalThis.localStorage;
@@ -86,16 +105,40 @@ export async function createBrowserSpatialController({ element, graph, world, la
   }
   const preference = readSpatialPreference({ search: globalThis.location?.search ?? '', storage });
   const capabilities = detectSpatialCapabilities();
-  const selection = selectSpatialRenderer({ preference, capabilities });
+  const requestedSelection = selectSpatialRenderer({ preference, capabilities });
+  let selection = requestedSelection;
+  let adapter = null;
 
-  // Slice 0 intentionally has exactly one production renderer. Keeping the
-  // choice here prevents orchestration from importing Leaflet or renderer handles.
-  const { createLeafletSpatialAdapter } = await import('./map.js');
-  const adapter = createLeafletSpatialAdapter(element, graph, world, {
-    language,
-    onSelectPlace,
-    onLocationError,
-  });
+  if (requestedSelection.renderer === 'terrain') {
+    try {
+      const { createMapLibreTerrainSpatialAdapter } = await import('./maplibre-map.js');
+      adapter = await createMapLibreTerrainSpatialAdapter(element, graph, world, {
+        language,
+        onSelectPlace,
+        onSelectTree,
+        onSelectFeature,
+      });
+    } catch (error) {
+      console.warn('MapLibre terrain unavailable; falling back to Leaflet:', error);
+      selection = Object.freeze({
+        renderer: 'leaflet',
+        requested: requestedSelection.requested,
+        fallbackReason: 'terrain-initialization-failed',
+      });
+      element.replaceChildren();
+      element.removeAttribute('class');
+    }
+  }
+
+  if (!adapter) {
+    const { createLeafletSpatialAdapter } = await import('./map.js');
+    adapter = createLeafletSpatialAdapter(element, graph, world, {
+      language,
+      onSelectPlace,
+      onLocationError,
+    });
+  }
+
   element.dataset.spatialRenderer = selection.renderer;
   element.dataset.spatialPreference = selection.requested;
   if (selection.fallbackReason) element.dataset.spatialFallbackReason = selection.fallbackReason;

@@ -113,18 +113,36 @@ function applySupplementalGraph(hydratedGraph) {
   spatialWorld = createSpatialWorld(graph);
   treeMapController?.destroy();
   visitorLayerController?.destroy();
+  mapController?.setWorld(spatialWorld);
   // Slice 0 keeps these viewport-driven Leaflet overlays behind one explicit,
-  // temporary compatibility surface. Core orchestration never receives the map.
+  // temporary compatibility surface. MapLibre consumes the same SpatialWorld
+  // through the controller instead; core orchestration never receives either map.
   const leafletCompatibility = mapController?.compatibilitySurface(LEAFLET_OVERLAY_COMPATIBILITY);
-  if (!leafletCompatibility?.map) throw new Error('Leaflet overlay compatibility surface unavailable');
-  treeMapController = createTreeMapLayer(leafletCompatibility.map, graph.trees, {
-    language: i18n.language,
-    onSelectTree: selectTree,
-  });
-  visitorLayerController = createVisitorLayerController(leafletCompatibility.map, graph.visitorLayers, {
-    language: i18n.language,
-    onSelectFeature: selectVisitorFeature,
-  });
+  if (leafletCompatibility?.map) {
+    treeMapController = createTreeMapLayer(leafletCompatibility.map, graph.trees, {
+      language: i18n.language,
+      onSelectTree: selectTree,
+    });
+    visitorLayerController = createVisitorLayerController(leafletCompatibility.map, graph.visitorLayers, {
+      language: i18n.language,
+      onSelectFeature: selectVisitorFeature,
+    });
+  } else {
+    treeMapController = {
+      setVisible: (visible) => mapController?.setTreeVisibility(visible),
+      setTrees: (trees) => mapController?.setTreeFilter((trees ?? []).map(({ id }) => id)),
+      updateLanguage() {},
+      destroy() {
+        mapController?.setTreeVisibility(false);
+        mapController?.setTreeFilter(null);
+      },
+    };
+    visitorLayerController = {
+      setActiveKinds: (kinds) => mapController?.setVisitorKinds(kinds),
+      updateLanguage() {},
+      destroy() { mapController?.setVisitorKinds([]); },
+    };
+  }
   renderVisitorLayersControl();
   document.querySelector('#map').dataset.supplementalData = 'ready';
 
@@ -482,6 +500,11 @@ async function boot() {
     world: spatialWorld,
     language: i18n.language,
     onSelectPlace: (id) => selectNode(id),
+    onSelectTree: (id) => selectTree(id, { source: 'map' }),
+    onSelectFeature: (id) => {
+      const feature = graph?.visitorFeaturesById.get(id);
+      if (feature) selectVisitorFeature(feature);
+    },
     onLocationError: () => setStatus(i18n.t('gpsUnavailable'), true),
   });
   setupGps();

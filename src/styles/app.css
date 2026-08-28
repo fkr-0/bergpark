@@ -348,6 +348,29 @@ h1 { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: clamp
 .user-location { stroke: #fff; stroke-width: 4; fill: #236dd1; fill-opacity: 1; }
 .user-accuracy { stroke: #236dd1; fill: #236dd1; fill-opacity: .08; }
 
+.maplibre-place-marker {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 3px solid #f6e9c6;
+  border-radius: 50% 50% 50% 18%;
+  background: var(--forest);
+  color: #fff8e7;
+  box-shadow: 0 4px 16px rgb(0 0 0 / .28);
+  transform: rotate(-45deg);
+  cursor: pointer;
+}
+.maplibre-place-marker > span { transform: rotate(45deg); }
+.maplibre-place-marker:focus-visible {
+  outline: 3px solid #f0c86c;
+  outline-offset: 3px;
+}
+.maplibregl-ctrl-bottom-right { bottom: calc(70px + env(safe-area-inset-bottom)); }
+.maplibregl-ctrl-group { border: 0; border-radius: .8rem; box-shadow: 0 7px 24px rgb(0 0 0 / .18); }
+.maplibregl-ctrl-attrib { font-size: 10px; }
+
 .topbar-actions { display: flex; align-items: center; gap: .45rem; }
 .language-button,
 .icon-button {

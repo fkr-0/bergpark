@@ -11,3 +11,13 @@ export function moveLeafletCamera(map, target, zoom, { duration = 0.35, matchMed
   map.flyTo(target, zoom, { duration });
   return 'animated';
 }
+
+export function moveMapLibreCamera(map, options, { duration = 0.35, matchMedia } = {}) {
+  const camera = { ...options };
+  if (prefersReducedMotion(matchMedia)) {
+    map.jumpTo(camera);
+    return 'immediate';
+  }
+  map.easeTo({ ...camera, duration: Math.max(0, duration) * 1000, essential: false });
+  return 'animated';
+}

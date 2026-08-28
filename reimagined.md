@@ -1217,28 +1217,59 @@ continuation saved/dispatched.
 **Reversible:** yes. Kill if abstraction makes current behavior materially worse or leaks
 renderer objects into domain data.
 
-### Phase 3 — Slice 1: DGM1 acquisition + deterministic terrain artifacts
+### Phase 3 — Slice 1: DGM1 acquisition + deterministic terrain authority — **complete**
 
 - verify exact official acquisition mechanics;
 - add source/license/checksum manifest;
 - bounded Bergpark clip only;
-- deterministic GDAL/native pipeline;
-- Terrarium-compatible raster-dem pyramid + canonical sampling artifact;
-- route/elevation sampling tests and size measurements;
+- deterministic bounded acquisition/conversion pipeline;
+- lossless renderer-neutral Float32 intermediate + provenance manifest;
+- terrain sampling/coordinate validation and size measurements;
 - artifact/cache policy before large data is committed.
 
 **Commitment point:** DGM1 becomes preferred physical Z only after source/provenance and
 sampling checks pass.
 
-### Phase 4 — Slices 2–3: MapLibre terrain + canonical graph on real Z
+Phase 3 intentionally stopped before any renderer derivative. Its committed DGM1 authority
+is `terrain/artifacts/bergpark-dgm1.npz` SHA256
+`cdff4e9d51f8bb1679b6a0e4f9ca6c1aeaa603488644faedafe3685e74989b4b` plus the reviewed
+source/artifact manifests.
 
-- add MapLibre adapter behind the capability flag;
-- DGM1 terrain at exaggeration 1;
-- terrain-aware overview/focus/reset/follow controls;
-- project canonical places/routes and selected POIs on real terrain;
-- route elevation/ascent/descent/slope cues using the new profile;
-- Schloss/Herkules acceptance scene;
-- browser visual evidence + Leaflet parity tests.
+### Phase 4 — Slice 2: Leaflet-preserving MapLibre terrain coexistence — **complete**
+
+- add MapLibre GL JS 6.6 behind the explicit `renderer=terrain` preference and WebGL2 /
+  reduced-power capability gate; `auto` and `leaflet` remain Leaflet;
+- deterministically derive only 56 Terrarium tiles at z14-z16 from the immutable Phase-3
+  intermediate (4,670,817 tile bytes; manifest SHA256
+  `2d48c4f1c14958304e6fe8c5ec3b6174b4687ba2e7f61b659f8f0fade3d38417`);
+- keep DGM1 metres at terrain exaggeration 1.0 with bounded WGS84 source bounds and
+  explicit HVBG / `dl-zero-de/2.0` attribution;
+- project canonical places, routes, walking network, GPS position, trees and visitor
+  features only from renderer-neutral `SpatialWorld` / controller inputs;
+- bound the terrain camera to the park envelope, z13-z18 and maximum 60° pitch; use a 45°
+  overview and deterministic north-facing focus; honor reduced motion;
+- fail closed to Leaflet when WebGL2 or terrain initialization is unavailable, and to a
+  flat usable MapLibre map when a runtime DEM tile source fails;
+- preserve place/tree/visitor deep links, language state and selection identity through the
+  same controller boundary;
+- retain explicit Leaflet-only compatibility overlays without requiring them from the
+  MapLibre path;
+- keep MapLibre as a lazy chunk so the default Leaflet startup does not load it;
+- no Three custom layer, route-elevation recomputation, WebGPU/WASM/AR or graph mutation.
+
+Focused qualification is 15/15 Node spatial/terrain/motion tests, 5/5 Python derivative
+tests, 7/7 serialized Chromium coexistence/fallback/GPS tests and a production build. The
+committed renderer derivative is about 4.45 MiB, well below the 60 MiB preferred / 80 MiB
+review terrain-pack gates. MapLibre GL JS 6.6.0 is BSD-3-Clause licensed.
+
+Broad Phase-4 qualification keeps inherited failures explicit rather than consuming their
+owners: Biome is green (59 files), Node is 69/69, Vitest is 2/2, build/runtime-artifact
+budgets are green, and the full Chromium suite is 39/40. The single Chromium failure is the
+pre-existing `phase6-integration.spec.js` selector for the old search placeholder; the
+current independent unified-search UI exposes `Place, person, tree, visitor feature …`
+instead, and that test fails before renderer interaction. Python is 86/87 with the separate
+`bergpark-webapp` graph-composition blocker at `tests/test_semantic.py:136` and the same 18
+figure IDs missing from `data/graph.json`. Phase 4 does not repair either unrelated lane.
 
 **Kill criterion:** if MapLibre terrain cannot meet mobile reliability/budget, retain the
 SpatialWorld/DGM pipeline and reassess renderer without deleting the Leaflet path.

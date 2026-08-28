@@ -1,7 +1,9 @@
 # Bergpark DGM1 terrain pipeline
 
-This directory owns the renderer-neutral terrain acquisition and conversion boundary.
-It does **not** contain MapLibre/Three integration and it does not rewrite canonical graph data.
+This directory owns the terrain acquisition/conversion boundary. The Phase-3 source and
+lossless Float32 intermediate remain renderer-neutral and immutable. Phase 4 adds only a
+bounded downstream Terrarium derivative builder for MapLibre; runtime renderer integration
+stays in `src/` and canonical graph data is never rewritten here.
 
 ## Authority and bounded AOI
 
@@ -41,8 +43,36 @@ codec dependency. Phase 3 measures the original WCS TIFF at 24.783 MiB and the c
 intermediate at **11.974 MiB** (48.3% of source bytes), comfortably below the architecture's
 60 MiB preferred / 80 MiB hard-review terrain-pack gates. This is the explicit repository
 size justification for committing the intermediate rather than the larger original source.
-A later renderer phase may derive a streamable Terrarium/raster-dem pyramid from this exact
-artifact and manifest.
+Phase 4 derives its streamable Terrarium/raster-dem pyramid from this exact artifact and
+manifest without re-downloading or replacing the Phase-3 authority.
+
+## Phase-4 MapLibre derivative
+
+`terrain/pipeline/maplibre_dem.py` has no network acquisition path. It verifies the three
+reviewed Phase-3 hashes before reading the intermediate and emits only the canonical park
+AOI at Web-Mercator zooms **14, 15 and 16**:
+
+- z14: 4 tiles
+- z15: 12 tiles
+- z16: 40 tiles
+- total: **56** 256×256 RGB Terrarium PNG tiles
+- tile bytes: **4,670,817 bytes** (about 4.45 MiB)
+- renderer-derivative cap: 8 MiB
+- manifest SHA256: `2d48c4f1c14958304e6fe8c5ec3b6174b4687ba2e7f61b659f8f0fade3d38417`
+- output: `public/terrain/dgm1-terrarium/`
+
+Terrarium values remain metres with no visual exaggeration (`1.0`). The encoder's
+1/256-metre step is materially finer than the DGM1 source accuracy; the independent
+validation bound measured a maximum endpoint quantization error of about **0.0015 m**.
+The manifest records source/intermediate/manifest hashes, renderer/source bounds, axis
+order, DHHN2016_NH vertical reference, attribution/license links, camera limits, tile
+hashes/sizes and the exact generation command.
+
+The renderer bounds remain the canonical runtime bbox `[9.385, 51.307, 9.425, 51.323]`.
+Edge pixels that fall inside a Web-Mercator tile but just outside the larger reviewed DGM
+clip are clamped to the nearest reviewed DGM sample; the MapLibre raster-dem source itself
+is bounded to the canonical park AOI, so those padding pixels cannot expand application
+terrain coverage.
 
 ## Commands
 
@@ -64,6 +94,10 @@ Run from the repository root:
       --artifact terrain/artifacts/bergpark-dgm1.npz \
       --manifest terrain/artifacts/bergpark-dgm1.manifest.json \
       --graph data/graph.json
+
+    python terrain/pipeline/maplibre_dem.py build
+
+    python terrain/pipeline/maplibre_dem.py validate
 
 `acquire` performs the same bounded WCS request directly and refuses to overwrite a
 non-identical existing source unless `--replace` is explicit. The margin is hard-capped at

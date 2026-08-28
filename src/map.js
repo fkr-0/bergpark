@@ -266,6 +266,14 @@ export function createLeafletSpatialAdapter(element, graph, world, { language = 
       });
     },
     setUserPosition,
+    setWorld() {
+      // Late supplemental graph hydration is rendered by the existing named
+      // Leaflet compatibility overlays; the core place/network authority is stable.
+      return true;
+    },
+    setTreeVisibility() {},
+    setTreeFilter() {},
+    setVisitorKinds() {},
     setLanguage(nextLanguage) {
       currentLanguage = nextLanguage;
       updateModelLaunchCopy();

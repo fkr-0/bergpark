@@ -15,9 +15,10 @@ test('capability detection requires WebGL2 rather than accepting a WebGL1 contex
     navigatorRef: {},
   });
   assert.equal(webgl2.webgl2, true);
+  assert.equal(webgl2.terrain, true);
 });
 
-test('renderer preference fails closed to Leaflet without WebGL2, on reduced power, and before terrain ships', () => {
+test('terrain stays explicit opt-in and fails closed to Leaflet on capability constraints', () => {
   assert.deepEqual(selectSpatialRenderer({ preference: 'terrain', capabilities: { webgl2: false, terrain: true } }), {
     renderer: 'leaflet', requested: 'terrain', fallbackReason: 'webgl2-unavailable',
   });
@@ -28,6 +29,12 @@ test('renderer preference fails closed to Leaflet without WebGL2, on reduced pow
     renderer: 'leaflet', requested: 'terrain', fallbackReason: 'terrain-renderer-unavailable',
   });
   assert.equal(selectSpatialRenderer({ preference: 'leaflet', capabilities: {} }).renderer, 'leaflet');
+  assert.deepEqual(selectSpatialRenderer({ preference: 'auto', capabilities: { webgl2: true, terrain: true } }), {
+    renderer: 'leaflet', requested: 'auto', fallbackReason: null,
+  });
+  assert.deepEqual(selectSpatialRenderer({ preference: 'terrain', capabilities: { webgl2: true, terrain: true } }), {
+    renderer: 'terrain', requested: 'terrain', fallbackReason: null,
+  });
 });
 
 test('renderer preference plumbing accepts only explicit known values', () => {
@@ -41,7 +48,8 @@ test('spatial controller forwards core semantics without exposing the adapter ma
   const calls = [];
   const adapter = Object.fromEntries([
     'fitWorld', 'focusPlace', 'focusPosition', 'showRoute', 'clearRoute', 'setUserPosition',
-    'setWalkingNetwork', 'setLanguage', 'invalidate', 'destroy',
+    'setWalkingNetwork', 'setWorld', 'setTreeVisibility', 'setTreeFilter', 'setVisitorKinds',
+    'setLanguage', 'invalidate', 'destroy',
   ].map((name) => [name, (...args) => { calls.push([name, ...args]); return true; }]));
   adapter.map = { concreteLeafletObject: true };
   adapter.compatibilitySurface = (name) => ({ kind: name, renderer: 'leaflet', map: adapter.map });
