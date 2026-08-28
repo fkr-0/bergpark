@@ -7,5 +7,7 @@ public/data/
 coverage/
 playwright-report/
 test-results/
+test-results-*/
+.ws-bridge/
 __pycache__/
 *.py[cod]
