@@ -130,7 +130,9 @@ function applySupplementalGraph(hydratedGraph) {
 
   if (currentView !== 'map' && !currentTreeId && !currentVisitorFeatureId) setView(currentView);
   if (currentNodeId && !currentRoute && !elements.detail.hidden) showDetail(graph.entitiesById.get(currentNodeId));
-  restoreDeepLink({ force: true });
+  // Late supplemental hydration must not replay a stale map deep link after the
+  // visitor has deliberately moved into Index or Trees.
+  if (currentView === 'map') restoreDeepLink({ force: true });
 }
 
 function ensureSupplementalData() {

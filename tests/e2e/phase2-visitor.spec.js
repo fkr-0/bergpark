@@ -51,6 +51,7 @@ test('route detail preserves mapped-path uncertainty, semantic links, and keyboa
   await expect(detail).toBeVisible();
   await expect(detail.locator('h2')).toContainText('Aquädukt');
   await expect(detail.locator('[data-semantic-id]').first()).toBeVisible();
+  await expect(detail.locator('[data-semantic-id]').first()).toHaveAttribute('data-semantic-id', /^person-/);
 
   await detail.locator('[data-route-to]').first().click();
   await expect(detail.locator('.route-metrics')).toBeVisible();

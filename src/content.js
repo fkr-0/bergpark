@@ -27,10 +27,19 @@ function renderArtworkContext(node, graph, language) {
 function renderSemanticLinks(node, graph, language) {
   const relations = graph.semanticRelationsByEntity?.get(node.id) ?? [];
   if (!relations.length) return '';
-  const rows = relations.map((edge) => {
-    const otherId = edge.from === node.id ? edge.to : edge.from;
-    const other = graph.entitiesById.get(otherId) ?? graph.nodesById.get(otherId);
-    if (!other) return '';
+  const orderedRelations = relations
+    .map((edge, index) => {
+      const otherId = edge.from === node.id ? edge.to : edge.from;
+      const other = graph.entitiesById.get(otherId) ?? graph.nodesById.get(otherId);
+      return other ? { edge, other, index } : null;
+    })
+    .filter(Boolean)
+    .sort((left, right) => {
+      const leftPerson = left.other.kind === 'historical_figure' || left.other.type === 'historical_figure' ? 0 : 1;
+      const rightPerson = right.other.kind === 'historical_figure' || right.other.type === 'historical_figure' ? 0 : 1;
+      return leftPerson - rightPerson || left.index - right.index;
+    });
+  const rows = orderedRelations.map(({ edge, other }) => {
     const direction = edge.from === node.id ? 'outgoing' : 'incoming';
     const relation = semanticRelationLabel(edge, language);
     const otherName = localized(other.name, language, other.id);
@@ -46,7 +55,7 @@ function renderSemanticLinks(node, graph, language) {
         : '',
     ].filter(Boolean);
     return `<button type="button" class="semantic-link" data-semantic-id="${escapeHtml(other.id)}"><strong>${escapeHtml(phrase)}</strong>${evidence.map((line) => `<small>${escapeHtml(line)}</small>`).join('')}</button>`;
-  }).filter(Boolean).join('');
+  }).join('');
   return rows ? `<section class="detail-section"><h3>${language === 'de' ? 'Historische Bezüge' : 'Historical connections'}</h3><div class="semantic-links">${rows}</div></section>` : '';
 }
 

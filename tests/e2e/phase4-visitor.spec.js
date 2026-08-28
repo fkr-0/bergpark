@@ -78,7 +78,10 @@ test('desktop place/tree/feature history restores back-forward state and ignores
   await expect(page.locator('#detail-sheet h2')).toContainText('Herkules');
 
   await page.getByRole('button', { name: 'Bäume' }).click();
+  await expect(page.locator('#panel-view')).toBeVisible();
+  await expect(page.locator('#detail-sheet')).toBeHidden();
   const treeRow = page.locator('[data-tree-id]').first();
+  await expect(treeRow).toBeVisible();
   const treeId = await treeRow.getAttribute('data-tree-id');
   expect(treeId).toBeTruthy();
   await treeRow.click();
