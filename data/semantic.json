@@ -2,38 +2,6 @@
   "schema_version": 1,
   "sources": [
     {
-      "id": "unesco-bergpark-world-heritage",
-      "publisher": "UNESCO World Heritage Centre",
-      "title": "Bergpark Wilhelmshöhe",
-      "url": "https://whc.unesco.org/en/list/1413",
-      "source_type": "world_heritage_record",
-      "retrieved_utc": "2026-08-27"
-    },
-    {
-      "id": "unesco-icomos-2013-evaluation",
-      "publisher": "ICOMOS / UNESCO World Heritage Centre",
-      "title": "Evaluations of Nominations of Cultural and Mixed Properties to the World Heritage List: Bergpark Wilhelmshöhe",
-      "url": "https://whc.unesco.org/document/152607",
-      "source_type": "advisory_body_evaluation",
-      "retrieved_utc": "2026-08-27"
-    },
-    {
-      "id": "hkh-herkules",
-      "publisher": "Hessen Kassel Heritage",
-      "title": "Herkules im Bergpark Wilhelmshöhe",
-      "url": "https://www.heritage-kassel.de/standorte/herkules",
-      "source_type": "official_heritage_site",
-      "retrieved_utc": "2026-08-27"
-    },
-    {
-      "id": "museum-kassel-guerniero-gs9734",
-      "publisher": "Museumslandschaft Hessen Kassel",
-      "title": "Kassel-Wilhelmshöhe, Oktogon, Entwurf zur Pyramide, GS 9734",
-      "url": "https://architekturzeichnungen.museum-kassel.de/12020/",
-      "source_type": "museum_collection_catalogue",
-      "retrieved_utc": "2026-08-27"
-    },
-    {
       "id": "deutsche-biographie-jussow",
       "publisher": "Deutsche Biographie",
       "title": "Jussow, Heinrich Christoph",
@@ -42,36 +10,28 @@
       "retrieved_utc": "2026-08-27"
     },
     {
-      "id": "museum-kassel-jussow-aquaedukt-gs5727",
-      "publisher": "Museumslandschaft Hessen Kassel",
-      "title": "Kassel-Wilhelmshöhe, Entwurf zum Aquädukt und zur Ruine auf dem Apolloberg, GS 5727",
-      "url": "https://architekturzeichnungen.museum-kassel.de/11358/",
-      "source_type": "museum_collection_catalogue",
-      "retrieved_utc": "2026-08-27"
-    },
-    {
-      "id": "museum-kassel-jussow-teufelsbruecke-gs5860",
-      "publisher": "Museumslandschaft Hessen Kassel",
-      "title": "Entwurf zur Plutogrotte mit dem Höllenbassin und der Teufelsbrücke, GS 5860",
-      "url": "https://architekturzeichnungen.museum-kassel.de/11467/0/0/0/1/objekt.html",
-      "source_type": "museum_collection_catalogue",
-      "retrieved_utc": "2026-08-27"
-    },
-    {
-      "id": "museum-kassel-jussow-loewenburg-gs5708",
-      "publisher": "Museumslandschaft Hessen Kassel",
-      "title": "Kassel-Wilhelmshöhe, Löwenburg, Entwurf zur Kuppeldekoration des Rittersaals, GS 5708",
-      "url": "https://architekturzeichnungen.museum-kassel.de/11339/0/0/0/1/objekt.html",
-      "source_type": "museum_collection_catalogue",
-      "retrieved_utc": "2026-08-27"
-    },
-    {
-      "id": "hkh-loewenburg",
+      "id": "hkh-alte-meister",
       "publisher": "Hessen Kassel Heritage",
-      "title": "Löwenburg",
-      "url": "https://www.heritage-kassel.de/standorte/loewenburg",
-      "source_type": "official_heritage_site",
+      "title": "Gemäldegalerie Alte Meister — Malerei bis 1800",
+      "url": "https://www.heritage-kassel.de/sammlung-und-forschung/sammlungen/gemaeldegalerie-alte-meister",
+      "source_type": "knowledge_phase_3_registered_source",
       "retrieved_utc": "2026-08-27"
+    },
+    {
+      "id": "hkh-antiken",
+      "publisher": "Hessen Kassel Heritage",
+      "title": "Gemäldegalerie Alte Meister im Schloss Wilhelmshöhe / Antikensammlung visitor page",
+      "url": "https://www.heritage-kassel.de/standorte/gemaeldegalerie-alte-meister",
+      "source_type": "knowledge_phase_3_registered_source",
+      "retrieved_utc": "2026-08-27"
+    },
+    {
+      "id": "hkh-gemaeldegalerie",
+      "publisher": "Hessen Kassel Heritage",
+      "title": "Gemäldegalerie Alte Meister — Malerei bis 1800",
+      "url": "https://www.heritage-kassel.de/sammlung-und-forschung/sammlungen/gemaeldegalerie-alte-meister",
+      "source_type": "knowledge_phase_3_registered_source",
+      "retrieved_utc": "2026-08-28"
     },
     {
       "id": "hkh-gemaeldegalerie-collection",
@@ -88,9 +48,285 @@
       "url": "https://www.heritage-kassel.de/standorte/gemaeldegalerie-alte-meister",
       "source_type": "official_museum_location_record",
       "retrieved_utc": "2026-08-27"
+    },
+    {
+      "id": "hkh-gewaechshaus",
+      "publisher": "Hessen Kassel Heritage",
+      "title": "Großes Gewächshaus",
+      "url": "https://www.heritage-kassel.de/standorte/gewaechshaus",
+      "source_type": "knowledge_phase_3_registered_source",
+      "retrieved_utc": "2026-08-27"
+    },
+    {
+      "id": "hkh-herkules",
+      "publisher": "Hessen Kassel Heritage",
+      "title": "Herkules im Bergpark Wilhelmshöhe",
+      "url": "https://www.heritage-kassel.de/standorte/herkules",
+      "source_type": "official_heritage_site",
+      "retrieved_utc": "2026-08-27"
+    },
+    {
+      "id": "hkh-herkules-site",
+      "publisher": "Hessen Kassel Heritage",
+      "title": "Herkules im Bergpark Wilhelmshöhe",
+      "url": "https://www.heritage-kassel.de/standorte/herkules",
+      "source_type": "knowledge_phase_3_registered_source",
+      "retrieved_utc": "2026-08-28"
+    },
+    {
+      "id": "hkh-loewenburg",
+      "publisher": "Hessen Kassel Heritage",
+      "title": "Löwenburg",
+      "url": "https://www.heritage-kassel.de/standorte/loewenburg",
+      "source_type": "official_heritage_site",
+      "retrieved_utc": "2026-08-27"
+    },
+    {
+      "id": "hkh-schloss",
+      "publisher": "Hessen Kassel Heritage",
+      "title": "Schloss Wilhelmshöhe",
+      "url": "https://www.heritage-kassel.de/standorte/schloss-wilhelmshoehe",
+      "source_type": "knowledge_phase_3_registered_source",
+      "retrieved_utc": "2026-08-27"
+    },
+    {
+      "id": "lfdh-denkmaltopographie-wilhelmshoehe",
+      "publisher": "Landesamt für Denkmalpflege Hessen / Universitätsbibliothek Heidelberg digital",
+      "title": "Denkmaltopographie Bundesrepublik Deutschland — Kulturdenkmäler in Hessen: Stadt Kassel 3, Wilhelmshöhe",
+      "url": "https://digi.ub.uni-heidelberg.de/diglit/dtbrd_he_bd44",
+      "source_type": "knowledge_phase_3_registered_source",
+      "retrieved_utc": "2026-08-28"
+    },
+    {
+      "id": "museum-kassel-bromeis-kuppelsaal-sm-gs-1-3-898",
+      "publisher": "Hessen Kassel Heritage — Bestandskatalog der Architekturzeichnungen",
+      "title": "Schloss Wilhelmshöhe, Kuppelsaal — Fußbodenentwurf (SM-GS 1.3.898)",
+      "url": "https://architekturzeichnungen.museum-kassel.de/56057/31719/0/0/0/beteiligte.html",
+      "source_type": "knowledge_phase_3_registered_source",
+      "retrieved_utc": "2026-08-28"
+    },
+    {
+      "id": "museum-kassel-bromeis-thronsaal-sm-gs-1-3-950",
+      "publisher": "Hessen Kassel Heritage — Bestandskatalog der Architekturzeichnungen",
+      "title": "Weißensteinflügel, Thronsaal — Entwurf für bogenförmige Trennwand (SM-GS 1.3.950)",
+      "url": "https://architekturzeichnungen.museum-kassel.de/61944/",
+      "source_type": "knowledge_phase_3_registered_source",
+      "retrieved_utc": "2026-08-28"
+    },
+    {
+      "id": "museum-kassel-du-ry-gs5736",
+      "publisher": "Hessen Kassel Heritage — Bestandskatalog der Architekturzeichnungen",
+      "title": "Schloss Wilhelmshöhe — Entwurfsskizze zur Dreiflügelanlage (GS 5736)",
+      "url": "https://architekturzeichnungen.museum-kassel.de/11366/",
+      "source_type": "knowledge_phase_3_registered_source",
+      "retrieved_utc": "2026-08-28"
+    },
+    {
+      "id": "museum-kassel-du-ry-gs5744",
+      "publisher": "Hessen Kassel Heritage — Bestandskatalog der Architekturzeichnungen",
+      "title": "Schloss Wilhelmshöhe, Weißensteinflügel — Kellergrundriss (GS 5744)",
+      "url": "https://architekturzeichnungen.museum-kassel.de/11377/",
+      "source_type": "knowledge_phase_3_registered_source",
+      "retrieved_utc": "2026-08-28"
+    },
+    {
+      "id": "museum-kassel-du-ry-jussow-gs5747",
+      "publisher": "Hessen Kassel Heritage — Bestandskatalog der Architekturzeichnungen",
+      "title": "Schloss Wilhelmshöhe, Weißensteinflügel — Erdgeschossentwurf (GS 5747)",
+      "url": "https://architekturzeichnungen.museum-kassel.de/11380/",
+      "source_type": "knowledge_phase_3_registered_source",
+      "retrieved_utc": "2026-08-28"
+    },
+    {
+      "id": "museum-kassel-guerniero-gs5547",
+      "publisher": "Hessen Kassel Heritage — Bestandskatalog der Architekturzeichnungen",
+      "title": "Kassel-Wilhelmshöhe, Oktogon — Entwurf (GS 5547)",
+      "url": "https://architekturzeichnungen.museum-kassel.de/11244/",
+      "source_type": "knowledge_phase_3_registered_source",
+      "retrieved_utc": "2026-08-28"
+    },
+    {
+      "id": "museum-kassel-guerniero-gs9734",
+      "publisher": "Museumslandschaft Hessen Kassel",
+      "title": "Kassel-Wilhelmshöhe, Oktogon, Entwurf zur Pyramide, GS 9734",
+      "url": "https://architekturzeichnungen.museum-kassel.de/12020/",
+      "source_type": "museum_collection_catalogue",
+      "retrieved_utc": "2026-08-27"
+    },
+    {
+      "id": "museum-kassel-jussow-aquaedukt-gs5727",
+      "publisher": "Museumslandschaft Hessen Kassel",
+      "title": "Kassel-Wilhelmshöhe, Entwurf zum Aquädukt und zur Ruine auf dem Apolloberg, GS 5727",
+      "url": "https://architekturzeichnungen.museum-kassel.de/11358/",
+      "source_type": "museum_collection_catalogue",
+      "retrieved_utc": "2026-08-27"
+    },
+    {
+      "id": "museum-kassel-jussow-aquaedukt-gs5846",
+      "publisher": "Hessen Kassel Heritage — Bestandskatalog der Architekturzeichnungen",
+      "title": "Kassel-Wilhelmshöhe, Aquädukt — erster Entwurf (GS 5846)",
+      "url": "https://architekturzeichnungen.museum-kassel.de/10874/32862/0/0/0/beteiligte.html",
+      "source_type": "knowledge_phase_3_registered_source",
+      "retrieved_utc": "2026-08-28"
+    },
+    {
+      "id": "museum-kassel-jussow-loewenburg-gs5708",
+      "publisher": "Museumslandschaft Hessen Kassel",
+      "title": "Kassel-Wilhelmshöhe, Löwenburg, Entwurf zur Kuppeldekoration des Rittersaals, GS 5708",
+      "url": "https://architekturzeichnungen.museum-kassel.de/11339/0/0/0/1/objekt.html",
+      "source_type": "museum_collection_catalogue",
+      "retrieved_utc": "2026-08-27"
+    },
+    {
+      "id": "museum-kassel-jussow-schloss-sm-gs-1-3-664",
+      "publisher": "Hessen Kassel Heritage — Bestandskatalog der Architekturzeichnungen",
+      "title": "Schloss Wilhelmshöhe — Entwurf zur Gesamtanlage mit Garten (SM-GS 1.3.664)",
+      "url": "https://architekturzeichnungen.museum-kassel.de/69361/",
+      "source_type": "knowledge_phase_3_registered_source",
+      "retrieved_utc": "2026-08-28"
+    },
+    {
+      "id": "museum-kassel-jussow-teufelsbruecke-gs5850",
+      "publisher": "Hessen Kassel Heritage — Bestandskatalog der Architekturzeichnungen",
+      "title": "Kassel-Wilhelmshöhe — Plutogrotte/Teufelsbrücke design context (GS 5850)",
+      "url": "https://architekturzeichnungen.museum-kassel.de/10878/",
+      "source_type": "knowledge_phase_3_registered_source",
+      "retrieved_utc": "2026-08-28"
+    },
+    {
+      "id": "museum-kassel-jussow-teufelsbruecke-gs5860",
+      "publisher": "Museumslandschaft Hessen Kassel",
+      "title": "Entwurf zur Plutogrotte mit dem Höllenbassin und der Teufelsbrücke, GS 5860",
+      "url": "https://architekturzeichnungen.museum-kassel.de/11467/0/0/0/1/objekt.html",
+      "source_type": "museum_collection_catalogue",
+      "retrieved_utc": "2026-08-27"
+    },
+    {
+      "id": "museum-kassel-pagode-sm-gs-1-3-981",
+      "publisher": "Hessen Kassel Heritage — Bestandskatalog der Architekturzeichnungen",
+      "title": "Mulang Pagode — Bauaufnahme und Entwurf für neuen Anstrich (SM-GS 1.3.981)",
+      "url": "https://architekturzeichnungen.museum-kassel.de/61951/0/0/0/1/objekt.html",
+      "source_type": "knowledge_phase_3_registered_source",
+      "retrieved_utc": "2026-08-28"
+    },
+    {
+      "id": "museum-kassel-rembrandt-holdings",
+      "publisher": "Hessen Kassel Heritage — Objektdatenbank",
+      "title": "Rembrandt holdings — Gemäldegalerie Alte Meister object list",
+      "url": "https://datenbank.museum-kassel.de/32732/T57180/Sammlung/0/1/33/4/objektliste.html",
+      "source_type": "knowledge_phase_3_registered_source",
+      "retrieved_utc": "2026-08-28"
+    },
+    {
+      "id": "museum-kassel-rembrandt-saskia-gk236",
+      "publisher": "Hessen Kassel Heritage",
+      "title": "Saskia van Uylenburgh im Profil, in reichem Kostüm — GK 236",
+      "url": "https://www.altemeister.museum-kassel.de/33761/",
+      "source_type": "museum_object_record",
+      "retrieved_utc": "2026-08-28"
+    },
+    {
+      "id": "museum-kassel-rembrandt-segen-jakobs-gk249",
+      "publisher": "Hessen Kassel Heritage",
+      "title": "Jakob segnet Ephraim und Manasse (Der Segen Jakobs) — GK 249",
+      "url": "https://www.altemeister.museum-kassel.de/33768/",
+      "source_type": "museum_object_record",
+      "retrieved_utc": "2026-08-28"
+    },
+    {
+      "id": "museum-kassel-rubens-gk92",
+      "publisher": "Hessen Kassel Heritage — Objektdatenbank",
+      "title": "Peter Paul Rubens — Nicolas de Respaigne (GK 92)",
+      "url": "https://datenbank.museum-kassel.de/33907/36978/Sammlung/0/b17/0/0/objekt.html",
+      "source_type": "knowledge_phase_3_registered_source",
+      "retrieved_utc": "2026-08-28"
+    },
+    {
+      "id": "stadt-ballhaus",
+      "publisher": "Stadt Kassel",
+      "title": "Ballhaus im Bergpark Wilhelmshöhe",
+      "url": "https://www.kassel.de/buerger/kunst_und_kultur/parks_und_gaerten/wilhelmshoehe/sehenswertes/ballhaus.php",
+      "source_type": "knowledge_phase_3_registered_source",
+      "retrieved_utc": "2026-08-28"
+    },
+    {
+      "id": "stadt-herkules",
+      "publisher": "Stadt Kassel",
+      "title": "Der Herkules in Kassel",
+      "url": "https://www.kassel.de/buerger/kunst_und_kultur/parks_und_gaerten/wilhelmshoehe/sehenswertes/herkules.php",
+      "source_type": "knowledge_phase_3_registered_source",
+      "retrieved_utc": "2026-08-27"
+    },
+    {
+      "id": "stadt-loewenburg",
+      "publisher": "Stadt Kassel",
+      "title": "Löwenburg",
+      "url": "https://www.kassel.de/buerger/kunst_und_kultur/parks_und_gaerten/wilhelmshoehe/sehenswertes/loewenburg.php",
+      "source_type": "knowledge_phase_3_registered_source",
+      "retrieved_utc": "2026-08-27"
+    },
+    {
+      "id": "stadt-steinhoefer",
+      "publisher": "Kassel Marketing / Stadt Kassel tourism",
+      "title": "Wasserspiele Station 3 — Steinhöfer Wasserfall",
+      "url": "https://visit.kassel.de/poi/1505-uhr-steinhoefer-wasserfall",
+      "source_type": "knowledge_phase_3_registered_source",
+      "retrieved_utc": "2026-08-27"
+    },
+    {
+      "id": "unesco-bergpark-world-heritage",
+      "publisher": "UNESCO World Heritage Centre",
+      "title": "Bergpark Wilhelmshöhe",
+      "url": "https://whc.unesco.org/en/list/1413",
+      "source_type": "world_heritage_record",
+      "retrieved_utc": "2026-08-27"
+    },
+    {
+      "id": "unesco-icomos-2013-evaluation",
+      "publisher": "ICOMOS / UNESCO World Heritage Centre",
+      "title": "Evaluations of Nominations of Cultural and Mixed Properties to the World Heritage List: Bergpark Wilhelmshöhe",
+      "url": "https://whc.unesco.org/document/152607",
+      "source_type": "advisory_body_evaluation",
+      "retrieved_utc": "2026-08-27"
+    },
+    {
+      "id": "unesco-nomination-1413",
+      "publisher": "UNESCO World Heritage Centre / State Party nomination",
+      "title": "Bergpark Wilhelmshöhe — Nomination File 1413",
+      "url": "https://whc.unesco.org/uploads/nominations/1413.pdf",
+      "source_type": "knowledge_phase_3_registered_source",
+      "retrieved_utc": "2026-08-27"
     }
   ],
   "artworks": [
+    {
+      "id": "artwork-bromeis-thronsaal-sm-gs-1-3-950",
+      "kind": "artwork",
+      "object_type": "architectural_drawing",
+      "name": {
+        "de": "Weißensteinflügel, Thronsaal — Entwurf zur Trennwand",
+        "en": "Weißenstein wing throne room — partition design"
+      },
+      "creator_id": "person-johann-conrad-bromeis",
+      "creator_ids": [
+        "person-johann-conrad-bromeis"
+      ],
+      "date_display": "1825–1830",
+      "status": "museum_catalogue_design_record",
+      "source_ids": [
+        "museum-kassel-bromeis-thronsaal-sm-gs-1-3-950"
+      ],
+      "related_place_id": "schloss",
+      "attribution": {
+        "status": "secure",
+        "basis": "HKK architectural-drawing catalogue"
+      },
+      "current_location_status": "not_asserted_from_reviewed_catalogue_page",
+      "location_qualification": {
+        "de": "Der HKK-Bestandskatalog belegt das Zeichnungsobjekt und seinen Bezug zum Bauwerk; ein aktueller physischer Aufbewahrungs- oder Ausstellungsraum wird hier nicht ohne zusätzliche Quelle behauptet.",
+        "en": "The HKK catalogue establishes the drawing object and its relationship to the building; no current physical storage or display room is asserted here without an additional source."
+      }
+    },
     {
       "id": "artwork-der-segen-jakobs",
       "kind": "artwork",
@@ -102,11 +338,290 @@
       "creator_id": "person-rembrandt-van-rijn",
       "source_ids": [
         "hkh-gemaeldegalerie-collection",
-        "hkh-gemaeldegalerie-location"
-      ]
+        "hkh-gemaeldegalerie-location",
+        "hkh-gemaeldegalerie",
+        "museum-kassel-rembrandt-segen-jakobs-gk249"
+      ],
+      "creator_ids": [
+        "person-rembrandt-van-rijn"
+      ],
+      "attribution": {
+        "status": "secure",
+        "basis": "official_collection_attribution"
+      },
+      "current_place_id": "schloss",
+      "collection_id": "collection-gemaeldegalerie-alte-meister",
+      "status": "displayed_collection_work",
+      "date_display": "1656"
+    },
+    {
+      "id": "artwork-du-ry-weissenstein-gs5744",
+      "kind": "artwork",
+      "object_type": "architectural_drawing",
+      "name": {
+        "de": "Weißensteinflügel, Kellergrundriss, GS 5744",
+        "en": "Weißenstein wing basement plan, GS 5744"
+      },
+      "creator_id": "person-simon-louis-du-ry",
+      "creator_ids": [
+        "person-simon-louis-du-ry"
+      ],
+      "date_display": "1786",
+      "status": "museum_catalogue_design_record",
+      "source_ids": [
+        "museum-kassel-du-ry-gs5744"
+      ],
+      "related_place_id": "schloss",
+      "attribution": {
+        "status": "secure",
+        "basis": "HKK architectural-drawing catalogue"
+      },
+      "current_location_status": "not_asserted_from_reviewed_catalogue_page",
+      "location_qualification": {
+        "de": "Der HKK-Bestandskatalog belegt das Zeichnungsobjekt und seinen Bezug zum Bauwerk; ein aktueller physischer Aufbewahrungs- oder Ausstellungsraum wird hier nicht ohne zusätzliche Quelle behauptet.",
+        "en": "The HKK catalogue establishes the drawing object and its relationship to the building; no current physical storage or display room is asserted here without an additional source."
+      }
+    },
+    {
+      "id": "artwork-flora-farnesina",
+      "kind": "artwork",
+      "object_type": "garden_sculpture",
+      "name": {
+        "de": "Flora Farnesina",
+        "en": "Flora Farnesina"
+      },
+      "creator_id": "person-ludwig-daniel-heyd",
+      "creator_ids": [
+        "person-ludwig-daniel-heyd",
+        "person-johann-wolfgang-heyd"
+      ],
+      "date_display": "um / c. 1792",
+      "status": "surviving_park_sculpture",
+      "related_bilingual_place_id": "flora",
+      "source_ids": [
+        "lfdh-denkmaltopographie-wilhelmshoehe"
+      ],
+      "attribution": {
+        "status": "secure_joint_attribution",
+        "basis": "official_monument_inventory",
+        "qualification": "creator_id is a compatibility projection only; creator_ids records the joint Heyd attribution."
+      }
+    },
+    {
+      "id": "artwork-guerniero-herkules-pyramide-gs9734",
+      "kind": "artwork",
+      "object_type": "architectural_drawing",
+      "name": {
+        "de": "Entwurf zur Pyramide des Herkules, GS 9734",
+        "en": "Design for the Hercules pyramid, GS 9734"
+      },
+      "creator_id": "person-giovanni-francesco-guerniero",
+      "creator_ids": [
+        "person-giovanni-francesco-guerniero"
+      ],
+      "date_display": "1713",
+      "status": "museum_catalogue_design_record",
+      "source_ids": [
+        "museum-kassel-guerniero-gs9734"
+      ],
+      "related_place_id": "herkules",
+      "attribution": {
+        "status": "secure",
+        "basis": "HKK architectural-drawing catalogue"
+      },
+      "current_location_status": "not_asserted_from_reviewed_catalogue_page",
+      "location_qualification": {
+        "de": "Der HKK-Bestandskatalog belegt das Zeichnungsobjekt und seinen Bezug zum Bauwerk; ein aktueller physischer Aufbewahrungs- oder Ausstellungsraum wird hier nicht ohne zusätzliche Quelle behauptet.",
+        "en": "The HKK catalogue establishes the drawing object and its relationship to the building; no current physical storage or display room is asserted here without an additional source."
+      }
+    },
+    {
+      "id": "artwork-herkules-kupferfigur",
+      "kind": "artwork",
+      "object_type": "monumental_sculpture",
+      "name": {
+        "de": "Kupferfigur des Herkules",
+        "en": "Copper figure of Hercules"
+      },
+      "creator_id": "person-johann-jakob-anthoni",
+      "creator_ids": [
+        "person-johann-jakob-anthoni"
+      ],
+      "date_display": "1713–1717",
+      "material": "getriebenes Kupferblech / worked copper sheet",
+      "current_place_id": "herkules",
+      "status": "surviving_in_situ_on_monument",
+      "source_ids": [
+        "stadt-herkules",
+        "hkh-herkules-site",
+        "unesco-nomination-1413"
+      ],
+      "attribution": {
+        "status": "secure",
+        "basis": "official_city_and_world_heritage_sources",
+        "qualification": "Anthoni is the documented maker of the copper figure; architectural design is separate."
+      }
+    },
+    {
+      "id": "artwork-jussow-aquaedukt-gs5846",
+      "kind": "artwork",
+      "object_type": "architectural_drawing",
+      "name": {
+        "de": "Erster Entwurf zum Aquädukt, GS 5846",
+        "en": "First design for the Aqueduct, GS 5846"
+      },
+      "creator_id": "person-heinrich-christoph-jussow",
+      "creator_ids": [
+        "person-heinrich-christoph-jussow"
+      ],
+      "date_display": "vor / before 1789",
+      "status": "documented_unexecuted_first_design",
+      "source_ids": [
+        "museum-kassel-jussow-aquaedukt-gs5846"
+      ],
+      "related_place_id": "aquaedukt",
+      "attribution": {
+        "status": "secure_creator_qualified_execution",
+        "basis": "HKK architectural-drawing catalogue",
+        "qualification": "This first design was not executed unchanged."
+      },
+      "current_location_status": "not_asserted_from_reviewed_catalogue_page",
+      "location_qualification": {
+        "de": "Der HKK-Bestandskatalog belegt das Zeichnungsobjekt und seinen Bezug zum Bauwerk; ein aktueller physischer Aufbewahrungs- oder Ausstellungsraum wird hier nicht ohne zusätzliche Quelle behauptet.",
+        "en": "The HKK catalogue establishes the drawing object and its relationship to the building; no current physical storage or display room is asserted here without an additional source."
+      }
+    },
+    {
+      "id": "artwork-plutogrotte-meeresungeheuer-ost",
+      "kind": "artwork",
+      "object_type": "garden_sculpture",
+      "name": {
+        "de": "Östliches Meeresungeheuer an der Plutogrotte",
+        "en": "Eastern sea-monster sculpture at Pluto Grotto"
+      },
+      "creator_id": "person-johann-august-nahl-der-aeltere",
+      "creator_ids": [
+        "person-johann-august-nahl-der-aeltere"
+      ],
+      "date_display": "vor der Aufstellung 1794/95 / before installation 1794/95",
+      "current_place_id": "plutogrotte",
+      "status": "historic_sculpture_moved_to_current_setting",
+      "source_ids": [
+        "lfdh-denkmaltopographie-wilhelmshoehe"
+      ],
+      "attribution": {
+        "status": "secure_artist_and_installation_context",
+        "basis": "official_monument_inventory",
+        "qualification": "No unverified original title or exact original site is asserted."
+      }
+    },
+    {
+      "id": "artwork-plutogrotte-meeresungeheuer-west",
+      "kind": "artwork",
+      "object_type": "garden_sculpture",
+      "name": {
+        "de": "Westliches Meeresungeheuer an der Plutogrotte",
+        "en": "Western sea-monster sculpture at Pluto Grotto"
+      },
+      "creator_id": "person-johann-august-nahl-der-aeltere",
+      "creator_ids": [
+        "person-johann-august-nahl-der-aeltere"
+      ],
+      "date_display": "vor der Aufstellung 1794/95 / before installation 1794/95",
+      "current_place_id": "plutogrotte",
+      "status": "historic_sculpture_moved_to_current_setting",
+      "source_ids": [
+        "lfdh-denkmaltopographie-wilhelmshoehe"
+      ],
+      "attribution": {
+        "status": "secure_artist_and_installation_context",
+        "basis": "official_monument_inventory",
+        "qualification": "No unverified original title or exact original site is asserted."
+      }
+    },
+    {
+      "id": "artwork-rembrandt-saskia-gk236",
+      "kind": "artwork",
+      "object_type": "painting",
+      "name": {
+        "de": "Saskia im reichen Kostüm, GK 236",
+        "en": "Saskia in Rich Costume, GK 236"
+      },
+      "creator_id": "person-rembrandt-van-rijn",
+      "creator_ids": [
+        "person-rembrandt-van-rijn"
+      ],
+      "current_place_id": "schloss",
+      "collection_id": "collection-gemaeldegalerie-alte-meister",
+      "status": "current_collection_display_record",
+      "source_ids": [
+        "museum-kassel-rembrandt-holdings",
+        "hkh-gemaeldegalerie",
+        "museum-kassel-rembrandt-saskia-gk236"
+      ],
+      "attribution": {
+        "status": "secure",
+        "basis": "HKK object/collection records"
+      },
+      "date_display": "1642",
+      "provenance_note": {
+        "de": "HKK datiert GK 236 auf 1642 und dokumentiert den Erwerb 1750 durch Wilhelm VIII. mit dem Kabinett des Valerius Röver aus Delft.",
+        "en": "HKK dates GK 236 to 1642 and records its acquisition in 1750 by William VIII with the Valerius Röver cabinet from Delft."
+      }
+    },
+    {
+      "id": "artwork-rubens-nicolas-de-respaigne-gk92",
+      "kind": "artwork",
+      "object_type": "painting",
+      "name": {
+        "de": "Nicolas de Respaigne, GK 92",
+        "en": "Nicolas de Respaigne, GK 92"
+      },
+      "creator_id": "person-peter-paul-rubens",
+      "creator_ids": [
+        "person-peter-paul-rubens"
+      ],
+      "date_display": "vor / before 1620",
+      "current_place_id": "schloss",
+      "collection_id": "collection-gemaeldegalerie-alte-meister",
+      "status": "collection_work",
+      "source_ids": [
+        "museum-kassel-rubens-gk92",
+        "hkh-gemaeldegalerie"
+      ],
+      "attribution": {
+        "status": "secure",
+        "basis": "HKK object catalogue"
+      },
+      "provenance_note": {
+        "de": "Erworben 1751 aus der Sammlung Gerard Hoet in Den Haag durch Landgraf Wilhelm VIII.",
+        "en": "Acquired in 1751 from the Gerard Hoet collection in The Hague by Landgrave William VIII."
+      }
     }
   ],
   "collections": [
+    {
+      "id": "collection-antikensammlung-schloss-wilhelmshoehe",
+      "kind": "collection",
+      "name": {
+        "de": "Antikensammlung im Schloss Wilhelmshöhe",
+        "en": "Antiquities Collection at Wilhelmshöhe Palace"
+      },
+      "collection_type": "antiquities_collection",
+      "current_place_id": "schloss",
+      "source_ids": [
+        "hkh-antiken",
+        "hkh-schloss"
+      ],
+      "visitor_context": {
+        "verified_on": "2026-08-28",
+        "status": "current_museum_collection"
+      },
+      "description": {
+        "de": "Die Antikensammlung in Schloss Wilhelmshöhe verbindet fürstliche Sammelgeschichte mit dem europäischen Interesse an griechischer und römischer Antike. Hessen Kassel Heritage präsentiert sie heute im Schloss gemeinsam mit anderen musealen Bereichen, doch ihre Objekte stammen aus deutlich unterschiedlichen Zeiten, Regionen und Erwerbungskontexten. Die Sammlung umfasst archäologische Originale ebenso wie historische Modelle, die antike Architektur im Maßstab vermittelten. Besonders charakteristisch sind die Korkmodelle, die Landgraf Friedrich II. am Ende des 18. Jahrhunderts erwarb. Diese Modelle sind keine antiken Originale, sondern neuzeitliche Medien der Antikenrezeption und müssen deshalb als eigene Objektkategorie verstanden werden. Die Sammlungsgeschichte macht sichtbar, wie Reisen, Ausgrabungen, Gelehrsamkeit und höfische Bildung zusammenwirkten. Für das Datenmodell ist diese Unterscheidung grundlegend: antikes Objekt, neuzeitliches Modell und heutige Museumspräsentation sind verschiedene historische Ebenen.\n\nDie aktuelle Betreiberinformation nennt rund 800 ausgestellte Objekte und spannt den zeitlichen Bogen von frühen beziehungsweise bronzezeitlichen Zeugnissen über die griechische und römische Welt. Skulptur, Keramik und weitere archäologische Objektgruppen vermitteln unterschiedliche Aspekte antiker Gesellschaft und Kunst. Ein besonderer Schwerpunkt liegt auf rund dreißig großformatigen Korkmodellen antiker Architektur. Sie dokumentieren nicht die originale antike Bausubstanz, sondern die Art, wie Monumente im 18. Jahrhundert studiert, gesammelt und im Norden Europas anschaulich gemacht wurden. Diese Doppelstruktur aus Originalantiken und historischen Vermittlungsmodellen macht die Sammlung für Wilhelmshöhe besonders aussagekräftig. Der Datensatz vermeidet eine Vollinventarisierung ohne Objektkatalogbasis. Stattdessen beschreibt er die Sammlung als Ganzes und lässt für einzelne Antiken oder Modelle später quellenidentifizierte Entitäten zu.\n\nIn dieser Phase werden keine einzelnen antiken Objekte ohne stabile Katalogreferenz künstlich herausgelöst. Die Gruppe der Korkmodelle wird als nachweisbarer Sammlungsbereich beschrieben. Der Betreiber nennt etwa dreißig großformatige Modelle, die Friedrich II. erwarb. Sie sind für die Park- und Residenzgeschichte besonders relevant, weil sie Architekturwissen, Bildungsreise und Sammlungspraxis verbinden. Ein zukünftiger Ausbau kann einzelne Modelle mit Inventarnummer, dargestelltem Bau, Hersteller, Datierung und Restaurierungsstatus erfassen, sobald ein offizieller Objektdatensatz verfügbar ist. Die gleiche Regel gilt für griechische und römische Originale. Damit bleibt die Wissensbasis ehrlich: Repräsentativität wird aus belegten Sammlungsangaben erklärt und nicht durch erfundene Highlights ersetzt.\n\nDie Antikensammlung wird heute im musealen Kontext des Schlosses Wilhelmshöhe wahrgenommen. Wie bei der Gemäldegalerie bleibt der heutige Standort eine eigene Relation und nicht Bestandteil der antiken Objektidentität. Ausstellungsauswahl, Saalordnung und Öffnungszeiten können sich ändern. Deshalb trägt der Sammlungsdatensatz ein aktuelles Prüfdatum, während dauerhaftere Aussagen über Sammlungsgeschichte und Objektgruppen getrennt bleiben. Die Nähe zu Gemäldegalerie und historischer Residenz schafft einen dichten Besuchskontext: innerhalb desselben Gebäudes begegnen sich Antikenrezeption, alte Meister und Schlossgeschichte. Das digitale Modell nutzt diese Nähe zur Navigation, ohne die Sammlungen zu einer einzigen undifferenzierten Schloss-Sammlung zusammenzuziehen.\n\nDie Antikensammlung zeigt, dass Wilhelmshöhes Geschichte nicht allein aus dem Parkgelände erklärt werden kann. Fürstliche Repräsentation bezog sich auch auf Wissen über die Antike und auf die materielle Aneignung beziehungsweise Vermittlung vergangener Kulturen. Die Korkmodelle sind dafür ein besonders anschauliches Beispiel: Sie übersetzen berühmte Architektur in transportierbare, studierbare Objekte. In heutiger Perspektive verlangt diese Sammlungsgeschichte zugleich Provenienz- und Kontextarbeit. Erwerbungen, Ausgrabungsgeschichte und historische Deutungsmuster müssen quellenkritisch untersucht werden. Der Wissensgraph schafft dafür eine Struktur, in der Sammler, Objekte, Modelle, Orte und Quellen voneinander unterscheidbar sind. Er behauptet jedoch keine Provenienz, die nicht aus offiziellen Katalogen nachgewiesen ist.\n\nInterpretativ verbindet die Antikensammlung den realen Bergpark mit imaginierter und studierter Ferne. Antike Ruinen und Architektur dienten im 18. Jahrhundert als Bezugspunkte für Bildung und Geschmack; im Park erscheinen gleichzeitig künstliche Ruinen wie der Aquädukt. Sammlung und Gartenarchitektur sind nicht dasselbe, aber sie gehören zu einem kulturellen Klima, in dem Antikenwissen aktiv produziert und inszeniert wurde. Eine digitale Vermittlung kann diese Parallele zeigen, ohne direkte Einflusslinien zu behaupten, die nicht belegt sind. Das Korkmodell verdeutlicht, dass Antike im höfischen Europa häufig durch Medien, Kopien, Modelle und Reiseberichte vermittelt wurde. Die Wissensschicht markiert solche Vermittlungsebenen, statt Original und Rezeption zu vermischen.",
+        "en": "The Antiquities Collection at Wilhelmshöhe Palace joins princely collecting history with European engagement with Greek and Roman antiquity. Hessen Kassel Heritage presents it today in the palace alongside other museum areas, yet its objects come from very different periods, regions and acquisition contexts. The collection includes archaeological originals as well as historical models used to communicate ancient architecture at scale. Especially characteristic are the cork models acquired by Landgrave Frederick II at the end of the eighteenth century. Those models are not ancient originals but modern media of antiquarian reception and therefore require their own object category. The collection history demonstrates how travel, excavation, scholarship and court education interacted. For the data model this distinction is fundamental: ancient object, modern model and current museum presentation are separate historical levels.\n\nCurrent operator information describes roughly 800 objects on display and spans a chronology from early or Bronze Age material through the Greek and Roman worlds. Sculpture, ceramics and other archaeological groups present different dimensions of ancient society and art. Around thirty large cork models of ancient architecture form a particularly distinctive interpretive group. They do not preserve original ancient fabric but document how monuments were studied, collected and made visually accessible in northern Europe during the eighteenth century. This double structure of ancient originals and historical media of interpretation makes the collection especially meaningful at Wilhelmshöhe. The dataset avoids pretending to hold a full object inventory without catalogue evidence. It describes the collection as a whole while allowing source-identified antiquities or models to become individual entities in later phases.\n\nThis phase does not extract individual ancient objects without stable catalogue references. The cork models are instead described as a documented collection group. The operator identifies about thirty large models acquired by Frederick II. They are particularly relevant to the history of the residence and park because they connect architectural knowledge, educational travel and collecting practice. A future expansion can model individual cork objects with inventory number, represented monument, maker, date and conservation status when an official object record is available. The same rule applies to Greek and Roman originals. The knowledge base therefore remains honest: representative importance is explained from verified collection information rather than manufactured through invented highlights.\n\nThe Antiquities Collection is experienced today within the museum context of Wilhelmshöhe Palace. As with the Old Masters Gallery, present location is a separate relation rather than part of an ancient object’s identity. Display selection, room arrangement and opening hours can change. The collection record therefore carries a current verification date while more durable statements about collection history and object groups remain separate. Proximity to the Old Masters Gallery and historic residence creates a dense visitor context: antiquarian reception, old-master painting and palace history meet within the same building. The digital model uses that proximity for navigation without merging the collections into one undifferentiated palace collection.\n\nThe Antiquities Collection demonstrates that Wilhelmshöhe’s history cannot be explained solely from the park terrain. Princely representation also involved knowledge about antiquity and the material acquisition or mediation of past cultures. Cork models provide an especially clear example: they translate famous architecture into portable, studyable objects. From a present perspective this collecting history also calls for provenance and contextual research. Acquisitions, excavation histories and historical interpretive frameworks require source criticism. The knowledge graph provides a structure in which collectors, objects, models, locations and sources can remain distinct. It does not, however, claim provenance that has not been demonstrated in official catalogues.\n\nInterpretively, the Antiquities Collection connects the physical park with imagined and studied distance. Ancient ruins and architecture served eighteenth-century education and taste, while the park itself contains artificial ruins such as the Aqueduct. Collection and garden architecture are not the same thing, but they belong to a cultural environment in which knowledge of antiquity was actively produced and staged. Digital interpretation can show this parallel without inventing direct lines of influence that evidence does not support. Cork models demonstrate that antiquity in court Europe was often mediated through models, copies, travel and publication. The knowledge layer marks those levels of mediation rather than conflating originals with their reception."
+      }
+    },
     {
       "id": "collection-gemaeldegalerie-alte-meister",
       "kind": "collection",
@@ -116,40 +631,242 @@
       },
       "current_place_id": "schloss",
       "source_ids": [
-        "hkh-gemaeldegalerie-collection",
-        "hkh-gemaeldegalerie-location"
-      ]
+        "hkh-gemaeldegalerie",
+        "hkh-gemaeldegalerie-location",
+        "museum-kassel-rembrandt-holdings",
+        "museum-kassel-rubens-gk92"
+      ],
+      "collection_type": "painting_collection",
+      "visitor_context": {
+        "verified_on": "2026-08-28",
+        "status": "current_museum_collection_in_schloss_wilhelmshoehe"
+      },
+      "description": {
+        "de": "Die Gemäldegalerie Alte Meister ist das Ergebnis mehrerer Jahrhunderte fürstlicher Erwerbung, Neuordnung, Verlust- und Ortsgeschichte. Hessen Kassel Heritage hebt besonders die Sammelpolitik Landgraf Wilhelms VIII. in der Mitte des 18. Jahrhunderts hervor. Seine Ankäufe stärkten vor allem die niederländische und flämische Malerei und bilden bis heute einen Kernbestand. Die Sammlung wurde später in unterschiedlichen Kasseler Museumsgebäuden gezeigt. Seit 1877 war ein großer Teil in der damaligen Galerie an der Schönen Aussicht untergebracht; seit 1974 befindet sich die Gemäldegalerie Alte Meister im Mittelbau von Schloss Wilhelmshöhe. Diese Ortsgeschichte ist für das Datenmodell wesentlich: Das Schloss ist der heutige Präsentationsort, aber nicht automatisch der ursprüngliche Entstehungs-, Auftrags- oder Erwerbungsort jedes Bildes. Einzelne Werke behalten deshalb eigene Provenienz-, Sammlungs- und Anzeigeverknüpfungen.\n\nDer Betreiber nennt einen Gesamtbestand von rund 2.300 Gemälden und eine Dauerauswahl von mehr als 500 Werken auf mehreren Etagen. Den international markantesten Schwerpunkt bildet niederländische und flämische Malerei. Zwölf Gemälde Rembrandts werden als besonderer Bestand hervorgehoben; zu den bekannten Werken gehört Der Segen Jakobs. Rubens und van Dyck stehen für die flämische Stärke der Sammlung. Daneben sind deutsche, italienische und spanische Meister vertreten, sodass die Galerie nicht auf eine einzige Schule reduziert werden darf. Diese Breite wird im Wissensgraph nicht durch tausende leere Werkentitäten simuliert. Stattdessen erhält die Sammlung ein belastbares Profil, während nur repräsentative, im offiziellen Objekt- oder Sammlungskatalog verifizierte Werke als eigene Entitäten angelegt werden. So bleibt die Datenbasis erweiterbar, ohne Vollständigkeit vorzutäuschen.\n\nDie Phase modelliert bewusst eine kleine, nachweisbare Auswahl. Rembrandts Der Segen Jakobs ist als eigenständiges Werk mit Schöpfer-, Sammlungs- und Standortbeziehung vorhanden. Ergänzt wird Saskia im reichen Kostüm (GK 236), deren aktueller Kasseler Sammlungs- und Ausstellungszusammenhang aus der HKK-Objektliste hervorgeht. Für Rubens dient das Porträt Nicolas de Respaigne (GK 92) als repräsentatives Beispiel, weil der Objektkatalog nicht nur Künstler und Datierung vor 1620, sondern auch eine konkrete Erwerbungsprovenienz dokumentiert: Wilhelm VIII. erwarb das Gemälde 1751 aus der Sammlung Gerard Hoet in Den Haag. Gerade dieses Beispiel zeigt, warum ein Werk in Kassel nicht mit einem für Kassel geschaffenen Werk gleichgesetzt werden darf. Weitere Werke können später nach derselben Belegregel ergänzt werden.\n\nHeute ist die Gemäldegalerie in Schloss Wilhelmshöhe Teil eines Museumsverbunds, der historische Residenzarchitektur und Sammlungspräsentation verbindet. Der gegenwärtige Standort ist selbst geschichtlich aufgeladen, doch Sammlung und Bauwerk bleiben unterschiedliche Entitäten. Ein Gemälde kann seinen Saal wechseln, eine Ausstellung kann temporär verändert werden und ein Schlossbereich kann restaurierungsbedingt schließen, ohne dass sich die historische Zugehörigkeit zur Sammlung ändert. Besucherinformationen wie Öffnungszeiten, Ticketregeln, Aufzüge oder Sonderausstellungen sind daher zeitabhängige Betriebsdaten. Die Sammlung beschreibt dagegen Bestand, Schwerpunkte und Sammlungsgeschichte. Eine displayed-at-Relation wird als aktueller Museumszustand gekennzeichnet und nicht als ewige Position behandelt.\n\nDie Bedeutung der Galerie liegt nicht nur in einzelnen Meisterwerken, sondern in der Dichte ihrer historischen Sammlungspraxis. Ankäufe des 18. Jahrhunderts, spätere Museumsgründungen, Ortswechsel und die heutige Präsentation im Schloss bilden eine zusammenhängende Institutionsgeschichte. Für den Bergpark erweitert sie die Erzählung über Landschaft und Architektur hinaus: Wilhelmshöhe war und ist auch ein Ort des Sammelns, Zeigens und Interpretierens von Kunst. Ein Herrscher kann als Sammler auftreten, ohne Künstler oder Auftraggeber des Werkes zu sein. Das semantische Modell hält deshalb created, acquired, member_of_collection und displayed_at auseinander. Gerade diese Differenz erlaubt es, künftig belastbare Provenienzforschung anzuschließen.\n\nEine digitale Parkanwendung sollte die Galerie weder als bloße Liste berühmter Namen noch als Zusatzinformation zum Schloss behandeln. Landschaftsplanung, Residenzarchitektur und Sammlungspolitik waren unterschiedliche, aber miteinander verflochtene Formen von Repräsentation und Wissensordnung. Die heutige öffentliche Museumsnutzung verändert diesen Rahmen grundlegend. Aus fürstlichem Besitz ist ein wissenschaftlich betreuter Sammlungsbestand mit konservatorischen, kuratorischen und vermittelnden Aufgaben geworden. Ein Rembrandt im Schloss kann so zugleich als eigenständiges Kunstwerk, Teil einer historischen Sammlung und gegenwärtig ausgestelltes Museumsobjekt verstanden werden, ohne diese Ebenen ineinander zu schieben.",
+        "en": "The Old Masters Picture Gallery is the result of several centuries of princely collecting, reorganization, loss and changing locations. Hessen Kassel Heritage particularly emphasizes the acquisition policy of Landgrave William VIII in the mid-eighteenth century. His purchases strengthened Dutch and Flemish painting and remain a core of the holdings. The collection was later shown in different Kassel museum buildings. From 1877 a major part was housed in the former gallery at Schöne Aussicht; since 1974 the Old Masters Picture Gallery has been located in the central block of Wilhelmshöhe Palace. This location history matters to the data model: the palace is the present display site, but not automatically the place where every painting originated, was commissioned or was acquired. Individual works therefore retain separate provenance, collection and display relations.\n\nThe operator describes holdings of about 2,300 paintings and a permanent selection of more than 500 works across several floors. Dutch and Flemish painting is the most internationally distinctive strength. Twelve paintings by Rembrandt are highlighted as an exceptional group, with Jacob Blessing among the best-known works. Rubens and van Dyck represent the strength of the Flemish holdings. German, Italian and Spanish masters are also represented, so the gallery should not be reduced to a single school. The knowledge graph does not simulate this breadth with thousands of empty artwork entities. Instead the collection receives a source-backed profile while only representative works verified in official object or collection catalogues become first-class entities. This keeps the model extensible without pretending to inventory every painting.\n\nThis phase deliberately models a small, verifiable selection. Rembrandt’s Jacob Blessing exists as a separate work linked to creator, collection and location. It is joined by Saskia in Rich Costume (GK 236), whose current Kassel collection and display context is documented in the HKK object list. For Rubens, the portrait Nicolas de Respaigne (GK 92) is a representative example because its object record provides not only artist and a date before 1620 but a specific acquisition history: William VIII acquired the painting in 1751 from the Gerard Hoet collection in The Hague. This example demonstrates why a work in Kassel must not be read as a work made for Kassel. Additional works can be added later under the same evidence rule.\n\nToday the Old Masters Picture Gallery is housed in Wilhelmshöhe Palace within a museum complex that combines a historic residence with collection display. The present location is historically significant in its own right, but collection and building remain separate entities. A painting can move between galleries, an exhibition can change temporarily, and part of the palace can close for conservation without altering historical membership in the collection. Visitor information such as opening hours, ticket rules, lifts or temporary exhibitions is therefore time-dependent operational data. The collection record instead describes holdings, strengths and collection history. A displayed-at relation is treated as a current museum state rather than an eternal position.\n\nThe gallery’s significance lies not only in individual masterpieces but in the density of its collecting history. Eighteenth-century acquisitions, later museum foundations, changes of location and present display in the palace form a connected institutional biography. For Bergpark Wilhelmshöhe this extends the story beyond landscape and architecture: Wilhelmshöhe has also been a place for collecting, displaying and interpreting art. A ruler can act as collector without being the artist or commissioner of a painting. The semantic model therefore distinguishes created, acquired, member_of_collection and displayed_at. That distinction makes it possible to attach more detailed provenance research later.\n\nA digital park application should treat the gallery neither as a list of famous names nor as an accessory to the palace. Landscape design, residential architecture and collecting policy were distinct but interconnected forms of representation and ordering knowledge. Present public museum use changes that framework fundamentally. Princely holdings have become a scholarly managed collection with conservation, curatorial and educational responsibilities. A Rembrandt in the palace can therefore be understood simultaneously as an independent artwork, a member of a historical collection and a presently displayed museum object without collapsing those levels into one another."
+      }
+    },
+    {
+      "id": "collection-weissensteinfluegel-historic-interiors",
+      "kind": "collection",
+      "name": {
+        "de": "Historische Interieurs des Weißensteinflügels",
+        "en": "Historic Interiors of the Weißenstein Wing"
+      },
+      "collection_type": "historic_interiors_and_furnishings",
+      "current_place_id": "schloss",
+      "source_ids": [
+        "hkh-schloss",
+        "museum-kassel-bromeis-thronsaal-sm-gs-1-3-950"
+      ],
+      "visitor_context": {
+        "verified_on": "2026-08-28",
+        "status": "temporarily_unavailable_or_limited_due_to_restoration",
+        "qualification": "Check current Hessen Kassel Heritage access before visit."
+      },
+      "description": {
+        "de": "Der Weißensteinflügel bewahrt historische Raumfolgen und Ausstattungszusammenhänge, die von der Entstehung des Schlosses bis zu Umbauten des 19. Jahrhunderts reichen. Er wird als Interieurkontext getrennt vom ganzen Schloss modelliert, damit Raumgeschichte, Ausstattung und Restaurierung präziser zugeordnet werden können. Erhaltene Entwurfsblätter von Johann Conrad Bromeis dokumentieren beispielsweise die Umgestaltung repräsentativer Räume in den 1820er Jahren. Der heutige Zustand ist Ergebnis mehrerer historischer und konservatorischer Schichten und darf nicht pauschal einem einzigen Architekten zugeschrieben werden. Hessen Kassel Heritage weist den Flügel aktuell restaurierungsbedingt als nicht regulär zugänglich beziehungsweise eingeschränkt aus; diese volatile Information ist datiert.",
+        "en": "The Weißenstein Wing preserves historic room sequences and furnishing contexts spanning the creation of the palace and nineteenth-century alterations. It is modeled as an interior context distinct from the palace as a whole so that room history, furnishings and conservation can be attributed more precisely. Surviving designs by Johann Conrad Bromeis, for example, document changes to representative rooms during the 1820s. The current condition reflects several historical and conservation layers and should not be attributed wholesale to a single architect. Hessen Kassel Heritage currently identifies the wing as unavailable or limited in normal access because of restoration; this volatile statement is dated."
+      }
     }
   ],
   "semantic_edges": [
     {
-      "id": "sem-karl-commissioned-herkules",
-      "from": "person-landgraf-karl-von-hessen-kassel",
-      "to": "herkules",
-      "relation": "commissioned",
+      "id": "sem-alte-meister-located-at-schloss",
+      "from": "collection-gemaeldegalerie-alte-meister",
+      "to": "schloss",
+      "relation": "located_at",
       "confidence": "high",
       "source_ids": [
-        "hkh-herkules"
+        "hkh-gemaeldegalerie-collection",
+        "hkh-gemaeldegalerie-location"
       ],
       "provenance": {
-        "basis": "explicit_official_heritage_statement",
-        "assertion": "Hessen Kassel Heritage states that Landgrave Carl chose Hercules as a symbol of his power and had the monumental statue erected.",
-        "qualification": "The relation records patronage/commissioning; it does not assert that Carl personally designed the monument."
+        "basis": "official_collection_and_location_records",
+        "assertion": "Hessen Kassel Heritage states that the Gemäldegalerie Alte Meister has been housed in Schloss Wilhelmshöhe since 1974.",
+        "qualification": "The stable graph place id schloss represents Schloss Wilhelmshöhe; no content-id migration is introduced."
       }
     },
     {
-      "id": "sem-karl-initiated-kaskaden",
-      "from": "person-landgraf-karl-von-hessen-kassel",
-      "to": "kaskaden",
-      "relation": "initiated",
+      "id": "sem-anthoni-created-hercules-copper",
+      "from": "person-johann-jakob-anthoni",
+      "to": "artwork-herkules-kupferfigur",
+      "relation": "created",
       "confidence": "high",
       "source_ids": [
-        "unesco-bergpark-world-heritage"
+        "stadt-herkules"
       ],
       "provenance": {
-        "basis": "explicit_world_heritage_statement",
-        "assertion": "UNESCO states that the monumental water displays were begun by Landgrave Carl from 1689.",
-        "qualification": "This relation denotes initiation of the Baroque water-display project, not sole design authorship of every later water feature."
+        "basis": "registered_primary_or_official_source",
+        "assertion": "The City names Johann Jakob Anthoni as maker of the copper Hercules figure in 1713–1717.",
+        "qualification": "Figure only; Guerniero’s architectural role and Carl’s patronage remain distinct."
+      }
+    },
+    {
+      "id": "sem-antikensammlung-located-schloss",
+      "from": "collection-antikensammlung-schloss-wilhelmshoehe",
+      "to": "schloss",
+      "relation": "located_at",
+      "confidence": "high",
+      "source_ids": [
+        "hkh-antiken",
+        "hkh-schloss"
+      ],
+      "provenance": {
+        "basis": "registered_primary_or_official_source",
+        "assertion": "Hessen Kassel Heritage presents the Antiquities Collection in Wilhelmshöhe Palace.",
+        "qualification": "Current location is distinct from original provenance of individual antiquities."
+      }
+    },
+    {
+      "id": "sem-bromeis-co-designed-neuer-wasserfall",
+      "from": "person-johann-conrad-bromeis",
+      "to": "neuer-wasserfall",
+      "relation": "co_designed_water_feature",
+      "confidence": "high",
+      "source_ids": [
+        "lfdh-denkmaltopographie-wilhelmshoehe"
+      ],
+      "provenance": {
+        "basis": "registered_primary_or_official_source",
+        "assertion": "The monument inventory dates the New Waterfall to 1823–1828 and names Bromeis with Steinhofer.",
+        "qualification": "Shared responsibility is preserved; no sole authorship inferred."
+      }
+    },
+    {
+      "id": "sem-bromeis-redesigned-ballhaus",
+      "from": "person-johann-conrad-bromeis",
+      "to": "ballhaus",
+      "relation": "redesigned_interior_of",
+      "confidence": "high",
+      "source_ids": [
+        "stadt-ballhaus"
+      ],
+      "provenance": {
+        "basis": "registered_primary_or_official_source",
+        "assertion": "The City documents Bromeis’s 1828–1830 conversion of the court theatre into a ballroom.",
+        "qualification": "This is a later transformation, not authorship of Klenze’s original theatre."
+      }
+    },
+    {
+      "id": "sem-bromeis-thronsaal-sm-gs-1-3-950-created",
+      "from": "person-johann-conrad-bromeis",
+      "to": "artwork-bromeis-thronsaal-sm-gs-1-3-950",
+      "relation": "created",
+      "confidence": "high",
+      "source_ids": [
+        "museum-kassel-bromeis-thronsaal-sm-gs-1-3-950"
+      ],
+      "provenance": {
+        "basis": "registered_primary_or_official_source",
+        "assertion": "The HKK architectural-drawing catalogue names the creator of this design record.",
+        "qualification": "The drawing is a design document and not identical with the executed building."
+      }
+    },
+    {
+      "id": "sem-bromeis-thronsaal-sm-gs-1-3-950-documents",
+      "from": "artwork-bromeis-thronsaal-sm-gs-1-3-950",
+      "to": "schloss",
+      "relation": "documents_design_for",
+      "confidence": "high",
+      "source_ids": [
+        "museum-kassel-bromeis-thronsaal-sm-gs-1-3-950"
+      ],
+      "provenance": {
+        "basis": "registered_primary_or_official_source",
+        "assertion": "The catalogue subject concerns the named Wilhelmshöhe building or feature.",
+        "qualification": "A design can be unexecuted or revised; this does not assert one-to-one execution."
+      }
+    },
+    {
+      "id": "sem-du-ry-designed-schloss",
+      "from": "person-simon-louis-du-ry",
+      "to": "schloss",
+      "relation": "designed",
+      "confidence": "high",
+      "source_ids": [
+        "museum-kassel-du-ry-gs5736",
+        "museum-kassel-du-ry-gs5744"
+      ],
+      "provenance": {
+        "basis": "registered_primary_or_official_source",
+        "assertion": "HKK drawings document du Ry’s design work for Wilhelmshöhe Palace and its Weißenstein wing.",
+        "qualification": "Later connecting structures, interiors and reconstruction are excluded from this authorship claim."
+      }
+    },
+    {
+      "id": "sem-du-ry-weissenstein-gs5744-created",
+      "from": "person-simon-louis-du-ry",
+      "to": "artwork-du-ry-weissenstein-gs5744",
+      "relation": "created",
+      "confidence": "high",
+      "source_ids": [
+        "museum-kassel-du-ry-gs5744"
+      ],
+      "provenance": {
+        "basis": "registered_primary_or_official_source",
+        "assertion": "The HKK architectural-drawing catalogue names the creator of this design record.",
+        "qualification": "The drawing is a design document and not identical with the executed building."
+      }
+    },
+    {
+      "id": "sem-du-ry-weissenstein-gs5744-documents",
+      "from": "artwork-du-ry-weissenstein-gs5744",
+      "to": "schloss",
+      "relation": "documents_design_for",
+      "confidence": "high",
+      "source_ids": [
+        "museum-kassel-du-ry-gs5744"
+      ],
+      "provenance": {
+        "basis": "registered_primary_or_official_source",
+        "assertion": "The catalogue subject concerns the named Wilhelmshöhe building or feature.",
+        "qualification": "A design can be unexecuted or revised; this does not assert one-to-one execution."
+      }
+    },
+    {
+      "id": "sem-friedrich-ii-developed-antikensammlung",
+      "from": "person-friedrich-ii-von-hessen-kassel",
+      "to": "collection-antikensammlung-schloss-wilhelmshoehe",
+      "relation": "developed_collection",
+      "confidence": "high",
+      "source_ids": [
+        "hkh-antiken"
+      ],
+      "provenance": {
+        "basis": "registered_primary_or_official_source",
+        "assertion": "HKK links the historical cork-model group to acquisitions by Landgrave Frederick II.",
+        "qualification": "Scoped to the documented cork-model context, not every object in the collection."
+      }
+    },
+    {
+      "id": "sem-guerniero-herkules-pyramide-gs9734-created",
+      "from": "person-giovanni-francesco-guerniero",
+      "to": "artwork-guerniero-herkules-pyramide-gs9734",
+      "relation": "created",
+      "confidence": "high",
+      "source_ids": [
+        "museum-kassel-guerniero-gs9734"
+      ],
+      "provenance": {
+        "basis": "registered_primary_or_official_source",
+        "assertion": "The HKK architectural-drawing catalogue names the creator of this design record.",
+        "qualification": "The drawing is a design document and not identical with the executed building."
+      }
+    },
+    {
+      "id": "sem-guerniero-herkules-pyramide-gs9734-documents",
+      "from": "artwork-guerniero-herkules-pyramide-gs9734",
+      "to": "herkules",
+      "relation": "documents_design_for",
+      "confidence": "high",
+      "source_ids": [
+        "museum-kassel-guerniero-gs9734"
+      ],
+      "provenance": {
+        "basis": "registered_primary_or_official_source",
+        "assertion": "The catalogue subject concerns the named Wilhelmshöhe building or feature.",
+        "qualification": "A design can be unexecuted or revised; this does not assert one-to-one execution."
       }
     },
     {
@@ -184,18 +901,109 @@
       }
     },
     {
-      "id": "sem-wilhelm-ix-commissioned-loewenburg",
-      "from": "person-wilhelm-ix-von-hessen-kassel",
-      "to": "loewenburg",
-      "relation": "commissioned",
+      "id": "sem-hercules-copper-installed-herkules",
+      "from": "artwork-herkules-kupferfigur",
+      "to": "herkules",
+      "relation": "installed_at",
       "confidence": "high",
       "source_ids": [
-        "hkh-loewenburg"
+        "stadt-herkules"
       ],
       "provenance": {
-        "basis": "explicit_official_heritage_statement",
-        "assertion": "Hessen Kassel Heritage states that Wilhelm IX had the Löwenburg built between 1793 and 1801.",
-        "qualification": "The relation records the patron/commissioner role, not architectural authorship."
+        "basis": "registered_primary_or_official_source",
+        "assertion": "The copper figure was installed atop the Hercules monument in 1717.",
+        "qualification": "Current monument context does not imply every component is unrestored."
+      }
+    },
+    {
+      "id": "sem-heyd-ludwig-co-created-flora",
+      "from": "person-ludwig-daniel-heyd",
+      "to": "artwork-flora-farnesina",
+      "relation": "co_created",
+      "confidence": "high",
+      "source_ids": [
+        "lfdh-denkmaltopographie-wilhelmshoehe"
+      ],
+      "provenance": {
+        "basis": "registered_primary_or_official_source",
+        "assertion": "The monument inventory jointly attributes Flora Farnesina to Ludwig Daniel and Johann Wolfgang Heyd.",
+        "qualification": "No sole attribution to Ludwig Daniel Heyd."
+      }
+    },
+    {
+      "id": "sem-heyd-wolfgang-co-created-flora",
+      "from": "person-johann-wolfgang-heyd",
+      "to": "artwork-flora-farnesina",
+      "relation": "co_created",
+      "confidence": "high",
+      "source_ids": [
+        "lfdh-denkmaltopographie-wilhelmshoehe"
+      ],
+      "provenance": {
+        "basis": "registered_primary_or_official_source",
+        "assertion": "The monument inventory jointly attributes Flora Farnesina to Johann Wolfgang and Ludwig Daniel Heyd.",
+        "qualification": "No sole attribution to Johann Wolfgang Heyd."
+      }
+    },
+    {
+      "id": "sem-jussow-aquaedukt-gs5846-created",
+      "from": "person-heinrich-christoph-jussow",
+      "to": "artwork-jussow-aquaedukt-gs5846",
+      "relation": "created",
+      "confidence": "high",
+      "source_ids": [
+        "museum-kassel-jussow-aquaedukt-gs5846"
+      ],
+      "provenance": {
+        "basis": "registered_primary_or_official_source",
+        "assertion": "The HKK architectural-drawing catalogue names the creator of this design record.",
+        "qualification": "The drawing is a design document and not identical with the executed building."
+      }
+    },
+    {
+      "id": "sem-jussow-aquaedukt-gs5846-documents",
+      "from": "artwork-jussow-aquaedukt-gs5846",
+      "to": "aquaedukt",
+      "relation": "documents_design_for",
+      "confidence": "high",
+      "source_ids": [
+        "museum-kassel-jussow-aquaedukt-gs5846"
+      ],
+      "provenance": {
+        "basis": "registered_primary_or_official_source",
+        "assertion": "The catalogue subject concerns the named Wilhelmshöhe building or feature.",
+        "qualification": "A design can be unexecuted or revised; this does not assert one-to-one execution."
+      }
+    },
+    {
+      "id": "sem-jussow-co-designed-schloss",
+      "from": "person-heinrich-christoph-jussow",
+      "to": "schloss",
+      "relation": "co_designed",
+      "confidence": "high",
+      "source_ids": [
+        "museum-kassel-jussow-schloss-sm-gs-1-3-664",
+        "museum-kassel-du-ry-jussow-gs5747"
+      ],
+      "provenance": {
+        "basis": "registered_primary_or_official_source",
+        "assertion": "HKK records document Jussow’s palace design work and collaboration in 1786.",
+        "qualification": "Du Ry’s parallel role and later alterations remain distinct."
+      }
+    },
+    {
+      "id": "sem-jussow-designed-aquaedukt",
+      "from": "person-heinrich-christoph-jussow",
+      "to": "aquaedukt",
+      "relation": "designed",
+      "confidence": "high",
+      "source_ids": [
+        "museum-kassel-jussow-aquaedukt-gs5727"
+      ],
+      "provenance": {
+        "basis": "direct_architectural_drawing_catalogue",
+        "assertion": "The Kassel catalogue attributes the Aqueduct design GS 5727 to Jussow and notes that the depicted Aqueduct already corresponds closely to the execution begun in 1788.",
+        "qualification": "A separate first proposal is documented as unexecuted; this relation relies on the later design associated closely with the executed Aqueduct."
       }
     },
     {
@@ -215,18 +1023,18 @@
       }
     },
     {
-      "id": "sem-jussow-designed-aquaedukt",
+      "id": "sem-jussow-planned-plutogrotte-setting",
       "from": "person-heinrich-christoph-jussow",
-      "to": "aquaedukt",
-      "relation": "designed",
+      "to": "plutogrotte",
+      "relation": "planned_landscape_setting_for",
       "confidence": "high",
       "source_ids": [
-        "museum-kassel-jussow-aquaedukt-gs5727"
+        "museum-kassel-jussow-teufelsbruecke-gs5860"
       ],
       "provenance": {
-        "basis": "direct_architectural_drawing_catalogue",
-        "assertion": "The Kassel catalogue attributes the Aqueduct design GS 5727 to Jussow and notes that the depicted Aqueduct already corresponds closely to the execution begun in 1788.",
-        "qualification": "A separate first proposal is documented as unexecuted; this relation relies on the later design associated closely with the executed Aqueduct."
+        "basis": "direct_architectural_landscape_plan_catalogue",
+        "assertion": "Jussow's circa-1791 plan documents the reworked landscape composition around the existing Pluto Grotto, Höllenteich and Devil's Bridge.",
+        "qualification": "The Plutogrotte predates this plan, so the relation is to its landscape setting rather than original authorship of the grotto."
       }
     },
     {
@@ -245,18 +1053,123 @@
       }
     },
     {
-      "id": "sem-jussow-planned-plutogrotte-setting",
-      "from": "person-heinrich-christoph-jussow",
-      "to": "plutogrotte",
-      "relation": "planned_landscape_setting_for",
+      "id": "sem-karl-commissioned-herkules",
+      "from": "person-landgraf-karl-von-hessen-kassel",
+      "to": "herkules",
+      "relation": "commissioned",
       "confidence": "high",
       "source_ids": [
-        "museum-kassel-jussow-teufelsbruecke-gs5860"
+        "hkh-herkules"
       ],
       "provenance": {
-        "basis": "direct_architectural_landscape_plan_catalogue",
-        "assertion": "Jussow's circa-1791 plan documents the reworked landscape composition around the existing Pluto Grotto, Höllenteich and Devil's Bridge.",
-        "qualification": "The Plutogrotte predates this plan, so the relation is to its landscape setting rather than original authorship of the grotto."
+        "basis": "explicit_official_heritage_statement",
+        "assertion": "Hessen Kassel Heritage states that Landgrave Carl chose Hercules as a symbol of his power and had the monumental statue erected.",
+        "qualification": "The relation records patronage/commissioning; it does not assert that Carl personally designed the monument."
+      }
+    },
+    {
+      "id": "sem-karl-initiated-kaskaden",
+      "from": "person-landgraf-karl-von-hessen-kassel",
+      "to": "kaskaden",
+      "relation": "initiated",
+      "confidence": "high",
+      "source_ids": [
+        "unesco-bergpark-world-heritage"
+      ],
+      "provenance": {
+        "basis": "explicit_world_heritage_statement",
+        "assertion": "UNESCO states that the monumental water displays were begun by Landgrave Carl from 1689.",
+        "qualification": "This relation denotes initiation of the Baroque water-display project, not sole design authorship of every later water feature."
+      }
+    },
+    {
+      "id": "sem-klenze-designed-ballhaus",
+      "from": "person-leo-von-klenze",
+      "to": "ballhaus",
+      "relation": "designed",
+      "confidence": "high",
+      "source_ids": [
+        "stadt-ballhaus"
+      ],
+      "provenance": {
+        "basis": "registered_primary_or_official_source",
+        "assertion": "The City identifies Leo von Klenze as architect of the 1808–1810 court theatre.",
+        "qualification": "The present interior substantially reflects Bromeis’s later conversion."
+      }
+    },
+    {
+      "id": "sem-nahl-created-plutogrotte-ost",
+      "from": "person-johann-august-nahl-der-aeltere",
+      "to": "artwork-plutogrotte-meeresungeheuer-ost",
+      "relation": "created",
+      "confidence": "high",
+      "source_ids": [
+        "lfdh-denkmaltopographie-wilhelmshoehe"
+      ],
+      "provenance": {
+        "basis": "registered_primary_or_official_source",
+        "assertion": "The monument inventory identifies Nahl the Elder with sculptures at Pluto Grotto.",
+        "qualification": "No unsupported original title or earlier location is asserted."
+      }
+    },
+    {
+      "id": "sem-nahl-created-plutogrotte-west",
+      "from": "person-johann-august-nahl-der-aeltere",
+      "to": "artwork-plutogrotte-meeresungeheuer-west",
+      "relation": "created",
+      "confidence": "high",
+      "source_ids": [
+        "lfdh-denkmaltopographie-wilhelmshoehe"
+      ],
+      "provenance": {
+        "basis": "registered_primary_or_official_source",
+        "assertion": "The monument inventory identifies Nahl the Elder with sculptures at Pluto Grotto.",
+        "qualification": "No unsupported original title or earlier location is asserted."
+      }
+    },
+    {
+      "id": "sem-plutogrotte-ost-installed",
+      "from": "artwork-plutogrotte-meeresungeheuer-ost",
+      "to": "plutogrotte",
+      "relation": "installed_at",
+      "confidence": "high",
+      "source_ids": [
+        "lfdh-denkmaltopographie-wilhelmshoehe"
+      ],
+      "provenance": {
+        "basis": "registered_primary_or_official_source",
+        "assertion": "The monument inventory records installation of the Nahl sculptures at Pluto Grotto in 1794/95.",
+        "qualification": "Installation date is distinct from creation date and prior provenance."
+      }
+    },
+    {
+      "id": "sem-plutogrotte-west-installed",
+      "from": "artwork-plutogrotte-meeresungeheuer-west",
+      "to": "plutogrotte",
+      "relation": "installed_at",
+      "confidence": "high",
+      "source_ids": [
+        "lfdh-denkmaltopographie-wilhelmshoehe"
+      ],
+      "provenance": {
+        "basis": "registered_primary_or_official_source",
+        "assertion": "The monument inventory records installation of the Nahl sculptures at Pluto Grotto in 1794/95.",
+        "qualification": "Installation date is distinct from creation date and prior provenance."
+      }
+    },
+    {
+      "id": "sem-rembrandt-created-saskia",
+      "from": "person-rembrandt-van-rijn",
+      "to": "artwork-rembrandt-saskia-gk236",
+      "relation": "created",
+      "confidence": "high",
+      "source_ids": [
+        "museum-kassel-rembrandt-holdings"
+      ],
+      "provenance": {
+        "basis": "registered_primary_or_official_source",
+        "assertion": "HKK inventory lists Saskia in Rich Costume as a Rembrandt work.",
+        "qualification": "No acquisition history inferred from display data."
       }
     },
     {
@@ -276,34 +1189,65 @@
       }
     },
     {
-      "id": "sem-segen-jakobs-in-alte-meister",
-      "from": "artwork-der-segen-jakobs",
+      "id": "sem-respaigne-member-alte-meister",
+      "from": "artwork-rubens-nicolas-de-respaigne-gk92",
       "to": "collection-gemaeldegalerie-alte-meister",
       "relation": "member_of_collection",
       "confidence": "high",
       "source_ids": [
-        "hkh-gemaeldegalerie-collection"
+        "museum-kassel-rubens-gk92",
+        "hkh-gemaeldegalerie"
       ],
       "provenance": {
-        "basis": "official_collection_record",
-        "assertion": "The official collection page names Der Segen Jakobs as a Rembrandt work in the Gemäldegalerie Alte Meister.",
-        "qualification": "The relation records current collection membership only."
+        "basis": "registered_primary_or_official_source",
+        "assertion": "Official records place the work in the Old Masters holdings.",
+        "qualification": "Membership is distinct from acquisition and display history."
       }
     },
     {
-      "id": "sem-alte-meister-located-at-schloss",
-      "from": "collection-gemaeldegalerie-alte-meister",
-      "to": "schloss",
-      "relation": "located_at",
+      "id": "sem-rubens-created-respaigne",
+      "from": "person-peter-paul-rubens",
+      "to": "artwork-rubens-nicolas-de-respaigne-gk92",
+      "relation": "created",
       "confidence": "high",
       "source_ids": [
-        "hkh-gemaeldegalerie-collection",
-        "hkh-gemaeldegalerie-location"
+        "museum-kassel-rubens-gk92"
       ],
       "provenance": {
-        "basis": "official_collection_and_location_records",
-        "assertion": "Hessen Kassel Heritage states that the Gemäldegalerie Alte Meister has been housed in Schloss Wilhelmshöhe since 1974.",
-        "qualification": "The stable graph place id schloss represents Schloss Wilhelmshöhe; no content-id migration is introduced."
+        "basis": "registered_primary_or_official_source",
+        "assertion": "The HKK object catalogue attributes Nicolas de Respaigne to Peter Paul Rubens.",
+        "qualification": "This does not imply the painting was commissioned for Kassel."
+      }
+    },
+    {
+      "id": "sem-saskia-displayed-schloss",
+      "from": "artwork-rembrandt-saskia-gk236",
+      "to": "schloss",
+      "relation": "displayed_at",
+      "confidence": "high",
+      "source_ids": [
+        "museum-kassel-rembrandt-holdings"
+      ],
+      "provenance": {
+        "basis": "registered_primary_or_official_source",
+        "assertion": "The current HKK object list places the work in Wilhelmshöhe Palace.",
+        "qualification": "Display location is time-dependent and not original destination."
+      }
+    },
+    {
+      "id": "sem-saskia-member-alte-meister",
+      "from": "artwork-rembrandt-saskia-gk236",
+      "to": "collection-gemaeldegalerie-alte-meister",
+      "relation": "member_of_collection",
+      "confidence": "high",
+      "source_ids": [
+        "museum-kassel-rembrandt-holdings",
+        "hkh-gemaeldegalerie"
+      ],
+      "provenance": {
+        "basis": "registered_primary_or_official_source",
+        "assertion": "The object belongs to the HKK Old Masters holdings.",
+        "qualification": "Collection membership is distinct from display and acquisition."
       }
     },
     {
@@ -320,8 +1264,239 @@
         "assertion": "The official Schloss Wilhelmshöhe gallery page names Der Segen Jakobs among the Rembrandt paintings shown in the Gemäldegalerie Alte Meister there.",
         "qualification": "This models the museum display/location relation and does not infer ownership or acquisition history."
       }
+    },
+    {
+      "id": "sem-segen-jakobs-in-alte-meister",
+      "from": "artwork-der-segen-jakobs",
+      "to": "collection-gemaeldegalerie-alte-meister",
+      "relation": "member_of_collection",
+      "confidence": "high",
+      "source_ids": [
+        "hkh-gemaeldegalerie-collection"
+      ],
+      "provenance": {
+        "basis": "official_collection_record",
+        "assertion": "The official collection page names Der Segen Jakobs as a Rembrandt work in the Gemäldegalerie Alte Meister.",
+        "qualification": "The relation records current collection membership only."
+      }
+    },
+    {
+      "id": "sem-steinhoefer-co-designed-aquaedukt",
+      "from": "person-karl-friedrich-steinhoefer",
+      "to": "aquaedukt",
+      "relation": "co_designed_water_feature",
+      "confidence": "high",
+      "source_ids": [
+        "unesco-nomination-1413"
+      ],
+      "provenance": {
+        "basis": "registered_primary_or_official_source",
+        "assertion": "The nomination dossier connects hydraulic engineer Steinhöfer with the Aqueduct phase alongside Jussow.",
+        "qualification": "Jussow’s architectural authorship remains separate; this records hydraulic/design collaboration."
+      }
+    },
+    {
+      "id": "sem-steinhoefer-co-designed-neuer-wasserfall",
+      "from": "person-karl-friedrich-steinhoefer",
+      "to": "neuer-wasserfall",
+      "relation": "co_designed_water_feature",
+      "confidence": "high",
+      "source_ids": [
+        "lfdh-denkmaltopographie-wilhelmshoehe"
+      ],
+      "provenance": {
+        "basis": "registered_primary_or_official_source",
+        "assertion": "The monument inventory dates the New Waterfall to 1823–1828 and names Steinhofer with Bromeis.",
+        "qualification": "The surviving feature is non-functional; historical authorship does not imply present operation."
+      }
+    },
+    {
+      "id": "sem-steinhoefer-designed-waterfall",
+      "from": "person-karl-friedrich-steinhoefer",
+      "to": "steinhofer-wasserfall",
+      "relation": "designed_water_feature",
+      "confidence": "high",
+      "source_ids": [
+        "stadt-steinhoefer",
+        "unesco-nomination-1413"
+      ],
+      "provenance": {
+        "basis": "registered_primary_or_official_source",
+        "assertion": "Official sources connect Steinhöfer directly with the 1793 waterfall bearing his name.",
+        "qualification": "Historic design relation only; later repairs and current operation are separate."
+      }
+    },
+    {
+      "id": "sem-weissenstein-interiors-located-schloss",
+      "from": "collection-weissensteinfluegel-historic-interiors",
+      "to": "schloss",
+      "relation": "located_at",
+      "confidence": "high",
+      "source_ids": [
+        "hkh-schloss"
+      ],
+      "provenance": {
+        "basis": "registered_primary_or_official_source",
+        "assertion": "The Weißenstein wing is part of Wilhelmshöhe Palace and preserves historic interiors.",
+        "qualification": "The entity models interiors/furnishings, not a separate building footprint."
+      }
+    },
+    {
+      "id": "sem-wilhelm-ii-commissioned-gewaechshaus",
+      "from": "person-wilhelm-ii-von-hessen-kassel",
+      "to": "gewaechshaus",
+      "relation": "commissioned",
+      "confidence": "high",
+      "source_ids": [
+        "hkh-gewaechshaus"
+      ],
+      "provenance": {
+        "basis": "registered_primary_or_official_source",
+        "assertion": "Hessen Kassel Heritage states that Elector Wilhelm II commissioned the Great Greenhouse from 1822.",
+        "qualification": "Patronage does not imply architectural authorship."
+      }
+    },
+    {
+      "id": "sem-wilhelm-ix-commissioned-loewenburg",
+      "from": "person-wilhelm-ix-von-hessen-kassel",
+      "to": "loewenburg",
+      "relation": "commissioned",
+      "confidence": "high",
+      "source_ids": [
+        "hkh-loewenburg"
+      ],
+      "provenance": {
+        "basis": "explicit_official_heritage_statement",
+        "assertion": "Hessen Kassel Heritage states that Wilhelm IX had the Löwenburg built between 1793 and 1801.",
+        "qualification": "The relation records the patron/commissioner role, not architectural authorship."
+      }
+    },
+    {
+      "id": "sem-wilhelm-viii-acquired-respaigne",
+      "from": "person-wilhelm-viii-von-hessen-kassel",
+      "to": "artwork-rubens-nicolas-de-respaigne-gk92",
+      "relation": "acquired_for_collection",
+      "confidence": "high",
+      "source_ids": [
+        "museum-kassel-rubens-gk92"
+      ],
+      "provenance": {
+        "basis": "registered_primary_or_official_source",
+        "assertion": "The HKK object record documents William VIII’s 1751 acquisition from Gerard Hoet’s collection.",
+        "qualification": "Acquisition is not creation or commission."
+      }
+    },
+    {
+      "id": "sem-wilhelm-viii-developed-alte-meister",
+      "from": "person-wilhelm-viii-von-hessen-kassel",
+      "to": "collection-gemaeldegalerie-alte-meister",
+      "relation": "developed_collection",
+      "confidence": "high",
+      "source_ids": [
+        "hkh-gemaeldegalerie",
+        "museum-kassel-rubens-gk92"
+      ],
+      "provenance": {
+        "basis": "registered_primary_or_official_source",
+        "assertion": "HKK emphasizes William VIII’s collecting and documents individual acquisitions including Nicolas de Respaigne.",
+        "qualification": "Collector activity does not imply authorship or acquisition of every present work."
+      }
     }
   ],
   "evidence_guardrails": "data/semantic_source_manifest.json",
-  "status": "phase_3_sourced"
+  "status": "phase_3_knowledge_expanded",
+  "research_assessments": [
+    {
+      "id": "assessment-osm-hirtengott-pan",
+      "candidate": "Hirtengott Pan",
+      "disposition": "excluded_pending_identity_resolution",
+      "evidence": "Local OSM names the statue but its own description questions the name; City material calls the hydraulic figure at Hercules Faun.",
+      "qualification": "Do not promote the uncertain OSM label to first-class artwork or creator attribution."
+    },
+    {
+      "id": "assessment-zentaur-herkules",
+      "candidate": "Zentaur / Centaur at Hercules water theatre",
+      "disposition": "documented_feature_not_first_class_artwork",
+      "evidence": "City material confirms the Centaur name/function, but no authoritative creator/object-catalogue record was recovered.",
+      "qualification": "Keep as place-level sculptural program until creator evidence or unknown-creator schema exists."
+    },
+    {
+      "id": "assessment-venus-loewenburggarten",
+      "candidate": "Venus im Löwenburggarten",
+      "disposition": "retain_bilingual_place_node_only_pending_primary_artwork_provenance",
+      "evidence": "Existing place content is OSM-derived discovery; no official creator/copy provenance was recovered.",
+      "qualification": "No speculative creator or first-class artwork record."
+    },
+    {
+      "id": "assessment-ein-wort-fuer-dich",
+      "candidate": "Ein Wort für Dich",
+      "disposition": "excluded_insufficient_artwork_provenance",
+      "evidence": "Local OSM supplies only a name and attraction tag without artist or artwork-object metadata.",
+      "qualification": "Not promoted to artwork."
+    },
+    {
+      "id": "assessment-pagode-sm-gs-1-3-981",
+      "candidate": "Pagode survey/repainting drawing SM-GS 1.3.981",
+      "disposition": "registered_source_not_first_class_artwork",
+      "evidence": "HKK documents the 1825/26 survey/new-paint proposal but lists the creator as unknown.",
+      "qualification": "No fake unknown-person entity; the sheet is not misrepresented as the original Pagode design."
+    },
+    {
+      "id": "assessment-giovanni-ghezzi",
+      "candidate": "Giovanni Ghezzi",
+      "disposition": "excluded_no_bergpark_work_relation_recovered",
+      "evidence": "Biographical existence is verifiable, but no primary/official Bergpark work relation was recovered.",
+      "qualification": "No speculative figure-to-place edge."
+    },
+    {
+      "id": "assessment-johann-georg-etienne",
+      "candidate": "Johann Georg Etienne",
+      "disposition": "excluded_no_primary_relation_recovered",
+      "evidence": "No primary/official Bergpark work relation was recovered.",
+      "qualification": "No speculative entity or edge."
+    }
+  ],
+  "coverage": {
+    "phase": "phase_3_historical_figures_artworks_collections",
+    "artwork_inventory_status": "curated_source_backed_subset_not_complete_inventory",
+    "major_collection_ids": [
+      "collection-gemaeldegalerie-alte-meister",
+      "collection-antikensammlung-schloss-wilhelmshoehe"
+    ],
+    "supporting_collection_ids": [
+      "collection-weissensteinfluegel-historic-interiors"
+    ],
+    "media_status": "no_new_media_files_added_in_phase_3",
+    "node_cross_link_policy": "Phase-2 bilingual node figure/artwork references remain intact; stable figure aliases resolve those references, source-backed semantic edges carry role semantics, and the Flora node adds an explicit artworkContext without changing canonical identity or coordinates.",
+    "assessed_not_promoted": [
+      {
+        "label": "Hirtengott Pan / Faun at the upper water theatre",
+        "reason": "Local OSM naming and official descriptions do not establish a stable creator attribution under the current creator-required artwork contract; no creator is fabricated."
+      },
+      {
+        "label": "Zentaur at the upper water theatre",
+        "reason": "The figure/function is documented, but reviewed authoritative evidence does not establish a creator strongly enough for promotion to the curated artwork layer."
+      },
+      {
+        "label": "Venus im Löwenburggarten",
+        "reason": "No sufficiently stable authoritative object record with creator/date/status was recovered in this tranche; omission is explicit rather than guessed."
+      },
+      {
+        "label": "Ein Wort für Dich",
+        "reason": "The modern OSM artwork discovery lacks sufficient authoritative creator/provenance evidence in this tranche for promotion."
+      },
+      {
+        "label": "Pagode drawing SM-GS 1.3.981",
+        "reason": "HKK identifies the creator as unknown and the sheet as a later survey/repaint proposal rather than an original design; it remains source evidence without fabricated authorship."
+      },
+      {
+        "label": "Giovanni Ghezzi",
+        "reason": "No primary or official Bergpark work relation was recovered in this tranche; no speculative entity relation was created."
+      },
+      {
+        "label": "Johann Georg Etienne",
+        "reason": "No primary or official Bergpark work relation was recovered in this tranche; no speculative entity relation was created."
+      }
+    ]
+  }
 }

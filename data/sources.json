@@ -7,7 +7,12 @@
       "publisher": "UNESCO World Heritage Centre",
       "url": "https://whc.unesco.org/en/list/1413/",
       "accessed": "2026-08-27",
-      "scope": ["world-heritage", "hercules", "water-features", "significance"],
+      "scope": [
+        "world-heritage",
+        "hercules",
+        "water-features",
+        "significance"
+      ],
       "notes": "Authoritative World Heritage listing, criteria (iii) and (iv), statement of Outstanding Universal Value."
     },
     "unesco-nomination-1413": {
@@ -15,7 +20,12 @@
       "publisher": "UNESCO World Heritage Centre / State Party nomination",
       "url": "https://whc.unesco.org/uploads/nominations/1413.pdf",
       "accessed": "2026-08-27",
-      "scope": ["history", "architecture", "water-engineering", "inventory"],
+      "scope": [
+        "history",
+        "architecture",
+        "water-engineering",
+        "inventory"
+      ],
       "notes": "Primary nomination dossier. Historical interpretation remains attributable to the State Party rather than UNESCO itself."
     },
     "hkh-bergpark": {
@@ -23,84 +33,142 @@
       "publisher": "Hessen Kassel Heritage",
       "url": "https://www.heritage-kassel.de/standorte/bergpark-wilhelmshoehe",
       "accessed": "2026-08-27",
-      "scope": ["park-history", "visitor-info", "accessibility", "plant-collection"]
+      "scope": [
+        "park-history",
+        "visitor-info",
+        "accessibility",
+        "plant-collection"
+      ]
     },
     "hkh-wasserspiele": {
       "title": "Der Besuchermagnet im Bergpark Wilhelmshöhe — Wasserspiele",
       "publisher": "Hessen Kassel Heritage",
       "url": "https://www.heritage-kassel.de/besuch/wasserspiele",
       "accessed": "2026-08-27",
-      "scope": ["water-features", "schedule", "walking-distance", "accessibility"]
+      "scope": [
+        "water-features",
+        "schedule",
+        "walking-distance",
+        "accessibility"
+      ]
     },
     "stadt-wasserspiele": {
       "title": "Wasserspiele im UNESCO-Welterbe",
       "publisher": "Stadt Kassel",
       "url": "https://www.kassel.de/buerger/kunst_und_kultur/parks_und_gaerten/wilhelmshoehe/wasserspiele.php",
       "accessed": "2026-08-27",
-      "scope": ["water-features", "schedule", "hydraulics", "visitor-info"]
+      "scope": [
+        "water-features",
+        "schedule",
+        "hydraulics",
+        "visitor-info"
+      ]
     },
     "stadt-herkules": {
       "title": "Der Herkules in Kassel",
       "publisher": "Stadt Kassel",
       "url": "https://www.kassel.de/buerger/kunst_und_kultur/parks_und_gaerten/wilhelmshoehe/sehenswertes/herkules.php",
       "accessed": "2026-08-27",
-      "scope": ["hercules", "history", "dimensions", "visitor-info"]
+      "scope": [
+        "hercules",
+        "history",
+        "dimensions",
+        "visitor-info"
+      ]
     },
     "stadt-kaskaden": {
       "title": "Wasserspiele Station 2 — Kaskaden",
       "publisher": "Stadt Kassel",
       "url": "https://www.kassel.de/buerger/kunst_und_kultur/parks_und_gaerten/wilhelmshoehe/wasserspiele/station-2-kaskaden.php",
       "accessed": "2026-08-27",
-      "scope": ["cascades", "dimensions", "water-features"]
+      "scope": [
+        "cascades",
+        "dimensions",
+        "water-features"
+      ]
     },
     "stadt-teufelsbruecke": {
       "title": "Wasserspiele Station 4 — Teufelsbrücke",
       "publisher": "Stadt Kassel",
       "url": "https://www.kassel.de/buerger/kunst_und_kultur/parks_und_gaerten/wilhelmshoehe/wasserspiele/station-4-teufelsbruecke.php",
       "accessed": "2026-08-27",
-      "scope": ["teufelsbruecke", "hoellenteich", "jussow", "henschel"]
+      "scope": [
+        "teufelsbruecke",
+        "hoellenteich",
+        "jussow",
+        "henschel"
+      ]
     },
     "stadt-aquaedukt": {
       "title": "Wasserspiele Station 5 — Aquädukt und Peneuskaskaden",
       "publisher": "Stadt Kassel",
       "url": "https://www.kassel.de/buerger/kunst_und_kultur/parks_und_gaerten/wilhelmshoehe/wasserspiele/station-5-aquaedukt-peneuskaskaden.php",
       "accessed": "2026-08-27",
-      "scope": ["aqueduct", "peneus-cascades", "jussow", "water-engineering"]
+      "scope": [
+        "aqueduct",
+        "peneus-cascades",
+        "jussow",
+        "water-engineering"
+      ]
     },
     "stadt-fontaene": {
       "title": "Wasserspiele Station 6 — Große Fontäne",
       "publisher": "Stadt Kassel",
       "url": "https://www.kassel.de/buerger/kunst_und_kultur/parks_und_gaerten/wilhelmshoehe/wasserspiele/station-6-grosse-fontaene.php",
       "accessed": "2026-08-27",
-      "scope": ["grand-fountain", "fontaenenteich", "hydraulics"]
+      "scope": [
+        "grand-fountain",
+        "fontaenenteich",
+        "hydraulics"
+      ]
     },
     "stadt-loewenburg": {
       "title": "Löwenburg",
       "publisher": "Stadt Kassel",
       "url": "https://www.kassel.de/buerger/kunst_und_kultur/parks_und_gaerten/wilhelmshoehe/sehenswertes/loewenburg.php",
       "accessed": "2026-08-27",
-      "scope": ["loewenburg", "jussow", "visitor-info", "collections"]
+      "scope": [
+        "loewenburg",
+        "jussow",
+        "visitor-info",
+        "collections"
+      ]
     },
     "hkh-schloss": {
       "title": "Schloss Wilhelmshöhe",
       "publisher": "Hessen Kassel Heritage",
       "url": "https://www.heritage-kassel.de/standorte/schloss-wilhelmshoehe",
       "accessed": "2026-08-27",
-      "scope": ["palace", "museum", "visitor-info", "accessibility"]
+      "scope": [
+        "palace",
+        "museum",
+        "visitor-info",
+        "accessibility"
+      ]
     },
     "hkh-alte-meister": {
       "title": "Gemäldegalerie Alte Meister — Malerei bis 1800",
       "publisher": "Hessen Kassel Heritage",
       "url": "https://www.heritage-kassel.de/sammlung-und-forschung/sammlungen/gemaeldegalerie-alte-meister",
       "accessed": "2026-08-27",
-      "scope": ["old-masters", "rembrandt", "rubens", "collections"]
+      "scope": [
+        "old-masters",
+        "rembrandt",
+        "rubens",
+        "collections"
+      ]
     },
     "hkh-antiken": {
       "title": "Gemäldegalerie Alte Meister im Schloss Wilhelmshöhe / Antikensammlung visitor page",
       "publisher": "Hessen Kassel Heritage",
       "url": "https://www.heritage-kassel.de/standorte/gemaeldegalerie-alte-meister",
       "accessed": "2026-08-27",
-      "scope": ["antiquities", "roman", "greek", "cork-models"]
+      "scope": [
+        "antiquities",
+        "roman",
+        "greek",
+        "cork-models"
+      ]
     },
     "commons-bergpark": {
       "title": "Bergpark Wilhelmshöhe",
@@ -108,7 +176,10 @@
       "url": "https://commons.wikimedia.org/wiki/Bergpark_Wilhelmsh%C3%B6he",
       "accessed": "2026-08-27",
       "license": "Per-file licenses; verify each media file before reuse",
-      "scope": ["media-index", "landmarks"]
+      "scope": [
+        "media-index",
+        "landmarks"
+      ]
     },
     "commons-schloss": {
       "title": "Category:Schloss Wilhelmshöhe",
@@ -116,7 +187,9 @@
       "url": "https://commons.wikimedia.org/wiki/Category:Schloss_Wilhelmsh%C3%B6he",
       "accessed": "2026-08-27",
       "license": "Per-file licenses; category text CC BY-SA",
-      "scope": ["palace-media"]
+      "scope": [
+        "palace-media"
+      ]
     },
     "osm-derived-mapcarta-kaskaden": {
       "title": "Große Kaskaden — OpenStreetMap-derived coordinates",
@@ -124,7 +197,10 @@
       "url": "https://mapcarta.com/N3923243905",
       "accessed": "2026-08-27",
       "license": "OpenStreetMap data ODbL; Mapcarta text CC BY-SA 4.0",
-      "scope": ["coordinates", "accessibility"]
+      "scope": [
+        "coordinates",
+        "accessibility"
+      ]
     },
     "osm-derived-mapcarta-aquaedukt": {
       "title": "Aquädukt — OpenStreetMap-derived coordinates",
@@ -132,7 +208,9 @@
       "url": "https://mapcarta.com/de/W499181982",
       "accessed": "2026-08-27",
       "license": "OpenStreetMap data ODbL; Mapcarta text CC BY-SA 4.0",
-      "scope": ["coordinates"]
+      "scope": [
+        "coordinates"
+      ]
     },
     "osm-derived-mapcarta-plutogrotte": {
       "title": "Plutogrotte — OpenStreetMap-derived coordinates",
@@ -140,7 +218,9 @@
       "url": "https://mapcarta.com/W389164993",
       "accessed": "2026-08-27",
       "license": "OpenStreetMap data ODbL; Mapcarta text CC BY-SA 4.0",
-      "scope": ["coordinates"]
+      "scope": [
+        "coordinates"
+      ]
     },
     "osm-derived-mapcarta-eremitage": {
       "title": "Eremitage des Sokrates — OpenStreetMap-derived coordinates",
@@ -148,14 +228,19 @@
       "url": "https://mapcarta.com/W541728530",
       "accessed": "2026-08-27",
       "license": "OpenStreetMap data ODbL; Mapcarta text CC BY-SA 4.0",
-      "scope": ["coordinates"]
+      "scope": [
+        "coordinates"
+      ]
     },
     "commons-jussowtempel-photo": {
       "title": "File:Jussowtempel am Fontänenteich.jpg",
       "publisher": "Wikimedia Commons",
       "url": "https://commons.wikimedia.org/wiki/File:Jussowtempel_am_Font%C3%A4nenteich.jpg",
       "accessed": "2026-08-27",
-      "scope": ["coordinates", "media"]
+      "scope": [
+        "coordinates",
+        "media"
+      ]
     },
     "commons-teufelsbruecke-photo": {
       "title": "File:Bergpark wilhelmshoehe teufelsbruecke.jpg",
@@ -163,28 +248,39 @@
       "url": "https://commons.wikimedia.org/wiki/File:Bergpark_wilhelmshoehe_teufelsbruecke.jpg",
       "accessed": "2026-08-27",
       "license": "CC BY-SA 3.0 / GFDL 1.2+ as listed on Commons",
-      "scope": ["coordinates", "media"]
+      "scope": [
+        "coordinates",
+        "media"
+      ]
     },
     "commons-aquaedukt-photo": {
       "title": "File:Aquädukt - Bergpark Wilhelmshöhe 01.jpg",
       "publisher": "Wikimedia Commons",
       "url": "https://commons.wikimedia.org/wiki/File:Aqu%C3%A4dukt_-_Bergpark_Wilhelmsh%C3%B6he_01.jpg",
       "accessed": "2026-08-27",
-      "scope": ["coordinates", "media"]
+      "scope": [
+        "coordinates",
+        "media"
+      ]
     },
     "commons-fontaene-photo": {
       "title": "File:Bergpark Wilhelmshöhe - Große Fontäne 2020-08-05 c.JPG",
       "publisher": "Wikimedia Commons",
       "url": "https://commons.wikimedia.org/wiki/File:Bergpark_Wilhelmsh%C3%B6he_-_Gro%C3%9Fe_Font%C3%A4ne_2020-08-05_c.JPG",
       "accessed": "2026-08-27",
-      "scope": ["coordinates", "media"]
+      "scope": [
+        "coordinates",
+        "media"
+      ]
     },
     "commons-kaskaden-photo": {
       "title": "File:Kaskaden1.JPG",
       "publisher": "Wikimedia Commons",
       "url": "https://commons.wikimedia.org/wiki/File:Kaskaden1.JPG",
       "accessed": "2026-08-27",
-      "scope": ["media"]
+      "scope": [
+        "media"
+      ]
     },
     "commons-schloss-photo": {
       "title": "File:SchlossWilhelmshoehe.jpg",
@@ -192,21 +288,31 @@
       "url": "https://commons.wikimedia.org/wiki/File:SchlossWilhelmshoehe.jpg",
       "accessed": "2026-08-27",
       "license": "GFDL 1.2+ and CC BY-SA 3.0 as listed on Commons",
-      "scope": ["media"]
+      "scope": [
+        "media"
+      ]
     },
     "hkh-eremitage-object": {
       "title": "Partie im Park Wilhelmshöhe, mit der Eremitage des Sokrates",
       "publisher": "Hessen Kassel Heritage Objektdatenbank",
       "url": "https://datenbank.museum-kassel.de/116445/",
       "accessed": "2026-08-27",
-      "scope": ["eremitage", "historical-image-evidence"]
+      "scope": [
+        "eremitage",
+        "historical-image-evidence"
+      ]
     },
     "lbih-loewenburg-2022": {
       "title": "Besuchermagnet und historisches Kleinod wieder für Besucher*innen zugänglich",
       "publisher": "Landesbetrieb Bau und Immobilien Hessen",
       "url": "https://lbih.hessen.de/presse/besuchermagnet-und-historisches-kleinod-wieder-fuer-besucherinnen-zugaenglich",
       "accessed": "2026-08-27",
-      "scope": ["loewenburg", "restoration", "bergfried", "interiors"]
+      "scope": [
+        "loewenburg",
+        "restoration",
+        "bergfried",
+        "interiors"
+      ]
     },
     "dewiki-bergpark": {
       "title": "Bergpark Wilhelmshöhe",
@@ -214,7 +320,13 @@
       "url": "https://de.wikipedia.org/wiki/Bergpark_Wilhelmsh%C3%B6he",
       "accessed": "2026-08-27",
       "license": "CC BY-SA; use as a secondary orientation source and verify important claims against primary/official sources",
-      "scope": ["secondary-landmarks", "jussow-tempel", "plutogrotte", "eremitage", "chronology"]
+      "scope": [
+        "secondary-landmarks",
+        "jussow-tempel",
+        "plutogrotte",
+        "eremitage",
+        "chronology"
+      ]
     },
     "osm-derived-mapcarta-loewenburg": {
       "title": "Löwenburg — OpenStreetMap-derived coordinates",
@@ -222,42 +334,76 @@
       "url": "https://mapcarta.com/de/35990360",
       "accessed": "2026-08-27",
       "license": "OpenStreetMap data ODbL; Mapcarta text CC BY-SA 4.0",
-      "scope": ["coordinates"]
+      "scope": [
+        "coordinates"
+      ]
     },
     "stadt-bergparkplan": {
       "title": "Bergparkplan",
       "publisher": "Stadt Kassel",
       "url": "https://www.kassel.de/daten-und-karten/bergparkplan.php",
       "accessed": "2026-08-27",
-      "scope": ["official-map", "water-route", "visitor-orientation", "trails"]
+      "scope": [
+        "official-map",
+        "water-route",
+        "visitor-orientation",
+        "trails"
+      ]
     },
     "stadt-steinhoefer": {
       "title": "Wasserspiele Station 3 — Steinhöfer Wasserfall",
       "publisher": "Kassel Marketing / Stadt Kassel tourism",
       "url": "https://visit.kassel.de/poi/1505-uhr-steinhoefer-wasserfall",
       "accessed": "2026-08-27",
-      "scope": ["steinhoefer-waterfall", "water-engineering", "visitor-sequence"]
+      "scope": [
+        "steinhoefer-waterfall",
+        "water-engineering",
+        "visitor-sequence"
+      ]
     },
     "hkh-ballhaus": {
       "title": "Ballhaus Wilhelmshöhe",
       "publisher": "Hessen Kassel Heritage",
       "url": "https://www.heritage-kassel.de/standorte/ballhaus",
       "accessed": "2026-08-27",
-      "scope": ["ballhaus", "history", "interiors", "visitor-info", "accessibility"]
+      "scope": [
+        "ballhaus",
+        "history",
+        "interiors",
+        "visitor-info",
+        "accessibility"
+      ]
     },
     "hkh-gewaechshaus": {
       "title": "Großes Gewächshaus",
       "publisher": "Hessen Kassel Heritage",
       "url": "https://www.heritage-kassel.de/standorte/gewaechshaus",
       "accessed": "2026-08-27",
-      "scope": ["greenhouse", "plant-collection", "architecture", "visitor-info", "accessibility"]
+      "scope": [
+        "greenhouse",
+        "plant-collection",
+        "architecture",
+        "visitor-info",
+        "accessibility"
+      ]
     },
     "lfdh-denkmaltopographie-wilhelmshoehe": {
       "title": "Denkmaltopographie Bundesrepublik Deutschland — Kulturdenkmäler in Hessen: Stadt Kassel 3, Wilhelmshöhe",
       "publisher": "Landesamt für Denkmalpflege Hessen / Universitätsbibliothek Heidelberg digital",
       "url": "https://digi.ub.uni-heidelberg.de/diglit/dtbrd_he_bd44",
-      "accessed": "2026-08-27",
-      "scope": ["secondary-landmarks", "protected-monuments", "chronology", "architecture", "mulang", "water-features"],
+      "accessed": "2026-08-28",
+      "scope": [
+        "secondary-landmarks",
+        "protected-monuments",
+        "chronology",
+        "architecture",
+        "mulang",
+        "water-features",
+        "sculpture",
+        "artists",
+        "flora-farnesina",
+        "plutogrotte"
+      ],
       "notes": "Authoritative Hessian monument inventory, published 2008; OCR pages used with caution where typography is ambiguous."
     },
     "stadt-geoportal-mulang": {
@@ -265,14 +411,24 @@
       "publisher": "Stadt Kassel Geoportal",
       "url": "https://geoportal.kassel.de/wandern-ks-west/",
       "accessed": "2026-08-27",
-      "scope": ["mulang", "pagoda", "park-village", "steinhoefer"]
+      "scope": [
+        "mulang",
+        "pagoda",
+        "park-village",
+        "steinhoefer"
+      ]
     },
     "hkh-architekturzeichnungen-pagode": {
       "title": "Kassel-Wilhelmshöhe, Mulang, Pagode — Bauaufnahme und Entwurf für einen neuen Anstrich",
       "publisher": "Hessen Kassel Heritage — Bestandskatalog der Architekturzeichnungen",
       "url": "https://architekturzeichnungen.museum-kassel.de/61951/",
       "accessed": "2026-08-27",
-      "scope": ["mulang", "pagoda", "architecture", "1825-1826"]
+      "scope": [
+        "mulang",
+        "pagoda",
+        "architecture",
+        "1825-1826"
+      ]
     },
     "dewiki-mou-lang": {
       "title": "Mou-lang",
@@ -280,7 +436,11 @@
       "url": "https://de.wikipedia.org/wiki/Mou-lang",
       "accessed": "2026-08-27",
       "license": "CC BY-SA; secondary orientation source, cross-checked against monument inventory and official material",
-      "scope": ["mulang", "building-inventory", "survival-status"]
+      "scope": [
+        "mulang",
+        "building-inventory",
+        "survival-status"
+      ]
     },
     "dewiki-pagode-wilhelmshoehe": {
       "title": "Pagode (Wilhelmshöhe)",
@@ -288,7 +448,11 @@
       "url": "https://de.wikipedia.org/wiki/Pagode_%28Wilhelmsh%C3%B6he%29",
       "accessed": "2026-08-27",
       "license": "CC BY-SA; secondary orientation source, cross-checked against Hessen Kassel Heritage drawing catalogue",
-      "scope": ["pagoda", "mulang", "architecture"]
+      "scope": [
+        "pagoda",
+        "mulang",
+        "architecture"
+      ]
     },
     "osm-overpass-phase1": {
       "title": "Bergpark Phase-1 OpenStreetMap / Overpass snapshot",
@@ -296,7 +460,10 @@
       "url": "https://www.openstreetmap.org/copyright",
       "accessed": "2026-08-27",
       "license": "ODbL 1.0",
-      "scope": ["coordinates", "poi-identification"],
+      "scope": [
+        "coordinates",
+        "poi-identification"
+      ],
       "notes": "Exact local snapshot provenance and queries are recorded in data/source_manifest.json at graph commit 067bedd."
     },
     "stadt-kaskadenwirtschaft": {
@@ -304,7 +471,11 @@
       "publisher": "Stadt Kassel",
       "url": "https://www.kassel.de/verzeichnisse/adressverzeichnis/gastronomie/gastronomie-bergpark/kaskadenwirtschaft-grischaefer.php",
       "accessed": "2026-08-27",
-      "scope": ["kaskadenwirtschaft", "visitor-info", "current-closure"],
+      "scope": [
+        "kaskadenwirtschaft",
+        "visitor-info",
+        "current-closure"
+      ],
       "notes": "Current city listing states the historic Kaskadenwirtschaft is closed for renovation until approximately autumn 2026."
     },
     "openmeteo-elevation-glo90": {
@@ -312,7 +483,10 @@
       "publisher": "Open-Meteo / Copernicus DEM",
       "url": "https://open-meteo.com/en/docs/elevation-api",
       "accessed": "2026-08-27",
-      "scope": ["terrain-elevation", "provisional-elevation"],
+      "scope": [
+        "terrain-elevation",
+        "provisional-elevation"
+      ],
       "notes": "WGS84 coordinate lookup based on Copernicus DEM 2021 GLO-90 (90 m resolution). Suitable as provisional terrain elevation, not survey-grade exact height; later Hessian DGM refinement required."
     },
     "osm-wiki-bergpark-inventory": {
@@ -321,7 +495,14 @@
       "url": "https://wiki.openstreetmap.org/wiki/User:Jo_Cassel/Bergpark_Wilhelmsh%C3%B6he",
       "accessed": "2026-08-27",
       "license": "OpenStreetMap Wiki CC BY-SA; linked OSM data ODbL",
-      "scope": ["secondary-landmarks", "mulang", "bridges", "water-features", "trees", "osm-element-cross-reference"],
+      "scope": [
+        "secondary-landmarks",
+        "mulang",
+        "bridges",
+        "water-features",
+        "trees",
+        "osm-element-cross-reference"
+      ],
       "notes": "Useful structured cross-reference to Parkpflegewerk page numbers and OSM element IDs; verify historical claims against primary/official sources before publication."
     },
     "outdooractive-bergpark-route-scan": {
@@ -329,7 +510,12 @@
       "publisher": "Outdooractive",
       "url": "https://www.outdooractive.com/de/route/wanderung/kassler-land/bergpark-wilhelmshoehe-291121/236964184/",
       "accessed": "2026-08-27",
-      "scope": ["discovery-only", "route-names", "route-waypoints", "elevation-cross-check"],
+      "scope": [
+        "discovery-only",
+        "route-names",
+        "route-waypoints",
+        "elevation-cross-check"
+      ],
       "notes": "Commercial/public route pages used only to discover and cross-check named waypoints/routes such as Riesenkopfplateau, Schlosskapelle and Weißensteinflügel. Do not ingest proprietary route geometry."
     },
     "outdooractive-herkules-round-scan": {
@@ -337,7 +523,14 @@
       "publisher": "Outdooractive / DAV Sektion Kassel",
       "url": "https://www.outdooractive.com/de/route/wanderung/habichtswald/rundweg-zum-herkules-im-bergpark-wilhelmshoehe/808537559/",
       "accessed": "2026-08-27",
-      "scope": ["discovery-only", "route-description", "surface-mix", "lac", "schlossteich", "steinhoefer"],
+      "scope": [
+        "discovery-only",
+        "route-description",
+        "surface-mix",
+        "lac",
+        "schlossteich",
+        "steinhoefer"
+      ],
       "notes": "Discovery/cross-check only. Public route description confirms path sequence and mixed surfaces; open OSM geometry remains routing authority."
     },
     "komoot-bergpark-highlight-scan": {
@@ -345,7 +538,12 @@
       "publisher": "Komoot",
       "url": "https://www.komoot.com/de-de/guide/3234448/ausflugsziele-im-bergpark-wilhelmshoehe",
       "accessed": "2026-08-27",
-      "scope": ["discovery-only", "poi-cross-check", "water-features", "kneipp-water-cure"],
+      "scope": [
+        "discovery-only",
+        "poi-cross-check",
+        "water-features",
+        "kneipp-water-cure"
+      ],
       "notes": "Commercial/public pages used only as discovery/cross-check evidence; do not copy proprietary route geometry or community prose."
     },
     "visit-kassel-k4": {
@@ -353,7 +551,14 @@
       "publisher": "Kassel Marketing / GrimmHeimat NordHessen",
       "url": "https://visit.kassel.de/tour/terrainkurweg-k4-schlosspark-rundweg",
       "accessed": "2026-08-27",
-      "scope": ["official-route", "k4", "distance", "elevation", "surface-mix", "waypoint-sequence"],
+      "scope": [
+        "official-route",
+        "k4",
+        "distance",
+        "elevation",
+        "surface-mix",
+        "waypoint-sequence"
+      ],
       "notes": "Current public tourism route record: 4.88 km, K4, with Schloss/Aquädukt/Teufelsbrücke/Steinhöfer Wasserfall/Löwenburg/Fontänenteich/Lac sequence. Use current record instead of stale historical K-number tables."
     },
     "visit-kassel-hiking-index": {
@@ -361,7 +566,12 @@
       "publisher": "Kassel Marketing / GrimmHeimat NordHessen",
       "url": "https://visit.kassel.de/ausflugsziele-in-der-region/wandern",
       "accessed": "2026-08-27",
-      "scope": ["official-route-index", "k4", "k5", "current-route-numbering"],
+      "scope": [
+        "official-route-index",
+        "k4",
+        "k5",
+        "current-route-numbering"
+      ],
       "notes": "Current route index confirms Terrainkurweg K4 Schlosspark Rundweg and K5 Rundweg Wasserspiele; preferred for current route names/numbers over older OSM Wiki snapshots."
     },
     "hkh-visitorcenter-wilhelmshoehe": {
@@ -369,21 +579,38 @@
       "publisher": "Hessen Kassel Heritage",
       "url": "https://www.heritage-kassel.de/service/bz/besucherzentrum-wilhelmshoehe",
       "accessed": "2026-08-27",
-      "scope": ["visitor-center", "wilhelmshoehe", "accessibility", "opening-hours", "historic-station-building"]
+      "scope": [
+        "visitor-center",
+        "wilhelmshoehe",
+        "accessibility",
+        "opening-hours",
+        "historic-station-building"
+      ]
     },
     "hkh-visitorcenter-herkules": {
       "title": "Besucherzentrum Herkules",
       "publisher": "Hessen Kassel Heritage",
       "url": "https://www.heritage-kassel.de/service/bz/besucherzentrum-herkules",
       "accessed": "2026-08-27",
-      "scope": ["visitor-center", "hercules", "accessibility", "opening-hours", "digital-park-map"]
+      "scope": [
+        "visitor-center",
+        "hercules",
+        "accessibility",
+        "opening-hours",
+        "digital-park-map"
+      ]
     },
     "hkh-mulang-village": {
       "title": "Parkdorf Mulang / Mulang Village in the Park",
       "publisher": "Hessen Kassel Heritage",
       "url": "https://www.heritage-kassel.de/en/locations/bergpark-wilhelmshoehe/mulang-village-in-the-park",
       "accessed": "2026-08-27",
-      "scope": ["mulang", "social-history", "colonial-context", "village-ensemble"],
+      "scope": [
+        "mulang",
+        "social-history",
+        "colonial-context",
+        "village-ensemble"
+      ],
       "notes": "Official interpretive page; use alongside the Parkpflegewerk/monument inventory for individual building chronology."
     },
     "routeyou-osm-k4": {
@@ -391,7 +618,11 @@
       "publisher": "RouteYou / OpenStreetMap contributors",
       "url": "https://www.routeyou.com/de-de/route/view/4370240",
       "accessed": "2026-08-27",
-      "scope": ["route-cross-check", "k4", "osm-relation-357732"],
+      "scope": [
+        "route-cross-check",
+        "k4",
+        "osm-relation-357732"
+      ],
       "notes": "Explicitly states processing from OSM relation 357732; use only as an external cross-check, not as geometry authority."
     },
     "routeyou-osm-k5": {
@@ -399,7 +630,11 @@
       "publisher": "RouteYou / OpenStreetMap contributors",
       "url": "https://www.routeyou.com/de-de/route/view/4361135",
       "accessed": "2026-08-27",
-      "scope": ["route-cross-check", "k5", "osm-relation-358216"],
+      "scope": [
+        "route-cross-check",
+        "k5",
+        "osm-relation-358216"
+      ],
       "notes": "Explicitly states processing from OSM relation 358216; use only as an external cross-check, not as geometry authority."
     },
     "osm-derived-mapcarta-sichelbach": {
@@ -408,7 +643,11 @@
       "url": "https://mapcarta.com/de/W58638980",
       "accessed": "2026-08-27",
       "license": "OpenStreetMap data ODbL; Mapcarta text CC BY-SA 4.0",
-      "scope": ["sichelbachbecken", "coordinates", "osm-way-58638980"],
+      "scope": [
+        "sichelbachbecken",
+        "coordinates",
+        "osm-way-58638980"
+      ],
       "notes": "Used to recover the OSM way identity and center because the original core graph/map snapshots did not extend far enough west."
     },
     "osm-api-public": {
@@ -417,7 +656,11 @@
       "url": "https://api.openstreetmap.org/api/0.6/",
       "accessed": "2026-08-27",
       "license": "ODbL 1.0",
-      "scope": ["geometry", "coordinates", "feature-tags"],
+      "scope": [
+        "geometry",
+        "coordinates",
+        "feature-tags"
+      ],
       "notes": "Used narrowly when a Parkpflegewerk-linked OSM feature falls outside or is clipped by the repository's existing local map snapshots."
     },
     "stadt-bergpark-erschliessung-2010": {
@@ -425,7 +668,12 @@
       "publisher": "Stadt Kassel — Stadtplanung, Bauaufsicht und Denkmalschutz",
       "url": "https://ratsinfo.kassel.de/sdnet4/sdnetrim/UGhVM0hpd2NXNFdFcExjZS9-kB66UMzNbG4SyAa0BY0hmvjJr4mBz64O9zFyclRM/Gesamterschliessungskonzept.pdf",
       "accessed": "2026-08-28",
-      "scope": ["official-map", "secondary-landmark-inventory", "visitor-access", "nomenclature"],
+      "scope": [
+        "official-map",
+        "secondary-landmark-inventory",
+        "visitor-access",
+        "nomenclature"
+      ],
       "notes": "Official 2010 access concept with a numbered 1–34 park inventory: Herkulesstatue, Grottenhof, Bassin mit Riesenkopf, Große Kaskade, Bassin mit Wasserfall, Felseneck, Steinhöfer-Wasserfall, Fontänenreservoir, Plutogrotte, Teufelsbrücke, Asch, Eremitage des Sokrates, Merkur-Tempel, Löwenburg, Sibyllengrotte, Pyramide, Vergils Grabmal, Aquädukt, Neuer Wasserfall, Jussow-Tempel, Fontänenteich, Musikpavillon, Flora, Halle des Sokrates, Pagode, Mulang, Roseninsel, Schloss, Weißensteinflügel, Gewächshaus, Marstall, Schlosshotel, Ballhaus and Schlossteich. Phase-2 maps component names to canonical nodes rather than inventing duplicate coordinates."
     },
     "unesco-decision-37com8b33": {
@@ -433,7 +681,12 @@
       "publisher": "UNESCO World Heritage Committee",
       "url": "https://whc.unesco.org/en/decisions/5161/",
       "accessed": "2026-08-28",
-      "scope": ["world-heritage", "integrity", "water-features", "new-waterfall-status"],
+      "scope": [
+        "world-heritage",
+        "integrity",
+        "water-features",
+        "new-waterfall-status"
+      ],
       "notes": "Authoritative inscription decision. It states that all water features except the New Waterfall remain operable, so New Waterfall is preserved as surviving but non-functional rather than treated as an active Wasserspiele station."
     },
     "stadt-lac": {
@@ -441,7 +694,13 @@
       "publisher": "Stadt Kassel",
       "url": "https://www.kassel.de/buerger/kunst_und_kultur/parks_und_gaerten/wilhelmshoehe/wasserspiele/station-7-lac.php",
       "accessed": "2026-08-28",
-      "scope": ["lac", "schlossteich", "fontaenenteich-distinction", "jussow", "water-route"],
+      "scope": [
+        "lac",
+        "schlossteich",
+        "fontaenenteich-distinction",
+        "jussow",
+        "water-route"
+      ],
       "notes": "Primary current nomenclature source: water flows from the Fontänenteich to the Schlossteich called the Lac; the Lac was formed from a small fish pond in 1785–1791 under Heinrich Christoph Jussow."
     },
     "hkh-orangerie-karlsaue": {
@@ -449,7 +708,11 @@
       "publisher": "Hessen Kassel Heritage",
       "url": "https://www.heritage-kassel.de/standorte/orangerie",
       "accessed": "2026-08-28",
-      "scope": ["orangerie", "karlsaue", "scope-disambiguation"],
+      "scope": [
+        "orangerie",
+        "karlsaue",
+        "scope-disambiguation"
+      ],
       "notes": "Official HKK location page explicitly places the Orangerie Palace in the Karlsaue. It is therefore not promoted as a Bergpark Wilhelmshöhe landmark; the relevant Bergpark plant building is the Großes Gewächshaus."
     },
     "stadt-bergpark-gastronomie": {
@@ -457,7 +720,13 @@
       "publisher": "Stadt Kassel",
       "url": "https://www.kassel.de/buerger/kunst_und_kultur/parks_und_gaerten/wilhelmshoehe/service/gastronomie-bergpark.php",
       "accessed": "2026-08-28",
-      "scope": ["visitor-services", "kaskadenwirtschaft", "schlosshotel", "herkules-terrassen", "current-hours"],
+      "scope": [
+        "visitor-services",
+        "kaskadenwirtschaft",
+        "schlosshotel",
+        "herkules-terrassen",
+        "current-hours"
+      ],
       "notes": "Current municipal service listing. It records Kaskadenwirtschaft as closed for renovation until approximately autumn 2026 and lists Schlosshotel and Herkules Terrassen among Bergpark gastronomy."
     },
     "visit-kassel-schlosshotel": {
@@ -465,8 +734,276 @@
       "publisher": "Kassel Marketing GmbH / GrimmHeimat NordHessen",
       "url": "https://visit.kassel.de/hotel/schlosshotel-bad-wilhelmshoehe-conference-spa",
       "accessed": "2026-08-28",
-      "scope": ["schlosshotel", "visitor-service", "location", "accessibility"],
+      "scope": [
+        "schlosshotel",
+        "visitor-service",
+        "location",
+        "accessibility"
+      ],
       "notes": "Current destination listing used only for present-day service/location context; heritage interpretation relies on official park/UNESCO inventories rather than hotel marketing prose."
+    },
+    "unesco-icomos-2013-evaluation": {
+      "title": "ICOMOS evaluation — Bergpark Wilhelmshöhe",
+      "publisher": "ICOMOS / UNESCO World Heritage Centre",
+      "url": "https://whc.unesco.org/document/152607",
+      "accessed": "2026-08-28",
+      "scope": [
+        "world-heritage",
+        "patronage",
+        "designers",
+        "water-engineering"
+      ],
+      "notes": "Primary heritage evaluation; used for phase-specific attribution and historical-program context."
+    },
+    "hkh-herkules-site": {
+      "title": "Herkules im Bergpark Wilhelmshöhe",
+      "publisher": "Hessen Kassel Heritage",
+      "url": "https://www.heritage-kassel.de/standorte/herkules",
+      "accessed": "2026-08-28",
+      "scope": [
+        "hercules",
+        "patronage",
+        "visitor-info",
+        "world-heritage"
+      ]
+    },
+    "museum-kassel-guerniero-gs5547": {
+      "title": "Kassel-Wilhelmshöhe, Oktogon — Entwurf (GS 5547)",
+      "publisher": "Hessen Kassel Heritage — Bestandskatalog der Architekturzeichnungen",
+      "url": "https://architekturzeichnungen.museum-kassel.de/11244/",
+      "accessed": "2026-08-28",
+      "scope": [
+        "guerniero",
+        "hercules",
+        "architectural-drawing",
+        "octagon"
+      ]
+    },
+    "museum-kassel-guerniero-gs9734": {
+      "title": "Kassel-Wilhelmshöhe, Herkules — Pyramidenentwurf (GS 9734)",
+      "publisher": "Hessen Kassel Heritage — Bestandskatalog der Architekturzeichnungen",
+      "url": "https://architekturzeichnungen.museum-kassel.de/12020/",
+      "accessed": "2026-08-28",
+      "scope": [
+        "guerniero",
+        "hercules",
+        "architectural-drawing",
+        "pyramid"
+      ]
+    },
+    "museum-kassel-jussow-aquaedukt-gs5846": {
+      "title": "Kassel-Wilhelmshöhe, Aquädukt — erster Entwurf (GS 5846)",
+      "publisher": "Hessen Kassel Heritage — Bestandskatalog der Architekturzeichnungen",
+      "url": "https://architekturzeichnungen.museum-kassel.de/10874/32862/0/0/0/beteiligte.html",
+      "accessed": "2026-08-28",
+      "scope": [
+        "jussow",
+        "aqueduct",
+        "architectural-drawing"
+      ],
+      "notes": "The catalogue explicitly identifies this as a first design that was not executed unchanged; used with that qualification."
+    },
+    "museum-kassel-jussow-teufelsbruecke-gs5860": {
+      "title": "Kassel-Wilhelmshöhe — Teufelsbrücke/Höllenteich landscape drawing (GS 5860)",
+      "publisher": "Hessen Kassel Heritage — Bestandskatalog der Architekturzeichnungen",
+      "url": "https://architekturzeichnungen.museum-kassel.de/11467/0/0/0/1/objekt.html",
+      "accessed": "2026-08-28",
+      "scope": [
+        "jussow",
+        "devils-bridge",
+        "landscape-design",
+        "architectural-drawing"
+      ]
+    },
+    "museum-kassel-jussow-teufelsbruecke-gs5850": {
+      "title": "Kassel-Wilhelmshöhe — Plutogrotte/Teufelsbrücke design context (GS 5850)",
+      "publisher": "Hessen Kassel Heritage — Bestandskatalog der Architekturzeichnungen",
+      "url": "https://architekturzeichnungen.museum-kassel.de/10878/",
+      "accessed": "2026-08-28",
+      "scope": [
+        "jussow",
+        "pluto-grotto",
+        "devils-bridge",
+        "architectural-drawing"
+      ],
+      "notes": "Catalogue attribution is questioned; used only for qualified design-context claims."
+    },
+    "deutsche-biographie-jussow": {
+      "title": "Heinrich Christoph Jussow — Deutsche Biographie",
+      "publisher": "Neue Deutsche Biographie / Deutsche Biographie",
+      "url": "https://www.deutsche-biographie.de/gnd118714309.html",
+      "accessed": "2026-08-28",
+      "scope": [
+        "jussow",
+        "biography",
+        "architecture"
+      ],
+      "notes": "Scholarly biographical authority used where collection/site records do not supply biographical context."
+    },
+    "hkh-gemaeldegalerie": {
+      "title": "Gemäldegalerie Alte Meister — Malerei bis 1800",
+      "publisher": "Hessen Kassel Heritage",
+      "url": "https://www.heritage-kassel.de/sammlung-und-forschung/sammlungen/gemaeldegalerie-alte-meister",
+      "accessed": "2026-08-28",
+      "scope": [
+        "old-masters",
+        "rembrandt",
+        "rubens",
+        "collections"
+      ]
+    },
+    "museum-kassel-du-ry-gs5736": {
+      "title": "Schloss Wilhelmshöhe — Entwurfsskizze zur Dreiflügelanlage (GS 5736)",
+      "publisher": "Hessen Kassel Heritage — Bestandskatalog der Architekturzeichnungen",
+      "url": "https://architekturzeichnungen.museum-kassel.de/11366/",
+      "accessed": "2026-08-28",
+      "scope": [
+        "simon-louis-du-ry",
+        "schloss-wilhelmshoehe",
+        "architectural-drawing",
+        "1787"
+      ]
+    },
+    "museum-kassel-du-ry-gs5744": {
+      "title": "Schloss Wilhelmshöhe, Weißensteinflügel — Kellergrundriss (GS 5744)",
+      "publisher": "Hessen Kassel Heritage — Bestandskatalog der Architekturzeichnungen",
+      "url": "https://architekturzeichnungen.museum-kassel.de/11377/",
+      "accessed": "2026-08-28",
+      "scope": [
+        "simon-louis-du-ry",
+        "weissenstein-wing",
+        "architectural-drawing",
+        "1786"
+      ]
+    },
+    "museum-kassel-du-ry-jussow-gs5747": {
+      "title": "Schloss Wilhelmshöhe, Weißensteinflügel — Erdgeschossentwurf (GS 5747)",
+      "publisher": "Hessen Kassel Heritage — Bestandskatalog der Architekturzeichnungen",
+      "url": "https://architekturzeichnungen.museum-kassel.de/11380/",
+      "accessed": "2026-08-28",
+      "scope": [
+        "simon-louis-du-ry",
+        "heinrich-christoph-jussow",
+        "weissenstein-wing",
+        "architectural-drawing",
+        "1786"
+      ]
+    },
+    "museum-kassel-jussow-schloss-sm-gs-1-3-664": {
+      "title": "Schloss Wilhelmshöhe — Entwurf zur Gesamtanlage mit Garten (SM-GS 1.3.664)",
+      "publisher": "Hessen Kassel Heritage — Bestandskatalog der Architekturzeichnungen",
+      "url": "https://architekturzeichnungen.museum-kassel.de/69361/",
+      "accessed": "2026-08-28",
+      "scope": [
+        "heinrich-christoph-jussow",
+        "schloss-wilhelmshoehe",
+        "architectural-drawing",
+        "1786"
+      ]
+    },
+    "museum-kassel-bromeis-thronsaal-sm-gs-1-3-950": {
+      "title": "Weißensteinflügel, Thronsaal — Entwurf für bogenförmige Trennwand (SM-GS 1.3.950)",
+      "publisher": "Hessen Kassel Heritage — Bestandskatalog der Architekturzeichnungen",
+      "url": "https://architekturzeichnungen.museum-kassel.de/61944/",
+      "accessed": "2026-08-28",
+      "scope": [
+        "johann-conrad-bromeis",
+        "weissenstein-wing",
+        "throne-room",
+        "architectural-drawing",
+        "1825-1830"
+      ]
+    },
+    "museum-kassel-bromeis-kuppelsaal-sm-gs-1-3-898": {
+      "title": "Schloss Wilhelmshöhe, Kuppelsaal — Fußbodenentwurf (SM-GS 1.3.898)",
+      "publisher": "Hessen Kassel Heritage — Bestandskatalog der Architekturzeichnungen",
+      "url": "https://architekturzeichnungen.museum-kassel.de/56057/31719/0/0/0/beteiligte.html",
+      "accessed": "2026-08-28",
+      "scope": [
+        "johann-conrad-bromeis",
+        "schloss-wilhelmshoehe",
+        "architectural-drawing",
+        "c1830"
+      ]
+    },
+    "stadt-ballhaus": {
+      "title": "Ballhaus im Bergpark Wilhelmshöhe",
+      "publisher": "Stadt Kassel",
+      "url": "https://www.kassel.de/buerger/kunst_und_kultur/parks_und_gaerten/wilhelmshoehe/sehenswertes/ballhaus.php",
+      "accessed": "2026-08-28",
+      "scope": [
+        "ballhaus",
+        "leo-von-klenze",
+        "johann-conrad-bromeis",
+        "wilhelm-ii",
+        "history"
+      ]
+    },
+    "museum-kassel-rubens-gk92": {
+      "title": "Peter Paul Rubens — Nicolas de Respaigne (GK 92)",
+      "publisher": "Hessen Kassel Heritage — Objektdatenbank",
+      "url": "https://datenbank.museum-kassel.de/33907/36978/Sammlung/0/b17/0/0/objekt.html",
+      "accessed": "2026-08-28",
+      "scope": [
+        "rubens",
+        "nicolas-de-respaigne",
+        "old-masters",
+        "provenance"
+      ]
+    },
+    "museum-kassel-rembrandt-holdings": {
+      "title": "Rembrandt holdings — Gemäldegalerie Alte Meister object list",
+      "publisher": "Hessen Kassel Heritage — Objektdatenbank",
+      "url": "https://datenbank.museum-kassel.de/32732/T57180/Sammlung/0/1/33/4/objektliste.html",
+      "accessed": "2026-08-28",
+      "scope": [
+        "rembrandt",
+        "saskia",
+        "old-masters",
+        "object-inventory"
+      ]
+    },
+    "museum-kassel-pagode-sm-gs-1-3-981": {
+      "title": "Mulang Pagode — Bauaufnahme und Entwurf für neuen Anstrich (SM-GS 1.3.981)",
+      "publisher": "Hessen Kassel Heritage — Bestandskatalog der Architekturzeichnungen",
+      "url": "https://architekturzeichnungen.museum-kassel.de/61951/0/0/0/1/objekt.html",
+      "accessed": "2026-08-28",
+      "scope": [
+        "pagoda",
+        "mulang",
+        "architectural-drawing",
+        "1825-1826"
+      ],
+      "notes": "Creator explicitly unknown; catalogue identifies it as a survey/new-paint proposal rather than an original design for the Pagode."
+    },
+    "museum-kassel-rembrandt-saskia-gk236": {
+      "title": "Saskia van Uylenburgh im Profil, in reichem Kostüm — GK 236",
+      "publisher": "Hessen Kassel Heritage — Onlinedatenbank der Gemäldegalerie Alte Meister",
+      "url": "https://www.altemeister.museum-kassel.de/33761/",
+      "accessed": "2026-08-28",
+      "scope": [
+        "rembrandt",
+        "saskia",
+        "gk236",
+        "date",
+        "provenance",
+        "old-masters"
+      ],
+      "notes": "Object-specific HKK record: dates GK 236 to 1642 and records acquisition in 1750 by Wilhelm VIII with the Valerius Röver cabinet."
+    },
+    "museum-kassel-rembrandt-segen-jakobs-gk249": {
+      "title": "Jakob segnet Ephraim und Manasse (Der Segen Jakobs) — GK 249",
+      "publisher": "Hessen Kassel Heritage — Onlinedatenbank der Gemäldegalerie Alte Meister",
+      "url": "https://www.altemeister.museum-kassel.de/33768/",
+      "accessed": "2026-08-28",
+      "scope": [
+        "rembrandt",
+        "der-segen-jakobs",
+        "gk249",
+        "date",
+        "old-masters"
+      ],
+      "notes": "Object-specific HKK record used to anchor the painting date at 1656."
     }
   }
 }

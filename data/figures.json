@@ -2,20 +2,54 @@
   "schema_version": 1,
   "figures": [
     {
-      "id": "person-landgraf-karl-von-hessen-kassel",
+      "id": "person-daniel-august-schwarzkopf",
       "kind": "historical_figure",
       "name": {
-        "de": "Landgraf Karl von Hessen-Kassel",
-        "en": "Landgrave Charles of Hesse-Kassel"
+        "de": "Daniel August Schwarzkopf",
+        "en": "Daniel August Schwarzkopf"
       },
+      "aliases": [
+        "daniel-august-schwarzkopf",
+        "schwarzkopf"
+      ],
+      "roles": [
+        "court_gardener",
+        "garden_inspector",
+        "landscape_designer"
+      ],
+      "source_ids": [
+        "unesco-icomos-2013-evaluation",
+        "museum-kassel-jussow-teufelsbruecke-gs5860"
+      ],
+      "profile_note": {
+        "de": "Schwarzkopf ist als Hofgärtner und Berichterstatter zur landschaftlichen Umgestaltung 1785–1793 quellenmäßig greifbar. Sein Bericht wird im Kasseler Zeichnungskatalog für Wasserlauf, Bepflanzung und Geländeentscheidungen herangezogen.",
+        "en": "Schwarzkopf is documented as court gardener and reporter on the 1785–1793 landscape transformation. Kassel’s drawing catalogue cites his report for watercourses, planting and terrain decisions."
+      }
+    },
+    {
+      "id": "person-friedrich-ii-von-hessen-kassel",
+      "kind": "historical_figure",
+      "name": {
+        "de": "Landgraf Friedrich II.",
+        "en": "Landgrave Frederick II"
+      },
+      "aliases": [
+        "friedrich-ii",
+        "landgraf-friedrich-ii"
+      ],
       "roles": [
         "landgrave",
+        "collector",
         "patron"
       ],
       "source_ids": [
-        "hkh-herkules",
-        "unesco-bergpark-world-heritage"
-      ]
+        "hkh-antiken",
+        "lfdh-denkmaltopographie-wilhelmshoehe"
+      ],
+      "profile_note": {
+        "de": "Friedrich II. wird hier vor allem als Sammler und früher Patron geführt. Hessen Kassel Heritage verbindet die historischen Korkmodelle der Antikensammlung mit seinen Erwerbungen; die weitere Parkrolle bleibt quellengebunden.",
+        "en": "Frederick II is represented primarily as collector and earlier patron. Hessen Kassel Heritage connects the historic cork models of the antiquities collection with his acquisitions; broader park roles remain source-bound."
+      }
     },
     {
       "id": "person-giovanni-francesco-guerniero",
@@ -26,12 +60,43 @@
       },
       "roles": [
         "architect",
-        "designer"
+        "designer",
+        "construction_supervisor"
       ],
       "source_ids": [
         "unesco-icomos-2013-evaluation",
+        "unesco-nomination-1413",
+        "museum-kassel-guerniero-gs5547",
         "museum-kassel-guerniero-gs9734"
-      ]
+      ],
+      "aliases": [
+        "giovanni-francesco-guerniero",
+        "guerniero"
+      ],
+      "biography": {
+        "de": "Giovanni Francesco Guerniero ist der zentrale namentlich dokumentierte Architekt der oberen barocken Anlage am Karlsberg. Die für den Bergpark wichtigsten Quellen sind weniger eine allgemeine Künstlerbiografie als die UNESCO-Unterlagen und die Kasseler Bestandskataloge der Architekturzeichnungen. Sie verbinden Guerniero unmittelbar mit der Entwurfs- und Bauphase von Oktogon, Pyramide und Kaskadenensemble. Nach der Italienreise Landgraf Karls erhielt er die Aufgabe, die Gestaltung des ambitionierten Projekts zu übernehmen. Im Wissensmodell wird daraus keine pauschale Autorschaft aller sichtbaren Bestandteile abgeleitet. Guernieros Rolle betrifft die Architektur und die Organisation der oberen Anlage; die große Kupferfigur des Herkules ist als eigenständiges Kunstwerk Johann Jakob Anthoni zugeordnet. Gerade diese Trennung ist wichtig, weil Monument, Skulptur und Wassertechnik im heutigen Blick leicht als ein einziges „Werk“ erscheinen.",
+        "en": "Giovanni Francesco Guerniero is the principal named architect documented for the upper Baroque development on the Karlsberg. The most important evidence for Bergpark Wilhelmshöhe is not a generic artist biography but the UNESCO documentation and Kassel catalogues of architectural drawings. These sources connect Guerniero directly with the design and construction phase of the Octagon, pyramid and cascade ensemble. After Landgrave Carl's Italian journey he was given responsibility for the ambitious project. The knowledge model does not turn this into blanket authorship of every visible component. Guerniero's role concerns the architecture and organization of the upper complex; the large copper Hercules is treated as a separate artwork made by Johann Jakob Anthoni. This separation matters because monument, sculpture and hydraulic system can easily appear to a modern viewer as a single “work”."
+      },
+      "park_role": {
+        "de": "Guernieros Parkrolle lässt sich als architektonische Übersetzung eines fürstlichen Programms beschreiben. Der Auftrag verlangte eine monumentale Krönung des Berges, deren Baukörper zugleich Aussichtspunkt, Mythologieträger und Ausgang der Wasserspiele wurde. Die erhaltenen Zeichnungen zeigen konkrete Entwurfsarbeit am Oktogon und an der Pyramide. Das UNESCO-Dossier ordnet ihm außerdem die Leitung der oberen barocken Wasseranlage zu. Damit steht Guerniero zwischen Karls Patronage und der materiellen Ausführung durch zahlreiche Handwerker. Das Datenmodell verwendet deshalb „lead_designer_of“ für Herkulesmonument und Kaskaden, nicht „created“ für die Herkulesstatue. Diese Semantik bewahrt die Quellenlogik und verhindert, dass der Name eines Architekten fälschlich auf Bildhauer- oder Goldschmiedearbeit übertragen wird.",
+        "en": "Guerniero's role in the park can be understood as the architectural translation of a princely programme. The commission required a monumental crown for the mountain, a structure that would simultaneously serve as viewpoint, carrier of mythological meaning and starting point of the water displays. Surviving sheets demonstrate concrete design work on the Octagon and pyramid. The UNESCO dossier also associates him with direction of the upper Baroque hydraulic ensemble. Guerniero therefore stands between Carl's patronage and the material work of many craftspeople. The data model uses “lead_designer_of” for the Hercules monument and cascades, not “created” for the Hercules statue. This semantic distinction follows the evidence and prevents an architect's name from being incorrectly transferred to sculpture or goldsmith work."
+      },
+      "documented_works": {
+        "de": "Besonders belastbar sind die Katalogblätter GS 5547 und GS 9734. Sie verknüpfen Guerniero mit konkreten Planzeichnungen für Oktogon beziehungsweise Pyramide und machen den Entwurfsprozess materiell nachvollziehbar. Beim Pyramidenblatt erläutert der Katalog den Zusammenhang mit dem Bauvertrag und der bis 1714 unter Guernieros Leitung ausgeführten Arbeit. Die spätere Aufstellung der Herkulesfigur 1717 wird davon getrennt. Solche Datensätze sind für die Wissensschicht wertvoller als unpräzise Traditionszuschreibungen, weil Inventarnummer, Technik, Datierung und Katalogkommentar nachprüfbar bleiben. Ein eigenes Artwork-Objekt für das Guerniero-Blatt repräsentiert daher nicht das Bauwerk selbst, sondern den historischen Entwurfsnachweis. Zwischen Zeichnung, ausgeführter Architektur und späterer Restaurierung bestehen jeweils eigene Beziehungen.",
+        "en": "The catalogue records GS 5547 and GS 9734 are especially strong evidence. They connect Guerniero with specific designs for the Octagon and pyramid and make the planning process materially traceable. For the pyramid sheet, the catalogue explains its relationship to the building contract and to work carried out under Guerniero's supervision through 1714. Installation of the Hercules figure in 1717 is treated separately. Such records are more useful to the knowledge layer than vague traditional attributions because inventory number, medium, dating and catalogue commentary remain verifiable. A separate artwork entity for a Guerniero drawing therefore represents evidence of design rather than the building itself. Drawing, executed architecture and later restoration each retain distinct relationships."
+      },
+      "park_context": {
+        "de": "Vor Ort ist Guernieros Beitrag am stärksten dort erfahrbar, wo Architektur, Topographie und Wassertechnik zusammenfallen. Das Oktogon bildet keinen isolierten Pavillon, sondern eine künstliche Bergkrone, die auf Fernwirkung angelegt ist. Unterhalb setzt sich diese Strenge in der Kaskadenachse fort. Besucher sehen damit eine andere Art von Garten als im romantischen Mittelpark: Geometrie, Hierarchie und kontrollierte Fernsicht dominieren. Guernieros Profil hilft, diesen Unterschied als historische Entwurfsentscheidung zu verstehen. Gleichzeitig weist die Quellenlage Grenzen auf. Nicht jeder heute sichtbare Stein oder jede technische Komponente stammt unverändert aus seiner Bauzeit. Restaurierungen und spätere Instandsetzungen gehören zur Objektbiografie. Das Figurenprofil beschreibt deshalb die belegte Entwurfsphase und verweist für heutigen Zustand auf die Orts- und Restaurierungsdaten.",
+        "en": "On site, Guerniero's contribution is most legible where architecture, topography and hydraulics coincide. The Octagon is not an isolated pavilion but an artificial crown for the mountain, designed for long-distance visibility. Below it, the formal discipline continues down the cascade axis. Visitors therefore encounter a different kind of garden from the Romantic middle park: geometry, hierarchy and controlled vistas dominate. Guerniero's profile helps interpret that contrast as a historical design choice. The evidence also has limits. Not every stone or technical component visible today survives unchanged from his construction phase. Restoration and later maintenance belong to the object's biography. The figure profile therefore describes the documented design phase and delegates present condition to the place and conservation records."
+      },
+      "legacy": {
+        "de": "Guernieros bleibender Einfluss beruht auf der außergewöhnlichen Dauerhaftigkeit der räumlichen Idee. Selbst nachdem der Park im späten 18. Jahrhundert grundlegend erweitert und landschaftlich umgedeutet wurde, blieb die obere Herkules-Kaskaden-Achse als dominantes Zeichen bestehen. Sie strukturierte weiterhin Blickbeziehungen und Besuchswege und wurde schließlich ein zentrales Argument der Welterbeanerkennung. Zugleich hat die Forschungsgeschichte gezeigt, wie wichtig Originalzeichnungen für differenzierte Zuschreibung sind. Sie erlauben, Werkphasen, verworfene Varianten und Verantwortlichkeiten genauer zu unterscheiden als eine nachträgliche Sammelbezeichnung. Im digitalen Wissensmodell wird Guerniero deshalb über stabile Personen-ID, Quellen und semantische Kanten mit Bauwerken und Zeichnungen verbunden. Die Methode macht seine Bedeutung sichtbarer, gerade weil sie nicht alles auf seinen Namen vereinheitlicht.",
+        "en": "Guerniero's lasting influence rests on the exceptional persistence of the spatial idea. Even after the park was greatly expanded and reinterpreted as a landscape garden in the late eighteenth century, the upper Hercules-cascade axis remained a dominant sign. It continued to structure views and visitor movement and eventually became central to the World Heritage case. Research history also demonstrates the importance of original drawings for nuanced attribution. They allow phases, rejected variants and responsibilities to be distinguished more accurately than a later catch-all label. In the digital knowledge model Guerniero is therefore linked through a stable person ID, sources and semantic edges to both buildings and drawings. The method makes his importance clearer precisely because it does not homogenize every component under his name."
+      },
+      "interpretation": {
+        "de": "Guerniero steht interpretativ für den Transfer europäischer Architektur- und Gartenideen nach Kassel, aber der Datensatz vermeidet eine vereinfachende Geschichte bloßer „Italienkopie“. Entscheidend ist die lokale Übersetzung: schwierige Hangtopographie, enorme Maßstäbe und ein hydraulisches System wurden zu einer eigenständigen Anlage verbunden. Der Blick vom Tal zum Herkules und vom Monument über die Stadt ist Teil dieser räumlichen Logik. Architektur wird dadurch sowohl Bühne als auch Maschine für Repräsentation und Wasser. Die historische Aussage wird über die dokumentierten Entwürfe und UNESCO-Bewertung gestützt; weitergehende stilgeschichtliche Deutungen bleiben als Interpretation gekennzeichnet. So kann Guernieros Werk sowohl technisch als auch kulturell gelesen werden, ohne Spekulation als Fakt auszugeben.",
+        "en": "Interpretively, Guerniero represents the transfer of European architectural and garden ideas to Kassel, but the dataset avoids reducing that process to a simple “Italian copy”. The important point is local translation: difficult hillside topography, exceptional scale and a hydraulic system were combined into a distinctive ensemble. The view from the valley toward Hercules and from the monument across the city belongs to this spatial logic. Architecture becomes both stage and machine for representation and water. Documentary drawings and the UNESCO evaluation support the historical claim; broader stylistic readings remain explicitly marked as interpretation. This allows Guerniero's work to be understood technically and culturally without presenting speculation as fact."
+      }
     },
     {
       "id": "person-heinrich-christoph-jussow",
@@ -42,17 +107,417 @@
       },
       "roles": [
         "architect",
-        "landscape_designer"
+        "landscape_designer",
+        "court_architect"
       ],
       "authority_ids": {
         "gnd": "118714309"
       },
       "source_ids": [
-        "deutsche-biographie-jussow",
-        "museum-kassel-jussow-aquaedukt-gs5727",
+        "unesco-nomination-1413",
+        "museum-kassel-jussow-aquaedukt-gs5846",
         "museum-kassel-jussow-teufelsbruecke-gs5860",
-        "museum-kassel-jussow-loewenburg-gs5708"
-      ]
+        "museum-kassel-jussow-teufelsbruecke-gs5850",
+        "museum-kassel-jussow-schloss-sm-gs-1-3-664",
+        "museum-kassel-du-ry-jussow-gs5747",
+        "deutsche-biographie-jussow"
+      ],
+      "aliases": [
+        "heinrich-christoph-jussow",
+        "jussow"
+      ],
+      "biography": {
+        "de": "Heinrich Christoph Jussow gehört zu den am dichtesten dokumentierten Gestaltern der spätachtzehnten Jahrhundertphase Wilhelmshöhes. Seine Bedeutung lässt sich aus erhaltenen Architekturzeichnungen, der UNESCO-Dokumentation und der wissenschaftlichen Biografie wesentlich genauer bestimmen als durch pauschale Zuschreibungen. Jussow arbeitete im Umfeld Landgraf Wilhelms IX. und war an mehreren Schlüsselwerken beteiligt: Löwenburg, Aquädukt, Schlossplanung und verschiedene Landschafts- und Wasserbilder. Diese Breite macht ihn zu einer Schlüsselfigur des Übergangs vom höfischen Klassizismus zur romantisch inszenierten Parklandschaft. Zugleich zeigt gerade sein Werk, warum Entwurfszeichnung, ausgeführter Bau und späterer Zustand getrennt modelliert werden müssen. Ein Blatt kann einen ersten, verworfenen oder überarbeiteten Entwurf dokumentieren; die heutige Form kann aus späteren Planungs- und Restaurierungsphasen hervorgegangen sein.",
+        "en": "Heinrich Christoph Jussow is among the best-documented designers of Wilhelmshöhe's late-eighteenth-century phase. Surviving architectural drawings, UNESCO documentation and scholarly biography allow his contribution to be described much more precisely than a blanket attribution. Working within the programme of Landgrave William IX, Jussow participated in several key works: Löwenburg, the Aqueduct, palace planning and multiple landscape and water scenes. This range makes him a central figure in the transition from courtly Classicism to the deliberately picturesque park. His work also demonstrates why a design drawing, an executed building and a later surviving condition must remain separate entities. A sheet may document a first, rejected or revised proposal, while the form visible today may result from later planning and conservation phases."
+      },
+      "park_role": {
+        "de": "Für den Bergpark ist Jussow nicht nur Gebäude-, sondern Landschaftsarchitekt. Löwenburg, Aquädukt und die Umgebung von Teufelsbrücke und Plutogrotte sind als räumliche Szenen angelegt, in denen Architektur, Vegetation, Fels, Wasser und Blickbeziehungen zusammenwirken. Die UNESCO-Unterlagen verbinden Jussow mit den romantischen Wasserbildern und nennen dabei zugleich Wassertechniker wie Steinhöfer. Deshalb wird die hydraulische Funktion nicht automatisch dem Architekten allein zugeschrieben. Am Schloss zeigen Blätter von du Ry und Jussow wiederum Zusammenarbeit und Überarbeitung innerhalb eines größeren Planungsprozesses. Das Figurenprofil bildet diese unterschiedlichen Rollen über präzise Relationstypen ab: „designed“, „co_designed“ oder „planned_landscape_setting_for“ werden nur dort verwendet, wo die konkrete Quelle den jeweiligen Umfang trägt.",
+        "en": "In the park Jussow was not merely a building architect but a designer of landscape settings. Löwenburg, the Aqueduct and the area around Devil's Bridge and Pluto Grotto are spatial scenes in which architecture, vegetation, rock, water and sight lines operate together. UNESCO documentation links Jussow to Romantic water features while also naming hydraulic specialists such as Steinhöfer. The hydraulic function is therefore not assigned automatically to the architect alone. At the palace, sheets by du Ry and Jussow likewise document collaboration and revision within a larger planning process. The figure profile represents these distinctions through careful relation types: “designed”, “co_designed” and “planned_landscape_setting_for” are used only where a source supports that particular scope."
+      },
+      "documented_works": {
+        "de": "Besonders lehrreich ist der Aquädukt. Der Kasseler Bestandskatalog nennt Jussow als Architekten des frühen Entwurfs GS 5846, erklärt aber zugleich, dass gerade dieser erste Vorschlag aus Kostengründen nicht unverändert ausgeführt wurde. Die Autorschaft des erhaltenen Wasserbildes wird daher zusätzlich mit dem UNESCO-Dossier abgesichert und nicht aus dem Blatt allein abgeleitet. Für Teufelsbrücke und Plutogrotte ist die Lage ähnlich differenziert: Zeichnungen dokumentieren die Gestaltung des Wasserlaufs und der landschaftlichen Situation, während eine weitere Zuschreibung katalogseitig ausdrücklich fraglich ist. Das Datenmodell bewahrt diese Qualifikation. Bei der Löwenburg stützen wissenschaftliche Biografie und Parkquellen Jussows zentrale Entwurfsrolle; am Schloss belegen Zeichnungen seine Mitarbeit und eigene Varianten.",
+        "en": "The Aqueduct is especially instructive. The Kassel catalogue names Jussow as architect of the early design GS 5846 while also stating that this first proposal was not executed unchanged because of cost. Authorship of the surviving water scene is therefore supported additionally by the UNESCO dossier rather than inferred from that sheet alone. Evidence for Devil's Bridge and Pluto Grotto is similarly nuanced: drawings document the watercourse and landscape setting, while another catalogue attribution is explicitly questioned. The data model preserves that qualification. For Löwenburg, scholarly biography and park evidence support Jussow's central design role; for the palace, drawings document both his collaboration and independent alternatives."
+      },
+      "park_context": {
+        "de": "Beim Rundgang macht Jussow verständlich, warum künstliche Ruinen nicht einfach „alte Reste“ sind. Die Löwenburg inszeniert Mittelalterlichkeit, der Aquädukt antike Ruinenwirkung, und die Teufelsbrückenlandschaft spielt mit Schlucht, Gefahr und Naturgewalt. Diese Bilder wurden gezielt für Bewegung und Wahrnehmung im Park entworfen. Besucher erleben heute allerdings restaurierte, gesicherte und teilweise technisch erneuerte Zustände. Historische Wirkung und aktueller Erhaltungszustand sind deshalb getrennte Datenebenen. Jussows Figurenprofil erklärt den Entwurfskontext; die Ortsdatensätze tragen aktuelle Zugänglichkeit, Restaurierung und Besuchszeiten. Diese Aufteilung verhindert, dass eine kunsthistorische Beschreibung versehentlich als heutige Besucherinformation gelesen wird.",
+        "en": "On a visit, Jussow helps explain why artificial ruins should not be read simply as old remains. Löwenburg stages medievalness, the Aqueduct stages an ancient ruin, and the Devil's Bridge landscape plays with ravine, danger and natural force. These scenes were designed for movement and perception through the park. What visitors see today, however, includes restoration, safety interventions and technical renewal. Historical effect and current condition therefore belong to separate data layers. Jussow's profile explains the design context, while place records carry current accessibility, restoration and opening information. This division prevents art-historical description from being mistaken for present-day visitor guidance."
+      },
+      "legacy": {
+        "de": "Jussows Nachwirkung reicht über einzelne Bauten hinaus. Seine Projekte halfen, Wilhelmshöhe als Landschaft zu definieren, in der Architektur nicht als isoliertes Objekt, sondern als dramaturgischer Bestandteil von Wegen, Wasser und Aussicht funktioniert. Viele seiner Blätter sind heute selbst Sammlungsobjekte und Quellen zur Entstehungsgeschichte. Dadurch besitzt sein Werk eine doppelte Präsenz: im Gelände und im Archiv. Der Wissensgraph macht beide Ebenen sichtbar, indem Personen, Orte und Zeichnungen eigenständige Entitäten bleiben. Dies schützt zugleich vor einer verbreiteten Verkürzung, nach der jede heute sichtbare Form direkt einem bekannten Architekten zugeschrieben wird. Restauratoren, spätere Hofbaumeister und technische Spezialisten gehören ebenso zur Objektbiografie.",
+        "en": "Jussow's legacy extends beyond individual buildings. His projects helped define Wilhelmshöhe as a landscape in which architecture works not as an isolated object but as a dramatic component of paths, water and views. Many of his drawings are now collection objects and primary evidence for the history of design. His work thus has a double presence: in the terrain and in the archive. The knowledge graph makes both levels visible by keeping people, places and drawings as distinct entities. This also resists the common simplification of assigning every visible form directly to a famous architect. Restorers, later court architects and technical specialists are equally part of the object's biography."
+      },
+      "interpretation": {
+        "de": "Interpretativ steht Jussow für die produktive Spannung zwischen historischer Imagination und moderner Planung um 1800. Ein scheinbar zerfallener Aquädukt oder eine mittelalterlich wirkende Burg sind keine zufälligen Ruinen, sondern präzise entworfene Bilder. Ihre emotionale Wirkung beruht auf einer kontrollierten Kombination von Material, Topographie, Wasser und Assoziation. Gleichzeitig waren diese Anlagen technisch anspruchsvoll und administrativ in einen fürstlichen Bauapparat eingebunden. Das macht Jussow für eine digitale Wissensschicht besonders interessant: Sein Werk zeigt, dass „Romantik“ nicht Ungeplantheit bedeutet. Die Interpretation wird aber von den Quellenfakten getrennt. Wo der Katalog „fraglich“ sagt oder einen Entwurf als unausgeführt bezeichnet, bleibt diese Unsicherheit sichtbar.",
+        "en": "Interpretively, Jussow embodies the productive tension between historical imagination and modern planning around 1800. A seemingly ruined aqueduct or medieval-looking castle is not accidental decay but a carefully designed image. Its emotional effect depends on a controlled combination of material, topography, water and association. At the same time these structures were technically demanding and embedded in a princely building administration. That makes Jussow especially useful in a digital knowledge layer: his work shows that “Romantic” does not mean unplanned. Interpretation is nevertheless kept separate from source facts. Where the catalogue says an attribution is questioned, or calls a design unexecuted, that uncertainty remains visible."
+      }
+    },
+    {
+      "id": "person-jerome-bonaparte",
+      "kind": "historical_figure",
+      "name": {
+        "de": "Jérôme Bonaparte",
+        "en": "Jérôme Bonaparte"
+      },
+      "aliases": [
+        "jerome-bonaparte",
+        "jerome"
+      ],
+      "roles": [
+        "king_of_westphalia",
+        "patron"
+      ],
+      "source_ids": [
+        "stadt-ballhaus"
+      ],
+      "profile_note": {
+        "de": "Das Ballhaus entstand zunächst als Hoftheater während Jérôme Bonapartes Kasseler Regierungszeit; sein Profil wird auf diesen belegten Wilhelmshöher Kontext begrenzt.",
+        "en": "The Ballhaus began as a court theatre during Jérôme Bonaparte’s rule in Kassel; this profile is limited to that documented Wilhelmshöhe context."
+      }
+    },
+    {
+      "id": "person-johann-august-nahl-der-aeltere",
+      "kind": "historical_figure",
+      "name": {
+        "de": "Johann August Nahl der Ältere",
+        "en": "Johann August Nahl the Elder"
+      },
+      "aliases": [
+        "johann-august-nahl-der-aeltere",
+        "johann-august-nahl"
+      ],
+      "roles": [
+        "sculptor",
+        "court_sculptor"
+      ],
+      "source_ids": [
+        "lfdh-denkmaltopographie-wilhelmshoehe"
+      ],
+      "biography": {
+        "de": "Johann August Nahl der Ältere ist für Wilhelmshöhe vor allem über Werke präsent, die nicht ursprünglich für ihren heutigen Standort geschaffen wurden. Die hessische Denkmaltopographie nennt ihn als Bildhauer der Skulpturen an der Plutogrotte und vermerkt, dass diese 1794/95 dort aufgestellt wurden. Lokale OSM-Daten beschreiben zwei steinerne Meeresungeheuer in den äußeren Wandnischen und nennen ebenfalls Nahl; entscheidend für die Autorisierung im Wissensgraphen ist jedoch die amtliche Denkmaltopographie. Damit lässt sich die Rolle eines Hofbildhauers mit einer späteren musealen beziehungsweise gartenkünstlerischen Versetzung verbinden. Nahl wird nicht als Architekt der Grotte modelliert. Seine Verantwortung betrifft die Skulpturen, während Gestaltung und Umbau der Grotte in andere historische Zusammenhänge gehören.",
+        "en": "Johann August Nahl the Elder is present at Wilhelmshöhe primarily through works that were not originally created for their current location. The Hessian monument inventory names him as sculptor of the sculptures at Pluto Grotto and records that they were installed there in 1794/95. Local OSM data describes two stone sea monsters in the outer wall niches and also names Nahl, but the official monument inventory is the authoritative basis for attribution in the knowledge graph. This allows the work of a court sculptor to be connected with a later transfer into a new garden setting. Nahl is not modeled as architect of the grotto. His responsibility concerns the sculptures, while the design and alteration of the grotto belong to different historical contexts."
+      },
+      "park_role": {
+        "de": "Nahls Parkrolle ist ein Beispiel für sekundäre Standortgeschichte. Kunstwerke können innerhalb fürstlicher Sammlungs- und Parkräume bewegt, wiederverwendet und in neue Szenen integriert werden. Die Plutogrotte erhielt durch die Aufstellung der älteren Meeresungeheuer eine zusätzliche mythologische und skulpturale Ebene. Für das Datenmodell bedeutet das: „created“ und „installed_at“ sind zwei verschiedene Beziehungen. Ein Künstler kann ein Werk geschaffen haben, ohne seinen späteren Wilhelmshöher Standort gewählt zu haben. Dadurch bleibt die Provenienz auch dann verständlich, wenn ein Objekt aus Schloss Wilhelmsthal oder einem anderen Kontext stammt. Der Datensatz vermeidet außerdem, die Nahl-Skulpturen mit den hydraulischen Faun- und Zentaurfiguren am Herkules zu verwechseln; beide gehören zu unterschiedlichen Orten und Funktionszusammenhängen.",
+        "en": "Nahl's park role is an example of secondary location history. Artworks can be moved, reused and integrated into new scenes within princely collections and landscapes. Installation of the older sea monsters gave Pluto Grotto an additional sculptural and mythological layer. In the data model this means “created” and “installed_at” are different relations. An artist can have made a work without choosing its later Wilhelmshöhe location. Provenance therefore remains intelligible even when an object came from Wilhelmsthal Palace or another context. The dataset also avoids confusing Nahl's sculptures with the hydraulic Faun and Centaur figures at Hercules; the two groups belong to different places and functions."
+      },
+      "documented_works": {
+        "de": "Die Denkmaltopographie ist hier besonders wertvoll, weil ihr Künstlerregister Nahl ausdrücklich mit „Skulpturen Plutogrotte“ verbindet und die Aufstellung 1794/95 nennt. Die lokale OSM-Erfassung ergänzt Position, Materialhinweis und die Beschreibung zweier äußerer Wandnischen, besitzt aber nicht dieselbe Autorität für Kunstzuschreibung. Deshalb wird OSM nur als Entdeckungs- und Ortsmetadatenquelle behandelt. Die Kunstwerke erhalten eigene IDs und können mit Nahl als Schöpfer sowie der Plutogrotte als aktuellem Parkkontext verbunden werden. Eine mögliche Herkunft aus Schloss Wilhelmsthal wird als Provenienzhinweis geführt, nicht als heutiger Standort. So werden Schöpfung, Transfer und gegenwärtige Einbindung nicht miteinander verwechselt.",
+        "en": "The monument inventory is particularly useful because its artist register explicitly connects Nahl with “Skulpturen Plutogrotte” and gives the 1794/95 installation. Local OSM mapping supplements position, material and a description of two outer niches but does not carry the same authority for art attribution. OSM is therefore used only for discovery and location metadata. The artworks receive their own IDs and can be linked to Nahl as creator and Pluto Grotto as their present park context. Possible origin at Wilhelmsthal is retained as a provenance note rather than a current location. Creation, transfer and present integration therefore remain distinct."
+      },
+      "park_context": {
+        "de": "Für Besucher sind die Nahl-Skulpturen ein Hinweis darauf, dass „In-situ“ im Bergpark nicht immer „für genau diesen Ort geschaffen“ bedeutet. Die Figuren können heute fest zur Wahrnehmung der Plutogrotte gehören und dennoch eine frühere Objektgeschichte besitzen. Diese Unterscheidung ist zentral für eine seriöse Kunstinventarisierung. Das Figurenprofil erklärt die künstlerische Zuschreibung; das Artwork speichert Installations- und Statushinweise; der Ortsknoten beschreibt die Grotte und ihren Besuchskontext. Bilder werden nicht automatisch übernommen, obwohl OSM Commons-Dateien nennt, weil die Phase eine per-file Lizenzprüfung verlangt. Ohne abgeschlossene Lizenzprüfung bleibt das Bildfeld leer beziehungsweise pending, statt eine visuelle Referenz ohne gesicherte Metadaten zu veröffentlichen.",
+        "en": "For visitors, the Nahl sculptures demonstrate that “in situ” in a historic park does not always mean “made for precisely this place”. The figures can now be integral to the experience of Pluto Grotto while retaining an earlier object history. This distinction is central to responsible art inventory. The figure profile explains attribution; the artwork stores installation and status notes; the place node describes the grotto and visitor context. Images are not copied automatically even though OSM references Commons files, because this phase requires per-file license verification. Without completed license review, media remains empty or pending rather than publishing a visual reference with incomplete rights metadata."
+      },
+      "legacy": {
+        "de": "Nahls Vermächtnis in Wilhelmshöhe besteht weniger in einer großen Bautätigkeit als in der Präsenz qualitätvoller Hofskulptur innerhalb eines später neu komponierten Landschaftsraums. Der Fall zeigt, wie Sammlungsobjekte und Gartenstaffage ineinandergreifen können. Eine einfache Ortsbeschreibung würde nur „zwei Figuren an der Grotte“ festhalten; die Wissensschicht kann Schöpfer, frühere Herkunft, spätere Aufstellung und heutigen Kontext getrennt abbilden. Gleichzeitig bleibt die Aussage eng an der amtlichen Inventarisierung. Wo keine sichere Einzelidentifikation oder ursprüngliche Benennung vorliegt, werden keine zusätzlichen mythologischen Namen erfunden. Damit bleibt Nahl als dokumentierter Künstler sichtbar, ohne dem Objektbestand eine Scheingenauigkeit zu geben.",
+        "en": "Nahl's legacy at Wilhelmshöhe lies less in extensive building activity than in the presence of high-quality court sculpture inside a landscape composed anew at a later date. The case shows how collection objects and garden staffage can overlap. A simple place description would record only “two figures at the grotto”; the knowledge layer can separate creator, earlier provenance, later installation and present context. The assertion remains tightly tied to the official inventory. Where secure individual identification or an original title is absent, the dataset does not invent additional mythological names. Nahl remains visible as the documented artist without producing false precision about the objects."
+      },
+      "interpretation": {
+        "de": "Interpretativ machen die versetzten Nahl-Skulpturen deutlich, dass ein historischer Garten auch ein kuratorischer Raum ist. Bedeutungen entstehen nicht nur beim ursprünglichen Schaffen eines Objekts, sondern auch durch spätere Platzierung. An der Plutogrotte werden ältere Meereswesen in eine Unterwelt- und Wasserlandschaft integriert; dadurch verändert sich ihre Lesbarkeit, ohne ihre ursprüngliche Autorschaft zu ändern. Der Wissensgraph kann diese Mehrschichtigkeit ausdrücken, weil „creator“, „former_context“ und „installed_at“ nicht dasselbe Feld sind. Diese semantische Präzision ist besonders wichtig bei Gartenkunst, in der Versetzung und Wiederverwendung häufig Teil der historischen Gestaltungspraxis sind.",
+        "en": "Interpretively, the transferred Nahl sculptures show that a historic garden also functions as a curatorial space. Meaning arises not only when an object is created but also through later placement. At Pluto Grotto older sea creatures become integrated into an underworld and water landscape; their legibility changes without changing original authorship. The knowledge graph can express this layering because “creator”, “former_context” and “installed_at” are not the same field. Such semantic precision is particularly important in garden art, where relocation and reuse frequently form part of historical design practice."
+      }
+    },
+    {
+      "id": "person-johann-conrad-bromeis",
+      "kind": "historical_figure",
+      "name": {
+        "de": "Johann Conrad Bromeis",
+        "en": "Johann Conrad Bromeis"
+      },
+      "aliases": [
+        "johann-conrad-bromeis",
+        "bromeis"
+      ],
+      "roles": [
+        "architect",
+        "court_architect",
+        "interior_designer"
+      ],
+      "source_ids": [
+        "stadt-ballhaus",
+        "hkh-gewaechshaus",
+        "lfdh-denkmaltopographie-wilhelmshoehe",
+        "museum-kassel-bromeis-thronsaal-sm-gs-1-3-950",
+        "museum-kassel-bromeis-kuppelsaal-sm-gs-1-3-898"
+      ],
+      "biography": {
+        "de": "Johann Conrad Bromeis gehört zur nächsten großen Bauphase Wilhelmshöhes nach du Ry und Jussow. Seine Arbeit fällt vor allem in die Zeit Kurfürst Wilhelms II. und ist durch erhaltene Innenraumentwürfe, den Umbau des Ballhauses und Beiträge zum Schloss- und Gewächshauskomplex dokumentiert. Für die Wissensschicht ist wichtig, Bromeis weder einfach als „Architekt des Ballhauses“ noch als alleinigen Urheber des gesamten Schlosses zu bezeichnen. Das Ballhaus war bereits 1808 bis 1810 als Hoftheater von Leo von Klenze errichtet worden; Bromeis gestaltete 1828 bis 1830 den Umbau zum Ballhaus und die prachtvolle Innenausstattung. Am Schloss belegen katalogisierte Zeichnungen seine Eingriffe in Räume und Dekor. Die Denkmaltopographie verbindet ihn zudem mit der späteren Wasserbauphase am Neuen Wasserfall.",
+        "en": "Johann Conrad Bromeis belongs to the next major building phase of Wilhelmshöhe after du Ry and Jussow. His work is associated especially with the reign of Elector William II and is documented through surviving interior designs, the conversion of the Ballhaus and contributions to the palace and greenhouse complex. The knowledge layer avoids calling Bromeis simply the “architect of the Ballhaus” or sole author of the palace. The Ballhaus had already been built in 1808–1810 as a court theatre by Leo von Klenze; Bromeis transformed it into a ballroom in 1828–1830 and created its celebrated interior. At the palace, catalogue drawings document his interventions in rooms and decoration. The Hessian monument inventory also connects him with the later waterworks phase at the New Waterfall."
+      },
+      "park_role": {
+        "de": "Bromeis' Parkrolle zeigt, wie stark Wilhelmshöhe im 19. Jahrhundert weitergebaut wurde. Unter Wilhelm II. wurden bestehende Bauten nicht bloß erhalten, sondern funktional und repräsentativ neu gefasst. Das ehemalige Hoftheater erhielt die bis heute berühmte klassizistische Innenausstattung des Ballhauses. Das Große Gewächshaus entstand ab 1822 für die exotische Pflanzensammlung des Kurfürsten; die Denkmaltopographie und Parküberlieferung ordnen Bromeis dem Baukontext zu. Gleichzeitig wurden Teile des Schlosses verbunden und neu ausgestattet. Diese Maßnahmen bilden eine eigene historische Schicht über dem spätachtzehnten Jahrhundert. Der Wissensgraph verwendet daher Beziehungen wie „redesigned_interior_of“, „designed“ oder „co_designed“, statt spätere Umbauten in die ursprüngliche Entwurfsautorschaft du Rys oder Jussows einzuschreiben.",
+        "en": "Bromeis's role shows how extensively Wilhelmshöhe continued to be developed during the nineteenth century. Under William II existing buildings were not merely maintained but functionally and representationally reframed. The former court theatre received the Classical interior that defines the Ballhaus today. The Great Greenhouse was built from 1822 for the Elector's collection of exotic plants; monument and park documentation place Bromeis within that building context. Parts of the palace were also connected and refurbished. These measures form a distinct layer above the late-eighteenth-century designs. The knowledge graph therefore uses relations such as “redesigned_interior_of”, “designed” and “co_designed” rather than folding later alterations into the original authorship of du Ry or Jussow."
+      },
+      "documented_works": {
+        "de": "Besonders präzise Quellen sind die Bestandskatalogblätter zum Weißensteinflügel und zum Kuppelsaal. Ein Entwurf für die bogenförmige Trennwand des Thronsaals wird Bromeis zugeschrieben und zwischen 1825 und 1830 datiert. Ein weiteres Blatt dokumentiert einen Fußbodenentwurf für den Kuppelsaal um 1830. Solche Objekte zeigen Bromeis als Innenraumplaner und machen sichtbar, dass die heutige Wahrnehmung des Schlosses aus mehreren Gestaltungsphasen besteht. Beim Ballhaus stützt die Stadt Kassel die klare Trennung: Klenze errichtete das Hoftheater, Bromeis wandelte es unter Wilhelm II. zum Ballhaus um und schuf die wertvolle Ausstattung. Für den Neuen Wasserfall nennt die Denkmaltopographie Steinhofer und Bromeis gemeinsam für die Phase 1823 bis 1828.",
+        "en": "The catalogue records for the Weißenstein wing and cupola hall provide especially precise evidence. A design for the arched partition in the throne room is attributed to Bromeis and dated 1825–1830. Another sheet records a floor design for the cupola hall around 1830. These objects demonstrate Bromeis's role in interior planning and show that the palace as experienced today consists of several design phases. For the Ballhaus the City of Kassel supports a clear distinction: Klenze built the court theatre; Bromeis converted it under William II and created the valuable interior. For the New Waterfall, the monument inventory names Steinhofer and Bromeis together for the 1823–1828 phase."
+      },
+      "park_context": {
+        "de": "Für Besucher ist Bromeis besonders an Innenräumen und saisonalen beziehungsweise veranstaltungsgebundenen Orten präsent. Das Ballhaus ist nicht als gewöhnliches Tagesmuseum geöffnet, sondern vor allem zu Konzerten, Führungen und Sonderveranstaltungen. Das Große Gewächshaus hat eine saisonale Nutzung; der Weißensteinflügel befindet sich nach aktuellem Betreiberstand in Instandsetzung. Diese heutigen Bedingungen gehören nicht in Bromeis' historische Biografie, erklären aber, warum seine Werke unterschiedlich zugänglich sind. Sein Figurenprofil liefert den historischen Zusammenhang, während die Ortsdatensätze die datierten Besuchsfakten tragen. Der Neue Wasserfall bildet einen weiteren Kontrast: historisch Teil einer technisch ambitionierten Gestaltungsphase, heute als erhaltene, aber nicht funktionsfähige Wasseranlage dokumentiert.",
+        "en": "For visitors Bromeis is most evident in interiors and in places with seasonal or event-based access. The Ballhaus is not an ordinary day museum but is opened mainly for concerts, tours and special events. The Great Greenhouse operates seasonally, and the Weißenstein wing is currently undergoing conservation according to the site operator. Those present conditions do not belong in Bromeis's historical biography, but they explain why his work is encountered differently today. His figure profile supplies historical context while place records carry dated visitor facts. The New Waterfall offers another contrast: historically part of an ambitious technical design phase, it is now documented as surviving but non-functional."
+      },
+      "legacy": {
+        "de": "Bromeis' Vermächtnis besteht in der Verdichtung Wilhelmshöhes zu einem Ensemble, das nicht mit dem Ende des 18. Jahrhunderts abgeschlossen war. Seine Innenräume, Umbauten und technischen Bauten zeigen die anhaltende Nutzung des Parks als Residenz und Repräsentationsraum. Gleichzeitig ist sein Werk ein Lehrstück für Schichtendenkmalpflege. Wird nur nach einem „Originalzustand“ gefragt, geraten die qualitätvollen Veränderungen des 19. Jahrhunderts aus dem Blick. Der Wissensgraph bewahrt deshalb Klenzes Theaterbau und Bromeis' Ballhausumbau gleichzeitig, ebenso du Rys und Jussows Schlossplanung neben Bromeis' Innenraumphasen. Mehrere Autoren an einem Ort sind kein Datenkonflikt, solange Zeitraum und Tätigkeit explizit bleiben.",
+        "en": "Bromeis's legacy lies in the way Wilhelmshöhe became a denser ensemble rather than a landscape completed once and for all at the end of the eighteenth century. His interiors, conversions and technical buildings demonstrate continuing use as a residence and representational environment. His work also provides a lesson in layered conservation. Searching only for an “original state” would obscure valuable nineteenth-century changes. The knowledge graph therefore preserves Klenze's theatre and Bromeis's ballroom conversion simultaneously, just as it keeps du Ry and Jussow's palace planning alongside Bromeis's interior phases. Several authors at one place are not a data conflict when time and activity are explicit."
+      },
+      "interpretation": {
+        "de": "Interpretativ steht Bromeis für die Anpassungsfähigkeit einer höfischen Kulturlandschaft. Gebäude wechseln Funktion, technische Innovation verändert Nutzung, und Repräsentationsbedürfnisse schreiben neue Schichten in ältere Architektur ein. Das Gewächshaus verbindet frühe Glas- und Metallkonstruktion mit botanischer Sammlung und gesellschaftlicher Nutzung; das Ballhaus transformiert ein Theater in einen Fest- und Konzertsaal; Schlossräume werden neu geordnet und dekoriert. Diese Vielschichtigkeit wird nicht als Verlust von Authentizität verstanden, sondern als Teil der historischen Objektbiografie. Wo die Quellen nur gemeinsame Verantwortung nennen, bleibt sie gemeinsam. Wo ein Katalog Bromeis konkret als Entwurfsautor ausweist, kann die Beziehung dagegen mit hoher Sicherheit modelliert werden.",
+        "en": "Interpretively, Bromeis represents the adaptability of a court cultural landscape. Buildings change function, technical innovation changes use, and new representational demands write additional layers into older architecture. The greenhouse combines early glass-and-metal construction with botanical collecting and social display; the Ballhaus transforms a theatre into a festival and concert hall; palace rooms are reordered and redecorated. This layering is treated as part of object biography rather than simply as a loss of authenticity. Where sources establish only shared responsibility, the model keeps it shared. Where a catalogue names Bromeis directly as designer of a specific sheet, the relation can be expressed with high confidence."
+      }
+    },
+    {
+      "id": "person-johann-heinrich-muentz",
+      "kind": "historical_figure",
+      "name": {
+        "de": "Johann Heinrich Müntz",
+        "en": "Johann Heinrich Müntz"
+      },
+      "aliases": [
+        "johann-heinrich-muentz",
+        "muentz"
+      ],
+      "roles": [
+        "artist",
+        "draughtsman",
+        "landscape_observer"
+      ],
+      "source_ids": [
+        "lfdh-denkmaltopographie-wilhelmshoehe"
+      ],
+      "profile_note": {
+        "de": "Müntz erscheint in der Wilhelmshöher Überlieferung als Zeichner und Beobachter der Landschaft. Ohne objektkatalogisch gesicherte Entwurfsautorschaft wird er in dieser Phase nicht als Schöpfer bestehender Parkbauten modelliert.",
+        "en": "Müntz appears in Wilhelmshöhe history as draughtsman and observer of the landscape. Without object-catalogue evidence for design authorship, this phase does not model him as creator of surviving park structures."
+      }
+    },
+    {
+      "id": "person-johann-jakob-anthoni",
+      "kind": "historical_figure",
+      "name": {
+        "de": "Johann Jakob Anthoni",
+        "en": "Johann Jakob Anthoni"
+      },
+      "aliases": [
+        "johann-jakob-anthoni",
+        "anthoni"
+      ],
+      "roles": [
+        "goldsmith",
+        "coppersmith",
+        "maker_of_hercules_statue"
+      ],
+      "source_ids": [
+        "stadt-herkules",
+        "unesco-nomination-1413"
+      ],
+      "biography": {
+        "de": "Johann Jakob Anthoni ist im Bergpark keine Randfigur, obwohl sein Beruf als Augsburger Goldschmied ihn von den bekannteren Architekten unterscheidet. Die Stadt Kassel nennt ihn ausdrücklich als Hersteller der monumentalen Herkulesfigur. Zwischen 1713 und 1717 trieb er die Figur aus Kupferblech; 1717 wurde sie auf der Pyramide des Monumentes aufgestellt. Damit lässt sich die bisher in Ortsdaten verwendete Kurzreferenz „johann-jakob-anthoni“ eindeutig einer historischen Person zuordnen. Der Datensatz vermeidet bewusst die häufige Vermischung von Guernieros Architektur und Anthonis Skulptur. Guerniero entwarf wesentliche Teile des Oktogons und der Pyramide, während Anthoni für die Kupferfigur selbst steht. Patron war Landgraf Karl. Drei Rollen — Auftrag, Architektur und Herstellung des Kunstwerks — werden deshalb als drei getrennte Beziehungen modelliert.",
+        "en": "Johann Jakob Anthoni is not a peripheral figure in Bergpark Wilhelmshöhe even though his profession as an Augsburg goldsmith differs from that of the better-known architects. The City of Kassel explicitly names him as maker of the monumental Hercules figure. Between 1713 and 1717 he worked the figure from copper sheet; it was installed on the pyramid in 1717. This allows the legacy node reference “johann-jakob-anthoni” to resolve to a specific historical person rather than an assumed identity. The dataset deliberately separates Guerniero's architecture from Anthoni's sculpture. Guerniero designed major parts of the Octagon and pyramid, Anthoni made the copper figure, and Landgrave Carl was the patron. Commission, architecture and artwork production are therefore modeled as three distinct relations."
+      },
+      "park_role": {
+        "de": "Anthonis Parkrolle konzentriert sich auf ein einziges, aber außergewöhnlich sichtbares Werk. Die Kupferfigur krönt nicht nur die Pyramide, sondern den gesamten Höhenzug der barocken Achse. Ihre Materialität ist für die Wirkung entscheidend: eine monumentale Hohlfigur aus getriebenem Kupfer kann in großer Höhe und in enormem Maßstab erscheinen, ohne als massive Steinfigur konstruiert zu sein. Die Quellen nennen Anthoni als Goldschmied und Hersteller; daraus wird keine zusätzliche architektonische oder hydraulische Rolle abgeleitet. Seine Tätigkeit wird als „created“ beziehungsweise „fabricated“ mit dem Artwork-Objekt der Herkules-Kupferfigur verbunden. Der heutige Zustand des Kunstwerks und konservatorische Eingriffe sind davon getrennt und dürfen nicht aus der Herstellungsangabe von 1713–1717 extrapoliert werden.",
+        "en": "Anthoni's role in the park centers on a single but extraordinarily visible work. The copper figure crowns not only the pyramid but the entire upper Baroque axis. Its material is crucial to its effect: a monumental hollow figure made from worked copper can occupy an enormous scale and height without being constructed as a solid stone sculpture. Sources identify Anthoni as goldsmith and maker; the data does not infer any architectural or hydraulic responsibility from that fact. His activity is linked as “created” or “fabricated” to the Hercules copper-statue artwork. Present conservation state and later interventions remain separate and are not extrapolated from the 1713–1717 manufacturing record."
+      },
+      "documented_works": {
+        "de": "Die wichtigste dokumentierte Arbeit im Bergpark ist die Herkulesfigur selbst. Die Stadt beschreibt Anthonis Fertigung zwischen 1713 und 1717 und die Aufstellung im Jahr 1717. Das UNESCO-Dossier behandelt die Figur als Bestandteil des oberen barocken Ensembles, dessen Bauphase unter Landgraf Karl fällt. Für die Wissensgraphik folgt daraus eine klare Provenienzkette: das Kunstwerk erhält eine eigene ID, Anthoni eine stabile Personen-ID, das Kunstwerk ist Teil des Herkulesmonuments, und dieses steht innerhalb des von Karl initiierten Programms. So wird die Statue nicht nur als Textdetail am Ortsknoten „herkules“ geführt, sondern als eigenständige kulturelle Entität mit Hersteller, Datierung, Material und Standortkontext.",
+        "en": "The principal documented Bergpark work is the Hercules figure itself. The City describes Anthoni's production between 1713 and 1717 and installation in 1717. The UNESCO nomination treats the figure as part of the upper Baroque ensemble built within Landgrave Carl's campaign. This supports a clear provenance chain in the knowledge graph: the artwork has its own stable ID; Anthoni has a stable person ID; the artwork forms part of the Hercules monument; and the monument belongs to the programme initiated by Carl. The statue thus becomes more than a text detail attached to the “herkules” place node and can carry maker, date, material and location context independently."
+      },
+      "park_context": {
+        "de": "Für Besucher erklärt Anthoni vor allem die handwerkliche Dimension eines Monuments, das aus der Ferne wie ein einziges massives Zeichen wirkt. Die Figur befindet sich weit oberhalb des Aussichtsniveaus; Details ihrer Fertigung sind vom Boden kaum lesbar. Kenntnis von Material und Herstellung verändert daher die Wahrnehmung: Der Herkules ist nicht bloß mythologisches Symbol, sondern Ergebnis hochspezialisierter Metallarbeit. Die Daten unterscheiden dabei zwischen sichtbarem Kunstwerk und betretbarem beziehungsweise zugänglichem Bauwerk. Öffnungszeiten, Treppen, Aussicht und Barrierefreiheit gehören zum Herkules-Ort; Anthonis Profil beschreibt Herstellung und Autorschaft. Diese Trennung verhindert, dass historische Werkdaten als heutige Besuchsanweisung fungieren.",
+        "en": "For visitors, Anthoni mainly explains the craft dimension of a monument that appears from a distance as one massive sign. The figure stands far above the viewing level, so details of manufacture are difficult to read from the ground. Knowing its material and method changes perception: Hercules is not merely a mythological symbol but the result of highly specialized metalwork. The data separates the visible artwork from the accessible building. Opening hours, stairs, viewpoints and accessibility belong to the Hercules place record; Anthoni's profile concerns production and authorship. This prevents historical object data from functioning accidentally as present visitor guidance."
+      },
+      "legacy": {
+        "de": "Anthonis Vermächtnis ist eng mit der Dauerhaftigkeit des Kasseler Wahrzeichens verbunden. Sein Name steht für einen Herstellungsprozess, der hinter der ikonischen Gesamtansicht leicht verschwindet. In einer wissensbasierten Darstellung gewinnt dieser Prozess wieder Kontur, weil Kunstwerk und Architektur getrennt adressierbar sind. Gleichzeitig bleibt die Zuschreibung eng geführt: Es wird nicht behauptet, Anthoni habe das ikonografische Programm allein erfunden oder das Oktogon entworfen. Die Quellen tragen seine Rolle als ausführender Hersteller der Kupferfigur. Gerade diese Präzision verleiht ihm eine klarere historische Position als eine unscharfe Bezeichnung wie „am Herkules beteiligt“. Alias und stabile ID verhindern zudem, dass ältere Schreib- oder Kurzformen eine zweite Person erzeugen.",
+        "en": "Anthoni's legacy is closely tied to the durability of Kassel's landmark. His name stands for a manufacturing process easily lost behind the iconic overall view. A knowledge-based representation restores that process by making artwork and architecture independently addressable. Attribution remains narrow: the data does not claim that Anthoni invented the entire iconographic programme or designed the Octagon. The evidence supports his role as maker of the copper figure. That precision gives him a clearer historical position than a vague statement that he was merely “involved with Hercules”. Aliases and the stable entity ID also prevent older spellings or short references from creating a duplicate person."
+      },
+      "interpretation": {
+        "de": "Interpretativ macht Anthoni sichtbar, dass monumentale Hofkunst aus Kooperation entsteht. Das politische Symbol des Herkules erforderte fürstliche Entscheidung, architektonische Planung, Wassertechnik, Metallhandwerk und dauerhafte Pflege. Ein moderner Wissensgraph kann diese Arbeitsteilung besser darstellen als eine einzige Autorenzeile. Anthonis Beitrag steht deshalb exemplarisch für materielle Expertise: Form entsteht hier durch Treiben und Fügen von Kupferblech in einem Maßstab, der technische Erfahrung voraussetzt. Die historische Bedeutung folgt nicht daraus, dass er alle Entscheidungen kontrollierte, sondern daraus, dass ohne seine spezialisierte Ausführung das zentrale Bildzeichen der Anlage nicht in dieser Form existieren würde. Diese Aussage bleibt von späterer Restaurierung und heutiger Symbolrezeption getrennt.",
+        "en": "Interpretively, Anthoni demonstrates that monumental court art is collaborative. The political image of Hercules required princely decision, architectural planning, hydraulic engineering, metal craft and continuing maintenance. A modern knowledge graph can represent that division of labor more accurately than a single author line. Anthoni therefore exemplifies material expertise: form emerges through working and joining copper sheet at a scale that required specialized experience. His historical importance does not depend on controlling every decision; it lies in the fact that the central visual emblem of the ensemble could not exist in this form without his execution. That claim remains separate from later restoration and modern symbolic reception."
+      }
+    },
+    {
+      "id": "person-johann-wolfgang-heyd",
+      "kind": "historical_figure",
+      "name": {
+        "de": "Johann Wolfgang Heyd",
+        "en": "Johann Wolfgang Heyd"
+      },
+      "aliases": [
+        "johann-wolfgang-heyd"
+      ],
+      "roles": [
+        "sculptor"
+      ],
+      "source_ids": [
+        "lfdh-denkmaltopographie-wilhelmshoehe"
+      ],
+      "profile_note": {
+        "de": "Die amtliche Denkmaltopographie nennt Johann Wolfgang Heyd gemeinsam mit Ludwig Daniel Heyd für die Flora Farnesina um 1792; die Zuschreibung wird deshalb ausdrücklich als Gemeinschaftsarbeit modelliert.",
+        "en": "The official monument inventory names Johann Wolfgang Heyd together with Ludwig Daniel Heyd for the Flora Farnesina around 1792, so the attribution is modeled explicitly as joint work."
+      }
+    },
+    {
+      "id": "person-karl-friedrich-steinhoefer",
+      "kind": "historical_figure",
+      "name": {
+        "de": "Karl Friedrich Steinhöfer (Steinhofer)",
+        "en": "Karl Friedrich Steinhöfer (Steinhofer)"
+      },
+      "aliases": [
+        "karl-steinhoefer",
+        "karl-friedrich-steinhoefer",
+        "karl-friedrich-steinhofer",
+        "steinhoefer",
+        "steinhofer"
+      ],
+      "roles": [
+        "hydraulic_engineer",
+        "fountain_inspector",
+        "waterworks_designer"
+      ],
+      "source_ids": [
+        "unesco-icomos-2013-evaluation",
+        "unesco-nomination-1413",
+        "stadt-steinhoefer",
+        "lfdh-denkmaltopographie-wilhelmshoehe"
+      ],
+      "biography": {
+        "de": "Karl Friedrich Steinhöfer, in historischen und modernen Quellen auch Steinhofer geschrieben, ist die zentrale technische Figur der romantischen Wasserkünste Wilhelmshöhes. Die Stadt Kassel bezeichnet ihn als kurfürstlichen Brunneninspektor und verbindet den 1793 angelegten Steinhöfer Wasserfall ausdrücklich mit seiner Arbeit. Das UNESCO-Dossier nennt ihn als Wassertechniker im Umfeld Wilhelms IX. und weist ihm bei mehreren Wasserbildern konkrete Verantwortung zu. Für die Wissensschicht ist diese Berufsrolle entscheidend: Steinhöfer war weder bloß ein unsichtbarer Handwerker noch ein allgemeiner „Parkarchitekt“, sondern Fachmann für Wasserführung, Druck, Leitungen und die gestalterische Übersetzung hydraulischer Möglichkeiten in dramatische Landschaftsbilder. Seine Namensvarianten werden als Aliase erhalten, damit ältere Parktexte und moderne Register auf dieselbe stabile Person verweisen.",
+        "en": "Karl Friedrich Steinhöfer, also spelled Steinhofer in historical and modern sources, is the central technical figure of Wilhelmshöhe's Romantic waterworks. The City of Kassel describes him as the electoral fountain inspector and explicitly connects the 1793 Steinhöfer Waterfall with his work. The UNESCO nomination identifies him as a hydraulic specialist employed in the programme of William IX and assigns him concrete responsibility for several water scenes. This professional role is crucial to the knowledge layer: Steinhöfer was neither an invisible craftsman nor a generic “park architect”, but a specialist in water routing, pressure, conduits and the translation of hydraulic possibilities into dramatic landscape scenes. His spelling variants are retained as aliases so that older park texts and modern authority records resolve to one stable person."
+      },
+      "park_role": {
+        "de": "Steinhöfers bekanntestes Werk ist der nach ihm benannte Wasserfall von 1793. Die Stadt beschreibt ihn als künstlich inszenierten, von Wasser zurückeroberten Steinbruch. Die Wirkung entsteht durch eine technische Wasserführung, die ein Bild scheinbarer Naturgewalt produziert. Das ist typisch für Steinhöfers Rolle: Ingenieurwissen wird nicht versteckt, sondern so eingesetzt, dass es landschaftliche Dramaturgie ermöglicht. UNESCO-Unterlagen verbinden ihn außerdem mit Aquädukt und Teufelsbrückenbereich gemeinsam mit Jussow und identifizieren ihn als verantwortlichen Spezialisten für weitere Wasseranlagen. Wo Quellen die Arbeit zwischen Architekt und Wassertechniker teilen, verwendet der Wissensgraph deshalb keine alleinige Autorschaft. Steinhöfer wird als Wassertechniker, Mitgestalter oder verantwortlicher Planer genau für den belegten Umfang modelliert.",
+        "en": "Steinhöfer's best-known work is the waterfall that bears his name, created in 1793. The City describes it as an artificial scene of a quarry being reclaimed by water. The effect depends on engineered water delivery that produces an image of apparently uncontrolled natural force. This is characteristic of Steinhöfer's role: engineering knowledge is used to enable landscape dramaturgy. UNESCO documentation also connects him with the Aqueduct and Devil's Bridge area together with Jussow and identifies him as the responsible specialist for additional water installations. Where evidence divides work between architect and hydraulic engineer, the knowledge graph avoids sole authorship. Steinhöfer is modeled as engineer, co-designer or responsible planner only to the extent supported by the source."
+      },
+      "documented_works": {
+        "de": "Die Denkmaltopographie erweitert dieses Bild in die spätere Zeit. Sie nennt den Neuen Wasserfall als Anlage von 1823 bis 1828 durch Steinhofer und Bromeis und dokumentiert zugleich, dass dieser Wasserfall seit Jahrzehnten nicht mehr betrieben werden kann. Das ist ein gutes Beispiel für die Trennung von historischer Urheberschaft und aktuellem Zustand. Steinhöfers technische Leistung bleibt historisch relevant, obwohl die heutige Anlage nicht funktionsfähig ist. Für Aquädukt oder Teufelsbrücke werden technische und architektonische Beiträge ebenfalls nicht vermischt. Die semantischen Kanten können daher mehrere Personen mit unterschiedlichen Relationstypen an dasselbe Objekt binden. Das Modell bildet damit eher einen Arbeitszusammenhang als einen traditionellen „Meister und Werk“-Katalog ab.",
+        "en": "The Hessian monument inventory carries this history into the later period. It names the New Waterfall as a work of 1823–1828 by Steinhofer and Bromeis and also records that the feature has been unable to operate for decades. This is a useful example of separating historical authorship from current condition. Steinhöfer's technical contribution remains historically important even though the present installation is non-functional. At the Aqueduct and Devil's Bridge, technical and architectural contributions are likewise not collapsed into one another. Semantic edges can therefore connect several people to the same place with different relation types. The model represents a working collaboration rather than forcing every monument into a traditional “master and work” catalogue."
+      },
+      "park_context": {
+        "de": "Beim Besuch ist Steinhöfers Arbeit besonders dann erfahrbar, wenn die Wasserspiele laufen. Die Wasserbilder erscheinen spontan und natürlich, beruhen aber auf Gefälle, Reservoirs, Leitungswegen und kontrollierter Freisetzung. Selbst ohne laufendes Wasser lassen sich die gestalteten Rinnen, Becken und Abstürze als Teile dieses Systems lesen. Steinhöfers Profil soll Besuchenden helfen, hinter der romantischen Kulisse die technische Infrastruktur zu erkennen. Gleichzeitig werden Zeitplan und heutige Betriebsfähigkeit nicht aus historischen Texten abgeleitet; sie stehen datiert in den Ortsdaten. Der Neue Wasserfall bleibt ausdrücklich „surviving-nonfunctional“, auch wenn seine historische Planung technisch ambitioniert war. Damit widerspricht die Wissensschicht der Versuchung, historische Funktion automatisch als heutige Funktion fortzuschreiben.",
+        "en": "On a visit, Steinhöfer's work becomes most evident while the water displays are operating. The scenes look spontaneous and natural, yet depend on gradient, reservoirs, conduits and controlled release. Even without flowing water, channels, basins and drops can be read as parts of this system. His profile helps visitors see the infrastructure behind the Romantic scenery. Current schedules and operational condition, however, are not inferred from historical descriptions; they remain dated in the place records. The New Waterfall explicitly retains its “surviving-nonfunctional” state even though its historical planning was technically ambitious. The knowledge layer thus avoids turning historical function automatically into present function."
+      },
+      "legacy": {
+        "de": "Steinhöfers Vermächtnis besteht darin, dass ein Großteil der Identität Wilhelmshöhes ohne seine technische Arbeit nicht verständlich wäre. Die berühmte Dramaturgie vom Wasserfall über Ruinenbilder bis zur Fontäne lebt von kontrollierter Hydraulik. Gleichzeitig blieb sein Name lange weniger sichtbar als die Namen fürstlicher Auftraggeber und Architekten. Eine personenzentrierte Wissensschicht kann dieses Ungleichgewicht korrigieren, ohne neue Heldenerzählung zu erzeugen: Sie verbindet Steinhöfer nur mit Quellen, die seine Tätigkeit konkret belegen, und unterscheidet Wartung, Planung, Mitgestaltung und alleinige Verantwortung. Die Schreibvarianten Steinhöfer/Steinhofer werden nicht als zwei Personen behandelt. Die stabile ID verhindert genau diese Form von Dublette.",
+        "en": "Steinhöfer's legacy is that much of Wilhelmshöhe's identity cannot be understood without his technical work. The famous progression from waterfalls through ruin scenes to the great fountain depends on controlled hydraulics. His name was nevertheless often less visible than those of princely patrons and architects. A person-centered knowledge layer can correct that imbalance without constructing a new hero narrative: it connects Steinhöfer only to evidence that specifically supports his role and distinguishes maintenance, planning, collaboration and sole responsibility. The spelling forms Steinhöfer and Steinhofer are not treated as different people. A stable entity ID is designed specifically to prevent that kind of duplication."
+      },
+      "interpretation": {
+        "de": "Interpretativ macht Steinhöfer die Wasserspiele als Verbindung von Naturästhetik und Infrastruktur lesbar. Ein „natürlich“ wirkender Wasserfall ist hier Ergebnis von Vermessung, Leitungstechnik, Materialkenntnis und Betriebspraxis. Das erzeugt keinen Widerspruch zur romantischen Gestaltung, sondern ist ihre Voraussetzung. Die technische Schicht bleibt im Park oft weniger sichtbar als Fels, Wald und Wasser, doch sie bestimmt Zeitpunkt, Richtung und Kraft der Inszenierung. Steinhöfers Profil verbindet daher Technikgeschichte mit Gartenkunst. Wo das UNESCO-Dossier und die Denkmaltopographie unterschiedliche Akzente bei der Verantwortlichkeit setzen, wird dies nicht geglättet: gemeinsame Planung wird als gemeinsame Planung modelliert, alleinige Verantwortung nur dort, wo eine Quelle sie ausdrücklich trägt.",
+        "en": "Interpretively, Steinhöfer makes the water displays legible as a conjunction of nature aesthetics and infrastructure. A “natural” waterfall here results from surveying, conduit engineering, material knowledge and operational practice. This does not contradict Romantic design; it is its precondition. The technical layer is less visually prominent than rock, woodland and water, yet determines the timing, direction and force of the spectacle. His profile therefore joins technological history with garden history. Where the UNESCO dossier and monument inventory emphasize responsibility differently, the discrepancy is not smoothed away: collaborative planning remains collaborative, and sole responsibility is asserted only where a source explicitly supports it."
+      }
+    },
+    {
+      "id": "person-landgraf-karl-von-hessen-kassel",
+      "kind": "historical_figure",
+      "name": {
+        "de": "Landgraf Karl von Hessen-Kassel",
+        "en": "Landgrave Carl of Hesse-Kassel"
+      },
+      "roles": [
+        "landgrave",
+        "patron",
+        "builder_of_barock_water_display"
+      ],
+      "source_ids": [
+        "unesco-icomos-2013-evaluation",
+        "unesco-nomination-1413",
+        "hkh-herkules-site",
+        "stadt-herkules"
+      ],
+      "aliases": [
+        "karl-von-hessen-kassel",
+        "landgraf-carl",
+        "landgrave-carl"
+      ],
+      "biography": {
+        "de": "Karl von Hessen-Kassel steht am Anfang derjenigen Ausbauphase, durch die der Karlsberg oberhalb Kassels zu einer europäischen Demonstration fürstlicher Garten- und Wasserkunst wurde. Für die Wissensschicht ist entscheidend, seine Rolle nicht mit der eines ausführenden Architekten oder Bildhauers zu vermischen. Die UNESCO-Unterlagen beschreiben Karl als den fürstlichen Initiator des barocken Wasserprogramms. Nach seiner Italienreise wurde Giovanni Francesco Guerniero mit der gestalterischen Leitung der oberen Anlage betraut. Karl bestimmte damit Ziel, Maßstab und Repräsentationsanspruch des Unternehmens, während Planung, Bauorganisation, Handwerk und spätere technische Veränderungen auf mehrere Fachleute verteilt waren. Der Herkules ist deshalb zugleich Denkmal eines politischen Programms und Ergebnis kollektiver Facharbeit. Karls Name erklärt den historischen Begriff Karlsberg, aber die heutige Bezeichnung Bergpark Wilhelmshöhe umfasst auch große spätere Schichten, die unter Wilhelm IX. und seinen Nachfolgern entstanden.",
+        "en": "Carl of Hesse-Kassel belongs to the opening phase that transformed the Karlsberg above Kassel into a major European display of princely landscape and hydraulic art. For this knowledge layer it is important not to collapse his role into that of a working architect or sculptor. UNESCO documentation characterizes Carl as the princely initiator of the Baroque water programme. After his Italian journey Giovanni Francesco Guerniero was put in charge of the design of the upper ensemble. Carl therefore determined purpose, scale and representational ambition, while design, construction management, craft production and later technical changes were distributed among several specialists. The Hercules monument is consequently both a statement of political representation and the result of coordinated expert work. Carl's name survives in the historical term Karlsberg, but the present Bergpark Wilhelmshöhe contains substantial later layers created under Wilhelm IX and his successors."
+      },
+      "park_role": {
+        "de": "Karls wichtigste parkbezogene Leistung ist die Patronage für die obere barocke Achse mit Oktogon, Riesenschloss, Pyramide, Herkulesfigur und Großen Kaskaden. ICOMOS und Nominierungsdossier ordnen die Hauptbauphase der Jahre 1689 bis 1717 seinem Regierungsprogramm zu. Die heute sichtbare Anlage darf dennoch nicht als ein einziger Entwurf Karls gelesen werden. Guerniero verantwortete wesentliche architektonische Entwürfe; die monumentale Kupferfigur wurde später von Johann Jakob Anthoni gefertigt; Wasserleitungen, Reparaturen und die romantischen Wasserbilder erhielten in nachfolgenden Jahrzehnten eigene technische und gestalterische Autoren. Karls Patronage ist daher als programmatische Auftraggeberschaft modelliert. Die semantische Relation lautet bewusst „commissioned“ beziehungsweise „initiated“ und nicht „designed“. Diese Trennung erlaubt, politische Intention, Architektur und Kunstwerk präzise miteinander zu verknüpfen, ohne den Anteil der ausführenden Fachleute unsichtbar zu machen.",
+        "en": "Carl's central park role is patronage of the upper Baroque axis comprising the Octagon, the Riesenschloss, pyramid, Hercules figure and Grand Cascades. ICOMOS and the nomination dossier place the principal 1689–1717 building campaign within his programme. The surviving ensemble should nevertheless not be read as a single design authored by Carl. Guerniero was responsible for major architectural designs; the monumental copper figure was later fabricated by Johann Jakob Anthoni; water conduits, repairs and the Romantic water scenes acquired their own technical and design authors in subsequent decades. Carl's contribution is therefore modeled as programmatic commissioning. The semantic relation deliberately says “commissioned” or “initiated”, not “designed”. Keeping these roles separate makes it possible to connect political intention, architecture and artwork precisely without erasing the contribution of the specialists who translated the programme into physical form."
+      },
+      "documented_works": {
+        "de": "Die Quellen verbinden Karl besonders eindeutig mit dem Herkulesensemble und den Kaskaden. Hessen Kassel Heritage beschreibt die Wahl des Herkules als Symbol fürstlicher Macht; das UNESCO-Dossier ordnet die obere Wasserarchitektur der von Karl vorangetriebenen barocken Entwicklungsphase zu. Für die Kupferstatue selbst ist dagegen Johann Jakob Anthoni der dokumentierte Hersteller. Guernieros erhaltene Zeichnungen belegen die architektonische Entwurfsarbeit am Oktogon und an der Pyramide. Diese Quellenlage erlaubt eine gestufte Aussage: Karl ist Patron des Gesamtprogramms, Guerniero ist zentraler Architekt der oberen Anlage, Anthoni ist Schöpfer beziehungsweise ausführender Goldschmied der Kupferfigur. Wo einzelne Bauteile mehrfach verändert oder restauriert wurden, wird kein unmittelbarer „Karl-Entwurf“ behauptet. Die Wissensschicht hält so die historische Kette von Auftrag, Entwurf und Ausführung getrennt.",
+        "en": "The sources link Carl most clearly to the Hercules ensemble and the cascades. Hessen Kassel Heritage describes his choice of Hercules as a symbol of princely power, while the UNESCO dossier places the upper water architecture in the Baroque development campaign he promoted. Johann Jakob Anthoni, however, is the documented maker of the copper statue itself. Guerniero's surviving drawings demonstrate the architectural design work on the Octagon and pyramid. The evidence therefore supports a layered statement: Carl is patron of the overall programme, Guerniero is a principal architect of the upper ensemble, and Anthoni is the maker of the copper figure. Where components were later altered, repaired or restored, the dataset does not invent a direct “design by Carl”. The knowledge model instead preserves the historical chain from commission to architectural design to craft execution."
+      },
+      "park_context": {
+        "de": "Für Besucher erklärt Karl vor allem den starken Kontrast innerhalb des Parks. Am oberen Hang steht eine streng inszenierte, weithin sichtbare barocke Herrschaftsachse; weiter unten dominieren Landschaftsbilder der späteren romantischen Umgestaltung. Dieser Kontrast ist kein Fehler oder Stilbruch, sondern eine wesentliche historische Qualität der Anlage. Wer vom Herkules talwärts geht, bewegt sich deshalb nicht nur räumlich, sondern chronologisch durch unterschiedliche Herrschafts- und Gestaltungsprogramme. Karls Schicht liefert den Ausgangspunkt. Spätere Fürsten bewahrten, ergänzten oder reinterpretieren Teile dieses Programms. Die heutige UNESCO-Lesart würdigt gerade das Zusammenspiel der außergewöhnlichen Wasserkunst mit der langen Entwicklung des Bergparks. Karls Biografie wird im Datensatz deshalb nur dort erweitert, wo sie diese Parkgeschichte erklärt; allgemeine Hof- oder Kriegsgeschichte ohne unmittelbaren Bezug bleibt außerhalb des Kernprofils.",
+        "en": "For visitors, Carl primarily explains the striking contrast within the park. At the upper slope a rigorously staged and highly visible Baroque axis represents princely power; farther downhill the later Romantic transformation is dominated by picturesque landscape scenes. This contrast is not an inconsistency but a central historical quality of the property. A walk from Hercules toward the palace therefore moves not only through space but through successive programmes of rule and design. Carl's layer provides the starting point. Later rulers preserved, supplemented or reinterpreted parts of it. The present UNESCO interpretation values precisely the combination of exceptional hydraulic spectacle and the park's long development. For that reason this dataset expands Carl's biography only where it clarifies park history; broader court or military history without a direct connection is intentionally left outside the core profile."
+      },
+      "legacy": {
+        "de": "Karls Nachwirkung ist im Park materiell und semantisch sichtbar. Das Herkulesmonument blieb Wahrzeichen Kassels, die barocken Kaskaden blieben Ausgangspunkt der Wasserspiele, und spätere Gartenphasen mussten sich zu dieser bereits dominanten Achse verhalten. Gleichzeitig ist die Zuschreibungsgeschichte ein gutes Beispiel dafür, warum eine moderne Wissensgraphik nicht einfach „Erbauer“ als Sammelbegriff verwenden sollte. Auftraggeber, Architekt, Bildhauer, Goldschmied, Wassertechniker und Restaurator haben unterschiedliche Verantwortungen. Der Datensatz bewahrt Karls historische Bedeutung deshalb gerade dadurch, dass er nicht mehr beansprucht, als die Quellen tragen. Seine Patronage war groß genug, um die Topographie und Identität des Bergparks dauerhaft zu prägen; sie muss nicht in fiktive persönliche Urheberschaft an jedem Bauteil umgedeutet werden.",
+        "en": "Carl's legacy is visible in both the material park and its semantic structure. The Hercules monument remained Kassel's landmark, the Baroque cascades remained the starting point of the water displays, and every later landscape phase had to respond to this already dominant axis. Attribution history also shows why a modern knowledge graph should not use “builder” as an undifferentiated label. Patron, architect, sculptor, goldsmith, hydraulic engineer and restorer carry different responsibilities. The dataset therefore protects Carl's historical importance by refusing to claim more than the evidence supports. His patronage was sufficiently consequential to shape the topography and identity of Bergpark Wilhelmshöhe for centuries; it does not need to be converted into fictional personal authorship of every component."
+      },
+      "interpretation": {
+        "de": "Interpretativ steht Karl für die Verbindung von Technik, Mythologie und Herrschaft. Der Herkules ist nicht bloß eine dekorative Statue über einer Aussichtsterrasse, sondern der Gipfel einer Wasserarchitektur, deren natürliche Schwerkraft selbst Teil der Inszenierung ist. Die Figur macht antike Mythologie politisch lesbar, während das Wasser technische Beherrschung und Überfluss demonstriert. Diese Bedeutungen werden als historische Interpretation gekennzeichnet und nicht als heutige Wertung übernommen. Zugleich verweist die heutige Welterbestellung darauf, dass das Ensemble inzwischen einem öffentlichen, konservatorischen und wissenschaftlichen Rahmen angehört. Der Bedeutungswandel vom fürstlichen Repräsentationsraum zum geschützten Kulturerbe ist Teil von Karls Vermächtnis im Park und erklärt, warum aktuelle Besuchsregeln, Restaurierung und Quellenkritik neben der historischen Erzählung stehen müssen.",
+        "en": "Interpretively, Carl represents the conjunction of technology, mythology and rule. Hercules is not merely a decorative statue above a viewpoint but the summit of a hydraulic architecture in which gravity itself becomes part of the spectacle. Classical mythology is made politically legible through the figure, while the movement of water demonstrates technical control and abundance. These meanings are recorded as historical interpretation rather than endorsed as a present-day value statement. The site's current World Heritage status also shows that the ensemble now belongs to a public, conservation and scholarly framework. The shift from princely representational landscape to protected cultural heritage is part of Carl's legacy in the park and explains why modern visitor rules, restoration practice and source criticism must stand beside the historical narrative."
+      }
+    },
+    {
+      "id": "person-leo-von-klenze",
+      "kind": "historical_figure",
+      "name": {
+        "de": "Leo von Klenze",
+        "en": "Leo von Klenze"
+      },
+      "aliases": [
+        "leo-von-klenze",
+        "klenze"
+      ],
+      "roles": [
+        "architect"
+      ],
+      "source_ids": [
+        "stadt-ballhaus"
+      ],
+      "profile_note": {
+        "de": "Die Stadt Kassel dokumentiert Klenze als Architekten des 1808–1810 errichteten Hoftheaters, das Bromeis 1828–1830 zum heutigen Ballhaus umgestaltete.",
+        "en": "The City of Kassel documents Klenze as architect of the 1808–1810 court theatre that Bromeis transformed into today’s Ballhaus in 1828–1830."
+      }
+    },
+    {
+      "id": "person-ludwig-daniel-heyd",
+      "kind": "historical_figure",
+      "name": {
+        "de": "Ludwig Daniel Heyd",
+        "en": "Ludwig Daniel Heyd"
+      },
+      "aliases": [
+        "ludwig-daniel-heyd"
+      ],
+      "roles": [
+        "sculptor"
+      ],
+      "source_ids": [
+        "lfdh-denkmaltopographie-wilhelmshoehe"
+      ],
+      "profile_note": {
+        "de": "Die amtliche Denkmaltopographie nennt Ludwig Daniel Heyd gemeinsam mit Johann Wolfgang Heyd für die Flora Farnesina um 1792; die Zuschreibung wird deshalb ausdrücklich als Gemeinschaftsarbeit modelliert.",
+        "en": "The official monument inventory names Ludwig Daniel Heyd together with Johann Wolfgang Heyd for the Flora Farnesina around 1792, so the attribution is modeled explicitly as joint work."
+      }
+    },
+    {
+      "id": "person-peter-paul-rubens",
+      "kind": "historical_figure",
+      "name": {
+        "de": "Peter Paul Rubens",
+        "en": "Peter Paul Rubens"
+      },
+      "aliases": [
+        "peter-paul-rubens",
+        "rubens"
+      ],
+      "roles": [
+        "painter"
+      ],
+      "source_ids": [
+        "hkh-gemaeldegalerie",
+        "museum-kassel-rubens-gk92"
+      ],
+      "profile_note": {
+        "de": "Rubens wird als Schöpfer konkret katalogisierter Gemälde der Gemäldegalerie geführt. Einzelne Werke erhalten eigene Entitäten mit Objektkatalog-Provenienz.",
+        "en": "Rubens is recorded as creator of specifically catalogued paintings in the Old Masters collection. Individual works receive separate entities with object-catalogue provenance."
+      }
     },
     {
       "id": "person-rembrandt-van-rijn",
@@ -65,28 +530,284 @@
         "painter"
       ],
       "source_ids": [
-        "hkh-gemaeldegalerie-collection",
-        "hkh-gemaeldegalerie-location"
-      ]
+        "hkh-gemaeldegalerie",
+        "museum-kassel-rembrandt-holdings"
+      ],
+      "aliases": [
+        "rembrandt-van-rijn",
+        "rembrandt"
+      ],
+      "profile_note": {
+        "de": "Rembrandt ist als Schöpfer mehrerer Hauptwerke der Kasseler Gemäldegalerie belegt. Das Figurenprofil dient ausschließlich der auf Kassel bezogenen Werk- und Sammlungsverknüpfung; eine allgemeine Werkbiografie wird hier nicht dupliziert.",
+        "en": "Rembrandt is documented as the creator of several major works in Kassel’s Old Masters collection. This profile is scoped to Kassel work and collection links rather than duplicating a general artist biography."
+      }
+    },
+    {
+      "id": "person-simon-louis-du-ry",
+      "kind": "historical_figure",
+      "name": {
+        "de": "Simon Louis du Ry",
+        "en": "Simon Louis du Ry"
+      },
+      "aliases": [
+        "simon-louis-du-ry",
+        "du-ry"
+      ],
+      "roles": [
+        "architect",
+        "court_architect",
+        "palace_designer"
+      ],
+      "source_ids": [
+        "museum-kassel-du-ry-gs5736",
+        "museum-kassel-du-ry-gs5744",
+        "museum-kassel-du-ry-jussow-gs5747",
+        "hkh-schloss"
+      ],
+      "biography": {
+        "de": "Simon Louis du Ry gehört zu den Hauptarchitekten des Schlossneubaus von Wilhelmshöhe. Seine Rolle ist durch eine Serie erhaltener Planzeichnungen außergewöhnlich gut nachvollziehbar. Der Bestandskatalog weist ihn als Entwurfsautor mehrerer Blätter von 1786 bis 1788 aus, darunter Grundrisse des Weißensteinflügels und Vorschläge für die Dreiflügelanlage. Diese Quellen zeigen Architektur nicht als fertige Idee, sondern als Prozess aus Varianten, Überarbeitung und Zusammenarbeit. Du Ry arbeitete dabei teilweise mit Heinrich Christoph Jussow; auf einzelnen Blättern ist Jussows Mitarbeit ausdrücklich vermerkt. Der Datensatz behandelt beide deshalb nicht als konkurrierende Alleinautoren. Du Rys stabile Personen-ID bündelt die verschiedenen Schreibweisen und verbindet ihn mit dem Schloss, den erhaltenen Zeichnungen und der größeren Residenzplanung Wilhelms IX.",
+        "en": "Simon Louis du Ry was one of the principal architects of the new palace at Wilhelmshöhe. His role is unusually well documented through a sequence of surviving plans. The Kassel catalogue identifies him as designer of several sheets from 1786 to 1788, including plans for the Weißenstein wing and proposals for a three-wing complex. These records reveal architecture as a process of alternatives, revision and collaboration rather than a finished idea. Du Ry worked in part with Heinrich Christoph Jussow; some sheets explicitly identify Jussow's contribution. The dataset therefore does not treat them as competing sole authors. Du Ry's stable person ID gathers variant references and links him to the palace, its surviving drawings and the broader residential programme of William IX."
+      },
+      "park_role": {
+        "de": "Du Rys parkbezogene Rolle konzentriert sich auf den Residenzbereich am unteren Hang. Das Schloss bildet dort einen Gegenpol zum hoch gelegenen Herkules: Es ist architektonischer Mittelpunkt, Museumsträger und Ausgangspunkt vieler Blickbeziehungen in den Park. Die Planung der Seitenflügel und der Gesamtanlage musste ältere Bausubstanz, Topographie und repräsentative Anforderungen miteinander vermitteln. Ein Katalogblatt von 1787 dokumentiert den Moment, in dem Vorschläge für eine Dreiflügelanlage entwickelt wurden. Andere Grundrisse zeigen frühe Funktions- und Raumkonzepte. Der Wissensgraph verbindet du Ry deshalb als Designer mit dem Schloss, ohne jedes spätere Detail seinem Entwurf zuzuschreiben. Veränderungen unter Jussow, Wilhelm II., Bromeis und in Wiederaufbauphasen bleiben eigenständige Schichten.",
+        "en": "Du Ry's park role concentrates on the residential area at the lower slope. The palace forms a counterpart to Hercules high above: an architectural focus, a container for today's museums and a point from which many relationships in the park are perceived. Planning its wings and overall form required negotiation between older structures, topography and representational demands. A 1787 catalogue sheet records the moment when proposals for a three-wing complex were developed. Other plans show early functional and spatial concepts. The knowledge graph therefore links du Ry as designer of the palace without assigning every later detail to his hand. Changes by Jussow, William II, Bromeis and reconstruction campaigns remain independent historical layers."
+      },
+      "documented_works": {
+        "de": "Die Zeichnungen GS 5736, GS 5744 und GS 5747 sind besonders wichtig. GS 5744 ist ein früher Kellergrundriss von 1786 und dokumentiert technische wie räumliche Planung. GS 5747 weist du Ry als Entwurfsautor und Jussow als Mitarbeiter aus. GS 5736 hält eine Entwurfsskizze zur Erweiterung in Richtung einer Dreiflügelanlage fest. Für die Knowledge-Phase werden diese Blätter als eigenständige Kunst- beziehungsweise Dokumentobjekte modelliert, wenn die Urheberschaft eindeutig ist. Sie sind nicht identisch mit dem ausgeführten Schloss. Diese Differenz ermöglicht, verworfene und realisierte Ideen nebeneinander zu bewahren und verhindert, dass ein Planungsdokument als fotografisch genauer Bauzustand missverstanden wird.",
+        "en": "The drawings GS 5736, GS 5744 and GS 5747 are particularly important. GS 5744 is an early 1786 basement plan and documents technical as well as spatial planning. GS 5747 identifies du Ry as designer and Jussow as collaborator. GS 5736 records a design sketch for development toward a three-wing complex. In the knowledge phase these sheets can be modeled as independent artwork/document entities where authorship is explicit. They are not identical with the executed palace. Preserving that difference allows rejected and realized ideas to coexist and prevents a planning document from being mistaken for a photographically exact record of the built condition."
+      },
+      "park_context": {
+        "de": "Für Besucher erklärt du Ry vor allem die klassische Ordnung des Schlossbereichs. Der Palast vermittelt eine andere historische Sprache als Löwenburg oder künstliche Ruinen im Park. Gleichzeitig ist der heutige Bau durch Zerstörung, Wiederaufbau und spätere Verbindung der ursprünglich getrennten Baukörper geprägt. Wer nur die heutige Fassade betrachtet, sieht deshalb nicht automatisch den Zustand des späten 18. Jahrhunderts. Das Figurenprofil verweist auf diese zeitliche Schichtung, während aktuelle Museumsnutzung und Instandsetzung in den Orts- und Sammlungsdaten stehen. Besonders der Weißensteinflügel zeigt, wie historische Innenräume, spätere Umbauten und heutige Restaurierung zusammenkommen. Du Rys Beitrag ist ein definierter Entwurfsabschnitt innerhalb dieser langen Objektbiografie.",
+        "en": "For visitors, du Ry mainly explains the classical order of the palace zone. The palace speaks a different historical language from Löwenburg or the artificial ruins in the park. The building visible today, however, also reflects destruction, reconstruction and later connections between structures that were originally separate. Looking at the present façade does not automatically reveal the late-eighteenth-century condition. The figure profile points to this chronological layering, while current museum use and restoration belong to place and collection data. The Weißenstein wing in particular demonstrates how historic interiors, later alterations and present conservation overlap. Du Ry's contribution is a defined design phase within that long object biography."
+      },
+      "legacy": {
+        "de": "Du Rys Vermächtnis im Bergpark liegt weniger in einem einzelnen ikonischen Motiv als in der dauerhaften räumlichen Setzung des Schlosses. Der Residenzbau ordnet den unteren Park, gibt Sammlungen einen heutigen Ort und bildet bis heute eine wichtige Schwelle zwischen Stadt und Landschaft. Die erhaltenen Zeichnungen machen seine Arbeitsweise zudem für Forschung und Öffentlichkeit transparent. Dadurch kann die digitale Wissensschicht Architekturgeschichte evidenzbasiert erzählen: nicht „du Ry baute das Schloss“ als unbestimmten Satz, sondern konkrete Beziehungen zwischen Person, Blatt, Planungsphase und ausgeführtem Bau. Diese Granularität würdigt du Rys Rolle, ohne Beiträge von Jussow oder späteren Hofarchitekten zu verdrängen.",
+        "en": "Du Ry's legacy in Bergpark Wilhelmshöhe lies less in one iconic motif than in the durable spatial position of the palace. The residence organizes the lower park, provides a present home for major collections and remains an important threshold between city and landscape. Surviving drawings also make his working process transparent to research and the public. A digital knowledge layer can therefore tell architectural history with evidence: not simply “du Ry built the palace”, but concrete relationships between person, sheet, planning phase and executed architecture. That granularity recognizes his role without displacing Jussow or later court architects."
+      },
+      "interpretation": {
+        "de": "Interpretativ steht du Ry für den klassizistischen Ordnungsanspruch innerhalb einer Kulturlandschaft, die oft wegen ihrer spektakulären Ruinen und Wasserspiele erinnert wird. Das Schloss zeigt, dass Wilhelmshöhe zugleich Residenz, Sammlungshaus und repräsentative Architektur war. Seine geometrische Klarheit bildet einen bewussten Dialog mit dem landschaftlich bewegten Park. Die Pläne lassen außerdem erkennen, wie sehr solche Ordnung Ergebnis fortgesetzter Entscheidung war. Varianten und Korrekturen gehören zur Entstehung. Im Wissensmodell wird dieser Prozess sichtbar gemacht, statt einen einzigen idealen Urentwurf zu behaupten. Damit wird du Ry nicht nur als Name an einem Gebäude, sondern als Akteur eines dokumentierten Planungsprozesses verständlich.",
+        "en": "Interpretively, du Ry represents a Classical ambition for order within a cultural landscape often remembered primarily for spectacular ruins and waterworks. The palace demonstrates that Wilhelmshöhe was also a residence, collection setting and work of representational architecture. Its geometric clarity establishes a deliberate dialogue with the more mobile landscape around it. The drawings also show how much this order was the result of continuing decisions. Alternatives and corrections are part of the genesis. The knowledge model exposes that process rather than claiming one perfect original design, making du Ry legible not only as a name attached to a building but as an actor in a documented planning history."
+      }
+    },
+    {
+      "id": "person-sokrates",
+      "kind": "historical_figure",
+      "name": {
+        "de": "Sokrates",
+        "en": "Socrates"
+      },
+      "aliases": [
+        "sokrates",
+        "socrates"
+      ],
+      "roles": [
+        "classical_philosopher",
+        "namesake"
+      ],
+      "source_ids": [
+        "lfdh-denkmaltopographie-wilhelmshoehe"
+      ],
+      "profile_note": {
+        "de": "Sokrates ist kein historischer Akteur der Parkentstehung, sondern Namens- und Deutungsreferenz für Staffagebauten wie die Eremitage beziehungsweise Halle des Sokrates. Der Rollentyp namesake verhindert eine falsche Bauautorschaft.",
+        "en": "Socrates was not an actor in the park’s construction but a naming and interpretive reference for staffage such as the Hermitage/Hall of Socrates. The namesake role prevents false design authorship."
+      }
+    },
+    {
+      "id": "person-werner-noell",
+      "kind": "historical_figure",
+      "name": {
+        "de": "Werner Nöll",
+        "en": "Werner Nöll"
+      },
+      "aliases": [
+        "werner-noell",
+        "werner-nöll"
+      ],
+      "roles": [
+        "architect",
+        "restoration_architect"
+      ],
+      "source_ids": [
+        "lfdh-denkmaltopographie-wilhelmshoehe"
+      ],
+      "profile_note": {
+        "de": "Werner Nöll bleibt als bereits belegter Name der Bau- und Restaurierungsgeschichte erhalten. Neue Werkrelationen werden nur dort ergänzt, wo die amtliche Inventarisierung die konkrete Maßnahme eindeutig trägt.",
+        "en": "Werner Nöll remains as an already documented name in building and restoration history. New work relations are added only where the official inventory clearly supports the specific intervention."
+      }
+    },
+    {
+      "id": "person-wilhelm-ii-von-hessen-kassel",
+      "kind": "historical_figure",
+      "name": {
+        "de": "Kurfürst Wilhelm II.",
+        "en": "Elector William II"
+      },
+      "aliases": [
+        "wilhelm-ii",
+        "kurfuerst-wilhelm-ii"
+      ],
+      "roles": [
+        "elector",
+        "patron"
+      ],
+      "source_ids": [
+        "stadt-ballhaus",
+        "hkh-gewaechshaus",
+        "hkh-schloss"
+      ],
+      "profile_note": {
+        "de": "Wilhelm II. wird für die nachweisbaren Auftraggeber- und Nutzungszusammenhänge der 1820er Jahre geführt, insbesondere Großes Gewächshaus, Ballhaus-Umbau und Schlossausstattung.",
+        "en": "William II is recorded for documented patronage and use contexts of the 1820s, especially the Great Greenhouse, Ballhaus conversion and palace interiors."
+      }
     },
     {
       "id": "person-wilhelm-ix-von-hessen-kassel",
       "kind": "historical_figure",
       "name": {
-        "de": "Landgraf Wilhelm IX. / Kurfürst Wilhelm I.",
-        "en": "Landgrave William IX / Elector William I"
+        "de": "Wilhelm IX. von Hessen-Kassel / Kurfürst Wilhelm I.",
+        "en": "William IX of Hesse-Kassel / Elector William I"
       },
       "roles": [
         "landgrave",
         "elector",
+        "patron",
+        "landscape_program_patron"
+      ],
+      "source_ids": [
+        "unesco-nomination-1413",
+        "hkh-schloss",
+        "stadt-loewenburg",
+        "museum-kassel-du-ry-jussow-gs5747"
+      ],
+      "aliases": [
+        "wilhelm-ix",
+        "wilhelm-i",
+        "kurfuerst-wilhelm-i"
+      ],
+      "biography": {
+        "de": "Wilhelm IX. von Hessen-Kassel, der spätere Kurfürst Wilhelm I., prägte jene Phase, in der aus der älteren barocken Anlage am Karlsberg der vielschichtige Landschaftspark Wilhelmshöhe wurde. Die Namensänderung des Ortes und die großen Bauvorhaben seiner Regierungszeit gehören zusammen, dürfen aber nicht als persönliche Entwurfsarbeit des Fürsten missverstanden werden. Wilhelm agierte als Auftraggeber und Entscheider. Für Architektur, Landschaftsbilder und Wassertechnik beschäftigte er Fachleute wie Simon Louis du Ry, Heinrich Christoph Jussow und Karl Friedrich Steinhöfer. Das UNESCO-Dossier ordnet gerade diese Zusammenarbeit der späteren Entwicklung des Welterbes zu. Unter Wilhelm entstanden oder konkretisierten sich Schlossneubau, Löwenburg, Aquädukt, Teufelsbrückenlandschaft und weitere romantische Wasserbilder. Seine Biografie ist für den Park daher weniger wegen einzelner Lebensereignisse als wegen der langfristigen Umstellung des höfischen Landschaftsprogramms von der barocken Achse zu einer Folge inszenierter Naturbilder relevant.",
+        "en": "William IX of Hesse-Kassel, later Elector William I, shaped the phase in which the older Baroque development on the Karlsberg became the layered landscape now known as Wilhelmshöhe. The renaming of the place and the major building campaigns of his reign belong to the same history, but they should not be mistaken for personal design work by the ruler. William acted as patron and decision-maker. For architecture, picturesque landscape scenes and hydraulic engineering he employed specialists including Simon Louis du Ry, Heinrich Christoph Jussow and Karl Friedrich Steinhöfer. The UNESCO nomination specifically places this collaboration within the later development of the World Heritage property. During William's programme the new palace, Löwenburg, Aqueduct, Devil's Bridge landscape and other Romantic water scenes were created or substantially defined. His importance to the park therefore lies less in isolated life events than in the long transition from the Baroque axis to a sequence of deliberately staged naturalistic scenes."
+      },
+      "park_role": {
+        "de": "Wilhelms Parkprogramm verband Neubau, Umdeutung und Weiterverwendung. Schloss Wilhelmshöhe wurde als neuer Residenzmittelpunkt geplant. Die Löwenburg entstand als bewusst künstlich mittelalterlich wirkender Bau innerhalb der Landschaft. Aquädukt und benachbarte Wasserbilder inszenierten Ruine, Naturgewalt und Reiseerinnerung mit realer hydraulischer Technik. Damit änderte sich auch die Rolle des Besuchenden: Anders als an der streng axialen Kaskade erschließen sich viele romantische Stationen im Gehen und über wechselnde Blickbeziehungen. Wilhelm ist in der Semantik deshalb Patron oder Auftraggeber dieser Programme, während Jussow, Steinhöfer und andere als Designer beziehungsweise Ingenieure einzelner Werke geführt werden. Diese Rollentrennung verhindert, dass die komplexe Entstehungsgeschichte auf einen Herrschernamen reduziert wird.",
+        "en": "William's park programme combined new construction, reinterpretation and continued use. Wilhelmshöhe Palace was planned as a new residential focus. Löwenburg was conceived as a deliberately medieval-looking building embedded in the landscape. The Aqueduct and neighbouring water scenes staged ruin, natural force and travel imagery through very real hydraulic engineering. The visitor's role changed as well: unlike the strict axial cascade, many Romantic stations reveal themselves while walking and through changing sight lines. The semantic model therefore treats William as patron or commissioner of these programmes, while Jussow, Steinhöfer and others are recorded as designers or engineers of particular works. This division of roles prevents the complex history of creation from being reduced to the name of a ruler."
+      },
+      "documented_works": {
+        "de": "Die Quellenlage erlaubt mehrere konkrete Verknüpfungen. Hessen Kassel Heritage bezeichnet Wilhelm IX. als Auftraggeber von Schloss Wilhelmshöhe. Die Löwenburg-Seiten ordnen den Bau seiner romantischen Parkidee zu, während Jussow als Architekt dokumentiert ist. Das UNESCO-Dossier nennt Jussow, den Gartenfachmann Schwarzkopf und den Wassertechniker Steinhöfer im Umfeld der unter Wilhelm weitergeführten Parkentwicklung. Erhaltene Architekturzeichnungen zeigen zudem, wie du Ry und Jussow am Schlossprojekt arbeiteten. Solche Zeichnungen sind für den Datensatz besonders wertvoll, weil sie Planungsphasen sichtbar machen: Ein Blatt kann Entwurf, Mitarbeit oder verworfene Variante dokumentieren, ohne deshalb mit dem ausgeführten Bau identisch zu sein. Wilhelm wird daher mit Aufträgen und Programmen verknüpft, nicht pauschal als „Erbauer“ jeder sichtbaren Form.",
+        "en": "The sources permit several concrete links. Hessen Kassel Heritage identifies William IX as the commissioner of Wilhelmshöhe Palace. Sources for Löwenburg place the building within his Romantic park programme while documenting Jussow as its architect. The UNESCO dossier names Jussow, garden specialist Schwarzkopf and hydraulic engineer Steinhöfer in the development continued under William. Surviving architectural drawings also show du Ry and Jussow working on the palace project. Such records are especially valuable to the dataset because they expose phases of planning: a sheet can document a proposal, collaboration or rejected variant without being identical to the executed building. William is therefore connected to commissions and programmes rather than described indiscriminately as the “builder” of every visible form."
+      },
+      "park_context": {
+        "de": "Wilhelm erklärt die dichte Schichtung des unteren und mittleren Parks. In kurzer Entfernung begegnen Besucher einem klassizistischen Schloss, einer künstlichen Burgruine, einem scheinbar antiken Aquädukt und technisch hochentwickelten Wasserkünsten. Diese Mischung ist kein zufälliges Nebeneinander. Sie gehört zu einer Landschaftsdramaturgie, die historische und geografische Assoziationen erzeugt. Gerade deshalb werden heutige Zustände streng vom historischen Programm getrennt. Die Löwenburg ist restauriert und museal erschlossen; einzelne Wasserbilder funktionieren nur zu bestimmten Wasserspielzeiten; das Schloss dient heute Sammlungen und Verwaltung. Wilhelms Fürstenresidenz ist somit zu einer öffentlichen Kulturlandschaft mit anderen Nutzungsbedingungen geworden. Datiertes Besucherwissen bleibt deshalb in den Ortsdatensätzen, während sein Figurenprofil die historische Rolle erklärt.",
+        "en": "William helps explain the dense layering of the lower and middle park. Within a short walk visitors encounter a Neoclassical palace, an artificial castle ruin, a seemingly ancient aqueduct and technically sophisticated waterworks. This mixture is not accidental. It belongs to a landscape dramaturgy designed to trigger historical and geographical associations. Present-day conditions are therefore kept strictly separate from the historic programme. Löwenburg has been restored and is visited as a museum; individual water scenes operate only during scheduled displays; the palace now houses collections and administration. William's princely residence has become a public cultural landscape with very different conditions of use. Dated visitor information therefore remains in the place records, while his figure profile explains the historical agency behind the programme."
+      },
+      "legacy": {
+        "de": "Wilhelms bleibende Wirkung liegt in der Synthese aus Residenz, Park und Wasserlandschaft. Die unter Karl geschaffene Herkules-Kaskaden-Achse wurde nicht beseitigt, sondern in ein deutlich größeres und stilistisch vielfältigeres Ganzes eingebunden. Spätere Eingriffe unter Wilhelm II., preußische und kaiserzeitliche Nutzungen, Kriegsschäden, Wiederaufbau und Denkmalpflege kamen hinzu. Wer Wilhelm IX. deshalb als alleinigen „Schöpfer Wilhelmshöhes“ bezeichnet, nivelliert sowohl die ältere barocke als auch die spätere Geschichte. Präziser ist es, ihn als entscheidenden Patron der großen spätachtzehnten und frühen neunzehnten Jahrhundertphase zu verstehen. Diese Formulierung würdigt seinen Einfluss und lässt zugleich Platz für die nachweisbaren Beiträge von Architekten, Ingenieuren, Gärtnern und Handwerkern.",
+        "en": "William's lasting effect lies in the synthesis of residence, park and hydraulic landscape. The Hercules-cascade axis created under Carl was not removed but incorporated into a much larger and stylistically more diverse whole. Later alterations under William II, Prussian and imperial uses, wartime destruction, reconstruction and heritage conservation added further layers. Calling William IX the sole “creator of Wilhelmshöhe” would therefore flatten both the earlier Baroque and later histories. It is more precise to understand him as the decisive patron of the major late-eighteenth- and early-nineteenth-century phase. That formulation recognizes his influence while leaving room for the demonstrable contributions of architects, engineers, gardeners and craftspeople."
+      },
+      "interpretation": {
+        "de": "In der Interpretation steht Wilhelm für den Übergang von absoluter Achse zu malerischer Bewegung, ohne dass beide Prinzipien sich gegenseitig ausschließen. Die romantischen Ruinen und Wasserbilder wirken natürlich oder historisch gealtert, sind aber bewusst entworfene Kunstlandschaften. Gerade der Aquädukt zeigt diese Doppelheit: Er imitiert eine ruinöse antike Wasserleitung und erfüllt zugleich eine reale hydraulische Funktion. Wilhelms Auftraggeberschaft macht damit sichtbar, wie Naturgefühl, Geschichtsbild und technische Moderne um 1800 miteinander verschränkt wurden. Das Datenmodell hält diese Aussage als Interpretation fest und unterscheidet sie von dokumentierten Tatsachen wie Datierung, Auftrag und Entwurfsautorschaft. So bleibt die historische Erzählung reich, ohne Unsicherheit in scheinbar harte Fakten umzuwandeln.",
+        "en": "Interpretively, William represents a transition from absolute axis to picturesque movement without requiring one principle to erase the other. Romantic ruins and water scenes appear natural or historically aged, yet they are deliberately designed cultural landscapes. The Aqueduct demonstrates this duality particularly well: it imitates a ruined ancient water conduit while serving a real hydraulic function. William's patronage therefore reveals how ideas of nature, historical imagination and technical modernity could be intertwined around 1800. The data model records this as interpretation and distinguishes it from documented facts such as dating, commission and design authorship. That keeps the historical narrative rich without converting uncertainty into apparently hard fact."
+      }
+    },
+    {
+      "id": "person-wilhelm-viii-von-hessen-kassel",
+      "kind": "historical_figure",
+      "name": {
+        "de": "Landgraf Wilhelm VIII.",
+        "en": "Landgrave William VIII"
+      },
+      "aliases": [
+        "wilhelm-viii",
+        "landgraf-wilhelm-viii"
+      ],
+      "roles": [
+        "landgrave",
+        "collector",
         "patron"
       ],
       "source_ids": [
-        "hkh-loewenburg",
-        "unesco-icomos-2013-evaluation"
-      ]
+        "hkh-gemaeldegalerie",
+        "museum-kassel-rubens-gk92"
+      ],
+      "profile_note": {
+        "de": "Wilhelm VIII. ist für die Kasseler Sammlungsgeschichte zentral. Offizielle Sammlungs- und Objektkataloge belegen seine Erwerbungspolitik im 18. Jahrhundert, darunter den Ankauf des Rubens-Porträts Nicolas de Respaigne 1751.",
+        "en": "William VIII is central to Kassel collection history. Official collection and object catalogues document his eighteenth-century acquisition policy, including purchase of Rubens’s Nicolas de Respaigne in 1751."
+      }
     }
   ],
   "source_registry": "data/semantic.json#sources",
-  "status": "phase_3_sourced"
+  "status": "phase_3_knowledge_expanded",
+  "coverage": {
+    "significant_figure_ids": [
+      "person-landgraf-karl-von-hessen-kassel",
+      "person-wilhelm-ix-von-hessen-kassel",
+      "person-giovanni-francesco-guerniero",
+      "person-heinrich-christoph-jussow",
+      "person-karl-friedrich-steinhoefer",
+      "person-simon-louis-du-ry",
+      "person-johann-conrad-bromeis",
+      "person-johann-jakob-anthoni",
+      "person-johann-august-nahl-der-aeltere"
+    ],
+    "node_figure_alias_policy": "Legacy node figure references are preserved and resolve through figure aliases; canonical semantic edges use stable figure IDs.",
+    "supporting_aliases_resolved": [
+      "anthoni",
+      "bromeis",
+      "daniel-august-schwarzkopf",
+      "du-ry",
+      "friedrich-ii",
+      "giovanni-francesco-guerniero",
+      "guerniero",
+      "heinrich-christoph-jussow",
+      "jerome",
+      "jerome-bonaparte",
+      "johann-august-nahl",
+      "johann-august-nahl-der-aeltere",
+      "johann-conrad-bromeis",
+      "johann-heinrich-muentz",
+      "johann-jakob-anthoni",
+      "johann-wolfgang-heyd",
+      "jussow",
+      "karl-friedrich-steinhoefer",
+      "karl-friedrich-steinhofer",
+      "karl-steinhoefer",
+      "karl-von-hessen-kassel",
+      "klenze",
+      "kurfuerst-wilhelm-i",
+      "kurfuerst-wilhelm-ii",
+      "landgraf-carl",
+      "landgraf-friedrich-ii",
+      "landgraf-wilhelm-viii",
+      "landgrave-carl",
+      "leo-von-klenze",
+      "ludwig-daniel-heyd",
+      "muentz",
+      "peter-paul-rubens",
+      "rembrandt",
+      "rembrandt-van-rijn",
+      "rubens",
+      "schwarzkopf",
+      "simon-louis-du-ry",
+      "socrates",
+      "sokrates",
+      "steinhoefer",
+      "steinhofer",
+      "werner-noell",
+      "werner-nöll",
+      "wilhelm-i",
+      "wilhelm-ii",
+      "wilhelm-ix",
+      "wilhelm-viii"
+    ],
+    "excluded_candidates": [
+      {
+        "name": "Giovanni Ghezzi",
+        "reason": "No primary/official Bergpark work relation recovered in this tranche; no speculative entity relation created."
+      },
+      {
+        "name": "Johann Georg Etienne",
+        "reason": "No primary/official Bergpark work relation recovered in this tranche; no speculative entity relation created."
+      }
+    ]
+  }
 }

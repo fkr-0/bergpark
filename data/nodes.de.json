@@ -4180,7 +4180,10 @@
     "restorationHistory": "Keine vollständige Restaurierungschronik wird ohne belastbare Einzelquelle behauptet.",
     "visitorContext": "Skulptur nicht berühren oder besteigen.",
     "artworks": [],
-    "figures": [],
+    "figures": [
+      "ludwig-daniel-heyd",
+      "johann-wolfgang-heyd"
+    ],
     "images": [],
     "visitInfo": {
       "hours": "Außenbereich im frei zugänglichen Park; objektspezifische Innenzeiten separat prüfen.",
@@ -4200,7 +4203,8 @@
       "osm-overpass-phase1",
       "osm-wiki-bergpark-inventory",
       "openmeteo-elevation-glo90",
-      "stadt-bergpark-erschliessung-2010"
+      "stadt-bergpark-erschliessung-2010",
+      "lfdh-denkmaltopographie-wilhelmshoehe"
     ],
     "uncertainties": [
       "Geländehöhe ist nur vorläufig über den nächstgelegenen Copernicus-GLO-90-Samplepunkt abgeleitet; Distanz 53.2 m. Hochauflösendes hessisches DGM erforderlich."
@@ -4240,7 +4244,15 @@
     "kind": "place",
     "category": "sculpture",
     "lon": 9.4137941,
-    "summary": "Die Sandsteinstatue der Flora entstand um 1792 durch Ludwig Daniel Heyd und Johann Wolfgang Heyd und steht im unteren Park."
+    "summary": "Die Sandsteinstatue der Flora entstand um 1792 durch Ludwig Daniel Heyd und Johann Wolfgang Heyd und steht im unteren Park.",
+    "artworkContext": {
+      "semanticArtworkId": "artwork-flora-farnesina",
+      "attribution": "Die amtliche Denkmaltopographie führt die Flora Farnesina um 1792 als gemeinsames Werk von Ludwig Daniel Heyd und Johann Wolfgang Heyd.",
+      "attributionStatus": "secure-joint-attribution",
+      "sourceIds": [
+        "lfdh-denkmaltopographie-wilhelmshoehe"
+      ]
+    }
   },
   "venus-loewenburggarten": {
     "id": "venus-loewenburggarten",

@@ -4183,7 +4183,10 @@
     "restorationHistory": "No complete restoration chronology is asserted without a reliable object-specific source.",
     "visitorContext": "Do not touch or climb the sculpture.",
     "artworks": [],
-    "figures": [],
+    "figures": [
+      "ludwig-daniel-heyd",
+      "johann-wolfgang-heyd"
+    ],
     "images": [],
     "visitInfo": {
       "hours": "Exterior in the publicly accessible park; check object-specific interior hours separately.",
@@ -4203,7 +4206,8 @@
       "osm-overpass-phase1",
       "osm-wiki-bergpark-inventory",
       "openmeteo-elevation-glo90",
-      "stadt-bergpark-erschliessung-2010"
+      "stadt-bergpark-erschliessung-2010",
+      "lfdh-denkmaltopographie-wilhelmshoehe"
     ],
     "uncertainties": [
       "Ground elevation is provisional, derived from the nearest existing Copernicus GLO-90 sample 53.2 m away; a high-resolution Hessian DGM is required."
@@ -4243,7 +4247,15 @@
     "kind": "place",
     "category": "sculpture",
     "lon": 9.4137941,
-    "summary": "The sandstone statue of Flora was created around 1792 by Ludwig Daniel Heyd and Johann Wolfgang Heyd and stands in the lower park."
+    "summary": "The sandstone statue of Flora was created around 1792 by Ludwig Daniel Heyd and Johann Wolfgang Heyd and stands in the lower park.",
+    "artworkContext": {
+      "semanticArtworkId": "artwork-flora-farnesina",
+      "attribution": "The official monument inventory records the Flora Farnesina around 1792 as a joint work by Ludwig Daniel Heyd and Johann Wolfgang Heyd.",
+      "attributionStatus": "secure-joint-attribution",
+      "sourceIds": [
+        "lfdh-denkmaltopographie-wilhelmshoehe"
+      ]
+    }
   },
   "venus-loewenburggarten": {
     "id": "venus-loewenburggarten",
