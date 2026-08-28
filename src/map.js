@@ -141,17 +141,46 @@ export function createBergparkMap(element, graph, { language = 'de', onSelectNod
 
   updateModelLaunchCopy();
 
-  const uniqueEdges = new Map();
-  for (const edge of edges) {
-    if (!Array.isArray(edge.path_coordinates) || edge.path_coordinates.length < 2) continue;
-    const key = [edge.from, edge.to].sort().join('--');
-    if (!uniqueEdges.has(key)) uniqueEdges.set(key, edge);
+  function renderFallbackNetwork() {
+    const uniqueEdges = new Map();
+    for (const edge of edges) {
+      if (!Array.isArray(edge.path_coordinates) || edge.path_coordinates.length < 2) continue;
+      const key = [edge.from, edge.to].sort().join('--');
+      if (!uniqueEdges.has(key)) uniqueEdges.set(key, edge);
+    }
+    for (const edge of uniqueEdges.values()) {
+      L.polyline(edge.path_coordinates, routeStyle(false))
+        .bindTooltip(`${Math.round(edge.distance_m)} m · ${edge.walking_min} min`, { sticky: true })
+        .addTo(networkLayer);
+    }
   }
-  for (const edge of uniqueEdges.values()) {
-    L.polyline(edge.path_coordinates, routeStyle(false))
-      .bindTooltip(`${Math.round(edge.distance_m)} m · ${edge.walking_min} min`, { sticky: true })
-      .addTo(networkLayer);
+
+  function renderWalkingNetwork(walkingNetwork) {
+    const segments = walkingNetwork?.segments ?? [];
+    if (!segments.length) return false;
+    const standard = [];
+    const steps = [];
+    for (const segment of segments) {
+      if (!Array.isArray(segment.geometry) || segment.geometry.length < 2) continue;
+      (segment.steps ? steps : standard).push(segment.geometry);
+    }
+    networkLayer.clearLayers();
+    if (standard.length) L.polyline(standard, routeStyle(false)).addTo(networkLayer);
+    if (steps.length) {
+      L.polyline(steps, {
+        ...routeStyle(false),
+        opacity: 0.42,
+        dashArray: '3 5',
+        className: 'network-route-line network-route-line--steps',
+      }).addTo(networkLayer);
+    }
+    element.dataset.walkingNetworkSegments = String(standard.length + steps.length);
+    element.dataset.walkingNetworkNodes = String(walkingNetwork.counts?.path_nodes ?? '');
+    element.dataset.walkingNetworkDirectedSegments = String(walkingNetwork.counts?.directed_segments ?? '');
+    return true;
   }
+
+  renderFallbackNetwork();
 
   for (const node of nodes) {
     const title = localized(node.name, currentLanguage, node.title ?? node.id);
@@ -206,6 +235,9 @@ export function createBergparkMap(element, graph, { language = 'de', onSelectNod
     },
     clearRoute() {
       routeLayer.clearLayers();
+    },
+    setWalkingNetwork(walkingNetwork) {
+      return renderWalkingNetwork(walkingNetwork);
     },
     showUserPosition,
     fitPark() {

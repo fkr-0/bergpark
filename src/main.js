@@ -2,7 +2,7 @@ import 'leaflet/dist/leaflet.css';
 import './styles/app.css';
 import './styles/phase2.css';
 import './styles/phase3.css';
-import { loadGraphData, edgeBetween } from './data.js';
+import { loadGraphData, loadWalkingNetwork, edgeBetween } from './data.js';
 import { createI18n, localized } from './i18n.js';
 import { createBergparkMap } from './map.js';
 import { createGpsNavigator } from './gps.js';
@@ -84,6 +84,18 @@ function syncDeepLink(kind, id, mode = 'push') {
   if (mode === 'replace') history.replaceState(null, '', hash);
   else history.pushState(null, '', hash);
   lastHandledFragment = hash;
+}
+
+function scheduleWalkingNetworkHydration() {
+  const hydrate = () => {
+    loadWalkingNetwork()
+      .then((walkingNetwork) => {
+        if (walkingNetwork) mapController?.setWalkingNetwork(walkingNetwork);
+      })
+      .catch((error) => console.warn('Complete walking network unavailable:', error));
+  };
+  if ('requestIdleCallback' in window) window.requestIdleCallback(hydrate, { timeout: 1200 });
+  else window.setTimeout(hydrate, 0);
 }
 
 function renderChrome() {
@@ -357,6 +369,7 @@ async function boot() {
   mapController.fitPark();
   setStatus(i18n.t('mapHint'));
   restoreDeepLink({ force: true });
+  scheduleWalkingNetworkHydration();
 }
 
 for (const button of elements.nav) button.addEventListener('click', () => graph && setView(button.dataset.view));

@@ -10,6 +10,20 @@ function escapeHtml(value = '') {
     .replaceAll("'", '&#039;');
 }
 
+function renderArtworkContext(node, graph, language) {
+  const context = localizedStructured(node.artworkContext, language, null);
+  if (!context || typeof context !== 'object') return '';
+  const artwork = context.semanticArtworkId ? graph?.entitiesById?.get(context.semanticArtworkId) : null;
+  const artworkName = artwork ? localized(artwork.name, language, artwork.id) : null;
+  const heading = language === 'de' ? 'Werkbezug' : 'Artwork context';
+  const status = context.attributionStatus?.replaceAll('-', ' ');
+  return `<section class="detail-section artwork-context"><h3>${heading}</h3>
+    ${artworkName ? `<button type="button" class="semantic-link" data-semantic-id="${escapeHtml(artwork.id)}"><strong>${escapeHtml(artworkName)}</strong></button>` : ''}
+    ${context.attribution ? `<p>${escapeHtml(context.attribution)}</p>` : ''}
+    ${status ? `<small>${escapeHtml(status)}</small>` : ''}
+  </section>`;
+}
+
 function renderSemanticLinks(node, graph, language) {
   const relations = graph.semanticRelationsByEntity?.get(node.id) ?? [];
   if (!relations.length) return '';
@@ -193,6 +207,7 @@ export function renderNodeDetail(container, { node, graph, i18n, onNavigate, onS
       ${renderGallery(node, language)}
       ${sections.map(({ heading, text }) => `<section class="detail-section"><h3>${escapeHtml(heading)}</h3><p>${escapeHtml(text)}</p></section>`).join('')}
       ${renderArtworks(node, language)}
+      ${renderArtworkContext(node, graph, language)}
       ${renderSemanticFacts(node, graph, language)}
       ${renderSemanticLinks(node, graph, language)}
       ${renderVisitInfo(node, language)}

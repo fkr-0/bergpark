@@ -13,6 +13,37 @@ async function loadJson(baseUrl, filename) {
   return response.json();
 }
 
+function mergedList(de, en, key) {
+  const deValues = Array.isArray(de?.[key]) ? de[key] : [];
+  const enValues = Array.isArray(en?.[key]) ? en[key] : [];
+  return [...new Set([...deValues, ...enValues])];
+}
+
+function enrichedContentFields(de, en, sourceRegistry) {
+  return {
+    shortName: localizedField(de, en, 'shortName'),
+    summary: localizedField(de, en, 'shortDescription'),
+    description: localizedField(de, en, 'longDescription'),
+    history: localizedField(de, en, 'history'),
+    architecture: localizedField(de, en, 'architecture'),
+    significance: localizedField(de, en, 'culturalSignificance'),
+    restorationHistory: localizedField(de, en, 'restorationHistory'),
+    visitorContext: localizedField(de, en, 'visitorContext'),
+    artworks: localizedField(de, en, 'artworks', { de: [], en: [] }),
+    artworkContext: localizedField(de, en, 'artworkContext'),
+    figures: mergedList(de, en, 'figures'),
+    images: localizedField(de, en, 'images', { de: [], en: [] }),
+    visitInfo: localizedField(de, en, 'visitInfo'),
+    tags: mergedList(de, en, 'tags'),
+    aliases: mergedList(de, en, 'aliases'),
+    interpretation: localizedField(de, en, 'interpretation'),
+    state: localizedField(de, en, 'state'),
+    contentMeta: localizedField(de, en, 'contentMeta'),
+    uncertainties: localizedField(de, en, 'uncertainties', { de: [], en: [] }),
+    sources: resolveSources({ de, en }, sourceRegistry),
+  };
+}
+
 async function loadOptionalJson(baseUrl, filename, fallback = null) {
   try {
     return await loadJson(baseUrl, filename);
@@ -48,23 +79,12 @@ function enrichNode(node, deDoc, enDoc, sourceRegistry) {
       de: de?.name ?? node.name?.de ?? en?.name ?? node.id,
       en: en?.name ?? node.name?.en ?? de?.name ?? node.id,
     },
-    shortName: localizedField(de, en, 'shortName'),
-    summary: localizedField(de, en, 'shortDescription'),
-    description: localizedField(de, en, 'longDescription'),
-    history: localizedField(de, en, 'history'),
-    architecture: localizedField(de, en, 'architecture'),
-    significance: localizedField(de, en, 'culturalSignificance'),
-    restorationHistory: localizedField(de, en, 'restorationHistory'),
-    visitorContext: localizedField(de, en, 'visitorContext'),
-    artworks: localizedField(de, en, 'artworks', { de: [], en: [] }),
-    figures: [...new Set([...(de?.figures ?? []), ...(en?.figures ?? [])])],
-    images: localizedField(de, en, 'images', { de: [], en: [] }),
-    visitInfo: localizedField(de, en, 'visitInfo'),
-    tags: [...new Set([...(de?.tags ?? []), ...(en?.tags ?? [])])],
-    contentMeta: localizedField(de, en, 'contentMeta'),
-    uncertainties: localizedField(de, en, 'uncertainties', { de: [], en: [] }),
-    sources: resolveSources({ de, en }, sourceRegistry),
+    ...enrichedContentFields(de, en, sourceRegistry),
   };
+}
+
+export async function loadWalkingNetwork(baseUrl = import.meta.env.BASE_URL) {
+  return loadOptionalJson(baseUrl, 'walking-network.json', null);
 }
 
 export async function loadGraphData(baseUrl = import.meta.env.BASE_URL) {
@@ -103,12 +123,7 @@ export async function loadGraphData(baseUrl = import.meta.env.BASE_URL) {
       kind: 'entity',
       type: de?.type ?? en?.type ?? 'entity',
       name: { de: de?.name ?? en?.name ?? contentId, en: en?.name ?? de?.name ?? contentId },
-      summary: localizedField(de, en, 'shortDescription'),
-      description: localizedField(de, en, 'longDescription'),
-      history: localizedField(de, en, 'history'),
-      architecture: localizedField(de, en, 'architecture'),
-      significance: localizedField(de, en, 'culturalSignificance'),
-      sources: resolveSources({ de, en }, sourceRegistry),
+      ...enrichedContentFields(de, en, sourceRegistry),
     });
   }
 
