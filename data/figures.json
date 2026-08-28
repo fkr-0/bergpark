@@ -733,10 +733,36 @@
         "de": "Wilhelm VIII. ist für die Kasseler Sammlungsgeschichte zentral. Offizielle Sammlungs- und Objektkataloge belegen seine Erwerbungspolitik im 18. Jahrhundert, darunter den Ankauf des Rubens-Porträts Nicolas de Respaigne 1751.",
         "en": "William VIII is central to Kassel collection history. Official collection and object catalogues document his eighteenth-century acquisition policy, including purchase of Rubens’s Nicolas de Respaigne in 1751."
       }
+    },
+    {
+      "id": "person-antonio-chichi",
+      "kind": "historical_figure",
+      "name": {
+        "de": "Antonio Chichi",
+        "en": "Antonio Chichi"
+      },
+      "aliases": [
+        "antonio-chichi",
+        "chichi"
+      ],
+      "roles": [
+        "architectural_model_maker",
+        "cork_model_maker"
+      ],
+      "lifespan_display": "1743–1816",
+      "source_ids": [
+        "museum-kassel-chichi-dioscuri-n94",
+        "museum-kassel-chichi-pantheon-n96",
+        "museum-kassel-chichi-hercules-victor-n100"
+      ],
+      "profile_note": {
+        "de": "Hessen Kassel Heritage nennt Antonio Chichi als Hersteller der Korkmodelle N 94, N 96 und N 100 und datiert diese Objekte auf 1777–1782. Die Person wird hier ausschließlich über diese katalogisierten Sammlungsobjekte geführt; daraus wird keine Rolle bei der Gestaltung des Bergparks oder des Schlosses abgeleitet.",
+        "en": "Hessen Kassel Heritage identifies Antonio Chichi as maker of the cork models N 94, N 96 and N 100 and dates those objects to 1777–1782. The person is represented here only through these catalogued collection objects; no role in designing the Bergpark or the palace is inferred."
+      }
     }
   ],
   "source_registry": "data/semantic.json#sources",
-  "status": "phase_3_knowledge_expanded",
+  "status": "phase_4_bounded_primary_source_recovery",
   "coverage": {
     "significant_figure_ids": [
       "person-landgraf-karl-von-hessen-kassel",
@@ -748,6 +774,9 @@
       "person-johann-conrad-bromeis",
       "person-johann-jakob-anthoni",
       "person-johann-august-nahl-der-aeltere"
+    ],
+    "phase_4_supporting_figure_ids": [
+      "person-antonio-chichi"
     ],
     "node_figure_alias_policy": "Legacy node figure references are preserved and resolve through figure aliases; canonical semantic edges use stable figure IDs.",
     "supporting_aliases_resolved": [

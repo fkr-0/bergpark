@@ -1004,6 +1004,65 @@
         "old-masters"
       ],
       "notes": "Object-specific HKK record used to anchor the painting date at 1656."
+    },
+    "museum-kassel-chichi-dioscuri-n94": {
+      "title": "Tempel der Dioskuren Castor und Pollux, Rom (N 94)",
+      "publisher": "Hessen Kassel Heritage — Objektdatenbank",
+      "url": "https://datenbank.museum-kassel.de/25938/",
+      "accessed": "2026-08-28",
+      "scope": [
+        "antonio-chichi",
+        "antikensammlung",
+        "cork-model",
+        "architecture-model",
+        "n94",
+        "1777-1782"
+      ],
+      "notes": "Object-specific HKK record gives inventory N 94, maker Antonio Chichi, date 1777–1782, architecture-model classification, material and signature evidence."
+    },
+    "museum-kassel-chichi-pantheon-n96": {
+      "title": "Pantheon, Rom (N 96)",
+      "publisher": "Hessen Kassel Heritage — Objektdatenbank",
+      "url": "https://datenbank.museum-kassel.de/25940/",
+      "accessed": "2026-08-28",
+      "scope": [
+        "antonio-chichi",
+        "antikensammlung",
+        "cork-model",
+        "architecture-model",
+        "n96",
+        "1777-1782"
+      ],
+      "notes": "Object-specific HKK record gives inventory N 96, maker Antonio Chichi, date 1777–1782, architecture-model classification, cork/wood material and a dated maker inscription."
+    },
+    "museum-kassel-chichi-hercules-victor-n100": {
+      "title": "Tempel des Hercules Victor, Rom (N 100)",
+      "publisher": "Hessen Kassel Heritage — Objektdatenbank",
+      "url": "https://datenbank.museum-kassel.de/25944/",
+      "accessed": "2026-08-28",
+      "scope": [
+        "antonio-chichi",
+        "antikensammlung",
+        "cork-model",
+        "architecture-model",
+        "n100",
+        "1777-1782"
+      ],
+      "notes": "Object-specific HKK record gives inventory N 100, maker Antonio Chichi, date 1777–1782, architecture-model classification, material and signature evidence."
+    },
+    "stadt-wasserspiele-station1-herkules": {
+      "title": "Wasserspiele Station 1 Herkules",
+      "publisher": "Stadt Kassel",
+      "url": "https://www.kassel.de/buerger/kunst_und_kultur/parks_und_gaerten/wilhelmshoehe/wasserspiele/station-1-herkules.php",
+      "accessed": "2026-08-28",
+      "scope": [
+        "herkules",
+        "faun",
+        "zentaur",
+        "water-theatre",
+        "official-terminology"
+      ],
+      "notes": "Official City terminology identifies the left hydraulic horn figure as Faun and the right as Zentaur; the page documents their function but does not identify a creator."
     }
   }
 }

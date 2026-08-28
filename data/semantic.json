@@ -242,6 +242,38 @@
       "retrieved_utc": "2026-08-28"
     },
     {
+      "id": "museum-kassel-chichi-dioscuri-n94",
+      "publisher": "Hessen Kassel Heritage — Objektdatenbank",
+      "title": "Tempel der Dioskuren Castor und Pollux, Rom (N 94)",
+      "url": "https://datenbank.museum-kassel.de/25938/",
+      "source_type": "museum_object_record",
+      "retrieved_utc": "2026-08-28"
+    },
+    {
+      "id": "museum-kassel-chichi-pantheon-n96",
+      "publisher": "Hessen Kassel Heritage — Objektdatenbank",
+      "title": "Pantheon, Rom (N 96)",
+      "url": "https://datenbank.museum-kassel.de/25940/",
+      "source_type": "museum_object_record",
+      "retrieved_utc": "2026-08-28"
+    },
+    {
+      "id": "museum-kassel-chichi-hercules-victor-n100",
+      "publisher": "Hessen Kassel Heritage — Objektdatenbank",
+      "title": "Tempel des Hercules Victor, Rom (N 100)",
+      "url": "https://datenbank.museum-kassel.de/25944/",
+      "source_type": "museum_object_record",
+      "retrieved_utc": "2026-08-28"
+    },
+    {
+      "id": "stadt-wasserspiele-station1-herkules",
+      "publisher": "Stadt Kassel",
+      "title": "Wasserspiele Station 1 Herkules",
+      "url": "https://www.kassel.de/buerger/kunst_und_kultur/parks_und_gaerten/wilhelmshoehe/wasserspiele/station-1-herkules.php",
+      "source_type": "official_city_site",
+      "retrieved_utc": "2026-08-28"
+    },
+    {
       "id": "stadt-ballhaus",
       "publisher": "Stadt Kassel",
       "title": "Ballhaus im Bergpark Wilhelmshöhe",
@@ -597,6 +629,117 @@
         "de": "Erworben 1751 aus der Sammlung Gerard Hoet in Den Haag durch Landgraf Wilhelm VIII.",
         "en": "Acquired in 1751 from the Gerard Hoet collection in The Hague by Landgrave William VIII."
       }
+    },
+    {
+      "id": "artwork-chichi-dioscuri-n94",
+      "kind": "artwork",
+      "object_type": "architectural_model",
+      "name": {
+        "de": "Tempel der Dioskuren Castor und Pollux, Rom (N 94)",
+        "en": "Temple of the Dioscuri Castor and Pollux, Rome (N 94)"
+      },
+      "inventory_number": "N 94",
+      "creator_id": "person-antonio-chichi",
+      "creator_ids": [
+        "person-antonio-chichi"
+      ],
+      "date_display": "1777–1782",
+      "material": "Holz, Kork, Gips, Sand, Reste Papierschildchen / wood, cork, plaster, sand, paper-label remnants",
+      "represented_place": "Forum Romanum, Rom / Roman Forum, Rome",
+      "current_place_id": "schloss",
+      "current_location_status": "group_level_current_display_location",
+      "collection_id": "collection-antikensammlung-schloss-wilhelmshoehe",
+      "status": "catalogued_current_collection_object",
+      "source_ids": [
+        "museum-kassel-chichi-dioscuri-n94",
+        "hkh-antiken"
+      ],
+      "attribution": {
+        "status": "secure",
+        "basis": "HKK object database maker attribution"
+      },
+      "provenance_note": {
+        "de": "Der HKK-Objektdatensatz identifiziert N 94 mit Inventarnummer, Hersteller und Datierung. Die aktuelle HKK-Sammlungsseite ordnet die historischen Korkmodelle der von Landgraf Friedrich II. am Ende des 18. Jahrhunderts in Rom erworbenen Gruppe zu.",
+        "en": "The HKK object record identifies N 94 by inventory number, maker and date. The current HKK collection page places the historical cork models in the group acquired in Rome by Landgrave Frederick II at the end of the eighteenth century."
+      },
+      "location_qualification": {
+        "de": "HKK weist die Gruppe der 30 großformatigen historischen Korkmodelle aktuell im Untergeschoss von Schloss Wilhelmshöhe aus. Eine individuelle Vitrinen- oder Raumposition von N 94 wird nicht behauptet.",
+        "en": "HKK currently places the group of thirty large historical cork models in the lower floor of Wilhelmshöhe Palace. No individual case or room position is asserted for N 94."
+      }
+    },
+    {
+      "id": "artwork-chichi-pantheon-n96",
+      "kind": "artwork",
+      "object_type": "architectural_model",
+      "name": {
+        "de": "Pantheon, Rom (N 96)",
+        "en": "Pantheon, Rome (N 96)"
+      },
+      "inventory_number": "N 96",
+      "creator_id": "person-antonio-chichi",
+      "creator_ids": [
+        "person-antonio-chichi"
+      ],
+      "date_display": "1777–1782",
+      "material": "Kork, Holz / cork, wood",
+      "represented_place": "Marsfeld, Rom / Campus Martius, Rome",
+      "current_place_id": "schloss",
+      "current_location_status": "group_level_current_display_location",
+      "collection_id": "collection-antikensammlung-schloss-wilhelmshoehe",
+      "status": "catalogued_current_collection_object",
+      "source_ids": [
+        "museum-kassel-chichi-pantheon-n96",
+        "hkh-antiken"
+      ],
+      "attribution": {
+        "status": "secure",
+        "basis": "HKK object database maker attribution"
+      },
+      "provenance_note": {
+        "de": "Der HKK-Objektdatensatz identifiziert N 96 mit Inventarnummer, Hersteller und Datierung; die erhaltene Beschriftung nennt Antonio Chichi und 1782. Die aktuelle HKK-Sammlungsseite ordnet die historischen Korkmodelle der von Landgraf Friedrich II. in Rom erworbenen Gruppe zu.",
+        "en": "The HKK object record identifies N 96 by inventory number, maker and date; its surviving inscription names Antonio Chichi and 1782. The current HKK collection page places the historical cork models in the group acquired in Rome by Landgrave Frederick II."
+      },
+      "location_qualification": {
+        "de": "HKK weist die Gruppe der 30 großformatigen historischen Korkmodelle aktuell im Untergeschoss von Schloss Wilhelmshöhe aus. Eine individuelle Vitrinen- oder Raumposition von N 96 wird nicht behauptet.",
+        "en": "HKK currently places the group of thirty large historical cork models in the lower floor of Wilhelmshöhe Palace. No individual case or room position is asserted for N 96."
+      }
+    },
+    {
+      "id": "artwork-chichi-hercules-victor-n100",
+      "kind": "artwork",
+      "object_type": "architectural_model",
+      "name": {
+        "de": "Tempel des Hercules Victor, Rom (N 100)",
+        "en": "Temple of Hercules Victor, Rome (N 100)"
+      },
+      "inventory_number": "N 100",
+      "creator_id": "person-antonio-chichi",
+      "creator_ids": [
+        "person-antonio-chichi"
+      ],
+      "date_display": "1777–1782",
+      "material": "Holz, Kork, Gips?, Sand, Papierschildchen / wood, cork, plaster?, sand, paper label",
+      "represented_place": "Forum Boarium, Rom / Forum Boarium, Rome",
+      "current_place_id": "schloss",
+      "current_location_status": "group_level_current_display_location",
+      "collection_id": "collection-antikensammlung-schloss-wilhelmshoehe",
+      "status": "catalogued_current_collection_object",
+      "source_ids": [
+        "museum-kassel-chichi-hercules-victor-n100",
+        "hkh-antiken"
+      ],
+      "attribution": {
+        "status": "secure",
+        "basis": "HKK object database maker attribution"
+      },
+      "provenance_note": {
+        "de": "Der HKK-Objektdatensatz identifiziert N 100 mit Inventarnummer, Hersteller, Datierung und erhaltener CHICHI-Signatur. Die aktuelle HKK-Sammlungsseite ordnet die historischen Korkmodelle der von Landgraf Friedrich II. in Rom erworbenen Gruppe zu.",
+        "en": "The HKK object record identifies N 100 by inventory number, maker, date and surviving CHICHI signature. The current HKK collection page places the historical cork models in the group acquired in Rome by Landgrave Frederick II."
+      },
+      "location_qualification": {
+        "de": "HKK weist die Gruppe der 30 großformatigen historischen Korkmodelle aktuell im Untergeschoss von Schloss Wilhelmshöhe aus. Eine individuelle Vitrinen- oder Raumposition von N 100 wird nicht behauptet.",
+        "en": "HKK currently places the group of thirty large historical cork models in the lower floor of Wilhelmshöhe Palace. No individual case or room position is asserted for N 100."
+      }
     }
   ],
   "collections": [
@@ -617,9 +760,18 @@
         "verified_on": "2026-08-28",
         "status": "current_museum_collection"
       },
+      "phase_4_object_expansion": {
+        "scope": "three_representative_hkk_cork_models_not_complete_inventory",
+        "artwork_ids": [
+          "artwork-chichi-dioscuri-n94",
+          "artwork-chichi-pantheon-n96",
+          "artwork-chichi-hercules-victor-n100"
+        ],
+        "qualification": "Phase 3 deliberately stopped at collection level; Phase 4 adds only three object-specific HKK records and does not claim a complete cork-model inventory."
+      },
       "description": {
-        "de": "Die Antikensammlung in Schloss Wilhelmshöhe verbindet fürstliche Sammelgeschichte mit dem europäischen Interesse an griechischer und römischer Antike. Hessen Kassel Heritage präsentiert sie heute im Schloss gemeinsam mit anderen musealen Bereichen, doch ihre Objekte stammen aus deutlich unterschiedlichen Zeiten, Regionen und Erwerbungskontexten. Die Sammlung umfasst archäologische Originale ebenso wie historische Modelle, die antike Architektur im Maßstab vermittelten. Besonders charakteristisch sind die Korkmodelle, die Landgraf Friedrich II. am Ende des 18. Jahrhunderts erwarb. Diese Modelle sind keine antiken Originale, sondern neuzeitliche Medien der Antikenrezeption und müssen deshalb als eigene Objektkategorie verstanden werden. Die Sammlungsgeschichte macht sichtbar, wie Reisen, Ausgrabungen, Gelehrsamkeit und höfische Bildung zusammenwirkten. Für das Datenmodell ist diese Unterscheidung grundlegend: antikes Objekt, neuzeitliches Modell und heutige Museumspräsentation sind verschiedene historische Ebenen.\n\nDie aktuelle Betreiberinformation nennt rund 800 ausgestellte Objekte und spannt den zeitlichen Bogen von frühen beziehungsweise bronzezeitlichen Zeugnissen über die griechische und römische Welt. Skulptur, Keramik und weitere archäologische Objektgruppen vermitteln unterschiedliche Aspekte antiker Gesellschaft und Kunst. Ein besonderer Schwerpunkt liegt auf rund dreißig großformatigen Korkmodellen antiker Architektur. Sie dokumentieren nicht die originale antike Bausubstanz, sondern die Art, wie Monumente im 18. Jahrhundert studiert, gesammelt und im Norden Europas anschaulich gemacht wurden. Diese Doppelstruktur aus Originalantiken und historischen Vermittlungsmodellen macht die Sammlung für Wilhelmshöhe besonders aussagekräftig. Der Datensatz vermeidet eine Vollinventarisierung ohne Objektkatalogbasis. Stattdessen beschreibt er die Sammlung als Ganzes und lässt für einzelne Antiken oder Modelle später quellenidentifizierte Entitäten zu.\n\nIn dieser Phase werden keine einzelnen antiken Objekte ohne stabile Katalogreferenz künstlich herausgelöst. Die Gruppe der Korkmodelle wird als nachweisbarer Sammlungsbereich beschrieben. Der Betreiber nennt etwa dreißig großformatige Modelle, die Friedrich II. erwarb. Sie sind für die Park- und Residenzgeschichte besonders relevant, weil sie Architekturwissen, Bildungsreise und Sammlungspraxis verbinden. Ein zukünftiger Ausbau kann einzelne Modelle mit Inventarnummer, dargestelltem Bau, Hersteller, Datierung und Restaurierungsstatus erfassen, sobald ein offizieller Objektdatensatz verfügbar ist. Die gleiche Regel gilt für griechische und römische Originale. Damit bleibt die Wissensbasis ehrlich: Repräsentativität wird aus belegten Sammlungsangaben erklärt und nicht durch erfundene Highlights ersetzt.\n\nDie Antikensammlung wird heute im musealen Kontext des Schlosses Wilhelmshöhe wahrgenommen. Wie bei der Gemäldegalerie bleibt der heutige Standort eine eigene Relation und nicht Bestandteil der antiken Objektidentität. Ausstellungsauswahl, Saalordnung und Öffnungszeiten können sich ändern. Deshalb trägt der Sammlungsdatensatz ein aktuelles Prüfdatum, während dauerhaftere Aussagen über Sammlungsgeschichte und Objektgruppen getrennt bleiben. Die Nähe zu Gemäldegalerie und historischer Residenz schafft einen dichten Besuchskontext: innerhalb desselben Gebäudes begegnen sich Antikenrezeption, alte Meister und Schlossgeschichte. Das digitale Modell nutzt diese Nähe zur Navigation, ohne die Sammlungen zu einer einzigen undifferenzierten Schloss-Sammlung zusammenzuziehen.\n\nDie Antikensammlung zeigt, dass Wilhelmshöhes Geschichte nicht allein aus dem Parkgelände erklärt werden kann. Fürstliche Repräsentation bezog sich auch auf Wissen über die Antike und auf die materielle Aneignung beziehungsweise Vermittlung vergangener Kulturen. Die Korkmodelle sind dafür ein besonders anschauliches Beispiel: Sie übersetzen berühmte Architektur in transportierbare, studierbare Objekte. In heutiger Perspektive verlangt diese Sammlungsgeschichte zugleich Provenienz- und Kontextarbeit. Erwerbungen, Ausgrabungsgeschichte und historische Deutungsmuster müssen quellenkritisch untersucht werden. Der Wissensgraph schafft dafür eine Struktur, in der Sammler, Objekte, Modelle, Orte und Quellen voneinander unterscheidbar sind. Er behauptet jedoch keine Provenienz, die nicht aus offiziellen Katalogen nachgewiesen ist.\n\nInterpretativ verbindet die Antikensammlung den realen Bergpark mit imaginierter und studierter Ferne. Antike Ruinen und Architektur dienten im 18. Jahrhundert als Bezugspunkte für Bildung und Geschmack; im Park erscheinen gleichzeitig künstliche Ruinen wie der Aquädukt. Sammlung und Gartenarchitektur sind nicht dasselbe, aber sie gehören zu einem kulturellen Klima, in dem Antikenwissen aktiv produziert und inszeniert wurde. Eine digitale Vermittlung kann diese Parallele zeigen, ohne direkte Einflusslinien zu behaupten, die nicht belegt sind. Das Korkmodell verdeutlicht, dass Antike im höfischen Europa häufig durch Medien, Kopien, Modelle und Reiseberichte vermittelt wurde. Die Wissensschicht markiert solche Vermittlungsebenen, statt Original und Rezeption zu vermischen.",
-        "en": "The Antiquities Collection at Wilhelmshöhe Palace joins princely collecting history with European engagement with Greek and Roman antiquity. Hessen Kassel Heritage presents it today in the palace alongside other museum areas, yet its objects come from very different periods, regions and acquisition contexts. The collection includes archaeological originals as well as historical models used to communicate ancient architecture at scale. Especially characteristic are the cork models acquired by Landgrave Frederick II at the end of the eighteenth century. Those models are not ancient originals but modern media of antiquarian reception and therefore require their own object category. The collection history demonstrates how travel, excavation, scholarship and court education interacted. For the data model this distinction is fundamental: ancient object, modern model and current museum presentation are separate historical levels.\n\nCurrent operator information describes roughly 800 objects on display and spans a chronology from early or Bronze Age material through the Greek and Roman worlds. Sculpture, ceramics and other archaeological groups present different dimensions of ancient society and art. Around thirty large cork models of ancient architecture form a particularly distinctive interpretive group. They do not preserve original ancient fabric but document how monuments were studied, collected and made visually accessible in northern Europe during the eighteenth century. This double structure of ancient originals and historical media of interpretation makes the collection especially meaningful at Wilhelmshöhe. The dataset avoids pretending to hold a full object inventory without catalogue evidence. It describes the collection as a whole while allowing source-identified antiquities or models to become individual entities in later phases.\n\nThis phase does not extract individual ancient objects without stable catalogue references. The cork models are instead described as a documented collection group. The operator identifies about thirty large models acquired by Frederick II. They are particularly relevant to the history of the residence and park because they connect architectural knowledge, educational travel and collecting practice. A future expansion can model individual cork objects with inventory number, represented monument, maker, date and conservation status when an official object record is available. The same rule applies to Greek and Roman originals. The knowledge base therefore remains honest: representative importance is explained from verified collection information rather than manufactured through invented highlights.\n\nThe Antiquities Collection is experienced today within the museum context of Wilhelmshöhe Palace. As with the Old Masters Gallery, present location is a separate relation rather than part of an ancient object’s identity. Display selection, room arrangement and opening hours can change. The collection record therefore carries a current verification date while more durable statements about collection history and object groups remain separate. Proximity to the Old Masters Gallery and historic residence creates a dense visitor context: antiquarian reception, old-master painting and palace history meet within the same building. The digital model uses that proximity for navigation without merging the collections into one undifferentiated palace collection.\n\nThe Antiquities Collection demonstrates that Wilhelmshöhe’s history cannot be explained solely from the park terrain. Princely representation also involved knowledge about antiquity and the material acquisition or mediation of past cultures. Cork models provide an especially clear example: they translate famous architecture into portable, studyable objects. From a present perspective this collecting history also calls for provenance and contextual research. Acquisitions, excavation histories and historical interpretive frameworks require source criticism. The knowledge graph provides a structure in which collectors, objects, models, locations and sources can remain distinct. It does not, however, claim provenance that has not been demonstrated in official catalogues.\n\nInterpretively, the Antiquities Collection connects the physical park with imagined and studied distance. Ancient ruins and architecture served eighteenth-century education and taste, while the park itself contains artificial ruins such as the Aqueduct. Collection and garden architecture are not the same thing, but they belong to a cultural environment in which knowledge of antiquity was actively produced and staged. Digital interpretation can show this parallel without inventing direct lines of influence that evidence does not support. Cork models demonstrate that antiquity in court Europe was often mediated through models, copies, travel and publication. The knowledge layer marks those levels of mediation rather than conflating originals with their reception."
+        "de": "Die Antikensammlung in Schloss Wilhelmshöhe verbindet fürstliche Sammelgeschichte mit dem europäischen Interesse an griechischer und römischer Antike. Hessen Kassel Heritage präsentiert sie heute im Schloss gemeinsam mit anderen musealen Bereichen, doch ihre Objekte stammen aus deutlich unterschiedlichen Zeiten, Regionen und Erwerbungskontexten. Die Sammlung umfasst archäologische Originale ebenso wie historische Modelle, die antike Architektur im Maßstab vermittelten. Besonders charakteristisch sind die Korkmodelle, die Landgraf Friedrich II. am Ende des 18. Jahrhunderts erwarb. Diese Modelle sind keine antiken Originale, sondern neuzeitliche Medien der Antikenrezeption und müssen deshalb als eigene Objektkategorie verstanden werden. Die Sammlungsgeschichte macht sichtbar, wie Reisen, Ausgrabungen, Gelehrsamkeit und höfische Bildung zusammenwirkten. Für das Datenmodell ist diese Unterscheidung grundlegend: antikes Objekt, neuzeitliches Modell und heutige Museumspräsentation sind verschiedene historische Ebenen.\n\nDie aktuelle Betreiberinformation nennt rund 800 ausgestellte Objekte und spannt den zeitlichen Bogen von frühen beziehungsweise bronzezeitlichen Zeugnissen über die griechische und römische Welt. Skulptur, Keramik und weitere archäologische Objektgruppen vermitteln unterschiedliche Aspekte antiker Gesellschaft und Kunst. Ein besonderer Schwerpunkt liegt auf rund dreißig großformatigen Korkmodellen antiker Architektur. Sie dokumentieren nicht die originale antike Bausubstanz, sondern die Art, wie Monumente im 18. Jahrhundert studiert, gesammelt und im Norden Europas anschaulich gemacht wurden. Diese Doppelstruktur aus Originalantiken und historischen Vermittlungsmodellen macht die Sammlung für Wilhelmshöhe besonders aussagekräftig. Der Datensatz vermeidet eine Vollinventarisierung ohne Objektkatalogbasis. Stattdessen beschreibt er die Sammlung als Ganzes und lässt für einzelne Antiken oder Modelle später quellenidentifizierte Entitäten zu.\n\nPhase 3 zog bewusst keine einzelnen antiken Objekte ohne stabile Katalogreferenz künstlich heraus. Die Gruppe der Korkmodelle wird als nachweisbarer Sammlungsbereich beschrieben. Der Betreiber nennt etwa dreißig großformatige Modelle, die Friedrich II. erwarb. Sie sind für die Park- und Residenzgeschichte besonders relevant, weil sie Architekturwissen, Bildungsreise und Sammlungspraxis verbinden. Ein zukünftiger Ausbau kann einzelne Modelle mit Inventarnummer, dargestelltem Bau, Hersteller, Datierung und Restaurierungsstatus erfassen, sobald ein offizieller Objektdatensatz verfügbar ist. Die gleiche Regel gilt für griechische und römische Originale. Damit bleibt die Wissensbasis ehrlich: Repräsentativität wird aus belegten Sammlungsangaben erklärt und nicht durch erfundene Highlights ersetzt.\n\nDie Antikensammlung wird heute im musealen Kontext des Schlosses Wilhelmshöhe wahrgenommen. Wie bei der Gemäldegalerie bleibt der heutige Standort eine eigene Relation und nicht Bestandteil der antiken Objektidentität. Ausstellungsauswahl, Saalordnung und Öffnungszeiten können sich ändern. Deshalb trägt der Sammlungsdatensatz ein aktuelles Prüfdatum, während dauerhaftere Aussagen über Sammlungsgeschichte und Objektgruppen getrennt bleiben. Die Nähe zu Gemäldegalerie und historischer Residenz schafft einen dichten Besuchskontext: innerhalb desselben Gebäudes begegnen sich Antikenrezeption, alte Meister und Schlossgeschichte. Das digitale Modell nutzt diese Nähe zur Navigation, ohne die Sammlungen zu einer einzigen undifferenzierten Schloss-Sammlung zusammenzuziehen.\n\nDie Antikensammlung zeigt, dass Wilhelmshöhes Geschichte nicht allein aus dem Parkgelände erklärt werden kann. Fürstliche Repräsentation bezog sich auch auf Wissen über die Antike und auf die materielle Aneignung beziehungsweise Vermittlung vergangener Kulturen. Die Korkmodelle sind dafür ein besonders anschauliches Beispiel: Sie übersetzen berühmte Architektur in transportierbare, studierbare Objekte. In heutiger Perspektive verlangt diese Sammlungsgeschichte zugleich Provenienz- und Kontextarbeit. Erwerbungen, Ausgrabungsgeschichte und historische Deutungsmuster müssen quellenkritisch untersucht werden. Der Wissensgraph schafft dafür eine Struktur, in der Sammler, Objekte, Modelle, Orte und Quellen voneinander unterscheidbar sind. Er behauptet jedoch keine Provenienz, die nicht aus offiziellen Katalogen nachgewiesen ist.\n\nInterpretativ verbindet die Antikensammlung den realen Bergpark mit imaginierter und studierter Ferne. Antike Ruinen und Architektur dienten im 18. Jahrhundert als Bezugspunkte für Bildung und Geschmack; im Park erscheinen gleichzeitig künstliche Ruinen wie der Aquädukt. Sammlung und Gartenarchitektur sind nicht dasselbe, aber sie gehören zu einem kulturellen Klima, in dem Antikenwissen aktiv produziert und inszeniert wurde. Eine digitale Vermittlung kann diese Parallele zeigen, ohne direkte Einflusslinien zu behaupten, die nicht belegt sind. Das Korkmodell verdeutlicht, dass Antike im höfischen Europa häufig durch Medien, Kopien, Modelle und Reiseberichte vermittelt wurde. Die Wissensschicht markiert solche Vermittlungsebenen, statt Original und Rezeption zu vermischen.",
+        "en": "The Antiquities Collection at Wilhelmshöhe Palace joins princely collecting history with European engagement with Greek and Roman antiquity. Hessen Kassel Heritage presents it today in the palace alongside other museum areas, yet its objects come from very different periods, regions and acquisition contexts. The collection includes archaeological originals as well as historical models used to communicate ancient architecture at scale. Especially characteristic are the cork models acquired by Landgrave Frederick II at the end of the eighteenth century. Those models are not ancient originals but modern media of antiquarian reception and therefore require their own object category. The collection history demonstrates how travel, excavation, scholarship and court education interacted. For the data model this distinction is fundamental: ancient object, modern model and current museum presentation are separate historical levels.\n\nCurrent operator information describes roughly 800 objects on display and spans a chronology from early or Bronze Age material through the Greek and Roman worlds. Sculpture, ceramics and other archaeological groups present different dimensions of ancient society and art. Around thirty large cork models of ancient architecture form a particularly distinctive interpretive group. They do not preserve original ancient fabric but document how monuments were studied, collected and made visually accessible in northern Europe during the eighteenth century. This double structure of ancient originals and historical media of interpretation makes the collection especially meaningful at Wilhelmshöhe. The dataset avoids pretending to hold a full object inventory without catalogue evidence. It describes the collection as a whole while allowing source-identified antiquities or models to become individual entities in later phases.\n\nPhase 3 deliberately did not extract individual ancient objects without stable catalogue references. The cork models are instead described as a documented collection group. The operator identifies about thirty large models acquired by Frederick II. They are particularly relevant to the history of the residence and park because they connect architectural knowledge, educational travel and collecting practice. A future expansion can model individual cork objects with inventory number, represented monument, maker, date and conservation status when an official object record is available. The same rule applies to Greek and Roman originals. The knowledge base therefore remains honest: representative importance is explained from verified collection information rather than manufactured through invented highlights.\n\nThe Antiquities Collection is experienced today within the museum context of Wilhelmshöhe Palace. As with the Old Masters Gallery, present location is a separate relation rather than part of an ancient object’s identity. Display selection, room arrangement and opening hours can change. The collection record therefore carries a current verification date while more durable statements about collection history and object groups remain separate. Proximity to the Old Masters Gallery and historic residence creates a dense visitor context: antiquarian reception, old-master painting and palace history meet within the same building. The digital model uses that proximity for navigation without merging the collections into one undifferentiated palace collection.\n\nThe Antiquities Collection demonstrates that Wilhelmshöhe’s history cannot be explained solely from the park terrain. Princely representation also involved knowledge about antiquity and the material acquisition or mediation of past cultures. Cork models provide an especially clear example: they translate famous architecture into portable, studyable objects. From a present perspective this collecting history also calls for provenance and contextual research. Acquisitions, excavation histories and historical interpretive frameworks require source criticism. The knowledge graph provides a structure in which collectors, objects, models, locations and sources can remain distinct. It does not, however, claim provenance that has not been demonstrated in official catalogues.\n\nInterpretively, the Antiquities Collection connects the physical park with imagined and studied distance. Ancient ruins and architecture served eighteenth-century education and taste, while the park itself contains artificial ruins such as the Aqueduct. Collection and garden architecture are not the same thing, but they belong to a cultural environment in which knowledge of antiquity was actively produced and staged. Digital interpretation can show this parallel without inventing direct lines of influence that evidence does not support. Cork models demonstrate that antiquity in court Europe was often mediated through models, copies, travel and publication. The knowledge layer marks those levels of mediation rather than conflating originals with their reception."
       }
     },
     {
@@ -716,6 +868,99 @@
         "basis": "registered_primary_or_official_source",
         "assertion": "Hessen Kassel Heritage presents the Antiquities Collection in Wilhelmshöhe Palace.",
         "qualification": "Current location is distinct from original provenance of individual antiquities."
+      }
+    },
+    {
+      "id": "sem-chichi-created-dioscuri-n94",
+      "from": "person-antonio-chichi",
+      "to": "artwork-chichi-dioscuri-n94",
+      "relation": "created",
+      "confidence": "high",
+      "source_ids": [
+        "museum-kassel-chichi-dioscuri-n94"
+      ],
+      "provenance": {
+        "basis": "registered_primary_or_official_source",
+        "assertion": "The HKK object record identifies Antonio Chichi as maker of architecture model N 94 and dates it to 1777–1782.",
+        "qualification": "The maker attribution concerns the eighteenth-century model, not the ancient Roman monument it represents."
+      }
+    },
+    {
+      "id": "sem-dioscuri-n94-member-antikensammlung",
+      "from": "artwork-chichi-dioscuri-n94",
+      "to": "collection-antikensammlung-schloss-wilhelmshoehe",
+      "relation": "member_of_collection",
+      "confidence": "high",
+      "source_ids": [
+        "museum-kassel-chichi-dioscuri-n94",
+        "hkh-antiken"
+      ],
+      "provenance": {
+        "basis": "official_object_and_collection_records",
+        "assertion": "HKK catalogues N 94 as one of its historical cork architecture models and presents the cork-model group within the Antikensammlung at Schloss Wilhelmshöhe.",
+        "qualification": "Current collection membership and display context are distinct from the represented ancient site and from the model's eighteenth-century acquisition history."
+      }
+    },
+    {
+      "id": "sem-chichi-created-pantheon-n96",
+      "from": "person-antonio-chichi",
+      "to": "artwork-chichi-pantheon-n96",
+      "relation": "created",
+      "confidence": "high",
+      "source_ids": [
+        "museum-kassel-chichi-pantheon-n96"
+      ],
+      "provenance": {
+        "basis": "registered_primary_or_official_source",
+        "assertion": "The HKK object record identifies Antonio Chichi as maker of architecture model N 96, dates it to 1777–1782 and records a 1782 maker inscription.",
+        "qualification": "The maker attribution concerns the eighteenth-century model, not the Pantheon itself."
+      }
+    },
+    {
+      "id": "sem-pantheon-n96-member-antikensammlung",
+      "from": "artwork-chichi-pantheon-n96",
+      "to": "collection-antikensammlung-schloss-wilhelmshoehe",
+      "relation": "member_of_collection",
+      "confidence": "high",
+      "source_ids": [
+        "museum-kassel-chichi-pantheon-n96",
+        "hkh-antiken"
+      ],
+      "provenance": {
+        "basis": "official_object_and_collection_records",
+        "assertion": "HKK catalogues N 96 as a historical cork architecture model and presents the cork-model group within the Antikensammlung at Schloss Wilhelmshöhe.",
+        "qualification": "Current collection membership and display context are distinct from the represented ancient site and from the model's eighteenth-century acquisition history."
+      }
+    },
+    {
+      "id": "sem-chichi-created-hercules-victor-n100",
+      "from": "person-antonio-chichi",
+      "to": "artwork-chichi-hercules-victor-n100",
+      "relation": "created",
+      "confidence": "high",
+      "source_ids": [
+        "museum-kassel-chichi-hercules-victor-n100"
+      ],
+      "provenance": {
+        "basis": "registered_primary_or_official_source",
+        "assertion": "The HKK object record identifies Antonio Chichi as maker of architecture model N 100, dates it to 1777–1782 and records a CHICHI signature.",
+        "qualification": "The maker attribution concerns the eighteenth-century model, not the Temple of Hercules Victor itself."
+      }
+    },
+    {
+      "id": "sem-hercules-victor-n100-member-antikensammlung",
+      "from": "artwork-chichi-hercules-victor-n100",
+      "to": "collection-antikensammlung-schloss-wilhelmshoehe",
+      "relation": "member_of_collection",
+      "confidence": "high",
+      "source_ids": [
+        "museum-kassel-chichi-hercules-victor-n100",
+        "hkh-antiken"
+      ],
+      "provenance": {
+        "basis": "official_object_and_collection_records",
+        "assertion": "HKK catalogues N 100 as a historical cork architecture model and presents the cork-model group within the Antikensammlung at Schloss Wilhelmshöhe.",
+        "qualification": "Current collection membership and display context are distinct from the represented ancient site and from the model's eighteenth-century acquisition history."
       }
     },
     {
@@ -1404,60 +1649,111 @@
     }
   ],
   "evidence_guardrails": "data/semantic_source_manifest.json",
-  "status": "phase_3_knowledge_expanded",
+  "status": "phase_4_bounded_primary_source_recovery",
   "research_assessments": [
     {
       "id": "assessment-osm-hirtengott-pan",
       "candidate": "Hirtengott Pan",
       "disposition": "excluded_pending_identity_resolution",
       "evidence": "Local OSM names the statue but its own description questions the name; City material calls the hydraulic figure at Hercules Faun.",
-      "qualification": "Do not promote the uncertain OSM label to first-class artwork or creator attribution."
+      "qualification": "Do not promote the uncertain OSM label to first-class artwork or creator attribution.",
+      "phase_4_follow_up": {
+        "checked_on": "2026-08-28",
+        "result": "closed_no_promotion_for_phase_4",
+        "source_ids": [
+          "stadt-wasserspiele-station1-herkules"
+        ],
+        "evidence": "The official City page resolves the left hydraulic horn figure's terminology to Faun and documents its function, but does not identify a creator.",
+        "qualification": "The OSM Hirtengott Pan label is not promoted; the creator-required artwork contract remains unsatisfied."
+      }
     },
     {
       "id": "assessment-zentaur-herkules",
       "candidate": "Zentaur / Centaur at Hercules water theatre",
       "disposition": "documented_feature_not_first_class_artwork",
       "evidence": "City material confirms the Centaur name/function, but no authoritative creator/object-catalogue record was recovered.",
-      "qualification": "Keep as place-level sculptural program until creator evidence or unknown-creator schema exists."
+      "qualification": "Keep as place-level sculptural program until creator evidence or unknown-creator schema exists.",
+      "phase_4_follow_up": {
+        "checked_on": "2026-08-28",
+        "result": "closed_no_promotion_for_phase_4",
+        "source_ids": [
+          "stadt-wasserspiele-station1-herkules"
+        ],
+        "evidence": "The official City page confirms the right-hand hydraulic horn figure as Zentaur and documents its function, but does not identify a creator.",
+        "qualification": "Official iconography/function evidence is insufficient for promotion under the current creator-required artwork contract."
+      }
     },
     {
       "id": "assessment-venus-loewenburggarten",
       "candidate": "Venus im Löwenburggarten",
       "disposition": "retain_bilingual_place_node_only_pending_primary_artwork_provenance",
       "evidence": "Existing place content is OSM-derived discovery; no official creator/copy provenance was recovered.",
-      "qualification": "No speculative creator or first-class artwork record."
+      "qualification": "No speculative creator or first-class artwork record.",
+      "phase_4_follow_up": {
+        "checked_on": "2026-08-28",
+        "result": "closed_no_promotion_for_phase_4",
+        "evidence": "A bounded search of HKK object and architecture catalogues plus official HKK and City pages did not recover a stable Venus object record establishing creator, date, copy/original provenance and current object status.",
+        "qualification": "The existing bilingual place node remains unchanged; OSM/Wikimedia-derived naming is not elevated into artwork provenance."
+      }
     },
     {
       "id": "assessment-ein-wort-fuer-dich",
       "candidate": "Ein Wort für Dich",
       "disposition": "excluded_insufficient_artwork_provenance",
       "evidence": "Local OSM supplies only a name and attraction tag without artist or artwork-object metadata.",
-      "qualification": "Not promoted to artwork."
+      "qualification": "Not promoted to artwork.",
+      "phase_4_follow_up": {
+        "checked_on": "2026-08-28",
+        "result": "closed_no_promotion_for_phase_4",
+        "evidence": "The bounded official-source pass did not recover a museum, monument-inventory, City or archival object record establishing creator, date, provenance and current status for Ein Wort für Dich.",
+        "qualification": "OSM-only discovery remains insufficient and no artwork entity is created."
+      }
     },
     {
       "id": "assessment-pagode-sm-gs-1-3-981",
       "candidate": "Pagode survey/repainting drawing SM-GS 1.3.981",
       "disposition": "registered_source_not_first_class_artwork",
       "evidence": "HKK documents the 1825/26 survey/new-paint proposal but lists the creator as unknown.",
-      "qualification": "No fake unknown-person entity; the sheet is not misrepresented as the original Pagode design."
+      "qualification": "No fake unknown-person entity; the sheet is not misrepresented as the original Pagode design.",
+      "phase_4_follow_up": {
+        "checked_on": "2026-08-28",
+        "result": "reconfirmed_no_promotion",
+        "source_ids": [
+          "museum-kassel-pagode-sm-gs-1-3-981"
+        ],
+        "evidence": "The reviewed HKK record remains authoritative: creator unknown, dated 1825/26, and catalogued as a survey/new-paint proposal rather than the original Pagode design.",
+        "qualification": "Phase 3's fail-closed authorship conclusion is preserved unchanged."
+      }
     },
     {
       "id": "assessment-giovanni-ghezzi",
       "candidate": "Giovanni Ghezzi",
       "disposition": "excluded_no_bergpark_work_relation_recovered",
       "evidence": "Biographical existence is verifiable, but no primary/official Bergpark work relation was recovered.",
-      "qualification": "No speculative figure-to-place edge."
+      "qualification": "No speculative figure-to-place edge.",
+      "phase_4_follow_up": {
+        "checked_on": "2026-08-28",
+        "result": "closed_no_promotion_for_phase_4",
+        "evidence": "The bounded HKK, architecture-catalogue and archival search did not recover a primary or official Giovanni Ghezzi work relation to Bergpark Wilhelmshöhe.",
+        "qualification": "Biographical/name matches outside the Bergpark do not justify a person-place or person-work relation."
+      }
     },
     {
       "id": "assessment-johann-georg-etienne",
       "candidate": "Johann Georg Etienne",
       "disposition": "excluded_no_primary_relation_recovered",
       "evidence": "No primary/official Bergpark work relation was recovered.",
-      "qualification": "No speculative entity or edge."
+      "qualification": "No speculative entity or edge.",
+      "phase_4_follow_up": {
+        "checked_on": "2026-08-28",
+        "result": "closed_no_promotion_for_phase_4",
+        "evidence": "The bounded HKK, architecture-catalogue and archival search did not recover a primary or official Johann Georg Etienne work relation to Bergpark Wilhelmshöhe.",
+        "qualification": "Name similarity and unrelated modern records are excluded from the knowledge layer."
+      }
     }
   ],
   "coverage": {
-    "phase": "phase_3_historical_figures_artworks_collections",
+    "phase": "phase_4_bounded_primary_source_recovery",
     "artwork_inventory_status": "curated_source_backed_subset_not_complete_inventory",
     "major_collection_ids": [
       "collection-gemaeldegalerie-alte-meister",
@@ -1468,6 +1764,34 @@
     ],
     "media_status": "no_new_media_files_added_in_phase_3",
     "node_cross_link_policy": "Phase-2 bilingual node figure/artwork references remain intact; stable figure aliases resolve those references, source-backed semantic edges carry role semantics, and the Flora node adds an explicit artworkContext without changing canonical identity or coordinates.",
+    "phase_4_outcome": {
+      "promoted_artwork_ids": [
+        "artwork-chichi-dioscuri-n94",
+        "artwork-chichi-pantheon-n96",
+        "artwork-chichi-hercules-victor-n100"
+      ],
+      "supporting_figure_ids": [
+        "person-antonio-chichi"
+      ],
+      "new_source_ids": [
+        "museum-kassel-chichi-dioscuri-n94",
+        "museum-kassel-chichi-pantheon-n96",
+        "museum-kassel-chichi-hercules-victor-n100",
+        "stadt-wasserspiele-station1-herkules"
+      ],
+      "terminal_candidate_assessment_ids": [
+        "assessment-osm-hirtengott-pan",
+        "assessment-zentaur-herkules",
+        "assessment-venus-loewenburggarten",
+        "assessment-ein-wort-fuer-dich",
+        "assessment-pagode-sm-gs-1-3-981",
+        "assessment-giovanni-ghezzi",
+        "assessment-johann-georg-etienne"
+      ],
+      "museum_expansion_scope": "three representative HKK cork models only; not a complete or pseudo-complete inventory",
+      "node_files_touched": false,
+      "media_status": "no_new_media_files_added_in_phase_4"
+    },
     "assessed_not_promoted": [
       {
         "label": "Hirtengott Pan / Faun at the upper water theatre",
