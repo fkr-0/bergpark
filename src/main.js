@@ -4,7 +4,6 @@ import './styles/phase2.css';
 import './styles/phase3.css';
 import { edgeBetween, hydrateGraphData, loadInitialGraphData, loadWalkingNetwork } from './data.js';
 import { createI18n, localized } from './i18n.js';
-import { createBergparkMap } from './map.js';
 import { createGpsNavigator } from './gps.js';
 import { renderNodeDetail, stopNarration } from './content.js';
 import { renderGlossary } from './glossary.js';
@@ -14,6 +13,8 @@ import { renderRouteDetail } from './routes.js';
 import { renderTreeDetail } from './tree-detail.js';
 import { createVisitorLayerController, renderVisitorFeatureDetail, renderVisitorLayerControl } from './visitor-layers.js';
 import { deepLinkHash, parseDeepLink } from './deep-link.js';
+import { createBrowserSpatialController, LEAFLET_OVERLAY_COMPATIBILITY } from './spatial-controller.js';
+import { createSpatialWorld, createWalkingNetworkDescriptor } from './spatial-world.js';
 
 const app = document.querySelector('#app');
 const i18n = createI18n();
@@ -61,6 +62,7 @@ const elements = {
 
 let graph = null;
 let mapController = null;
+let spatialWorld = null;
 let gps = null;
 let treeMapController = null;
 let visitorLayerController = null;
@@ -98,7 +100,7 @@ function scheduleWalkingNetworkHydration() {
   window.setTimeout(() => runWhenIdle(() => {
     loadWalkingNetwork()
       .then((walkingNetwork) => {
-        if (walkingNetwork) mapController?.setWalkingNetwork(walkingNetwork);
+        if (walkingNetwork) mapController?.setWalkingNetwork(createWalkingNetworkDescriptor(walkingNetwork));
       })
       .catch((error) => console.warn('Complete walking network unavailable:', error));
   }), 1500);
@@ -106,13 +108,18 @@ function scheduleWalkingNetworkHydration() {
 
 function applySupplementalGraph(hydratedGraph) {
   graph = hydratedGraph;
+  spatialWorld = createSpatialWorld(graph);
   treeMapController?.destroy();
   visitorLayerController?.destroy();
-  treeMapController = createTreeMapLayer(mapController.map, graph.trees, {
+  // Slice 0 keeps these viewport-driven Leaflet overlays behind one explicit,
+  // temporary compatibility surface. Core orchestration never receives the map.
+  const leafletCompatibility = mapController?.compatibilitySurface(LEAFLET_OVERLAY_COMPATIBILITY);
+  if (!leafletCompatibility?.map) throw new Error('Leaflet overlay compatibility surface unavailable');
+  treeMapController = createTreeMapLayer(leafletCompatibility.map, graph.trees, {
     language: i18n.language,
     onSelectTree: selectTree,
   });
-  visitorLayerController = createVisitorLayerController(mapController.map, graph.visitorLayers, {
+  visitorLayerController = createVisitorLayerController(leafletCompatibility.map, graph.visitorLayers, {
     language: i18n.language,
     onSelectFeature: selectVisitorFeature,
   });
@@ -187,7 +194,7 @@ function setView(view) {
 
   if (view === 'map') {
     elements.panel.hidden = true;
-    requestAnimationFrame(() => mapController?.invalidateSize());
+    requestAnimationFrame(() => mapController?.invalidate());
     return;
   }
 
@@ -226,7 +233,7 @@ function selectNode(id, { source = 'manual', historyMode } = {}) {
   if (!node) return;
   currentNodeId = id;
   setView('map');
-  mapController.showNode(id, { popup: source === 'manual' });
+  mapController.focusPlace(id, { popup: source === 'manual' });
   showDetail(node);
   if (source === 'gps') setStatus(i18n.t('nearPlace', localized(node.name, i18n.language, node.id)), true);
   syncDeepLink('place', id, historyMode ?? (source === 'gps' ? 'replace' : 'push'));
@@ -254,9 +261,8 @@ function selectTree(id, context = {}) {
   currentTreeId = id;
   treeReturnContext = { view: currentView, source: context.source ?? 'deeplink', treeId: id };
   elements.panel.hidden = true;
-  if (Number.isFinite(tree.lat) && Number.isFinite(tree.lng ?? tree.lon)) {
-    mapController.map.flyTo([tree.lat, tree.lng ?? tree.lon], 18, { duration: 0.6 });
-  }
+  const descriptor = spatialWorld?.treesById.get(id);
+  if (descriptor) mapController.focusPosition(descriptor.position, { zoom: 18, duration: 0.6 });
   const label = localized(tree.name, i18n.language, tree.species?.[i18n.language] ?? tree.species?.scientific ?? tree.catalog_ref ?? tree.id);
   setStatus(label, true);
   renderTreeDetail(elements.detail, { tree, i18n, onClose: closeTreeDetail });
@@ -283,9 +289,8 @@ function selectVisitorFeature(feature, { historyMode = 'push' } = {}) {
   currentRoute = null;
   currentVisitorFeatureId = feature.id;
   elements.panel.hidden = true;
-  if (Number.isFinite(feature.lat) && Number.isFinite(feature.lng ?? feature.lon)) {
-    mapController.map.flyTo([feature.lat, feature.lng ?? feature.lon], Math.max(17, mapController.map.getZoom()), { duration: 0.35 });
-  }
+  const descriptor = spatialWorld?.visitorFeaturesById.get(feature.id);
+  if (descriptor) mapController.focusPosition(descriptor.position, { minZoom: 17, duration: 0.35 });
   renderVisitorFeatureDetail(elements.detail, { feature, i18n, onClose: closeVisitorFeature });
   syncDeepLink('feature', feature.id, historyMode);
 }
@@ -298,7 +303,8 @@ function closeVisitorFeature() {
 
 function showRoute(fromId, toId) {
   const edge = edgeBetween(graph, fromId, toId);
-  if (!edge || !mapController.showRoute(edge)) {
+  const routeDescriptor = edge?.id ? spatialWorld?.routesById.get(edge.id) : null;
+  if (!edge || !routeDescriptor || !mapController.showRoute(routeDescriptor)) {
     setStatus(i18n.t('routeUnknown'), true);
     return;
   }
@@ -332,7 +338,7 @@ function setupGps() {
     nodes: graph.nodes,
     radiusM: 30,
     onPosition(position) {
-      mapController.showUserPosition(position);
+      mapController.setUserPosition(position);
     },
     onEnter(node) {
       selectNode(node.id, { source: 'gps' });
@@ -397,14 +403,18 @@ async function boot() {
   setStatus(i18n.t('loading'), true);
   const initial = await loadInitialGraphData();
   graph = initial.graph;
+  spatialWorld = createSpatialWorld(graph);
   coreDocuments = initial.coreDocuments;
-  mapController = createBergparkMap(document.querySelector('#map'), graph, {
+  mapController = await createBrowserSpatialController({
+    element: document.querySelector('#map'),
+    graph,
+    world: spatialWorld,
     language: i18n.language,
-    onSelectNode: (id) => selectNode(id),
+    onSelectPlace: (id) => selectNode(id),
     onLocationError: () => setStatus(i18n.t('gpsUnavailable'), true),
   });
   setupGps();
-  mapController.fitPark();
+  mapController.fitWorld();
   setStatus(i18n.t('mapHint'));
   restoreDeepLink({ force: true });
   scheduleSupplementalHydration();
@@ -422,7 +432,7 @@ for (const button of elements.nav) {
 elements.language.addEventListener('click', () => i18n.toggle());
 i18n.subscribe(() => {
   renderChrome();
-  mapController?.updateLanguage(i18n.language);
+  mapController?.setLanguage(i18n.language);
   treeMapController?.updateLanguage(i18n.language);
   visitorLayerController?.updateLanguage(i18n.language);
   renderVisitorLayersControl();
@@ -445,6 +455,7 @@ i18n.subscribe(() => {
 
 window.addEventListener('beforeunload', () => {
   gps?.stop();
+  mapController?.destroy();
   stopNarration();
 });
 

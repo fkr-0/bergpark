@@ -53,11 +53,14 @@ function routeStyle(active = false) {
     : { weight: 2, opacity: 0.28, lineCap: 'round', lineJoin: 'round', className: 'network-route-line' };
 }
 
-export function createBergparkMap(element, graph, { language = 'de', onSelectNode, onLocationError } = {}) {
+export function createLeafletSpatialAdapter(element, graph, world, { language = 'de', onSelectPlace, onLocationError } = {}) {
   const { nodes, edges } = graph;
   let currentLanguage = language;
-  const parkBounds = nodes.length
-    ? L.latLngBounds(nodes.map((node) => [node.lat, node.lng ?? node.lon]))
+  const parkPoints = world?.places?.length
+    ? world.places.map(({ position }) => [position.lat, position.lng])
+    : nodes.map((node) => [node.lat, node.lng ?? node.lon]);
+  const parkBounds = parkPoints.length
+    ? L.latLngBounds(parkPoints)
     : null;
   const map = L.map(element, {
     zoomControl: false,
@@ -195,9 +198,9 @@ export function createBergparkMap(element, graph, { language = 'de', onSelectNod
     });
     marker.bindPopup(popupHtml(node, currentLanguage), { maxWidth: 320 });
     marker.on('popupopen', ({ popup }) => {
-      popup.getElement()?.querySelector('[data-map-details]')?.addEventListener('click', () => onSelectNode?.(node.id));
+      popup.getElement()?.querySelector('[data-map-details]')?.addEventListener('click', () => onSelectPlace?.(node.id));
     });
-    const activateMarker = () => onSelectNode?.(node.id);
+    const activateMarker = () => onSelectPlace?.(node.id);
     marker.on('click', activateMarker);
     marker.on('keydown', markerKeyboardActivation(activateMarker));
     marker.addTo(markerLayer);
@@ -206,7 +209,7 @@ export function createBergparkMap(element, graph, { language = 'de', onSelectNod
 
   map.on('locationerror', (event) => onLocationError?.(event));
 
-  function showUserPosition(position) {
+  function setUserPosition(position) {
     userLayer.clearLayers();
     const latlng = [position.lat, position.lng];
     L.circle(latlng, {
@@ -219,8 +222,12 @@ export function createBergparkMap(element, graph, { language = 'de', onSelectNod
   }
 
   return {
-    map,
-    showNode(id, { zoom = true, popup = false } = {}) {
+    fitWorld() {
+      if (!parkBounds?.isValid()) return false;
+      map.fitBounds(parkBounds, { padding: [36, 36], maxZoom: 16 });
+      return true;
+    },
+    focusPlace(id, { zoom = true, popup = false } = {}) {
       const marker = markers.get(id);
       if (!marker) return false;
       updateModelLaunch(nodeLookup.get(id));
@@ -228,26 +235,37 @@ export function createBergparkMap(element, graph, { language = 'de', onSelectNod
       if (popup) marker.openPopup();
       return true;
     },
-    showRoute(edge) {
+    focusPosition(position, { zoom = null, minZoom = null, duration = 0.35 } = {}) {
+      if (!Number.isFinite(position?.lat) || !Number.isFinite(position?.lng)) return false;
+      const targetZoom = Number.isFinite(zoom)
+        ? zoom
+        : Math.max(map.getZoom(), Number.isFinite(minZoom) ? minZoom : map.getZoom());
+      map.flyTo([position.lat, position.lng], targetZoom, { duration });
+      return true;
+    },
+    showRoute(routeDescriptor) {
       routeLayer.clearLayers();
-      if (!edge?.path_coordinates?.length) return false;
-      const route = L.polyline(edge.path_coordinates, routeStyle(true)).addTo(routeLayer);
-      route.bindTooltip(`${Math.round(edge.distance_m)} m · ${edge.walking_min} min`);
+      const coordinates = routeDescriptor?.coordinates?.map(({ lat, lng }) => [lat, lng]) ?? [];
+      if (coordinates.length < 2) return false;
+      const route = L.polyline(coordinates, routeStyle(true)).addTo(routeLayer);
+      route.bindTooltip(`${Math.round(routeDescriptor.distanceM)} m · ${routeDescriptor.walkingMin} min`);
       map.fitBounds(route.getBounds(), { paddingTopLeft: [24, 130], paddingBottomRight: [24, 110], maxZoom: 17 });
       return true;
     },
     clearRoute() {
       routeLayer.clearLayers();
     },
-    setWalkingNetwork(walkingNetwork) {
-      return renderWalkingNetwork(walkingNetwork);
+    setWalkingNetwork(walkingNetworkDescriptor) {
+      return renderWalkingNetwork({
+        counts: walkingNetworkDescriptor?.counts,
+        segments: walkingNetworkDescriptor?.segments?.map((segment) => ({
+          steps: segment.steps,
+          geometry: segment.coordinates.map(({ lat, lng }) => [lat, lng]),
+        })) ?? [],
+      });
     },
-    showUserPosition,
-    fitPark() {
-      if (!parkBounds?.isValid()) return;
-      map.fitBounds(parkBounds, { padding: [36, 36], maxZoom: 16 });
-    },
-    updateLanguage(nextLanguage) {
+    setUserPosition,
+    setLanguage(nextLanguage) {
       currentLanguage = nextLanguage;
       updateModelLaunchCopy();
       if (activeModelViewer && selectedModelNode) {
@@ -264,8 +282,16 @@ export function createBergparkMap(element, graph, { language = 'de', onSelectNod
         marker.setPopupContent(popupHtml(node, currentLanguage));
       }
     },
-    invalidateSize() {
+    invalidate() {
       map.invalidateSize();
+    },
+    compatibilitySurface(name) {
+      if (name !== 'leaflet-overlays-v1') return null;
+      return Object.freeze({ kind: name, renderer: 'leaflet', map });
+    },
+    destroy() {
+      activeModelViewer?.destroy();
+      map.remove();
     },
   };
 }
