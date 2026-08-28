@@ -23,7 +23,101 @@ export function nearestNode(position, nodes, radiusM = 30) {
   return nearest && distance <= radiusM ? { node: nearest, distance } : null;
 }
 
-export function createGpsNavigator({ nodes, radiusM = 30, onPosition, onEnter, onError }) {
+function validAccuracy(value) {
+  return Number.isFinite(value) && value >= 0 ? value : null;
+}
+
+function referenceType(node) {
+  return node?.position_source?.position_type ?? 'unknown';
+}
+
+/**
+ * Classify one GPS fix against the canonical place references.
+ *
+ * Geolocation accuracy is a radius, so a fix only enters a proximity zone when
+ * its complete uncertainty circle fits inside the entry radius. Once active,
+ * the place remains active until that circle is wholly beyond the wider exit
+ * radius. This intentionally favors a quiet field experience over optimistic
+ * arrival notifications from noisy fixes.
+ */
+export function evaluateProximity(position, nodes, {
+  activeNodeId = null,
+  enterRadiusM = 30,
+  exitRadiusM = 45,
+  maxAccuracyM = 50,
+} = {}) {
+  const accuracyM = validAccuracy(position?.accuracy);
+  const activeNode = activeNodeId ? nodes.find(({ id }) => id === activeNodeId) ?? null : null;
+
+  if (accuracyM == null || accuracyM > maxAccuracyM) {
+    return {
+      status: 'uncertain',
+      node: activeNode,
+      distance: activeNode ? distanceMetres(position, activeNode) : null,
+      accuracyM,
+      referenceType: referenceType(activeNode),
+      exitedNodeId: null,
+    };
+  }
+
+  let exitedNodeId = null;
+  if (activeNode) {
+    const distance = distanceMetres(position, activeNode);
+    const nearestPossibleDistance = Math.max(0, distance - accuracyM);
+    if (nearestPossibleDistance <= exitRadiusM) {
+      return {
+        status: 'retained',
+        node: activeNode,
+        distance,
+        accuracyM,
+        referenceType: referenceType(activeNode),
+        exitedNodeId: null,
+      };
+    }
+    exitedNodeId = activeNode.id;
+  }
+
+  let nearest = null;
+  let distance = Number.POSITIVE_INFINITY;
+  for (const node of nodes) {
+    const candidate = distanceMetres(position, node);
+    if (candidate < distance) {
+      nearest = node;
+      distance = candidate;
+    }
+  }
+
+  if (nearest && distance + accuracyM <= enterRadiusM) {
+    return {
+      status: 'entered',
+      node: nearest,
+      distance,
+      accuracyM,
+      referenceType: referenceType(nearest),
+      exitedNodeId,
+    };
+  }
+
+  return {
+    status: 'outside',
+    node: null,
+    distance: Number.isFinite(distance) ? distance : null,
+    accuracyM,
+    referenceType: 'unknown',
+    exitedNodeId,
+  };
+}
+
+export function createGpsNavigator({
+  nodes,
+  radiusM = 30,
+  exitRadiusM = Math.max(radiusM + 15, radiusM * 1.5),
+  maxAccuracyM = 50,
+  onPosition,
+  onEnter,
+  onExit,
+  onError,
+}) {
   let watchId = null;
   let activeNodeId = null;
 
@@ -36,14 +130,18 @@ export function createGpsNavigator({ nodes, radiusM = 30, onPosition, onEnter, o
       speed: coords.speed,
     };
     onPosition?.(position);
-    const hit = nearestNode(position, nodes, radiusM);
-    if (!hit) {
+    const proximity = evaluateProximity(position, nodes, {
+      activeNodeId,
+      enterRadiusM: radiusM,
+      exitRadiusM,
+      maxAccuracyM,
+    });
+    if (proximity.exitedNodeId) onExit?.(proximity.exitedNodeId, position, proximity);
+    if (proximity.status === 'entered') {
+      activeNodeId = proximity.node.id;
+      onEnter?.(proximity.node, proximity.distance, position, proximity);
+    } else if (proximity.status === 'outside') {
       activeNodeId = null;
-      return;
-    }
-    if (hit.node.id !== activeNodeId) {
-      activeNodeId = hit.node.id;
-      onEnter?.(hit.node, hit.distance, position);
     }
   }
 
