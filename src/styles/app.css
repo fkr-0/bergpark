@@ -401,6 +401,18 @@ h1 { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: clamp
   color: #1a2420;
   font-size: 1rem;
 }
+.search-field input:focus-visible,
+.index-list > button:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+}
+.destination-search-summary {
+  min-height: 1.2rem;
+  margin: .5rem 0 -.25rem;
+  color: #5c6b64;
+  font-size: .76rem;
+  font-weight: 700;
+}
 .tree-filters { display: grid; gap: .55rem; margin-bottom: .8rem; }
 .index-list,
 .tree-list { display: grid; gap: .45rem; margin-top: .8rem; }
@@ -410,6 +422,7 @@ h1 { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: clamp
   grid-template-columns: 1fr auto;
   gap: .15rem 1rem;
   width: 100%;
+  min-height: 52px;
   padding: .85rem .9rem;
   border: 1px solid #d8d3c5;
   border-radius: .75rem;
@@ -418,8 +431,23 @@ h1 { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: clamp
   text-align: left;
   cursor: pointer;
 }
-.index-list > button span,
+.index-list > button .destination-result__main,
 .tree-list > button strong { font-weight: 800; }
+.destination-result__main {
+  display: grid;
+  gap: .12rem;
+}
+.destination-result__main small {
+  color: #52635b;
+  font-size: .74rem;
+  font-weight: 750;
+}
+.destination-result__context {
+  align-self: center;
+  color: #66736c;
+  font-size: .78rem;
+  text-align: right;
+}
 .index-list > button small,
 .tree-list > button small { color: #6b756f; text-align: right; }
 .tree-list > button span { grid-column: 1 / -1; color: #52635b; font-size: .85rem; }

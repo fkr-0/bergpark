@@ -202,7 +202,16 @@ function setView(view) {
   elements.panel.hidden = false;
   if (view === 'index') {
     treeMapController?.setVisible(false);
-    renderGlossary(elements.panel, { nodes: graph.entities, i18n, onSelectNode: selectEntity });
+    renderGlossary(elements.panel, {
+      nodes: graph.entities,
+      nodeIds: new Set(graph.nodes.map(({ id }) => id)),
+      trees: graph.trees,
+      visitorFeatures: graph.visitorLayers?.features ?? [],
+      i18n,
+      onSelectNode: selectEntity,
+      onSelectTree: selectTree,
+      onSelectFeature: selectVisitorFeature,
+    });
   } else if (view === 'trees') {
     treeMapController?.setVisible(true);
     renderTreeExplorer(elements.panel, {

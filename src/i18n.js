@@ -24,8 +24,12 @@ const messages = {
     nearby: 'Weiter in der Nähe',
     minutes: 'Min.',
     metres: 'm',
-    search: 'Orte durchsuchen',
-    searchPlaceholder: 'Name, Bauwerk, Wasserkunst …',
+    search: 'Ziele durchsuchen',
+    searchPlaceholder: 'Ort, Person, Baum, Ausstattung …',
+    destinationFinder: 'Finden & entdecken',
+    destinationResultCount: (visible, total) => visible === total
+      ? (total === 1 ? '1 Ziel' : `${total} Ziele`)
+      : `${visible} von ${total} Zielen`,
     noResults: 'Keine passenden Einträge.',
     allSpecies: 'Alle Arten',
     treeLocation: 'Ort / Parkbereich',
@@ -70,8 +74,12 @@ const messages = {
     nearby: 'Continue nearby',
     minutes: 'min',
     metres: 'm',
-    search: 'Search places',
-    searchPlaceholder: 'Name, building, water feature …',
+    search: 'Search destinations',
+    searchPlaceholder: 'Place, person, tree, visitor feature …',
+    destinationFinder: 'Find & discover',
+    destinationResultCount: (visible, total) => visible === total
+      ? (total === 1 ? '1 destination' : `${total} destinations`)
+      : `${visible} of ${total} destinations`,
     noResults: 'No matching entries.',
     allSpecies: 'All species',
     treeLocation: 'Location / park sector',

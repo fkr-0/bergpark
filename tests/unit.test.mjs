@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { distanceMetres, evaluateProximity, nearestNode } from '../src/gps.js';
 import { localized } from '../src/i18n.js';
 import { filterGlossary } from '../src/glossary.js';
+import { createDestinationIndex, normalizeSearchText, searchDestinationIndex } from '../src/destination-search.js';
 import { filterTrees } from '../src/trees.js';
 import { edgeBetween } from '../src/data.js';
 
@@ -97,6 +98,44 @@ test('glossary search discovers semantic roles and object types', () => {
   ];
   assert.deepEqual(filterGlossary(nodes, 'architect', 'de').map(({ id }) => id), ['person']);
   assert.deepEqual(filterGlossary(nodes, 'painting', 'en').map(({ id }) => id), ['art']);
+});
+
+test('destination search ranks an exact semantic role above incidental prose', () => {
+  const entities = [
+    { id: 'alte-post', name: { de: 'Alte Post', en: 'Old Post' }, type: 'historic-building', description: { en: 'Later work involved an architect.' } },
+    { id: 'person', name: { de: 'Johann Beispiel', en: 'Johann Example' }, type: 'historical_figure', roles: ['architect'] },
+  ];
+  const index = createDestinationIndex({ entities, nodeIds: new Set(['alte-post']), language: 'en' });
+  const matches = searchDestinationIndex(index, 'architect', 'en');
+  assert.deepEqual(matches.results.map(({ id }) => id), ['person', 'alte-post']);
+  assert.equal(matches.results[0].matchLabel, 'Architect');
+});
+
+test('destination search spans place, semantic, tree and shipped visitor feature IDs without inventing coordinates', () => {
+  const index = createDestinationIndex({
+    entities: [
+      { id: 'aquaedukt', name: { de: 'Aquädukt', en: 'Aqueduct' }, type: 'waterfeature', lat: 51.31, lng: 9.4 },
+      { id: 'person-example', name: { de: 'Beispielperson', en: 'Example person' }, type: 'historical_figure', roles: ['architect'] },
+    ],
+    nodeIds: new Set(['aquaedukt']),
+    trees: [{ id: 'tree-1', species: { de: 'Riesenmammutbaum', scientific: 'Sequoiadendron giganteum' }, catalog_ref: '358', lat: 51.311, lng: 9.409 }],
+    visitorFeatures: [{ id: 'bench-45387376', layerKind: 'bench', osm_node_id: 45387376, lat: 51.316, lng: 9.412 }],
+    language: 'de',
+  });
+
+  assert.equal(searchDestinationIndex(index, 'aquadukt', 'de').results[0].routeKind, 'place');
+  assert.equal(searchDestinationIndex(index, '358', 'de').results[0].routeKind, 'tree');
+  assert.equal(searchDestinationIndex(index, '45387376', 'de').results[0].routeKind, 'feature');
+  const semantic = searchDestinationIndex(index, 'architect', 'de').results[0];
+  assert.equal(semantic.id, 'person-example');
+  assert.equal(semantic.routeKind, 'place');
+  assert.equal(semantic.spatial, false);
+  assert.equal(semantic.coordinate, null);
+});
+
+test('destination normalization is diacritic-insensitive', () => {
+  assert.equal(normalizeSearchText('  Löwenburg  '), 'lowenburg');
+  assert.equal(normalizeSearchText('Aquädukt'), 'aquadukt');
 });
 
 test('tree filters combine species and significance', () => {

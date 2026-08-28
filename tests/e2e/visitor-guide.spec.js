@@ -27,7 +27,7 @@ test('visitor can switch language, search the index, open a place and show a rou
   await expect(page.locator('#map-status')).toContainText('Tap a place');
 
   await page.getByRole('button', { name: 'Index' }).click();
-  const search = page.getByPlaceholder('Name, building, water feature …');
+  const search = page.getByPlaceholder('Place, person, tree, visitor feature …');
   await expect(search).toBeVisible();
   await search.fill('Hercules');
 

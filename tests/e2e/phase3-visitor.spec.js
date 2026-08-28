@@ -68,13 +68,14 @@ test('390px visitor layers are opt-in, bounded and provenance-aware', async ({ p
   expect(errors).toEqual([]);
 });
 
-test('tablet index discovers semantic entities by role and exposes context', async ({ page }) => {
+test('tablet destination search prioritizes semantic roles and exposes context', async ({ page }) => {
   const errors = captureRuntimeErrors(page);
   await page.setViewportSize({ width: 768, height: 1024 });
   await openGuide(page);
   await page.getByRole('button', { name: 'Index' }).click();
-  await page.getByRole('searchbox', { name: 'Orte durchsuchen' }).fill('architect');
-  await expect(page.locator('[data-node-id]').first()).toContainText(/architect/i);
+  await page.getByRole('searchbox', { name: 'Ziele durchsuchen' }).fill('architect');
+  await expect(page.locator('[data-node-id]').first()).toContainText(/Person/);
+  await expect(page.locator('[data-node-id]').first()).toContainText(/Architekt/);
   await page.locator('[data-node-id]').first().click();
 
   const detail = page.locator('#detail-sheet');
