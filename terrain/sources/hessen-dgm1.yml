@@ -1,0 +1,56 @@
+{
+  "acquired_at": "2026-08-28T20:30:35.039998+00:00",
+  "aoi_margin_m": 150.0,
+  "axis_order": [
+    "E",
+    "N"
+  ],
+  "dataset": "ATKIS-DGM1",
+  "grid_spacing_m": 1.0,
+  "height_accuracy_m_95pct_up_to": 0.3,
+  "license": "dl-zero-de/2.0",
+  "license_checked_at": "2026-08-28",
+  "license_url": "https://www.govdata.de/dl-de/zero-2-0",
+  "official_metadata": {
+    "open_data_url": "https://opendata.hessen.de/dataset/atkis-dgm-1",
+    "product_url": "https://hvbg.hessen.de/landesvermessung/geotopographie/3d-daten/digitale-gelaendemodelle",
+    "wcs_capabilities_url": "https://inspire-hessen.de/raster/dgm1/ows?SERVICE=WCS&VERSION=2.1.0&REQUEST=GetCapabilities",
+    "wcs_metadata_url": "https://www.geoportal.hessen.de/mapbender/php/mod_exportIso19139.php?url=https%3A%2F%2Fwww.geoportal.hessen.de%2Fmapbender%2Fphp%2Fmod_dataISOMetadata.php%3FoutputFormat%3Diso19139%26id%3D3f7eff3c-2dd4-421e-a25d-775205a3c92b"
+  },
+  "product_identifier": "he_dgm1",
+  "provider": "Hessisches Landesamt für Bodenmanagement und Geoinformation (HVBG)",
+  "published_product_encoding": "GeoTIFF Float32, LZW, NoData -9999",
+  "runtime_bounds_wgs84": {
+    "east": 9.425,
+    "north": 51.323,
+    "south": 51.307,
+    "west": 9.385
+  },
+  "schema_version": 1,
+  "source_bounds_epsg25832": [
+    526677,
+    5683885,
+    529775,
+    5685981
+  ],
+  "source_crs": "EPSG:25832",
+  "source_crs_name": "ETRS89 / UTM zone 32N",
+  "source_dimensions": [
+    3098,
+    2096
+  ],
+  "source_files": [
+    {
+      "bytes": 25986672,
+      "name": "he_dgm1_bergpark_526677_5683885_529775_5685981.tiff",
+      "sha256": "ba8289ccb3a3b72d15309721185ca49c46e6cbd8252a2c1fa2f16243484f9ff2"
+    }
+  ],
+  "source_format": "GeoTIFF Float32",
+  "source_nodata": -9999.0,
+  "source_url": "https://inspire-hessen.de/raster/dgm1/ows?SERVICE=WCS&VERSION=2.0.1&REQUEST=GetCoverage&COVERAGEID=he_dgm1&FORMAT=image%2Ftiff&SUBSET=E(526677,529775)&SUBSET=N(5683885,5685981)",
+  "vertical_reference": "DHHN2016_NH",
+  "vertical_reference_basis": "HVBG DGM product metadata; GeoTIFF embeds horizontal EPSG only",
+  "wcs_response_compression_note": "The bounded WCS response is uncompressed TIFF (tag 1); HVBG product metadata documents LZW for the published DGM1 product. Compression is transport/storage encoding and does not change the Float32 elevation samples.",
+  "wcs_response_compression_tag": 1
+}

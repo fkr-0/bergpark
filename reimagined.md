@@ -558,20 +558,21 @@ Do not automatically replace curated heritage interpretation with generic LoD2 g
 A palace or waterwork model should exist only if it helps understanding and has clear
 provenance/scale semantics.
 
-### 8.7 Acquisition uncertainty that must remain explicit
+### 8.7 Acquisition mechanics — Phase 3 qualified
 
-The official HVBG pages prove free DGM1 self-service acquisition and the Open Data portal
-proves the DGM1 license, but Phase 1 has **not** proven a stable, automation-safe direct
-GeoTIFF URL/API for an arbitrary Bergpark clip.
+Phase 3 resolved the earlier acquisition uncertainty without scraping the Geodaten-online
+shop. HVBG's current INSPIRE service catalogue publishes an official DGM1 WCS endpoint at
+`https://inspire-hessen.de/raster/dgm1/ows`; its `he_dgm1` coverage advertises native
+EPSG:25832, 1 m grid offsets, Float32 elevation and NoData `-9999`, and supports GeoTIFF
+coverage output. A bounded WCS `GetCoverage` request for only the canonical Bergpark runtime
+extent plus a 150 m metric margin was successfully acquired and checksum-qualified.
 
-Therefore the first terrain-data phase must choose one of two honest paths:
-
-1. automate an official stable download endpoint if one is verified; or
-2. use an explicit operator/manual acquisition step that stores the exact original
-   filename/source metadata/checksum in a manifest, then makes all downstream processing
-   deterministic.
-
-Do not scrape an unstable shop URL and call that reproducibility.
+The repository therefore uses the official WCS as the automation-safe acquisition path and
+keeps the exact request URL, original response filename, retrieval timestamp, byte size and
+SHA256 in `terrain/sources/hessen-dgm1.yml`. The ignored `.work/terrain/dgm1/source/` cache
+preserves the original response bytes; all downstream conversion is deterministic from
+that immutable input hash. The Geodaten-online shop remains a documented human fallback,
+not a scraped pipeline dependency.
 
 ---
 
@@ -1290,7 +1291,7 @@ This phase is product-first: renderer work is accepted only if it improves the v
 
 | Risk / unknown | Current state | Required response |
 | --- | --- | --- |
-| Official DGM1 arbitrary-area direct download automation | **unknown** | verify stable endpoint; otherwise explicit manual acquisition + immutable checksum manifest |
+| Official DGM1 arbitrary-area direct download automation | **qualified in Phase 3** | official HVBG INSPIRE WCS `he_dgm1`; keep bounded request + immutable checksum/source manifest and retain the shop only as manual fallback |
 | DGM1-derived route grade becomes noisy at 1 m | expected risk | test filtering/resampling; never publish raw one-metre noise as trustworthy climb |
 | MapLibre + Three shared depth on target mobile devices | upstream-supported, not Bergpark-proven | focused Phase-5 browser/device spike with context-loss and disposal evidence |
 | Terrain pack too large for default offline install | unknown until pipeline | 60 MiB target / 80 MiB review gate; reduce zoom/resolution/bounds before abandoning offline principle |

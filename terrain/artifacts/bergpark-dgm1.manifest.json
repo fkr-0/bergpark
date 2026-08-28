@@ -1,0 +1,54 @@
+{
+  "array_names": [
+    "elevation_bytes.npy",
+    "shape.npy"
+  ],
+  "artifact_format": "deterministic-npz-byte-shuffled-float32-v1",
+  "axis_order": [
+    "E",
+    "N"
+  ],
+  "bounds_epsg25832": [
+    526677.0,
+    5683885.0,
+    529775.0,
+    5685981.0
+  ],
+  "dimensions": [
+    3098,
+    2096
+  ],
+  "dtype": "float32 little-endian",
+  "elevation_range_m": [
+    214.56399536132812,
+    561.9030151367188
+  ],
+  "grid_spacing_m": 1.0,
+  "lossy_quantization": false,
+  "nodata": -9999.0,
+  "output": {
+    "bytes": 12555951,
+    "name": "bergpark-dgm1.npz",
+    "sha256": "cdff4e9d51f8bb1679b6a0e4f9ca6c1aeaa603488644faedafe3685e74989b4b"
+  },
+  "processing": {
+    "command_profile": "bergpark-dgm1-byte-shuffled-float32-npz-v1",
+    "numpy": "2.5.2",
+    "pillow": "12.3.0",
+    "python": "3.14.7",
+    "zip_compression": "byte-shuffle + deflate level 9; fixed 1980-01-01 timestamps"
+  },
+  "schema_version": 1,
+  "source": {
+    "bytes": 25986672,
+    "name": "he_dgm1_bergpark_526677_5683885_529775_5685981.tiff",
+    "sha256": "ba8289ccb3a3b72d15309721185ca49c46e6cbd8252a2c1fa2f16243484f9ff2"
+  },
+  "source_crs": "EPSG:25832",
+  "source_manifest": {
+    "name": "hessen-dgm1.yml",
+    "sha256": "aa6d1ed921fc51321180c1367d42975fe86e8b906e1dacce54b781c45fc9946e"
+  },
+  "storage_transform": "reversible 4-lane byte shuffle before DEFLATE",
+  "vertical_reference": "DHHN2016_NH"
+}
