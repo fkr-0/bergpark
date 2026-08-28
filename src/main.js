@@ -2,7 +2,7 @@ import 'leaflet/dist/leaflet.css';
 import './styles/app.css';
 import './styles/phase2.css';
 import './styles/phase3.css';
-import { loadGraphData, loadWalkingNetwork, edgeBetween } from './data.js';
+import { edgeBetween, hydrateGraphData, loadInitialGraphData, loadWalkingNetwork } from './data.js';
 import { createI18n, localized } from './i18n.js';
 import { createBergparkMap } from './map.js';
 import { createGpsNavigator } from './gps.js';
@@ -72,6 +72,9 @@ let currentRoute = null;
 let treeReturnContext = null;
 let activeVisitorKinds = new Set();
 let lastHandledFragment = null;
+let coreDocuments = null;
+let supplementalHydrationPromise = null;
+let supplementalHydrationTimer = null;
 
 function syncDeepLink(kind, id, mode = 'push') {
   if (mode === 'none') return;
@@ -86,16 +89,58 @@ function syncDeepLink(kind, id, mode = 'push') {
   lastHandledFragment = hash;
 }
 
+function runWhenIdle(callback, timeout = 1200) {
+  if ('requestIdleCallback' in window) window.requestIdleCallback(callback, { timeout });
+  else callback();
+}
+
 function scheduleWalkingNetworkHydration() {
-  const hydrate = () => {
+  window.setTimeout(() => runWhenIdle(() => {
     loadWalkingNetwork()
       .then((walkingNetwork) => {
         if (walkingNetwork) mapController?.setWalkingNetwork(walkingNetwork);
       })
       .catch((error) => console.warn('Complete walking network unavailable:', error));
-  };
-  if ('requestIdleCallback' in window) window.requestIdleCallback(hydrate, { timeout: 1200 });
-  else window.setTimeout(hydrate, 0);
+  }), 1500);
+}
+
+function applySupplementalGraph(hydratedGraph) {
+  graph = hydratedGraph;
+  treeMapController?.destroy();
+  visitorLayerController?.destroy();
+  treeMapController = createTreeMapLayer(mapController.map, graph.trees, {
+    language: i18n.language,
+    onSelectTree: selectTree,
+  });
+  visitorLayerController = createVisitorLayerController(mapController.map, graph.visitorLayers, {
+    language: i18n.language,
+    onSelectFeature: selectVisitorFeature,
+  });
+  renderVisitorLayersControl();
+  document.querySelector('#map').dataset.supplementalData = 'ready';
+
+  if (currentView !== 'map' && !currentTreeId && !currentVisitorFeatureId) setView(currentView);
+  if (currentNodeId && !currentRoute && !elements.detail.hidden) showDetail(graph.entitiesById.get(currentNodeId));
+  restoreDeepLink({ force: true });
+}
+
+function ensureSupplementalData() {
+  if (supplementalHydrationPromise || !coreDocuments) return supplementalHydrationPromise;
+  if (supplementalHydrationTimer) {
+    window.clearTimeout(supplementalHydrationTimer);
+    supplementalHydrationTimer = null;
+  }
+  supplementalHydrationPromise = hydrateGraphData(coreDocuments)
+    .then(applySupplementalGraph)
+    .catch((error) => console.warn('Supplemental Bergpark data unavailable:', error));
+  return supplementalHydrationPromise;
+}
+
+function scheduleSupplementalHydration() {
+  supplementalHydrationTimer = window.setTimeout(() => {
+    supplementalHydrationTimer = null;
+    runWhenIdle(() => ensureSupplementalData());
+  }, 800);
 }
 
 function renderChrome() {
@@ -350,29 +395,29 @@ function restoreDeepLink({ force = false } = {}) {
 async function boot() {
   renderChrome();
   setStatus(i18n.t('loading'), true);
-  graph = await loadGraphData();
+  const initial = await loadInitialGraphData();
+  graph = initial.graph;
+  coreDocuments = initial.coreDocuments;
   mapController = createBergparkMap(document.querySelector('#map'), graph, {
     language: i18n.language,
     onSelectNode: (id) => selectNode(id),
     onLocationError: () => setStatus(i18n.t('gpsUnavailable'), true),
   });
-  treeMapController = createTreeMapLayer(mapController.map, graph.trees, {
-    language: i18n.language,
-    onSelectTree: selectTree,
-  });
-  visitorLayerController = createVisitorLayerController(mapController.map, graph.visitorLayers, {
-    language: i18n.language,
-    onSelectFeature: selectVisitorFeature,
-  });
-  renderVisitorLayersControl();
   setupGps();
   mapController.fitPark();
   setStatus(i18n.t('mapHint'));
   restoreDeepLink({ force: true });
+  scheduleSupplementalHydration();
   scheduleWalkingNetworkHydration();
 }
 
-for (const button of elements.nav) button.addEventListener('click', () => graph && setView(button.dataset.view));
+for (const button of elements.nav) {
+  button.addEventListener('click', () => {
+    if (!graph) return;
+    setView(button.dataset.view);
+    if (button.dataset.view !== 'map') ensureSupplementalData();
+  });
+}
 
 elements.language.addEventListener('click', () => i18n.toggle());
 i18n.subscribe(() => {

@@ -56,12 +56,15 @@ function routeStyle(active = false) {
 export function createBergparkMap(element, graph, { language = 'de', onSelectNode, onLocationError } = {}) {
   const { nodes, edges } = graph;
   let currentLanguage = language;
+  const parkBounds = nodes.length
+    ? L.latLngBounds(nodes.map((node) => [node.lat, node.lng ?? node.lon]))
+    : null;
   const map = L.map(element, {
-    center: PARK_CENTER,
-    zoom: 15,
     zoomControl: false,
     preferCanvas: true,
   });
+  if (parkBounds?.isValid()) map.fitBounds(parkBounds, { padding: [36, 36], maxZoom: 16 });
+  else map.setView(PARK_CENTER, 15);
 
   L.control.zoom({ position: 'bottomright' }).addTo(map);
 
@@ -241,8 +244,8 @@ export function createBergparkMap(element, graph, { language = 'de', onSelectNod
     },
     showUserPosition,
     fitPark() {
-      if (!nodes.length) return;
-      map.fitBounds(L.latLngBounds(nodes.map((node) => [node.lat, node.lng ?? node.lon])), { padding: [36, 36], maxZoom: 16 });
+      if (!parkBounds?.isValid()) return;
+      map.fitBounds(parkBounds, { padding: [36, 36], maxZoom: 16 });
     },
     updateLanguage(nextLanguage) {
       currentLanguage = nextLanguage;

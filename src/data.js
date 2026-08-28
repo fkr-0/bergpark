@@ -87,20 +87,18 @@ export async function loadWalkingNetwork(baseUrl = import.meta.env.BASE_URL) {
   return loadOptionalJson(baseUrl, 'walking-network.json', null);
 }
 
-export async function loadGraphData(baseUrl = import.meta.env.BASE_URL) {
-  const [nodesDoc, edgesDoc, treesDoc] = await Promise.all(REQUIRED_FILES.map((filename) => loadJson(baseUrl, filename)));
-  const [deDoc, enDoc, sourceRegistry] = await Promise.all([
-    loadOptionalJson(baseUrl, 'nodes.de.json', {}),
-    loadOptionalJson(baseUrl, 'nodes.en.json', {}),
-    loadOptionalJson(baseUrl, 'sources.json', { sources: {} }),
-  ]);
-  const [figuresDoc, semanticDoc, benchesDoc, visitorPoisDoc] = await Promise.all([
-    loadOptionalJson(baseUrl, 'figures.json', { figures: [] }),
-    loadOptionalJson(baseUrl, 'semantic.json', { artworks: [], collections: [], semantic_edges: [] }),
-    loadOptionalJson(baseUrl, 'benches.json', null),
-    loadOptionalJson(baseUrl, 'visitor_pois.json', null),
-  ]);
-
+function assembleGraphData({
+  nodesDoc,
+  edgesDoc,
+  treesDoc = { trees: [], status: 'loading' },
+  deDoc = {},
+  enDoc = {},
+  sourceRegistry = { sources: {} },
+  figuresDoc = { figures: [] },
+  semanticDoc = { artworks: [], collections: [], semantic_edges: [] },
+  benchesDoc = null,
+  visitorPoisDoc = null,
+}) {
   const rawNodes = nodesDoc.nodes ?? nodesDoc;
   const nodes = rawNodes.map((node) => enrichNode(node, deDoc, enDoc, sourceRegistry));
   const edges = edgesDoc.edges ?? edgesDoc;
@@ -154,6 +152,77 @@ export async function loadGraphData(baseUrl = import.meta.env.BASE_URL) {
       contentLanguages: { de: Object.keys(deDoc ?? {}).length, en: Object.keys(enDoc ?? {}).length },
     },
   };
+}
+
+export async function loadInitialGraphData(baseUrl = import.meta.env.BASE_URL) {
+  const [nodesDoc, edgesDoc] = await Promise.all([
+    loadJson(baseUrl, 'nodes.json'),
+    loadJson(baseUrl, 'edges.json'),
+  ]);
+  return {
+    graph: assembleGraphData({ nodesDoc, edgesDoc }),
+    coreDocuments: { nodesDoc, edgesDoc },
+  };
+}
+
+export async function hydrateGraphData(coreDocuments, baseUrl = import.meta.env.BASE_URL) {
+  const [treesDoc, deDoc, enDoc, sourceRegistry, figuresDoc, semanticDoc, benchesDoc, visitorPoisDoc] = await Promise.all([
+    loadJson(baseUrl, 'trees.json'),
+    loadOptionalJson(baseUrl, 'nodes.de.json', {}),
+    loadOptionalJson(baseUrl, 'nodes.en.json', {}),
+    loadOptionalJson(baseUrl, 'sources.json', { sources: {} }),
+    loadOptionalJson(baseUrl, 'figures.json', { figures: [] }),
+    loadOptionalJson(baseUrl, 'semantic.json', { artworks: [], collections: [], semantic_edges: [] }),
+    loadOptionalJson(baseUrl, 'benches.json', null),
+    loadOptionalJson(baseUrl, 'visitor_pois.json', null),
+  ]);
+  return assembleGraphData({
+    ...coreDocuments,
+    treesDoc,
+    deDoc,
+    enDoc,
+    sourceRegistry,
+    figuresDoc,
+    semanticDoc,
+    benchesDoc,
+    visitorPoisDoc,
+  });
+}
+
+export async function loadGraphData(baseUrl = import.meta.env.BASE_URL) {
+  const [
+    nodesDoc,
+    edgesDoc,
+    treesDoc,
+    deDoc,
+    enDoc,
+    sourceRegistry,
+    figuresDoc,
+    semanticDoc,
+    benchesDoc,
+    visitorPoisDoc,
+  ] = await Promise.all([
+    ...REQUIRED_FILES.map((filename) => loadJson(baseUrl, filename)),
+    loadOptionalJson(baseUrl, 'nodes.de.json', {}),
+    loadOptionalJson(baseUrl, 'nodes.en.json', {}),
+    loadOptionalJson(baseUrl, 'sources.json', { sources: {} }),
+    loadOptionalJson(baseUrl, 'figures.json', { figures: [] }),
+    loadOptionalJson(baseUrl, 'semantic.json', { artworks: [], collections: [], semantic_edges: [] }),
+    loadOptionalJson(baseUrl, 'benches.json', null),
+    loadOptionalJson(baseUrl, 'visitor_pois.json', null),
+  ]);
+  return assembleGraphData({
+    nodesDoc,
+    edgesDoc,
+    treesDoc,
+    deDoc,
+    enDoc,
+    sourceRegistry,
+    figuresDoc,
+    semanticDoc,
+    benchesDoc,
+    visitorPoisDoc,
+  });
 }
 
 export function edgeBetween(graph, fromId, toId) {
