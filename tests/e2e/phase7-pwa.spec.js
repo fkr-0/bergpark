@@ -21,7 +21,7 @@ test('mobile production PWA exposes a controlled installable shell and warms the
     const manifest = await fetch(manifestLink.href).then((response) => response.json());
     const registration = await navigator.serviceWorker.ready;
     const cacheKeys = await caches.keys();
-    const shellRequests = await caches.open('bergpark-shell-v5').then((cache) => cache.keys());
+    const shellRequests = await caches.open('bergpark-shell-v6').then((cache) => cache.keys());
     return {
       manifest,
       controller: Boolean(navigator.serviceWorker.controller),
@@ -41,7 +41,8 @@ test('mobile production PWA exposes a controlled installable shell and warms the
   expect(state.manifest.display).toBe('standalone');
   expect(state.manifest.icons.some(({ sizes }) => sizes === '192x192')).toBe(true);
   expect(state.manifest.icons.some(({ sizes }) => sizes === '512x512')).toBe(true);
-  expect(state.cacheKeys).toContain('bergpark-shell-v5');
+  expect(state.cacheKeys).toContain('bergpark-shell-v6');
+  expect(state.warmedPaths).toContain('/data/runtime-manifest.json');
   expect(state.warmedPaths).toContain('/data/walking-network.json');
   expect(state.warmedPaths).toContain('/icons/app-icon-192.png');
   expect(state.warmedPaths).toContain('/icons/app-icon-512.png');
@@ -72,9 +73,23 @@ test('warmed mobile PWA reloads offline with shell, data, visitor layers, and wa
     await page.locator('#visitor-layer-control summary').click();
     await page.getByRole('button', { name: 'Bäume' }).click();
     await expect(page.locator('[data-tree-id]').first()).toBeVisible();
+    expect(errors.filter((error) => error !== 'console: Failed to load resource: net::ERR_FAILED')).toEqual([]);
+    errors.length = 0;
+
+    const missingData = await page.evaluate(async () => {
+      const response = await fetch('./data/not-shipped.json');
+      return {
+        status: response.status,
+        contentType: response.headers.get('content-type'),
+        body: await response.json(),
+      };
+    });
+    expect(missingData.status).toBe(503);
+    expect(missingData.contentType).toContain('application/json');
+    expect(missingData.body.error).toBe('offline_data_unavailable');
   } finally {
     await context.setOffline(false);
   }
 
-  expect(errors.filter((error) => error !== 'console: Failed to load resource: net::ERR_FAILED')).toEqual([]);
+  expect(errors.every((error) => error === 'console: Failed to load resource: the server responded with a status of 503 ()')).toBe(true);
 });

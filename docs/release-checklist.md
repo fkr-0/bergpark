@@ -46,8 +46,10 @@ may deliberately leave later gates open, but the release notes must say so.
 
 - [ ] Node test suite passes.
 - [ ] Vite production build passes.
+- [ ] Runtime contract/artifact check passes and every shipped layer hash/size/schema matches `data/runtime-manifest.json`.
 - [ ] Every visitor-facing data layer is copied into the build artifact.
 - [ ] Runtime rejects or safely disables incompatible optional data layers.
+- [ ] Successful non-JSON responses on data URLs fail explicitly rather than being parsed/cached as JSON.
 - [ ] Deep links for shipped entity/view types resolve.
 - [ ] Manual browsing works with GPS disabled/denied.
 
@@ -57,6 +59,7 @@ may deliberately leave later gates open, but the release notes must say so.
 - [ ] Application shell/assets are usable after an offline reload once cached.
 - [ ] Shipped runtime JSON remains available offline as intended.
 - [ ] Upgrade from the previous deployed cache/data version has been smoke-tested.
+- [ ] An uncached offline data miss returns a typed data error and never falls back to application HTML.
 - [ ] Cross-origin tile-cache behavior has been verified in target browsers.
 - [ ] Tile caching remains bounded and visitor-driven; no bulk third-party tile prefetch occurs.
 

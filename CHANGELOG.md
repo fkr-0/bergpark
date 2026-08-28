@@ -7,7 +7,34 @@ experience have completed their release gates.
 
 ## [Unreleased]
 
+### Added
+
+- Versioned runtime-data contract covering every visitor-facing shipped layer,
+  with schema compatibility, load/precache policy, exact artifact hashes/sizes
+  and explicit data/startup budgets.
+- Production artifact verification that rejects undeclared/aggregate data payloads
+  and checks the manifest, layer hashes/sizes/schemas and initial JS/CSS budgets.
+
+### Changed
+
+- Runtime data publishing, browser hydration and service-worker precache now use
+  the same manifest authority instead of three drifting filename lists.
+- Pages derives runtime release metadata from the checked-out commit timestamp and
+  SHA; local builds without source-backed metadata leave those fields unset rather
+  than injecting the current wall-clock time.
+- The PWA shell cache advances to `bergpark-shell-v6`; successful installation of
+  the new contract removes older shell caches while preserving the bounded visited
+  tile cache.
+
 ### Fixed
+
+- Runtime JSON loading rejects incompatible schemas and successful non-JSON
+  responses explicitly. Offline uncached data now returns structured JSON 503,
+  and application HTML is reserved for navigation fallback instead of ever being
+  supplied as JSON data.
+- Opaque responses from recognized cross-origin map tile hosts are qualified for
+  bounded visitor-driven caching; the tile-entry limit is read from the runtime
+  contract.
 
 - Visitor evidence links reject relative/internal research references and select
   only absolute HTTP(S) evidence, so bench details no longer turn preserved

@@ -16,7 +16,8 @@
     "test:py": "python -m unittest discover -s tests -p \"test_*.py\"",
     "test:e2e": "playwright test",
     "lint": "biome check --error-on-warnings src scripts tests vitest.config.mjs",
-    "check": "pnpm run lint && pnpm run test && pnpm run test:py && pnpm run build",
+    "check:runtime-artifact": "node scripts/check-runtime-artifact.mjs",
+    "check": "pnpm run lint && pnpm run test && pnpm run test:py && pnpm run build && pnpm run check:runtime-artifact",
     "check:e2e": "pnpm run check && pnpm run test:e2e"
   },
   "dependencies": {

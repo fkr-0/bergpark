@@ -115,8 +115,34 @@ node scripts/copy-data.mjs
 ```
 
 This copies the deployable data subset from `data/` to `public/data/`.
-The list is currently manual. Future layers should be driven by a versioned
-runtime manifest so offline packaging cannot silently omit a newly shipped layer.
+The deployable set is defined only in `runtime/runtime-data-manifest.json`.
+`copy-data.mjs` validates each layer's declared schema, fails if a
+release-required source is missing/incompatible, projects the bounded walking
+network from its declared source inputs, and writes `public/data/runtime-manifest.json`
+with exact hashes/sizes. Browser loading and the service worker consume the same
+published authority.
+
+After a production build, verify the artifact explicitly:
+
+```sh
+pnpm run check:runtime-artifact
+```
+
+The artifact check rejects unexpected `dist/data` payloads (including aggregate
+`graph.json`, raw `path_topology.json` and audit `validation.json`), verifies every
+manifest hash/size/schema and enforces the contract's runtime-data and initial
+JS/CSS budgets.
+
+For reproducible release metadata, supply only source-backed values:
+
+```sh
+SOURCE_DATE_EPOCH="$(git show -s --format=%ct HEAD)" \
+BERGPARK_SOURCE_REVISION="$(git rev-parse HEAD)" \
+pnpm run build
+```
+
+If these variables are absent, the runtime manifest records `null` rather than a
+fabricated current timestamp.
 
 ## Normal builds should be offline
 

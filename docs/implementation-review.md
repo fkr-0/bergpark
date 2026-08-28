@@ -75,6 +75,14 @@ usable in the visitor application.
 **Required change:** define a versioned runtime data manifest or explicit layer
 loader and make all release-shipped layers part of offline packaging and tests.
 
+**Runtime resolution (2026-08-28):** contract v1 at
+`runtime/runtime-data-manifest.json` is now the publish/load/precache/artifact
+authority for nodes, edges, trees, bilingual content, sources, figures, semantic
+data, benches, visitor POIs and the derived walking network. Aggregate/audit-only
+`graph.json`, `path_topology.json` and `validation.json` remain excluded from the
+visitor artifact. The independent graph-composition integrity failure tracked by
+`tests/test_semantic.py:136` is not waived by this runtime resolution.
+
 ### 4. Deployment CI does not validate the full data product
 
 At the review snapshot, `.github/workflows/pages.yml` used the legacy partial
@@ -140,6 +148,10 @@ offline.
 **Required change:** make runtime data caching driven by the same release/runtime
 manifest used by the application.
 
+**Runtime resolution (2026-08-28):** `bergpark-shell-v6` fetches and validates the
+published runtime manifest during install and derives its data precache from the
+manifest. Release-required layers fail the install if they cannot be cached.
+
 ### 9. Service-worker caching/fallback behavior needs explicit qualification
 
 The service worker only caches a fetched tile when `response.ok` is true.
@@ -157,6 +169,15 @@ parse error rather than a clear unavailable-layer state.
 use request-type/content-aware fallbacks, and handle opaque tile responses only
 where provider policy and browser behavior permit caching them.
 
+**Runtime resolution (2026-08-28):** data, navigation and static fallback paths
+are separate. Data caches only successful JSON; HTML-on-data becomes JSON 502 and
+an uncached offline miss becomes JSON 503. Opaque responses from the explicitly
+recognized OSM/OpenTopoMap tile hosts are accepted into the bounded visited-tile
+cache. Node SW tests cover the opaque path and v5→v6 cache cleanup; Chromium
+browser coverage exercises warmed offline data plus an explicit uncached data
+miss. Firefox still has the already documented Playwright synthetic-offline
+`NS_ERROR_OFFLINE` limitation; WebKit remains host-library-blocked on Arch.
+
 ### 10. Generated timestamps weaken exact reproducibility
 
 Generated JSON includes current timestamps. Exact output hashes therefore change
@@ -167,6 +188,11 @@ obscures substantive changes.
 
 **Required change:** support deterministic build metadata (`SOURCE_DATE_EPOCH`,
 source-revision timestamp, or a separate non-content manifest).
+
+**Runtime resolution (2026-08-28):** runtime release metadata is separate from
+layer bytes and derives only from explicit `SOURCE_DATE_EPOCH` and source revision
+inputs. Pages sets these from the checked-out commit; local builds without such
+authority record `null` rather than using wall-clock time.
 
 ### 11. Snapshot counts are embedded as code assertions
 

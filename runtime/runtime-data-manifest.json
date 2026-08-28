@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "contract": "bergpark-runtime-data",
+  "contract_version": 1,
+  "budgets": {
+    "runtime_data_bytes": 8388608,
+    "initial_js_bytes": 393216,
+    "initial_css_bytes": 98304,
+    "visited_tile_entries": 80
+  },
+  "layers": [
+    {
+      "id": "nodes",
+      "filename": "nodes.json",
+      "source": "data/nodes.json",
+      "producer": "copy",
+      "load_phase": "initial",
+      "boot_required": true,
+      "release_required": true,
+      "precache": true,
+      "schema": { "field": "schema_version", "supported": [2] }
+    },
+    {
+      "id": "edges",
+      "filename": "edges.json",
+      "source": "data/edges.json",
+      "producer": "copy",
+      "load_phase": "initial",
+      "boot_required": true,
+      "release_required": true,
+      "precache": true,
+      "schema": { "field": "schema_version", "supported": [1] }
+    },
+    {
+      "id": "trees",
+      "filename": "trees.json",
+      "source": "data/trees.json",
+      "producer": "copy",
+      "load_phase": "hydrate",
+      "boot_required": false,
+      "release_required": true,
+      "precache": true,
+      "schema": { "field": "schema_version", "supported": [2] }
+    },
+    {
+      "id": "content-de",
+      "filename": "nodes.de.json",
+      "source": "data/nodes.de.json",
+      "producer": "copy",
+      "load_phase": "hydrate",
+      "boot_required": false,
+      "release_required": true,
+      "precache": true,
+      "schema": { "kind": "record-map" }
+    },
+    {
+      "id": "content-en",
+      "filename": "nodes.en.json",
+      "source": "data/nodes.en.json",
+      "producer": "copy",
+      "load_phase": "hydrate",
+      "boot_required": false,
+      "release_required": true,
+      "precache": true,
+      "schema": { "kind": "record-map" }
+    },
+    {
+      "id": "sources",
+      "filename": "sources.json",
+      "source": "data/sources.json",
+      "producer": "copy",
+      "load_phase": "hydrate",
+      "boot_required": false,
+      "release_required": true,
+      "precache": true,
+      "schema": { "field": "schemaVersion", "supported": [1] }
+    },
+    {
+      "id": "figures",
+      "filename": "figures.json",
+      "source": "data/figures.json",
+      "producer": "copy",
+      "load_phase": "hydrate",
+      "boot_required": false,
+      "release_required": true,
+      "precache": true,
+      "schema": { "field": "schema_version", "supported": [1] }
+    },
+    {
+      "id": "semantic",
+      "filename": "semantic.json",
+      "source": "data/semantic.json",
+      "producer": "copy",
+      "load_phase": "hydrate",
+      "boot_required": false,
+      "release_required": true,
+      "precache": true,
+      "schema": { "field": "schema_version", "supported": [1] }
+    },
+    {
+      "id": "benches",
+      "filename": "benches.json",
+      "source": "data/benches.json",
+      "producer": "copy",
+      "load_phase": "hydrate",
+      "boot_required": false,
+      "release_required": true,
+      "precache": true,
+      "schema": { "field": "schema_version", "supported": [1] }
+    },
+    {
+      "id": "visitor-pois",
+      "filename": "visitor_pois.json",
+      "source": "data/visitor_pois.json",
+      "producer": "copy",
+      "load_phase": "hydrate",
+      "boot_required": false,
+      "release_required": true,
+      "precache": true,
+      "schema": { "field": "schema_version", "supported": [1] }
+    },
+    {
+      "id": "walking-network",
+      "filename": "walking-network.json",
+      "producer": "walking-network",
+      "source_inputs": ["data/path_topology.json", "data/graph.json"],
+      "load_phase": "deferred",
+      "boot_required": false,
+      "release_required": true,
+      "precache": true,
+      "schema": { "field": "schema_version", "supported": [1] }
+    }
+  ]
+}

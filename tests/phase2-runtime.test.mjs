@@ -6,6 +6,11 @@ import { normalizeSemanticData, semanticRelationLabel } from '../src/semantic.js
 import { routeEvidence, routeProfilePolyline } from '../src/routes.js';
 import { treeDetailModel } from '../src/tree-detail.js';
 import { clusterVisitorFeatures, normalizeVisitorLayerData } from '../src/visitor-layer-data.js';
+import { releaseMetadataFromEnv, validateRuntimeContract } from '../scripts/runtime-data.mjs';
+
+const RUNTIME_CONTRACT = validateRuntimeContract(
+  JSON.parse(await readFile(new URL('../runtime/runtime-data-manifest.json', import.meta.url), 'utf8')),
+);
 
 test('tree LOD is deterministic and expands to individual records at close zoom', () => {
   const trees = [
@@ -113,30 +118,47 @@ test('route evidence keeps mapped-path and endpoint uncertainty distinct', () =>
   assert.equal(routeProfilePolyline(edge.elevation_profile_m).points.split(' ').length, 3);
 });
 
-test('production copy excludes aggregate and audit-only payloads', async () => {
+test('runtime manifest is the production publish authority and excludes aggregate/audit payloads', async () => {
   const copyScript = await readFile(new URL('../scripts/copy-data.mjs', import.meta.url), 'utf8');
-  const runtimeFiles = copyScript.match(/const runtimeFiles = \[([\s\S]*?)\n\];/)?.[1] ?? '';
-  assert.doesNotMatch(runtimeFiles, /'graph\.json'/);
-  assert.doesNotMatch(runtimeFiles, /'validation\.json'/);
-  assert.match(runtimeFiles, /'semantic\.json'/);
-  assert.match(runtimeFiles, /'trees\.json'/);
-  assert.match(runtimeFiles, /'benches\.json'/);
-  assert.match(runtimeFiles, /'visitor_pois\.json'/);
-  assert.doesNotMatch(runtimeFiles, /'path_topology\.json'/);
-  assert.match(copyScript, /writeFile\(resolve\(target, 'walking-network\.json'\)/);
+  const filenames = RUNTIME_CONTRACT.layers.map((layer) => layer.filename);
+  assert.equal(new Set(filenames).size, filenames.length);
+  assert.ok(filenames.includes('semantic.json'));
+  assert.ok(filenames.includes('trees.json'));
+  assert.ok(filenames.includes('benches.json'));
+  assert.ok(filenames.includes('visitor_pois.json'));
+  assert.ok(filenames.includes('walking-network.json'));
+  assert.equal(filenames.includes('graph.json'), false);
+  assert.equal(filenames.includes('path_topology.json'), false);
+  const walking = RUNTIME_CONTRACT.layers.find((layer) => layer.id === 'walking-network');
+  assert.deepEqual(walking.source_inputs, ['data/path_topology.json', 'data/graph.json']);
+  assert.match(copyScript, /runtime\/runtime-data-manifest\.json/);
+  assert.doesNotMatch(copyScript, /const runtimeFiles =/);
 });
 
-test('service worker installs built assets, refreshes data online, and bounds visited tiles', async () => {
+test('release metadata is deterministic when SOURCE_DATE_EPOCH is supplied and does not fabricate a local date', () => {
+  assert.deepEqual(releaseMetadataFromEnv({}), {
+    source_revision: null,
+    source_date_epoch: null,
+    generated_at: null,
+  });
+  assert.deepEqual(releaseMetadataFromEnv({ SOURCE_DATE_EPOCH: '0', BERGPARK_SOURCE_REVISION: 'abc123' }), {
+    source_revision: 'abc123',
+    source_date_epoch: 0,
+    generated_at: '1970-01-01T00:00:00.000Z',
+  });
+  assert.throws(() => releaseMetadataFromEnv({ SOURCE_DATE_EPOCH: 'not-a-date' }), /Invalid SOURCE_DATE_EPOCH/);
+});
+
+test('service worker derives runtime precache from the manifest and bounds visitor-driven tile caching', async () => {
   const serviceWorker = await readFile(new URL('../public/sw.js', import.meta.url), 'utf8');
   assert.match(serviceWorker, /pathname\.includes\('\/assets\/'\)/);
   assert.match(serviceWorker, /networkFirstData/);
-  assert.match(serviceWorker, /while \(keys\.length > 80\)/);
-  assert.match(serviceWorker, /bergpark-shell-v5/);
-  assert.match(serviceWorker, /\.\/data\/benches\.json/);
-  assert.match(serviceWorker, /\.\/data\/visitor_pois\.json/);
-  assert.match(serviceWorker, /\.\/data\/walking-network\.json/);
+  assert.match(serviceWorker, /visitedTileLimit/);
+  assert.match(serviceWorker, /bergpark-shell-v6/);
+  assert.match(serviceWorker, /runtime-manifest\.json/);
+  assert.match(serviceWorker, /layer\.precache/);
   assert.match(serviceWorker, /cacheFirstStatic/);
   assert.match(serviceWorker, /networkFirstNavigation/);
-  const runtimeData = serviceWorker.match(/const RUNTIME_DATA = \[([\s\S]*?)\n\];/)?.[1] ?? '';
-  assert.doesNotMatch(runtimeData, /tile\.(?:openstreetmap|opentopomap)/);
+  assert.doesNotMatch(serviceWorker, /const RUNTIME_DATA =/);
+  assert.doesNotMatch(serviceWorker, /tile\.(?:openstreetmap|opentopomap).*addAll/);
 });

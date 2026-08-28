@@ -269,6 +269,15 @@ Every layer should have:
 The runtime should reject or gracefully disable an incompatible optional layer
 rather than silently misinterpreting it.
 
+The release runtime now has one explicit authority at
+`runtime/runtime-data-manifest.json`. Contract version 1 names every shipped
+visitor-facing data layer, its load phase, release/boot requirement, precache
+policy and supported schema shape/version. `scripts/copy-data.mjs` derives the
+published `data/runtime-manifest.json` from that authority and adds exact byte
+counts and SHA-256 hashes. Browser loading, service-worker precache and
+`scripts/check-runtime-artifact.mjs` consume that published contract instead of
+maintaining independent filename lists.
+
 ## Build determinism
 
 Exact source/input hashes are more valuable than wall-clock generation timestamps.
@@ -276,6 +285,11 @@ Generated content should be deterministic where practical. If a timestamp is
 required, prefer a reproducible build/source timestamp (for example via
 `SOURCE_DATE_EPOCH`) or put it in a separate manifest that does not obscure data
 diffs.
+
+Local runtime publishing leaves release revision/date fields `null` unless an
+authoritative value is supplied. The Pages workflow supplies the checked-out Git
+commit timestamp as `SOURCE_DATE_EPOCH` and `GITHUB_SHA` as the source revision;
+it does not synthesize a wall-clock build date.
 
 ## Offline architecture
 
@@ -287,6 +301,19 @@ The service worker should cache:
 
 Layer/schema upgrades need cache-version coupling so old JSON cannot be served to
 new browser code indefinitely.
+
+`bergpark-shell-v6` couples the current contract to a new shell cache. Install
+fails if a release-required precache layer cannot be cached, and activation then
+removes older `bergpark-shell-*` caches. Same-origin data is network-first but is
+cached only when it is successful JSON. An uncached offline data request returns
+an explicit JSON 503 and a successful HTML response on a data URL is converted to
+a JSON 502 rather than becoming an HTML-as-JSON parse failure. Navigation remains
+the only request class allowed to fall back to cached application HTML.
+
+Known OSM/OpenTopoMap tile hosts remain visitor-driven and cache-first after the
+first visit. Successful and opaque cross-origin image responses are cacheable;
+the entry bound comes from the runtime manifest (80 in contract v1). No release
+step bulk-prefetches third-party tiles.
 
 ## Release architecture
 
