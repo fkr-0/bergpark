@@ -71,7 +71,9 @@ let currentTreeId = null;
 let currentVisitorFeatureId = null;
 let currentView = 'map';
 let currentRoute = null;
+let nodeReturnContext = null;
 let treeReturnContext = null;
+let visitorReturnContext = null;
 let activeVisitorKinds = new Set();
 let lastHandledFragment = null;
 let coreDocuments = null;
@@ -182,7 +184,46 @@ function renderVisitorLayersControl() {
   elements.visitorLayers.open = wasOpen;
 }
 
-function setView(view) {
+function selectionReturnSelector(kind, id, view) {
+  const escapedId = CSS.escape(id);
+  if (view === 'index') {
+    const attribute = kind === 'tree' ? 'data-tree-id' : kind === 'feature' ? 'data-feature-id' : 'data-node-id';
+    return `[data-destination-kind="${kind}"][${attribute}="${escapedId}"]`;
+  }
+  if (view === 'trees' && kind === 'tree') return `[data-tree-id="${escapedId}"]`;
+  return null;
+}
+
+function captureSelectionReturn(kind, id, { enabled = true } = {}) {
+  if (!enabled) return null;
+  const active = document.activeElement instanceof HTMLElement && document.activeElement !== document.body
+    ? document.activeElement
+    : null;
+  return {
+    view: currentView,
+    element: active,
+    selector: selectionReturnSelector(kind, id, currentView),
+  };
+}
+
+function restoreSelectionFocus(context) {
+  if (context?.view === 'index' || context?.view === 'trees') setView(context.view, { reusePanel: true });
+  requestAnimationFrame(() => {
+    const original = context?.element;
+    if (original?.isConnected && !original.closest('[hidden]')) {
+      original.focus();
+      return;
+    }
+    const fallback = context?.selector ? document.querySelector(context.selector) : null;
+    if (fallback instanceof HTMLElement && !fallback.closest('[hidden]')) {
+      fallback.focus();
+      return;
+    }
+    document.querySelector('#map')?.focus();
+  });
+}
+
+function setView(view, { reusePanel = false } = {}) {
   currentView = view;
   stopNarration();
   for (const button of elements.nav) {
@@ -202,6 +243,7 @@ function setView(view) {
   elements.panel.hidden = false;
   if (view === 'index') {
     treeMapController?.setVisible(false);
+    if (reusePanel) return;
     renderGlossary(elements.panel, {
       nodes: graph.entities,
       nodeIds: new Set(graph.nodes.map(({ id }) => id)),
@@ -214,6 +256,7 @@ function setView(view) {
     });
   } else if (view === 'trees') {
     treeMapController?.setVisible(true);
+    if (reusePanel) return;
     renderTreeExplorer(elements.panel, {
       trees: graph.trees,
       metadata: graph.metadata,
@@ -224,7 +267,7 @@ function setView(view) {
   }
 }
 
-function showDetail(node) {
+function showDetail(node, { focusClose = false } = {}) {
   currentRoute = null;
   currentTreeId = null;
   currentVisitorFeatureId = null;
@@ -235,15 +278,28 @@ function showDetail(node) {
     onNavigate: showRoute,
     onSelectNode: selectEntity,
   });
+  const close = elements.detail.querySelector('[data-action="close-detail"]');
+  close?.addEventListener('click', closeNodeDetail);
+  if (focusClose) close?.focus();
+}
+
+function closeNodeDetail() {
+  elements.detail.hidden = true;
+  const context = nodeReturnContext;
+  nodeReturnContext = null;
+  restoreSelectionFocus(context);
 }
 
 function selectNode(id, { source = 'manual', historyMode } = {}) {
   const node = graph?.nodesById.get(id);
   if (!node) return;
+  nodeReturnContext = captureSelectionReturn('place', id, {
+    enabled: historyMode !== 'none' && source !== 'gps' && source !== 'deeplink',
+  });
   currentNodeId = id;
   setView('map');
-  mapController.focusPlace(id, { popup: source === 'manual' });
-  showDetail(node);
+  mapController.focusPlace(id, { popup: source === 'manual' && nodeReturnContext?.view === 'map' });
+  showDetail(node, { focusClose: Boolean(nodeReturnContext) });
   if (source === 'gps') setStatus(i18n.t('nearPlace', localized(node.name, i18n.language, node.id)), true);
   syncDeepLink('place', id, historyMode ?? (source === 'gps' ? 'replace' : 'push'));
 }
@@ -255,9 +311,10 @@ function selectEntity(id, { historyMode = 'push' } = {}) {
   }
   const entity = graph?.entitiesById.get(id);
   if (!entity) return;
+  nodeReturnContext = captureSelectionReturn('place', id, { enabled: historyMode !== 'none' });
   currentNodeId = id;
   setView('map');
-  showDetail(entity);
+  showDetail(entity, { focusClose: Boolean(nodeReturnContext) });
   syncDeepLink('place', id, historyMode);
 }
 
@@ -268,7 +325,7 @@ function selectTree(id, context = {}) {
   currentRoute = null;
   currentVisitorFeatureId = null;
   currentTreeId = id;
-  treeReturnContext = { view: currentView, source: context.source ?? 'deeplink', treeId: id };
+  treeReturnContext = captureSelectionReturn('tree', id, { enabled: context.historyMode !== 'none' });
   elements.panel.hidden = true;
   const descriptor = spatialWorld?.treesById.get(id);
   if (descriptor) mapController.focusPosition(descriptor.position, { zoom: 18, duration: 0.6 });
@@ -283,16 +340,12 @@ function closeTreeDetail() {
   const context = treeReturnContext;
   currentTreeId = null;
   treeReturnContext = null;
-  if (context?.view === 'trees') {
-    elements.panel.hidden = false;
-    requestAnimationFrame(() => elements.panel.querySelector(`[data-tree-id="${CSS.escape(context.treeId)}"]`)?.focus());
-  } else {
-    document.querySelector('#map')?.focus();
-  }
+  restoreSelectionFocus(context);
 }
 
 function selectVisitorFeature(feature, { historyMode = 'push' } = {}) {
   if (!feature) return;
+  visitorReturnContext = captureSelectionReturn('feature', feature.id, { enabled: historyMode !== 'none' });
   currentNodeId = null;
   currentTreeId = null;
   currentRoute = null;
@@ -307,7 +360,9 @@ function selectVisitorFeature(feature, { historyMode = 'push' } = {}) {
 function closeVisitorFeature() {
   currentVisitorFeatureId = null;
   elements.detail.hidden = true;
-  document.querySelector('#map')?.focus();
+  const context = visitorReturnContext;
+  visitorReturnContext = null;
+  restoreSelectionFocus(context);
 }
 
 function showRoute(fromId, toId) {
@@ -381,6 +436,11 @@ function restoreDeepLink({ force = false } = {}) {
   const deepLink = parseDeepLink(fragment);
   if (!deepLink) {
     lastHandledFragment = fragment;
+    if (!elements.detail.hidden) {
+      if (currentTreeId) closeTreeDetail();
+      else if (currentVisitorFeatureId) closeVisitorFeature();
+      else if (currentNodeId) closeNodeDetail();
+    }
     return false;
   }
 

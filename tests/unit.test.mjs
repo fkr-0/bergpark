@@ -6,6 +6,31 @@ import { filterGlossary } from '../src/glossary.js';
 import { createDestinationIndex, normalizeSearchText, searchDestinationIndex } from '../src/destination-search.js';
 import { filterTrees } from '../src/trees.js';
 import { edgeBetween } from '../src/data.js';
+import { moveLeafletCamera, prefersReducedMotion } from '../src/motion-policy.js';
+
+test('Leaflet camera policy makes reduced-motion movement immediate', () => {
+  const calls = [];
+  const map = {
+    setView(target, zoom, options) { calls.push({ method: 'setView', target, zoom, options }); },
+    flyTo(target, zoom, options) { calls.push({ method: 'flyTo', target, zoom, options }); },
+  };
+  const matchMedia = () => ({ matches: true });
+  assert.equal(prefersReducedMotion(matchMedia), true);
+  assert.equal(moveLeafletCamera(map, [51.31, 9.41], 18, { duration: 0.6, matchMedia }), 'immediate');
+  assert.deepEqual(calls, [{ method: 'setView', target: [51.31, 9.41], zoom: 18, options: { animate: false } }]);
+});
+
+test('Leaflet camera policy preserves intentional animation for normal motion', () => {
+  const calls = [];
+  const map = {
+    setView(target, zoom, options) { calls.push({ method: 'setView', target, zoom, options }); },
+    flyTo(target, zoom, options) { calls.push({ method: 'flyTo', target, zoom, options }); },
+  };
+  const matchMedia = () => ({ matches: false });
+  assert.equal(prefersReducedMotion(matchMedia), false);
+  assert.equal(moveLeafletCamera(map, [51.31, 9.41], 17, { duration: 0.35, matchMedia }), 'animated');
+  assert.deepEqual(calls, [{ method: 'flyTo', target: [51.31, 9.41], zoom: 17, options: { duration: 0.35 } }]);
+});
 
 test('distanceMetres produces plausible park-scale distances', () => {
   const hercules = { lat: 51.31723, lng: 9.3905 };

@@ -1,6 +1,7 @@
 import L from 'leaflet';
 import { localized } from './i18n.js';
 import { markerKeyboardActivation } from './leaflet-keyboard.js';
+import { moveLeafletCamera } from './motion-policy.js';
 import { hasInteractiveModel, markerPresentationClass, resolveNodePresentation, structureGlyph } from './presentation.js';
 
 const PARK_CENTER = [51.3167, 9.4167];
@@ -231,7 +232,7 @@ export function createLeafletSpatialAdapter(element, graph, world, { language = 
       const marker = markers.get(id);
       if (!marker) return false;
       updateModelLaunch(nodeLookup.get(id));
-      if (zoom) map.flyTo(marker.getLatLng(), Math.max(map.getZoom(), 16), { duration: 0.6 });
+      if (zoom) moveLeafletCamera(map, marker.getLatLng(), Math.max(map.getZoom(), 16), { duration: 0.6 });
       if (popup) marker.openPopup();
       return true;
     },
@@ -240,7 +241,7 @@ export function createLeafletSpatialAdapter(element, graph, world, { language = 
       const targetZoom = Number.isFinite(zoom)
         ? zoom
         : Math.max(map.getZoom(), Number.isFinite(minZoom) ? minZoom : map.getZoom());
-      map.flyTo([position.lat, position.lng], targetZoom, { duration });
+      moveLeafletCamera(map, [position.lat, position.lng], targetZoom, { duration });
       return true;
     },
     showRoute(routeDescriptor) {

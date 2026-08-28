@@ -1,5 +1,6 @@
 import L from 'leaflet';
 import { markerKeyboardActivation } from './leaflet-keyboard.js';
+import { moveLeafletCamera } from './motion-policy.js';
 import { firstAbsoluteHttpUrl } from './public-url.js';
 import { clusterVisitorFeatures } from './visitor-layer-data.js';
 
@@ -89,7 +90,7 @@ export function createVisitorLayerController(map, layerData, { language = 'de', 
             return;
           }
           focusedFeatures = null;
-          map.flyTo([item.lat, item.lng], Math.min(19, zoom + 2), { duration: 0.35 });
+          moveLeafletCamera(map, [item.lat, item.lng], Math.min(19, zoom + 2), { duration: 0.35 });
         };
         L.marker([item.lat, item.lng], { icon, title: label, alt: label, keyboard: true })
           .on('click', activateCluster)

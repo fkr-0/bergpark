@@ -1,6 +1,7 @@
 import L from 'leaflet';
 import { localized } from './i18n.js';
 import { markerKeyboardActivation } from './leaflet-keyboard.js';
+import { moveLeafletCamera } from './motion-policy.js';
 import { clusterTrees } from './trees.js';
 
 function coordinate(tree) {
@@ -57,7 +58,7 @@ export function createTreeMapLayer(map, trees, { language = 'de', onSelectTree }
           iconSize: [size, size],
           iconAnchor: [size / 2, size / 2],
         });
-        const activateCluster = () => map.flyTo([feature.lat, feature.lng], Math.min(18, zoom + 2), { duration: 0.35 });
+        const activateCluster = () => moveLeafletCamera(map, [feature.lat, feature.lng], Math.min(18, zoom + 2), { duration: 0.35 });
         L.marker([feature.lat, feature.lng], { icon, title: label, alt: label, keyboard: true })
           .bindTooltip(label)
           .on('click', activateCluster)
