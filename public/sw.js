@@ -1,6 +1,11 @@
-const SHELL_CACHE = 'bergpark-shell-v4';
+const SHELL_CACHE = 'bergpark-shell-v5';
 const TILE_CACHE = 'bergpark-tiles-v1';
-const SHELL = ['./manifest.webmanifest'];
+const SHELL = [
+  './manifest.webmanifest',
+  './icons/app-icon.svg',
+  './icons/app-icon-192.png',
+  './icons/app-icon-512.png',
+];
 const RUNTIME_DATA = [
   './data/nodes.json',
   './data/nodes.de.json',
@@ -12,6 +17,7 @@ const RUNTIME_DATA = [
   './data/semantic.json',
   './data/benches.json',
   './data/visitor_pois.json',
+  './data/walking-network.json',
 ];
 
 self.addEventListener('install', (event) => {
@@ -34,14 +40,15 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((keys) => Promise.all(
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(
       keys
         .filter((key) => key.startsWith('bergpark-shell-') && key !== SHELL_CACHE)
         .map((key) => caches.delete(key)),
-    )),
-  );
-  self.clients.claim();
+    );
+    await self.clients.claim();
+  })());
 });
 
 function isMapTile(url) {
@@ -54,10 +61,8 @@ async function networkFirstData(request) {
     const response = await fetch(request);
     if (response.ok) await cache.put(request, response.clone());
     return response;
-  } catch (error) {
-    const cached = await cache.match(request);
-    if (cached) return cached;
-    throw error;
+  } catch {
+    return (await cache.match(request)) || Response.error();
   }
 }
 
@@ -65,23 +70,40 @@ async function cacheVisitedTile(request) {
   const cache = await caches.open(TILE_CACHE);
   const cached = await cache.match(request);
   if (cached) return cached;
-  const response = await fetch(request);
-  if (response.ok || response.type === 'opaque') {
-    await cache.put(request, response.clone());
-    const keys = await cache.keys();
-    while (keys.length > 80) await cache.delete(keys.shift());
+  try {
+    const response = await fetch(request);
+    if (response.ok || response.type === 'opaque') {
+      await cache.put(request, response.clone());
+      const keys = await cache.keys();
+      while (keys.length > 80) await cache.delete(keys.shift());
+    }
+    return response;
+  } catch {
+    return Response.error();
   }
-  return response;
 }
 
-async function networkFirst(request) {
+async function networkFirstNavigation(request) {
   const cache = await caches.open(SHELL_CACHE);
   try {
     const response = await fetch(request);
     if (response.ok) await cache.put(request, response.clone());
     return response;
   } catch {
-    return (await cache.match(request)) || (await cache.match('./'));
+    return (await cache.match(request)) || (await cache.match('./')) || Response.error();
+  }
+}
+
+async function cacheFirstStatic(request) {
+  const cache = await caches.open(SHELL_CACHE);
+  const cached = await cache.match(request);
+  if (cached) return cached;
+  try {
+    const response = await fetch(request);
+    if (response.ok) await cache.put(request, response.clone());
+    return response;
+  } catch {
+    return Response.error();
   }
 }
 
@@ -99,5 +121,9 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(networkFirstData(event.request));
     return;
   }
-  event.respondWith(networkFirst(event.request));
+  if (event.request.mode === 'navigate' || event.request.destination === 'document') {
+    event.respondWith(networkFirstNavigation(event.request));
+    return;
+  }
+  event.respondWith(cacheFirstStatic(event.request));
 });

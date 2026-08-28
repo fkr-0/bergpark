@@ -115,13 +115,15 @@ test('route evidence keeps mapped-path and endpoint uncertainty distinct', () =>
 
 test('production copy excludes aggregate and audit-only payloads', async () => {
   const copyScript = await readFile(new URL('../scripts/copy-data.mjs', import.meta.url), 'utf8');
-  assert.doesNotMatch(copyScript, /'graph\.json'/);
-  assert.doesNotMatch(copyScript, /'validation\.json'/);
-  assert.match(copyScript, /'semantic\.json'/);
-  assert.match(copyScript, /'trees\.json'/);
-  assert.match(copyScript, /'benches\.json'/);
-  assert.match(copyScript, /'visitor_pois\.json'/);
-  assert.doesNotMatch(copyScript, /'path_topology\.json'/);
+  const runtimeFiles = copyScript.match(/const runtimeFiles = \[([\s\S]*?)\n\];/)?.[1] ?? '';
+  assert.doesNotMatch(runtimeFiles, /'graph\.json'/);
+  assert.doesNotMatch(runtimeFiles, /'validation\.json'/);
+  assert.match(runtimeFiles, /'semantic\.json'/);
+  assert.match(runtimeFiles, /'trees\.json'/);
+  assert.match(runtimeFiles, /'benches\.json'/);
+  assert.match(runtimeFiles, /'visitor_pois\.json'/);
+  assert.doesNotMatch(runtimeFiles, /'path_topology\.json'/);
+  assert.match(copyScript, /writeFile\(resolve\(target, 'walking-network\.json'\)/);
 });
 
 test('service worker installs built assets, refreshes data online, and bounds visited tiles', async () => {
@@ -129,9 +131,12 @@ test('service worker installs built assets, refreshes data online, and bounds vi
   assert.match(serviceWorker, /pathname\.includes\('\/assets\/'\)/);
   assert.match(serviceWorker, /networkFirstData/);
   assert.match(serviceWorker, /while \(keys\.length > 80\)/);
-  assert.match(serviceWorker, /bergpark-shell-v4/);
+  assert.match(serviceWorker, /bergpark-shell-v5/);
   assert.match(serviceWorker, /\.\/data\/benches\.json/);
   assert.match(serviceWorker, /\.\/data\/visitor_pois\.json/);
+  assert.match(serviceWorker, /\.\/data\/walking-network\.json/);
+  assert.match(serviceWorker, /cacheFirstStatic/);
+  assert.match(serviceWorker, /networkFirstNavigation/);
   const runtimeData = serviceWorker.match(/const RUNTIME_DATA = \[([\s\S]*?)\n\];/)?.[1] ?? '';
   assert.doesNotMatch(runtimeData, /tile\.(?:openstreetmap|opentopomap)/);
 });
