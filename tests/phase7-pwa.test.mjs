@@ -1,9 +1,12 @@
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 import vm from 'node:vm';
 
 const SCOPE = 'https://bergpark.test/';
+const DEPLOYED_SW_V4_SHA256 = 'ca507c0aeddfac5457f6727eb99ae14c4b77145db9c209abe1a13680ded8bb8e';
+const DEPLOYED_SW_V4 = await readFile(new URL('./fixtures/runtime-upgrade/deployed-sw-v4.js', import.meta.url), 'utf8');
 const CONTRACT = JSON.parse(await readFile(new URL('../runtime/runtime-data-manifest.json', import.meta.url), 'utf8'));
 const PUBLISHED_MANIFEST = {
   ...CONTRACT,
@@ -127,7 +130,13 @@ function runtimeNetworkResponse(input) {
   return new Response(`ok:${url}`, { status: 200 });
 }
 
-test('Phase 7 install warms manifest-authorized layers and activate upgrades v5 shell cache atomically', async () => {
+test('frozen deployed service-worker fixture matches the public bergpark-shell-v4 source hash', () => {
+  assert.equal(createHash('sha256').update(DEPLOYED_SW_V4).digest('hex'), DEPLOYED_SW_V4_SHA256);
+  assert.match(DEPLOYED_SW_V4, /const SHELL_CACHE = 'bergpark-shell-v4'/);
+  assert.match(DEPLOYED_SW_V4, /const TILE_CACHE = 'bergpark-tiles-v1'/);
+});
+
+test('Phase 7 install warms manifest-authorized layers and activate upgrades deployed v4 shell cache atomically', async () => {
   const worker = await loadServiceWorker();
   worker.state.fetch = async (input) => runtimeNetworkResponse(input);
 
@@ -144,10 +153,35 @@ test('Phase 7 install warms manifest-authorized layers and activate upgrades v5 
     assert.ok(warmed.includes(`/data/${layer.filename}`), `expected warmed ${layer.filename}`);
   }
 
-  await worker.caches.open('bergpark-shell-v5');
+  await worker.caches.open('bergpark-shell-v4');
   await worker.caches.open('unrelated-cache');
   await dispatchLifecycle(worker.listeners.get('activate'));
   assert.deepEqual((await worker.caches.keys()).sort(), ['bergpark-shell-v6', 'unrelated-cache']);
+});
+
+test('failed candidate install preserves the deployed v4 shell and visited-tile cache before activation', async () => {
+  const worker = await loadServiceWorker();
+  const priorShell = await worker.caches.open('bergpark-shell-v4');
+  const priorRequest = new Request(SCOPE);
+  await priorShell.put(priorRequest, new Response('deployed-v4-shell', { status: 200 }));
+  const tileRequest = new Request('https://a.tile.openstreetmap.org/15/1/1.png');
+  const tiles = await worker.caches.open('bergpark-tiles-v1');
+  await tiles.put(tileRequest, new Response('visited-tile', { status: 200 }));
+
+  worker.state.fetch = async (input) => {
+    const url = absoluteUrl(input);
+    if (url.endsWith('/data/nodes.json')) return new Response('required layer unavailable', { status: 503 });
+    return runtimeNetworkResponse(input);
+  };
+
+  await assert.rejects(
+    () => dispatchLifecycle(worker.listeners.get('install')),
+    /cache add failed: .*\/data\/nodes\.json/,
+  );
+
+  assert.ok((await worker.caches.keys()).includes('bergpark-shell-v4'));
+  assert.equal(await (await priorShell.match(priorRequest)).text(), 'deployed-v4-shell');
+  assert.equal(await (await tiles.match(tileRequest)).text(), 'visited-tile');
 });
 
 test('static assets are cache-first while valid runtime JSON is network-first with offline fallback', async () => {
