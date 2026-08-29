@@ -2,6 +2,7 @@ import 'leaflet/dist/leaflet.css';
 import './styles/app.css';
 import './styles/phase2.css';
 import './styles/phase3.css';
+import './styles/phase6.css';
 import { edgeBetween, hydrateGraphData, loadInitialGraphData, loadWalkingNetwork } from './data.js';
 import { createI18n, localized } from './i18n.js';
 import { createGpsNavigator } from './gps.js';
@@ -79,6 +80,7 @@ let lastHandledFragment = null;
 let coreDocuments = null;
 let supplementalHydrationPromise = null;
 let supplementalHydrationTimer = null;
+let walkingNetworkDescriptor = null;
 
 function syncDeepLink(kind, id, mode = 'push') {
   if (mode === 'none') return;
@@ -93,6 +95,29 @@ function syncDeepLink(kind, id, mode = 'push') {
   lastHandledFragment = hash;
 }
 
+function renderIndexView() {
+  if (!graph) return;
+  renderGlossary(elements.panel, {
+    nodes: graph.entities,
+    nodeIds: new Set(graph.nodes.map(({ id }) => id)),
+    trees: graph.trees,
+    visitorFeatures: graph.visitorLayers?.features ?? [],
+    walkingNetwork: walkingNetworkDescriptor,
+    i18n,
+    onSelectNode: selectEntity,
+    onSelectTree: selectTree,
+    onSelectFeature: selectVisitorFeature,
+    onSelectNetwork: focusNetworkItem,
+  });
+}
+
+function focusNetworkItem(item) {
+  if (!item?.position) return;
+  setView('map');
+  mapController?.focusPosition(item.position, { minZoom: 17, duration: 0.35 });
+  setStatus(`${item.title} · ${item.id}`, true);
+}
+
 function runWhenIdle(callback, timeout = 1200) {
   if ('requestIdleCallback' in window) window.requestIdleCallback(callback, { timeout });
   else callback();
@@ -102,7 +127,10 @@ function scheduleWalkingNetworkHydration() {
   window.setTimeout(() => runWhenIdle(() => {
     loadWalkingNetwork()
       .then((walkingNetwork) => {
-        if (walkingNetwork) mapController?.setWalkingNetwork(createWalkingNetworkDescriptor(walkingNetwork));
+        if (!walkingNetwork) return;
+        walkingNetworkDescriptor = createWalkingNetworkDescriptor(walkingNetwork);
+        mapController?.setWalkingNetwork(walkingNetworkDescriptor);
+        if (currentView === 'index' && !currentTreeId && !currentVisitorFeatureId) renderIndexView();
       })
       .catch((error) => console.warn('Complete walking network unavailable:', error));
   }), 1500);
@@ -264,16 +292,7 @@ function setView(view, { reusePanel = false } = {}) {
   if (view === 'index') {
     treeMapController?.setVisible(false);
     if (reusePanel) return;
-    renderGlossary(elements.panel, {
-      nodes: graph.entities,
-      nodeIds: new Set(graph.nodes.map(({ id }) => id)),
-      trees: graph.trees,
-      visitorFeatures: graph.visitorLayers?.features ?? [],
-      i18n,
-      onSelectNode: selectEntity,
-      onSelectTree: selectTree,
-      onSelectFeature: selectVisitorFeature,
-    });
+    renderIndexView();
   } else if (view === 'trees') {
     treeMapController?.setVisible(true);
     if (reusePanel) return;
@@ -288,6 +307,7 @@ function setView(view, { reusePanel = false } = {}) {
 }
 
 function showDetail(node, { focusClose = false } = {}) {
+  stopNarration();
   currentRoute = null;
   currentTreeId = null;
   currentVisitorFeatureId = null;
@@ -484,6 +504,9 @@ function restoreDeepLink({ force = false } = {}) {
     }
   }
   lastHandledFragment = fragment;
+  if (!restored && force && document.querySelector('#map')?.dataset.supplementalData === 'ready') {
+    setStatus(i18n.t('savedLinkUnavailable'), true);
+  }
   return restored;
 }
 

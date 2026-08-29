@@ -1322,16 +1322,81 @@ reason to broaden this spike.
 instability, keep terrain in MapLibre and retain landmark models in the existing
 modal/detail path.
 
-### Phase 6 — Slices 5–7: navigation, discovery, almanac and audio foundations
+### Phase 6 — Slices 5–7: navigation, discovery, almanac and audio foundations — **complete**
 
-- destination search / nearby / route comparison / climb/time/distance;
-- route recovery/follow UX;
-- discoverable path/junction/viewpoint/tree/waterwork/facility network;
-- unified canonical-ID almanac index and spatial focus links;
-- optional narration/story descriptor with language/transcript/manual controls;
-- quiet-by-default behavior.
+Logical Phase 6 is a bounded visitor-first product tranche on top of the Phase-5 renderer
+authority. It does not add a renderer, terrain source, graph edge, knowledge record, route
+elevation calculation or media asset.
 
-This phase is product-first: renderer work is accepted only if it improves the visit.
+Navigation now presents direct canonical route edges as a deterministic comparison surface.
+Walking time, distance, ascent, mapped-path accessibility, mapped steps and surface labels
+come only from the existing route evidence; the visitor can sort by time, distance or ascent
+without generating a new route or implying finer elevation precision. Manual route selection,
+GPS/geofence selection and the existing route-detail uncertainty language remain unchanged.
+
+The existing destination index is now an almanac surface with bounded category filters for
+places, people/art, trees and visitor features. Existing `#place`, `#tree` and `#feature`
+links remain the identity contract, including semantic entities that were already addressed
+through `#place`. A parsed canonical link that is absent after supplemental hydration now
+fails visibly instead of silently leaving the visitor on an ambiguous map state.
+
+The deferred walking-network snapshot is projected through `SpatialWorld` with its preserved
+`pathnode-*` / `pathseg-*` identities, source-backed surface/highway/accessibility fields and
+derived unique-neighbour junction degree. The Index exposes junctions, mapped steps and path
+segments in a keyboard-operable DOM surface. It renders at most 40 network results and, more
+importantly, does not allocate the roughly 4.5k searchable network projection until the
+visitor explicitly opens **Paths & junctions**. Selecting a network item only focuses the
+controller-owned map position; it does not fabricate a route or introduce another deep-link
+namespace. The inherited destination-list cap remains 80 after broad regression caught and
+rejected an unnecessary attempt to tighten it.
+
+Audio is manual and transcript-first. `audio-guide.js` projects only existing bilingual
+editorial fields into a narration descriptor. Constructing the controller is inert; only an
+explicit Listen action can call browser speech synthesis, a second request cancels the prior
+utterance, Stop is visible only while active, and the exact editorial transcript remains
+available when speech output is unsupported. There is no autoplay, audio fetch, media cache,
+voice-agent backend or continuous audio loop.
+
+Adversarial Phase-6 review closed the requested product risks as follows:
+
+- destination ambiguity is bounded by deterministic search ranking plus explicit almanac
+  category filters; stable IDs remain visible/searchable where the source is otherwise unnamed;
+- stale canonical IDs fail visibly only after supplemental data has had a chance to hydrate;
+- route cards project `routeEvidence` fields and never recompute elevation or infer a
+  "better" accessible route;
+- GPS accuracy-circle hysteresis and reduced-motion controller behavior are untouched and
+  remain covered by the inherited tests;
+- the almanac retains the established 80-row DOM cap; optional network discovery is capped at
+  40 rendered rows and lazily materialized on disclosure;
+- narration has no startup side effect and enforces one active utterance at a time;
+- no service-worker/media-cache rule changed, so offline cache growth is limited to the
+  already-authorized runtime/static/tile policy;
+- no new interval, animation frame, background fetch, renderer, terrain, Three asset or 3D
+  object was introduced by this tranche.
+
+Qualification on 2026-08-29:
+
+- Biome: 69 files clean with warnings treated as errors;
+- Node: 81/81 pass; Vitest: 2/2 pass;
+- focused Phase-6 browser: 5/5 pass, including Leaflet default, canonical identity,
+  keyboard/reduced-motion network discovery, narration + transcript + axe, stale IDs and
+  warmed offline behavior;
+- broad relevant Chromium matrix: 48/48 pass across Phase 2/3 visitor behavior, Phase-4
+  MapLibre terrain/fallback, Phase-5 shared depth, PWA/runtime upgrade and visitor-guide E2E;
+- runtime artifact: 6,144,047 / 8,388,608 data bytes, 241,377 / 393,216 initial JS bytes,
+  38,518 / 98,304 initial CSS bytes;
+- `data/graph.json`, `data/figures.json` and `data/semantic.json` retain the Phase-5 hashes
+  `f8375d1c…`, `287824de…` and `3dfacad0…`; production data, service worker and renderer files
+  are unchanged by this phase;
+- Python remains the inherited 86/87 only: `tests/test_semantic.py:136` still reports the same
+  18 figure IDs absent from `data/graph.json`. This is the independent owning-lane mismatch
+  and was not repaired here. The stale old-placeholder `tests/e2e/phase6-integration.spec.js`
+  likewise remains untouched.
+
+Phase 6 is therefore genuinely useful/stable and makes logical Phase 7 eligible for measured
+performance specialization only. Phase 7 must still earn any optimization from profiling; it
+must not reinterpret this completion as permission for a second 3D object or broader renderer
+scope.
 
 ### Phase 7 — Slice 8: measured performance specialization
 

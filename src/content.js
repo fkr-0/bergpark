@@ -1,5 +1,9 @@
 import { localized } from './i18n.js';
 import { semanticRelationLabel } from './semantic.js';
+import { createNarrationDescriptor, createSpeechNarrator } from './audio-guide.js';
+import { connectedRouteOptions, routeAccessSummary, routeSurfaceSummary } from './discovery.js';
+
+const speechNarrator = createSpeechNarrator();
 
 function escapeHtml(value = '') {
   return String(value)
@@ -102,29 +106,40 @@ function localizedStructured(value, language, fallback) {
   return value[language] ?? value.de ?? value.en ?? fallback;
 }
 
-export function stopNarration() {
-  if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+export function stopNarration(options = {}) {
+  return speechNarrator.stop(options);
 }
 
-export function narrateNode(node, language) {
-  if (!('speechSynthesis' in window)) return false;
-  stopNarration();
-  const title = localized(node.name, language, node.title ?? node.id);
-  const pieces = [
-    title,
-    localized(node.description, language),
-    localized(node.history, language),
-    localized(node.architecture, language),
-    localized(node.significance, language),
-    localized(node.visitorContext, language),
-  ].filter(Boolean);
-  const utterance = new SpeechSynthesisUtterance(pieces.join('. '));
-  utterance.lang = language === 'de' ? 'de-DE' : 'en-GB';
-  const voices = window.speechSynthesis.getVoices();
-  const preferred = voices.find((voice) => voice.lang.toLowerCase().startsWith(language));
-  if (preferred) utterance.voice = preferred;
-  window.speechSynthesis.speak(utterance);
-  return true;
+export function narrateNode(node, language, options = {}) {
+  const descriptor = createNarrationDescriptor(node, language);
+  return speechNarrator.play(descriptor, options);
+}
+
+function narrationTranscriptMarkup(descriptor, i18n) {
+  if (!descriptor?.transcript?.length) return '';
+  return `<details class="narration-transcript" data-narration-transcript>
+    <summary>${escapeHtml(i18n.t('transcript'))}</summary>
+    <div>${descriptor.transcript.map(({ heading, text }) => `${heading ? `<h3>${escapeHtml(heading)}</h3>` : ''}<p>${escapeHtml(text)}</p>`).join('')}</div>
+  </details>`;
+}
+
+function compactRouteMetrics(evidence, i18n) {
+  const values = [];
+  if (evidence.walkingMin != null) values.push(`${evidence.walkingMin} ${i18n.t('minutes')}`);
+  if (evidence.distanceM != null) values.push(`${Math.round(evidence.distanceM)} ${i18n.t('metres')}`);
+  if (evidence.ascentM != null) values.push(`↑ ${Math.round(evidence.ascentM)} ${i18n.t('metres')}`);
+  return values.join(' · ');
+}
+
+function routeCardsMarkup(options, language, i18n) {
+  return options.map((option) => `<article class="connection-card" data-route-option="${escapeHtml(option.id)}">
+    <button type="button" data-node-id="${escapeHtml(option.toId)}">
+      <strong>${escapeHtml(option.title)}</strong>
+      <span class="route-option__metrics">${escapeHtml(compactRouteMetrics(option.evidence, i18n))}</span>
+      <span class="route-option__evidence">${escapeHtml(routeAccessSummary(option.evidence, language))} · ${escapeHtml(routeSurfaceSummary(option.evidence, language))}</span>
+    </button>
+    <button type="button" class="route-button" data-route-to="${escapeHtml(option.toId)}">${escapeHtml(i18n.t('navigate'))}</button>
+  </article>`).join('');
 }
 
 function renderGallery(node, language) {
@@ -195,7 +210,8 @@ export function renderNodeDetail(container, { node, graph, i18n, onNavigate, onS
   const title = localized(node.name, language, node.title ?? node.id);
   const description = localized(node.description, language, localized(node.summary, language));
   const sections = contentSections(node, language);
-  const outgoing = graph.outgoing.get(node.id) ?? [];
+  const narrationDescriptor = createNarrationDescriptor(node, language);
+  const routeOptions = connectedRouteOptions(graph, node.id, language);
 
   container.hidden = false;
   container.innerHTML = `
@@ -209,10 +225,14 @@ export function renderNodeDetail(container, { node, graph, i18n, onNavigate, onS
     </div>
     <div class="detail-sheet__scroll">
       ${description ? `<p class="detail-lead">${escapeHtml(description)}</p>` : ''}
-      <div class="detail-actions">
-        <button class="action-button" data-action="narrate" type="button">◉ ${escapeHtml(i18n.t('listen'))}</button>
-        <button class="action-button action-button--quiet" data-action="stop-narration" type="button">■ ${escapeHtml(i18n.t('stopAudio'))}</button>
-      </div>
+      ${narrationDescriptor ? `<section class="audio-guide" aria-label="${escapeHtml(i18n.t('audioGuide'))}">
+        <div class="detail-actions">
+          <button class="action-button" data-action="narrate" type="button" aria-pressed="false"${speechNarrator.supported ? '' : ' disabled'}>◉ ${escapeHtml(i18n.t('listen'))}</button>
+          <button class="action-button action-button--quiet" data-action="stop-narration" type="button" hidden>■ ${escapeHtml(i18n.t('stopAudio'))}</button>
+        </div>
+        <p class="sr-only" data-narration-status role="status">${escapeHtml(speechNarrator.supported ? i18n.t('audioReady') : i18n.t('audioUnavailable'))}</p>
+        ${narrationTranscriptMarkup(narrationDescriptor, i18n)}
+      </section>` : ''}
       ${renderGallery(node, language)}
       ${sections.map(({ heading, text }) => `<section class="detail-section"><h3>${escapeHtml(heading)}</h3><p>${escapeHtml(text)}</p></section>`).join('')}
       ${renderArtworks(node, language)}
@@ -220,39 +240,63 @@ export function renderNodeDetail(container, { node, graph, i18n, onNavigate, onS
       ${renderSemanticFacts(node, graph, language)}
       ${renderSemanticLinks(node, graph, language)}
       ${renderVisitInfo(node, language)}
-      ${outgoing.length ? `
+      ${routeOptions.length ? `
         <section class="detail-section">
-          <h3>${escapeHtml(i18n.t('nearby'))}</h3>
-          <div class="connection-list">
-            ${outgoing.map((edge) => {
-              const target = graph.nodesById.get(edge.to);
-              if (!target) return '';
-              const targetName = localized(target.name, language, target.id);
-              return `<article class="connection-card">
-                <button type="button" data-node-id="${escapeHtml(target.id)}"><strong>${escapeHtml(targetName)}</strong><span>${Math.round(edge.distance_m)} ${escapeHtml(i18n.t('metres'))} · ${edge.walking_min} ${escapeHtml(i18n.t('minutes'))}</span></button>
-                <button type="button" class="route-button" data-route-to="${escapeHtml(target.id)}">${escapeHtml(i18n.t('navigate'))}</button>
-              </article>`;
-            }).join('')}
+          <div class="route-comparison__heading"><div><h3>${escapeHtml(i18n.t('nearby'))}</h3><p>${escapeHtml(i18n.t('routeComparisonNote'))}</p></div>
+            <label>${escapeHtml(i18n.t('sortRoutes'))}<select data-route-sort>
+              <option value="time">${escapeHtml(i18n.t('sortByTime'))}</option>
+              <option value="distance">${escapeHtml(i18n.t('sortByDistance'))}</option>
+              <option value="ascent">${escapeHtml(i18n.t('sortByAscent'))}</option>
+            </select></label>
           </div>
+          <div class="connection-list" data-route-options>${routeCardsMarkup(routeOptions, language, i18n)}</div>
         </section>
       ` : ''}
       ${renderSources(node, language, i18n.t.bind(i18n))}
     </div>
   `;
 
+  const setNarrationState = (state) => {
+    const play = container.querySelector('[data-action="narrate"]');
+    const stop = container.querySelector('[data-action="stop-narration"]');
+    const status = container.querySelector('[data-narration-status]');
+    if (play) play.setAttribute('aria-pressed', state === 'playing' ? 'true' : 'false');
+    if (stop) stop.hidden = state !== 'playing';
+    if (status) status.textContent = state === 'playing' ? i18n.t('audioPlaying') : i18n.t('audioReady');
+  };
   container.querySelector('[data-action="close-detail"]')?.addEventListener('click', () => {
-    stopNarration();
+    stopNarration({ onState: setNarrationState });
     container.hidden = true;
   });
-  container.querySelector('[data-action="narrate"]')?.addEventListener('click', () => narrateNode(node, language));
-  container.querySelector('[data-action="stop-narration"]')?.addEventListener('click', stopNarration);
-  for (const button of container.querySelectorAll('[data-node-id]')) {
-    button.addEventListener('click', () => onSelectNode?.(button.dataset.nodeId));
-  }
+  container.querySelector('[data-action="narrate"]')?.addEventListener('click', () => {
+    if (!narrateNode(node, language, { onState: setNarrationState })) {
+      const status = container.querySelector('[data-narration-status]');
+      if (status) status.textContent = i18n.t('audioUnavailable');
+    }
+  });
+  container.querySelector('[data-action="stop-narration"]')?.addEventListener('click', () => stopNarration({ onState: setNarrationState }));
+
+  const bindRouteButtons = (scope) => {
+    for (const button of scope.querySelectorAll('[data-node-id]')) {
+      button.addEventListener('click', () => onSelectNode?.(button.dataset.nodeId));
+    }
+    for (const button of scope.querySelectorAll('[data-route-to]')) {
+      button.addEventListener('click', () => onNavigate?.(node.id, button.dataset.routeTo));
+    }
+  };
+  bindRouteButtons(container);
+  const routeSort = container.querySelector('[data-route-sort]');
+  routeSort?.addEventListener('change', () => {
+    const routeList = container.querySelector('[data-route-options]');
+    if (!routeList) return;
+    routeList.innerHTML = routeCardsMarkup(
+      connectedRouteOptions(graph, node.id, language, { sort: routeSort.value }),
+      language,
+      i18n,
+    );
+    bindRouteButtons(routeList);
+  });
   for (const button of container.querySelectorAll('[data-semantic-id]')) {
     button.addEventListener('click', () => onSelectNode?.(button.dataset.semanticId));
-  }
-  for (const button of container.querySelectorAll('[data-route-to]')) {
-    button.addEventListener('click', () => onNavigate?.(node.id, button.dataset.routeTo));
   }
 }

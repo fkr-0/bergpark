@@ -42,8 +42,22 @@ test('SpatialWorld never invents elevation and rejects incomplete coordinates', 
 test('walking-network descriptor converts legacy lat/lng tuples at the renderer boundary', () => {
   const network = createWalkingNetworkDescriptor({
     counts: { path_nodes: 2, directed_segments: 1 },
-    segments: [{ steps: true, geometry: [[51.31, 9.41], [51.32, 9.42]] }],
+    segments: [{
+      id: 'pathseg-a--b',
+      from: 'pathnode-a',
+      to: 'pathnode-b',
+      steps: true,
+      surface: 'stone_steps',
+      highway: 'steps',
+      distance_m: 42,
+      accessibility_status: 'known_steps',
+      geometry: [[51.31, 9.41], [51.32, 9.42]],
+    }],
   });
   assert.deepEqual(network.segments[0].coordinates, [{ lng: 9.41, lat: 51.31 }, { lng: 9.42, lat: 51.32 }]);
+  assert.equal(network.segments[0].id, 'pathseg-a--b');
   assert.equal(network.segments[0].steps, true);
+  assert.equal(network.segments[0].surface, 'stone_steps');
+  assert.equal(network.nodesById.get('pathnode-a').degree, 1);
+  assert.deepEqual(network.nodesById.get('pathnode-b').position, { lng: 9.42, lat: 51.32 });
 });

@@ -50,6 +50,7 @@ const SOURCE_ORDER = {
 };
 
 export const DEFAULT_DESTINATION_RESULT_LIMIT = 80;
+export const DESTINATION_CATEGORIES = Object.freeze(['all', 'place', 'story', 'tree', 'feature']);
 
 export function normalizeSearchText(value = '') {
   return String(value)
@@ -57,6 +58,13 @@ export function normalizeSearchText(value = '') {
     .replace(/\p{Diacritic}/gu, '')
     .toLocaleLowerCase()
     .trim();
+}
+
+export function destinationCategory(result) {
+  if (result?.routeKind === 'tree') return 'tree';
+  if (result?.routeKind === 'feature') return 'feature';
+  if (result?.sourceKind === 'place') return 'place';
+  return 'story';
 }
 
 function coordinate(item) {
@@ -286,10 +294,15 @@ function compareResults(a, b, language) {
   return a.title.localeCompare(b.title, language);
 }
 
-export function searchDestinationIndex(index, query = '', language = 'de', { limit = DEFAULT_DESTINATION_RESULT_LIMIT } = {}) {
+export function searchDestinationIndex(index, query = '', language = 'de', {
+  limit = DEFAULT_DESTINATION_RESULT_LIMIT,
+  category = 'all',
+} = {}) {
   const needle = normalizeSearchText(query);
+  const normalizedCategory = DESTINATION_CATEGORIES.includes(category) ? category : 'all';
   const ranked = [];
   for (const result of index ?? []) {
+    if (normalizedCategory !== 'all' && destinationCategory(result) !== normalizedCategory) continue;
     const match = needle ? bestScore(result, needle) : { score: 50, matchLabel: null };
     if (!match) continue;
     ranked.push({ ...result, score: match.score, matchLabel: match.matchLabel });

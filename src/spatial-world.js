@@ -133,14 +133,48 @@ export function createSpatialWorld(graph = {}) {
 /** Convert the lazily loaded walking network into the same lng/lat boundary. */
 export function createWalkingNetworkDescriptor(walkingNetwork) {
   if (!walkingNetwork) return null;
-  const segments = (walkingNetwork.segments ?? []).map((segment) => ({
-    steps: segment.steps === true,
-    coordinates: Object.freeze((segment.geometry ?? []).map(pathPosition).filter(Boolean)),
-  })).filter((segment) => segment.coordinates.length >= 2);
+  const nodeState = new Map();
+  const touchNode = (id, position, neighborId) => {
+    if (!id || !position) return;
+    const state = nodeState.get(id) ?? { id, position, neighbors: new Set() };
+    if (neighborId) state.neighbors.add(neighborId);
+    nodeState.set(id, state);
+  };
+  const segments = (walkingNetwork.segments ?? []).map((segment) => {
+    const coordinates = (segment.geometry ?? []).map(pathPosition).filter(Boolean);
+    if (coordinates.length < 2 || typeof segment?.id !== 'string' || !segment.id) return null;
+    const descriptor = {
+      id: segment.id,
+      kind: 'path-segment',
+      fromId: segment.from ?? null,
+      toId: segment.to ?? null,
+      steps: segment.steps === true,
+      coordinates: Object.freeze(coordinates),
+    };
+    if (segment.surface != null) descriptor.surface = segment.surface;
+    if (segment.highway != null) descriptor.highway = segment.highway;
+    if (segment.accessibility_status != null) descriptor.accessibilityStatus = segment.accessibility_status;
+    if (segment.routing_eligible != null) descriptor.routingEligible = segment.routing_eligible === true;
+    if (Number.isFinite(segment.distance_m)) descriptor.distanceM = segment.distance_m;
+    touchNode(descriptor.fromId, coordinates[0], descriptor.toId);
+    touchNode(descriptor.toId, coordinates[coordinates.length - 1], descriptor.fromId);
+    return Object.freeze(descriptor);
+  }).filter(Boolean);
+  const nodes = [...nodeState.values()]
+    .map(({ id, position, neighbors }) => Object.freeze({
+      id,
+      kind: 'path-node',
+      position,
+      degree: neighbors.size,
+    }))
+    .sort((left, right) => left.id.localeCompare(right.id));
   return Object.freeze({
     crs: COORDINATE_REFERENCE_SYSTEM,
     coordinateOrder: 'lng-lat',
+    nodes: Object.freeze(nodes),
     segments: Object.freeze(segments.map(Object.freeze)),
     counts: Object.freeze({ ...(walkingNetwork.counts ?? {}) }),
+    nodesById: indexById(nodes),
+    segmentsById: indexById(segments),
   });
 }
