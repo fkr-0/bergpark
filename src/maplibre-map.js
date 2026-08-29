@@ -291,6 +291,10 @@ export async function createMapLibreTerrainSpatialAdapter(element, graph, initia
   let userPosition = null;
   let terrainEnabled = true;
   let destroyed = false;
+  let heritageLayer = null;
+  let heritageInstallPromise = null;
+  let heritageDisabled = false;
+  let heritageContextLost = false;
   const placeMarkers = new globalThis.Map();
   const nodeLookup = graph.nodesById ?? new globalThis.Map((graph.nodes ?? []).map((node) => [node.id, node]));
 
@@ -318,6 +322,93 @@ export async function createMapLibreTerrainSpatialAdapter(element, graph, initia
   element.dataset.terrainVerticalUnits = manifest.vertical_units;
   element.dataset.terrainExaggeration = String(manifest.terrain_exaggeration);
   element.dataset.spatialTerrainState = 'terrain';
+  element.dataset.spatialHeritageId = 'aquaedukt';
+  element.dataset.spatialHeritageLayer = 'terrain-heritage-aquaedukt';
+  element.dataset.spatialHeritageDepth = 'shared';
+  element.dataset.spatialHeritageAnimation = 'none';
+  element.dataset.spatialHeritageState = 'pending';
+
+  function removeHeritageLayer() {
+    const layer = heritageLayer;
+    heritageLayer = null;
+    if (!layer) return;
+    try {
+      if (map.getLayer(layer.id)) map.removeLayer(layer.id);
+    } catch {
+      // Map/style teardown may already have removed the custom layer.
+    }
+    layer.dispose?.();
+  }
+
+  function disableHeritageLayer(state, reason = null) {
+    heritageDisabled = true;
+    element.dataset.spatialHeritageState = state;
+    if (reason) element.dataset.spatialHeritageError = reason;
+    removeHeritageLayer();
+  }
+
+  function applyHeritageState(event) {
+    if (!event || destroyed) return;
+    // MapLibre 6 destroys its style on WebGL loss and invokes custom-layer
+    // onRemove before it emits webglcontextlost. Adapter authority therefore
+    // owns the visible recovery state; transient style removal is not a user
+    // failure and must not overwrite context-lost/restoring/fallback states.
+    if (['removed', 'disposed'].includes(event.state)) return;
+    element.dataset.spatialHeritageState = event.state;
+    element.dataset.spatialHeritageId = event.nodeId;
+    element.dataset.spatialHeritageLayer = event.layerId;
+    element.dataset.spatialHeritageDepth = event.renderingMode === '3d' ? 'shared' : 'isolated';
+    element.dataset.spatialHeritageAnimation = event.animation;
+    element.dataset.spatialHeritageDisplayOffsetM = String(event.displayOffsetM);
+    if (Number.isFinite(event.modelMetresPerUnit)) {
+      element.dataset.spatialHeritageModelMetresPerUnit = String(event.modelMetresPerUnit);
+    }
+    if (event.modelSource) element.dataset.spatialHeritageModelSource = event.modelSource;
+    if (Number.isFinite(event.modelBytes)) element.dataset.spatialHeritageModelBytes = String(event.modelBytes);
+    if (Number.isFinite(event.modelTriangles)) element.dataset.spatialHeritageModelTriangles = String(event.modelTriangles);
+    if (typeof event.rendered === 'boolean') element.dataset.spatialHeritageRendered = String(event.rendered);
+    if (event.reason) element.dataset.spatialHeritageError = event.reason;
+    else delete element.dataset.spatialHeritageError;
+    if (event.state === 'unavailable') {
+      const reason = event.reason ?? 'shared-depth-initialization-failed';
+      queueMicrotask(() => {
+        if (!destroyed) disableHeritageLayer('unavailable', reason);
+      });
+    }
+  }
+
+  async function ensureHeritageLayer() {
+    if (destroyed || heritageDisabled || heritageContextLost) return heritageLayer;
+    if (heritageLayer) {
+      if (!map.getLayer(heritageLayer.id)) map.addLayer(heritageLayer);
+      return heritageLayer;
+    }
+    if (heritageInstallPromise) return heritageInstallPromise;
+    heritageInstallPromise = (async () => {
+      const module = await import('./maplibre-heritage-layer.js');
+      if (destroyed || heritageDisabled) return null;
+      const node = nodeLookup.get(module.SHARED_DEPTH_HERITAGE_ID);
+      const layer = module.createMapLibreHeritageSharedDepthLayer({
+        node,
+        world,
+        onStateChange: applyHeritageState,
+      });
+      if (destroyed || heritageDisabled) {
+        layer.dispose();
+        return null;
+      }
+      heritageLayer = layer;
+      if (!map.getLayer(layer.id)) map.addLayer(layer);
+      return layer;
+    })().catch((error) => {
+      const reason = error instanceof Error ? error.message : String(error);
+      if (!destroyed) disableHeritageLayer('unavailable', reason);
+      return null;
+    }).finally(() => {
+      heritageInstallPromise = null;
+    });
+    return heritageInstallPromise;
+  }
 
   function markerLabel(id) {
     const node = nodeLookup.get(id);
@@ -382,8 +473,28 @@ export async function createMapLibreTerrainSpatialAdapter(element, graph, initia
     const id = event.features?.[0]?.properties?.id;
     if (id) onSelectFeature?.(String(id));
   });
-  map.on('style.load', syncSources);
-  map.on('load', syncSources);
+  map.on('webglcontextlost', () => {
+    if (destroyed || heritageDisabled) return;
+    heritageContextLost = true;
+    element.dataset.spatialHeritageState = 'context-lost';
+    element.dataset.spatialHeritageRendered = 'false';
+  });
+  map.on('webglcontextrestored', () => {
+    if (destroyed || heritageDisabled) return;
+    heritageContextLost = false;
+    element.dataset.spatialHeritageState = 'restoring';
+    element.dataset.spatialHeritageRendered = 'false';
+    // MapLibre calls setStyle() before this event; its subsequent style.load
+    // is the safe point at which a custom layer can be manually re-added.
+  });
+  map.on('style.load', () => {
+    syncSources();
+    void ensureHeritageLayer();
+  });
+  map.on('load', () => {
+    syncSources();
+    void ensureHeritageLayer();
+  });
   map.on('error', (event) => {
     if (!terrainEnabled || !isTerrainSourceError(event)) return;
     terrainEnabled = false;
@@ -394,6 +505,8 @@ export async function createMapLibreTerrainSpatialAdapter(element, graph, initia
     }
     element.dataset.spatialTerrainState = 'flat-fallback';
     element.dataset.spatialTerrainError = 'terrain-source-unavailable';
+    heritageLayer?.setTerrainAvailable?.(false);
+    disableHeritageLayer('terrain-unavailable', 'terrain-source-unavailable');
   });
   map.once('idle', () => {
     if (!destroyed) element.dataset.spatialTerrainReady = terrainEnabled ? 'true' : 'flat';
@@ -471,6 +584,7 @@ export async function createMapLibreTerrainSpatialAdapter(element, graph, initia
     setWorld(nextWorld) {
       world = nextWorld;
       syncSources();
+      heritageLayer?.setWorld?.(world);
       return true;
     },
     setTreeVisibility(visible) {
@@ -497,6 +611,8 @@ export async function createMapLibreTerrainSpatialAdapter(element, graph, initia
     },
     destroy() {
       destroyed = true;
+      heritageDisabled = true;
+      removeHeritageLayer();
       for (const { marker } of placeMarkers.values()) marker.remove();
       placeMarkers.clear();
       map.remove();

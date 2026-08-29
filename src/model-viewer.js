@@ -1,5 +1,9 @@
-const MAX_MODEL_BYTES = 5 * 1024 * 1024;
-const MAX_MODEL_TRIANGLES = 180_000;
+import {
+  countModelTriangles,
+  disposeModelObject,
+  loadBoundedGltfModel,
+  modelAssetBudgets,
+} from './model-assets.js';
 
 const TEXT = {
   de: {
@@ -151,30 +155,6 @@ const PROCEDURAL_BUILDERS = {
   'great-fountain': buildGreatFountain,
 };
 
-function countTriangles(object) {
-  let triangles = 0;
-  object.traverse((child) => {
-    const geometry = child.geometry;
-    if (!geometry) return;
-    if (geometry.index) triangles += geometry.index.count / 3;
-    else if (geometry.attributes?.position) triangles += geometry.attributes.position.count / 3;
-  });
-  return Math.ceil(triangles);
-}
-
-function disposeObject(object) {
-  const materials = new Set();
-  object.traverse((child) => {
-    child.geometry?.dispose?.();
-    const childMaterials = Array.isArray(child.material) ? child.material : [child.material];
-    for (const material of childMaterials) if (material) materials.add(material);
-  });
-  for (const material of materials) {
-    for (const value of Object.values(material)) value?.isTexture && value.dispose?.();
-    material.dispose?.();
-  }
-}
-
 function fitCamera(THREE, object, camera, controls) {
   const bounds = new THREE.Box3().setFromObject(object);
   const size = bounds.getSize(new THREE.Vector3());
@@ -192,51 +172,17 @@ function fitCamera(THREE, object, camera, controls) {
   controls.saveState();
 }
 
-function resolveSameOriginModelUrl(value) {
-  if (!value) return null;
-  const url = new URL(value, window.location.href);
-  if (url.origin !== window.location.origin) throw new Error('3D model assets must be served from the Bergpark origin');
-  return url;
-}
-
-async function loadGltfModel(THREE, modelUrl) {
-  const url = resolveSameOriginModelUrl(modelUrl);
-  const response = await fetch(url, { credentials: 'same-origin' });
-  if (!response.ok) throw new Error(`3D model request failed: ${response.status}`);
-  const reportedBytes = Number(response.headers.get('content-length'));
-  if (Number.isFinite(reportedBytes) && reportedBytes > MAX_MODEL_BYTES) throw new Error('3D model exceeds byte budget');
-  const buffer = await response.arrayBuffer();
-  if (buffer.byteLength > MAX_MODEL_BYTES) throw new Error('3D model exceeds byte budget');
-
-  const { GLTFLoader } = await import('three/addons/loaders/GLTFLoader.js');
-  const basePath = new URL('./', url).href;
-  const manager = new THREE.LoadingManager();
-  manager.setURLModifier((resourceUrl) => {
-    const resolved = new URL(resourceUrl, basePath);
-    if (resolved.protocol === 'data:' || resolved.protocol === 'blob:') return resourceUrl;
-    throw new Error('3D models must embed all secondary buffers and textures');
-  });
-  const loader = new GLTFLoader(manager);
-  const gltf = await new Promise((resolve, reject) => loader.parse(buffer, basePath, resolve, reject));
-  const triangles = countTriangles(gltf.scene);
-  if (triangles > MAX_MODEL_TRIANGLES) {
-    disposeObject(gltf.scene);
-    throw new Error('3D model exceeds triangle budget');
-  }
-  return { object: gltf.scene, source: 'gltf', triangles, bytes: buffer.byteLength };
-}
-
 function buildProceduralModel(THREE, assetId) {
   const builder = PROCEDURAL_BUILDERS[assetId];
   if (!builder) throw new Error(`No procedural 3D asset registered for ${assetId}`);
   const palette = createPalette(THREE);
   const object = builder(THREE, palette);
-  const triangles = countTriangles(object);
+  const triangles = countModelTriangles(object);
   return { object, source: 'procedural', triangles, bytes: 0 };
 }
 
 async function resolveModel(THREE, presentation) {
-  if (presentation.detail.modelUrl) return loadGltfModel(THREE, presentation.detail.modelUrl);
+  if (presentation.detail.modelUrl) return loadBoundedGltfModel(THREE, presentation.detail.modelUrl);
   return buildProceduralModel(THREE, presentation.detail.assetId);
 }
 
@@ -325,7 +271,7 @@ export function createLandmarkModelViewer({ parent, nodeId, title, presentation,
     renderer?.setAnimationLoop?.(null);
     resizeObserver?.disconnect?.();
     controls?.dispose?.();
-    model && disposeObject(model);
+    model && disposeModelObject(model);
     renderer?.dispose?.();
     root.remove();
     document.removeEventListener('keydown', onKeyDown);
@@ -392,7 +338,7 @@ export function createLandmarkModelViewer({ parent, nodeId, title, presentation,
 
       const resolved = await resolveModel(THREE, presentation);
       if (destroyed) {
-        disposeObject(resolved.object);
+        disposeModelObject(resolved.object);
         return false;
       }
       model = resolved.object;
@@ -473,7 +419,4 @@ export function createLandmarkModelViewer({ parent, nodeId, title, presentation,
   };
 }
 
-export const modelViewerBudgets = Object.freeze({
-  maxBytes: MAX_MODEL_BYTES,
-  maxTriangles: MAX_MODEL_TRIANGLES,
-});
+export const modelViewerBudgets = modelAssetBudgets;

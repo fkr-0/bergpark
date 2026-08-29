@@ -70,11 +70,12 @@ test('supplemental tree and visitor feature visibility remains controller-input 
   assert.deepEqual(active.trees.features[0].geometry.coordinates, [9.41, 51.32]);
 });
 
-test('MapLibre Phase-4 adapter does not import Three or mutate graph/knowledge modules', async () => {
+test('MapLibre adapter keeps Three lazy and does not mutate graph/knowledge modules', async () => {
   const source = await readFile(new URL('../src/maplibre-map.js', import.meta.url), 'utf8');
   assert.doesNotMatch(source, /from ['"]three['"]/);
   assert.doesNotMatch(source, /model-viewer/);
   assert.doesNotMatch(source, /graph\.json|figures\.json|semantic\.json/);
+  assert.match(source, /import\('\.\/maplibre-heritage-layer\.js'\)/);
   assert.match(source, /marker\.remove\(\)/);
   assert.match(source, /map\.remove\(\)/);
 });

@@ -1274,16 +1274,53 @@ figure IDs missing from `data/graph.json`. Phase 4 does not repair either unrela
 **Kill criterion:** if MapLibre terrain cannot meet mobile reliability/budget, retain the
 SpatialWorld/DGM pipeline and reassess renderer without deleting the Leaflet path.
 
-### Phase 5 — Slice 4: georeferenced Three heritage layer
+### Phase 5 — Slice 4: georeferenced Three heritage layer — **complete**
 
-- integrate one existing landmark asset into MapLibre's shared-depth camera/world;
-- no independent camera;
-- accessible detail remains outside canvas;
-- asset lifecycle/context loss/disposal tests;
-- expand only to curated objects that improve explanation.
+- integrate exactly the existing `aquaedukt` / `aqueduct-gltf-v1` schematic into the
+  explicit MapLibre terrain mode as one `renderingMode: '3d'` custom layer;
+- use MapLibre's canvas, supplied WebGL2 context, camera projection and shared depth buffer;
+  Three owns only the one scene object and has no independent navigation camera or canvas;
+- place the object from canonical `SpatialWorld` WGS84 identity plus
+  `queryTerrainElevation()`, with an explicit 1 metre per schematic-unit presentation
+  conversion and a 0.35 m presentation-only ground offset; no renderer elevation is
+  written back to `SpatialWorld`, graph Z or route data;
+- extract the existing model-loader boundary so the modal viewer and terrain layer share
+  the same 5 MiB / 180,000-triangle limit, same-origin top-level request and stricter
+  embedded-only secondary-resource policy;
+- reset Three GL state before and after each custom-layer draw, never clear/resize the
+  MapLibre framebuffer, and never install a Three animation loop or idle repaint loop;
+- keep the existing DOM marker/detail/deep-link interaction and lazy modal model viewer as
+  the accessible selection and fallback path;
+- deterministically dispose model geometry/materials/textures and Three renderer state on
+  layer removal and WebGL context loss; MapLibre 6 destroys custom layers while restoring
+  its style, so the adapter explicitly re-adds the reusable layer on the restored
+  `style.load` boundary;
+- fail the object integration closed without failing terrain mode when Three/model loading
+  cannot initialize, and remove the object if the terrain source itself degrades to the
+  existing flat MapLibre fallback;
+- do not expand beyond this one heritage object in Phase 5.
 
-**Kill criterion:** if shared-depth integration is unstable on target mobile browsers,
-keep terrain in MapLibre and retain landmark models in the existing modal/detail path.
+Focused qualification is 26/26 Node placement/lifecycle/policy/controller tests and 5/5
+serialized Chromium Phase-5 tests. Current-build broader browser qualification across the
+Phase-4 terrain suite, Phase-5 shared-depth suite and existing visitor/model-viewer suite is
+21/21, including real draw evidence, canonical deep-link continuity, WebGL context
+loss/restore, secondary-resource network-escape rejection, reduced motion, WebGL2/terrain
+fallbacks, the Leaflet default and the retained modal glTF viewer. Full JS qualification is
+Biome-green (64 files), Node 77/77 and Vitest 2/2; production build and runtime-artifact
+budgets are green. The independent Python graph-composition suite remains 86/87 with only
+`tests/test_semantic.py:136` failing on the same 18 figure IDs absent from `data/graph.json`;
+Phase 5 does not consume that `bergpark-webapp` blocker. The previously classified stale
+`tests/e2e/phase6-integration.spec.js` old-placeholder selector also remains outside this
+lane and was not repaired.
+
+The one-object shared-depth architecture is therefore stable enough for logical Phase 6 to
+start the product-first navigation/discovery/almanac/audio tranche. Representative physical
+mobile GPU/thermal profiling remains an explicit Phase-8 qualification item rather than a
+reason to broaden this spike.
+
+**Kill criterion:** if later representative mobile qualification shows shared-depth
+instability, keep terrain in MapLibre and retain landmark models in the existing
+modal/detail path.
 
 ### Phase 6 — Slices 5–7: navigation, discovery, almanac and audio foundations
 
@@ -1324,7 +1361,7 @@ This phase is product-first: renderer work is accepted only if it improves the v
 | --- | --- | --- |
 | Official DGM1 arbitrary-area direct download automation | **qualified in Phase 3** | official HVBG INSPIRE WCS `he_dgm1`; keep bounded request + immutable checksum/source manifest and retain the shop only as manual fallback |
 | DGM1-derived route grade becomes noisy at 1 m | expected risk | test filtering/resampling; never publish raw one-metre noise as trustworthy climb |
-| MapLibre + Three shared depth on target mobile devices | upstream-supported, not Bergpark-proven | focused Phase-5 browser/device spike with context-loss and disposal evidence |
+| MapLibre + Three shared depth on target mobile devices | **focused browser-qualified in Phase 5**; representative physical-mobile profiling still pending | keep the one-object architecture bounded; complete target-device GPU/thermal/context qualification in Phase 8 before broader 3D scope |
 | Terrain pack too large for default offline install | unknown until pipeline | 60 MiB target / 80 MiB review gate; reduce zoom/resolution/bounds before abandoning offline principle |
 | MapLibre migration breaks existing deep links/GPS/accessibility | controllable | Leaflet adapter parity tests; renderer-neutral identity; no big-bang switch |
 | WebGPU coverage/integration | currently non-Baseline; shared-depth seam mismatch | optional later spike only; reject if no clear win |
