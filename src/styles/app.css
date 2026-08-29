@@ -534,7 +534,7 @@ h1 { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: clamp
   text-decoration: none;
 }
 .gallery-placeholder > span { font-size: 2rem; }
-.gallery-placeholder > small { margin-top: .3rem; color: #667269; }
+.gallery-placeholder > small { margin-top: .3rem; color: #536159; }
 .artwork-list { display: grid; gap: .55rem; }
 .artwork-list article { display: grid; gap: .2rem; padding: .75rem; border: 1px solid #d9d3c3; border-radius: .7rem; background: #fffdf7; }
 .artwork-list article span,

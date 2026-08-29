@@ -1418,6 +1418,102 @@ scope.
 - terminal `STANDBY / COMPLETE AND GREEN` if all gates pass, otherwise exact bounded
   blocker/continuation with no blind polling.
 
+Phase-8 closeout on 2026-08-29 is **`STANDBY / BLOCKED_EXTERNAL_FIXTURE`**, not
+`COMPLETE AND GREEN`, and does not authorize a Phase 9. Every architecture gate that can be
+truthfully exercised on the available representative desktop is green after one bounded
+accessibility correction, but no physical mobile browser fixture was attached (`adb devices -l`
+was empty and no iOS device could be enumerated). Therefore physical-mobile sustained p95,
+thermal, battery and GPU-memory/context acceptance remain unestablished; browser emulation is
+not substituted for that evidence. No runnable Orca/screen-reader fixture was available either,
+so automated accessibility evidence is not described as real screen-reader product acceptance.
+
+Representative headed-desktop evidence:
+
+- default/auto still resolves to Leaflet; Index renders exactly 80 initial destinations;
+  keyboard disclosure of Paths & junctions renders exactly 40 rows, and a focused network row
+  activates with Enter while Leaflet remains the renderer;
+- canonical `#place=aquaedukt` exposes transcript-backed quiet narration with
+  `speechSynthesis.speaking=false` before explicit play, four direct-route choices preserve
+  mapped time/distance/ascent plus access/surface evidence, and route focus preserves the
+  canonical source selection; a hard-navigation stale ID remains visible as an unavailable
+  saved Park link instead of silently selecting another object;
+- detail entry/exit is keyboard-safe: activating the Aquaedukt Almanac row focuses the close
+  control, and closing returns focus to the originating Aquaedukt row;
+- reduced-motion terrain remains functional and the deterministic GPS tests retain the 30 m
+  enter / 45 m exit hysteresis, accuracy-circle gate and controller-owned selection lifecycle;
+- the first fresh cold profile reproduced a 66.9 ms font/layout event dominated by text shaping
+  and font fallback, while three warm Leaflet reloads had zero renderer-main/layout tasks at or
+  above 50 ms. Independent Phase-8 qualification likewise saw a cold-only host/layout outlier
+  followed by warm reloads without >50 ms long-animation-frame work. This is classified as a
+  cold host/font-cache cost, not an earned product optimization target;
+- the Phase-7 `heritage=pending >10 s` observation was reproduced once only when the bounded
+  preview-server process expired while `assets/maplibre-gl-worker.mjs` had no completed
+  response. With a newly started preview server still live, a fresh terrain+Aquaedukt load was
+  `ready/rendered`, completed Three/GLTF resources, and then held a 20 s settled soak at
+  95 -> 95 resources with zero long tasks and essentially flat measured heap
+  (33,718,419 -> 33,726,766 bytes). Six earlier same-profile warm reloads were also
+  `ready/rendered` by 2.5 s. The pending observation is therefore classified as a bounded
+  harness/server-lifetime artifact rather than a renderer lifecycle defect;
+- a 20 s settled Leaflet sample likewise had no long tasks and released heap rather than showing
+  monotonic retention. Host-wide NVIDIA telemetry moved only from 58 C / 7.27 W / 0% reported
+  utilization to 57 C / 11.23 W / 0%, but this is not per-browser attribution and is not used as
+  physical-mobile thermal/GPU evidence.
+
+Offline/PWA closeout:
+
+- current deterministic service-worker tests re-prove atomic deployed-v4 -> v6 upgrade,
+  failed-candidate preservation, cache-first static assets, network-first runtime JSON with
+  offline fallback, explicit uncached-data 503 behavior, and the manifest-authorized visited
+  tile budget;
+- a clean headed controlled origin used about 6.46 MiB at Leaflet startup and about 8.59 MiB
+  after explicit terrain+Aquaedukt warm-up; warmed terrain/shared-depth and warmed Leaflet +
+  Almanac both reopened offline successfully;
+- real visitor-driven map churn reached the exact 80-entry tile cap. Independent qualification
+  measured 51 shell entries / 10,052,837 readable shell bytes and a 13,004,773-byte complete
+  production `dist`; the committed Terrarium derivative remains 4,670,817 tile bytes. These
+  remain well below the 60 MiB preferred / 80 MiB review gates;
+- Chromium `navigator.storage.estimate()` on profiles containing opaque third-party tile
+  responses is privacy-padded and was non-monotonic, so it is retained as browser telemetry but
+  is not treated as authoritative third-party body-size evidence. No bulk tile prefetch was
+  introduced or used.
+
+Accessibility and failure-matrix closeout:
+
+- default and detail axe scans had zero violations. The full terrain/detail scan exposed one real
+  normal-text contrast defect: `.gallery-placeholder > small` was 4.18:1. Phase 8 changes only
+  that credit color from `#667269` to the existing `#536159` tone (~5.42:1); the rebuilt full
+  terrain/detail scan returns zero violations. Remaining axe findings are incomplete contrast
+  determinations around image-backed content, not violations;
+- default/auto Leaflet, explicit terrain, reduced motion, WebGL2-only capability gating and
+  reduced-power fail-closed selection remain covered by current deterministic tests. A headed
+  aborted terrain-manifest request fell back to Leaflet with
+  `terrain-initialization-failed` while preserving Aquaedukt detail;
+- headed `WEBGL_lose_context` moved the one shared-depth object to `context-lost`; restoring the
+  retained context returned terrain + Aquaedukt to `ready/rendered` with canonical selection
+  intact. Current unchanged Phase-5/Phase-7 browser coverage retains model/shared-depth
+  initialization-failure and terrain-tile flat-fallback behavior. Aquaedukt remains the only
+  shared-depth spatial 3D object and has no independent canvas/camera/animation loop.
+
+Authority and regression audit:
+
+- Phase-3 DGM1 source/artifact authority is byte-for-byte unchanged from `7b44d999…` and Phase-4
+  Terrarium authority is byte-for-byte unchanged from `3fcb91e…`; source manifest, derivative
+  manifest, checksums and `dl-zero-de/2.0` provenance remain exact;
+- graph/figures/semantic/source and bilingual knowledge authorities retain their owning-lane
+  hashes; no graph, semantic, terrain source, route elevation, model family or public-data
+  acquisition changed in Phase 8;
+- after the contrast fix: Biome 69 files clean, Node 81/81, Vitest 2/2, production build and
+  runtime budgets are green at 6,144,047 / 8,388,608 data bytes, 241,368 / 393,216 initial JS
+  bytes and 38,518 / 98,304 initial CSS bytes. Independent current-product Chromium closeout is
+  48/48 green. Python remains the exact inherited 86/87 only at `tests/test_semantic.py:136`;
+  the stale `tests/e2e/phase6-integration.spec.js` fixture remains unchanged and out of scope.
+
+The smallest truthful continuation is external qualification only: attach and authorize the
+representative physical mobile browser/device required by this architecture, collect sustained
+interaction + idle p95/thermal/battery/GPU-memory/context evidence, and exercise a real
+screen-reader fixture if screen-reader product acceptance is required. Until those fixtures
+exist, do not dispatch Phase 9 and do not add speculative renderer/performance machinery.
+
 ---
 
 ## 23. Risks, unknowns and kill criteria
@@ -1427,7 +1523,7 @@ scope.
 | Official DGM1 arbitrary-area direct download automation | **qualified in Phase 3** | official HVBG INSPIRE WCS `he_dgm1`; keep bounded request + immutable checksum/source manifest and retain the shop only as manual fallback |
 | DGM1-derived route grade becomes noisy at 1 m | expected risk | test filtering/resampling; never publish raw one-metre noise as trustworthy climb |
 | MapLibre + Three shared depth on target mobile devices | **focused browser-qualified in Phase 5**; representative physical-mobile profiling still pending | keep the one-object architecture bounded; complete target-device GPU/thermal/context qualification in Phase 8 before broader 3D scope |
-| Terrain pack too large for default offline install | unknown until pipeline | 60 MiB target / 80 MiB review gate; reduce zoom/resolution/bounds before abandoning offline principle |
+| Terrain pack too large for default offline install | **current bounded pack is within budget**: 4,670,817 Terrarium tile bytes; clean headed warm origin ~8.59 MiB; production `dist` 13,004,773 B | preserve the 60 MiB preferred / 80 MiB review gate; reduce zoom/resolution/bounds before abandoning offline principle |
 | MapLibre migration breaks existing deep links/GPS/accessibility | controllable | Leaflet adapter parity tests; renderer-neutral identity; no big-bang switch |
 | WebGPU coverage/integration | currently non-Baseline; shared-depth seam mismatch | optional later spike only; reject if no clear win |
 | Browser WASM overhead exceeds compute win | unknown | worker/JS baseline first; typed-array coarse benchmark; reject if gate unmet |
