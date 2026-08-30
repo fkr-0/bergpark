@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-27T18:17:37.443976+00:00",
+  "generated_at": "2026-08-30T17:25:33.695129+00:00",
   "status": "pass",
   "summary": {
     "place_nodes": 30,
@@ -19,11 +19,11 @@
       "transit": 6,
       "artwork": 11
     },
-    "historical_figures": 5,
-    "artworks": 1,
-    "collections": 1,
-    "semantic_relations": 13,
-    "semantic_sources": 11,
+    "historical_figures": 23,
+    "artworks": 14,
+    "collections": 3,
+    "semantic_relations": 54,
+    "semantic_sources": 41,
     "routing_phase2_routes_checked": 122,
     "routing_disconnected_components_checked": 10,
     "errors": 0,
