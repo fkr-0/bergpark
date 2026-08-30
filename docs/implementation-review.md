@@ -34,9 +34,10 @@ do not authorize edits to those claimed paths.
 The original review snapshot is historical. At current HEAD the major P0/P1
 foundations have materially advanced:
 
-- `scripts/compose_graph.py` is the composition-only owner of `data/graph.json`
-  and the aggregate now includes trees, benches, path topology, visitor POIs,
-  figures, artworks/collections and semantic edges with input-hash evidence;
+- `scripts/compose_graph.py` is the composition-only owner of `data/graph.json`;
+  the current aggregate carries 23 figures, 14 artworks, 3 collections and 54
+  semantic edges alongside trees, benches, path topology and visitor POIs, with
+  composition input-hash evidence;
 - the runtime-data manifest is the shared publish/load/precache/artifact authority
   for 11 shipped layers and the production artifact gate is budgeted/fail-closed;
 - Phase-8 walking topology is 2,633 path nodes / 7,196 directed segments over 955
@@ -44,10 +45,13 @@ foundations have materially advanced:
 - graph-side routing supports shortest, lower-ascent and avoid-known-steps profiles,
   while the visitor UI has not yet become a general turn-by-turn router;
 - GPS proximity now uses reported accuracy plus entry/exit hysteresis;
-- tree, bench, visitor-POI and semantic layers are visitor-visible with bounded
-  rendering, evidence-aware detail and deep-link support;
-- DGM1 route elevation and the optional MapLibre/shared-depth spatial work are
-  qualified development-baseline additions after alpha.5;
+- trees have bounded filterable catalogue results, clustered/individual map
+  presentation and evidence-aware detail; benches and visitor POIs are selective
+  runtime layers, and semantic entities expose relation traversal with source context;
+- route detail exposes mapped-path/access uncertainty and DGM1-derived elevation
+  evidence, including a lazy profile that fails accessibly and remains retryable;
+  the optional MapLibre/shared-depth spatial work remains a qualified development
+  baseline after alpha.5;
 - `pnpm run check` currently covers Biome, Node/Vitest, 87 Python integrity tests,
   Vite build and runtime-artifact validation; Chromium E2E remains the broader
   `check:e2e` gate.
@@ -254,11 +258,22 @@ to its coordinates. Trees are not a dedicated clustered map layer and there is
 no full tree detail sheet presenting provenance, catalogue data, circumference,
 start date or explicit unknown height.
 
+**Current resolution (2026-08-31):** the historical limitation is resolved. The
+runtime keeps the result DOM bounded while filtering, renders deterministic tree
+clusters/individual markers with keyboard activation, and exposes an evidence-aware
+tree detail sheet. Catalogue circumference/start-date fields are shown only when
+sourced; missing specimen height remains explicitly unknown rather than inferred.
+
 ### 14. Bench runtime integration does not exist yet
 
 The bench dataset is now durable (215 POIs at `3882f92`) but is not copied by
 `scripts/copy-data.mjs`, loaded by `src/data.js`, cached by the service worker or
 rendered as a map layer.
+
+**Current resolution (2026-08-31):** benches are now manifest-authorized runtime
+visitor features, hydrated through the selective visitor-layer adapter, available
+offline when shipped/warmed, and rendered only when the visitor enables the layer.
+The selective/opt-in policy remains intentional to keep the map bounded.
 
 ### 15. Semantic content is not navigable as graph structure
 
@@ -266,14 +281,26 @@ rendered as a map layer.
 there is no first-class semantic relation traversal in the runtime. Figures,
 artworks and collections cannot yet drive related-entity navigation.
 
+**Current resolution (2026-08-31):** first-class semantic traversal is landed.
+The runtime adapter exposes figures, artworks and collections plus bidirectional
+relation links, preserves canonical IDs, and carries qualification/source context
+into visitor detail. The composed graph currently contains 23 figures, 14 artworks,
+3 collections and 54 semantic edges; editorial/source freshness remains separate
+release work.
+
 ### 16. Route evidence is richer in JSON than in the UI
 
 The data now distinguishes step sections, surfaces, grade, mapped-path access and
 unknown endpoint access. The route UI currently shows distance and walking time
 only.
 
-**Opportunity:** show known/unknown route evidence so the richer Phase-2 work
-becomes visitor value.
+**Current resolution (2026-08-31):** route detail now surfaces mapped-path access,
+known/unknown step and endpoint-access evidence, semantic links, and DGM1-derived
+terrain/elevation summaries. The detailed DGM1 profile remains lazily loaded; a
+chunk failure preserves the summary, exposes a bilingual retry state, and does not
+invent missing accessibility/elevation facts. The remaining limitation is broader
+visitor-facing multi-hop/turn-by-turn routing over the bounded topology, not route
+evidence presentation.
 
 ### 17. Browser/a11y qualification is reproducible from the repo
 
