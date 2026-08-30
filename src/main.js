@@ -176,9 +176,11 @@ function applySupplementalGraph(hydratedGraph) {
 
   if (currentView !== 'map' && !currentTreeId && !currentVisitorFeatureId) setView(currentView);
   if (currentNodeId && !currentRoute && !elements.detail.hidden) showDetail(graph.entitiesById.get(currentNodeId));
-  // Late supplemental hydration must not replay a stale map deep link after the
-  // visitor has deliberately moved into Index or Trees.
-  if (currentView === 'map') restoreDeepLink({ force: true });
+  // Late supplemental hydration must not replay a stale place deep link after
+  // the visitor has deliberately moved into Index/Trees or opened transient
+  // route detail. A route is intentionally not encoded into location.hash, so
+  // replaying the source-place fragment here would silently replace that route.
+  if (currentView === 'map' && !currentRoute) restoreDeepLink({ force: true });
 }
 
 function ensureSupplementalData() {

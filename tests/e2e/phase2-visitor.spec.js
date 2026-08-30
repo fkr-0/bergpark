@@ -42,10 +42,19 @@ test('tree explorer bounds the mobile result DOM while filters keep the map in s
   expect(runtimeErrors).toEqual([]);
 });
 
-test('route elevation profile fails accessibly and remains retryable when its lazy chunk is unavailable', async ({ browser }) => {
+test('route elevation profile fails accessibly and survives late hydration when its lazy chunk is unavailable', async ({ browser }) => {
   const context = await browser.newContext({ serviceWorkers: 'block', reducedMotion: 'reduce', viewport: { width: 390, height: 844 } });
   const page = await context.newPage();
   const runtimeErrors = captureRuntimeErrors(page);
+  let releaseHydration;
+  let markHydrationRequested;
+  const hydrationGate = new Promise((resolve) => { releaseHydration = resolve; });
+  const hydrationRequested = new Promise((resolve) => { markHydrationRequested = resolve; });
+  await page.route('**/data/trees.json', async (route) => {
+    markHydrationRequested();
+    await hydrationGate;
+    await route.continue();
+  });
   await page.route('**/assets/generated-route-profiles-*.js', (route) => route.abort());
   await openVisitorGuide(page, '/#place=aquaedukt');
 
@@ -63,6 +72,13 @@ test('route elevation profile fails accessibly and remains retryable when its la
   await expect(loadProfile).toHaveText('Höhenprofil erneut laden');
   await expect(loadProfile).toHaveAttribute('aria-expanded', 'false');
   await expect(placeholder).toHaveCSS('background-image', 'none');
+
+  await hydrationRequested;
+  releaseHydration();
+  await expect(page.locator('#map')).toHaveAttribute('data-supplemental-data', 'ready');
+  await expect(detail.locator('.route-detail')).toBeVisible();
+  await expect(loadProfile).toHaveText('Höhenprofil erneut laden');
+  await expect(placeholder).toBeVisible();
 
   const scan = await new AxeBuilder({ page }).include('#detail-sheet').analyze();
   const blocking = seriousOrCritical(scan);
