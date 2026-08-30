@@ -58,6 +58,10 @@ test('tablet semantic detail localizes displayed_at and preserves qualification/
   const errors = captureRuntimeErrors(page);
   await page.setViewportSize({ width: 768, height: 1024 });
   await openGuide(page);
+  // This detail asserts the supplemental semantic layer, not just core places.
+  // Synchronize on that published readiness boundary so host load cannot turn
+  // a semantic-data test into a race with deferred hydration.
+  await expect(page.locator('#map')).toHaveAttribute('data-supplemental-data', 'ready');
   await page.evaluate(() => { location.hash = '#place=schloss'; });
 
   const detail = page.locator('#detail-sheet');
