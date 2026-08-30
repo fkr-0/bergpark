@@ -40,10 +40,12 @@ Each layer should have exactly one producer and one validator.
 
 ### 3. Composition layer
 
-`data/graph.json` should become a pure composition artifact. It should never be
-the mechanism by which a lower-level builder creates or resets another layer.
+`data/graph.json` is now a pure composition artifact produced by
+`scripts/compose_graph.py`. The composer validates independently owned layer
+schemas/counts, records exact input hashes and never regenerates or resets lower-
+level layer outputs.
 
-Desired flow:
+Current flow:
 
 ```text
 preserved sources
@@ -58,17 +60,20 @@ preserved sources
                                          ▼
                                   compose_graph.py
                                          │
-                                         ├── graph.json
-                                         └── runtime-manifest.json
+                                         └── graph.json + composition input hashes
 ```
 
-The composer should verify layer schema compatibility and record input hashes.
+Runtime publication is a separate boundary driven by
+`runtime/runtime-data-manifest.json`; aggregate/audit graph artifacts are not
+implicitly shipped to the browser.
 
 ### 4. Runtime publishing layer
 
-`scripts/copy-data.mjs` copies the deployable subset into `public/data/` before
-Vite builds. This stage should be driven by an explicit runtime manifest rather
-than a manually maintained list once more layers are shipped.
+`scripts/copy-data.mjs` copies or derives the deployable subset into
+`public/data/` before Vite builds. The authoritative layer list, schemas, load
+phases, precache policy and byte budgets live in
+`runtime/runtime-data-manifest.json`; the generated public manifest adds exact
+hashes/sizes for the concrete build.
 
 ### 5. Browser application
 
@@ -197,8 +202,13 @@ another field such as `height_m`, with its own source/status.
 
 ### Current model
 
-The current graph exports a selected set of place-to-place shortest walking paths.
-This is useful for display and nearby navigation but is not a general router.
+The repository retains 122 qualified high-level place-to-place walking edges for
+visitor presentation and also carries the bounded Phase-8 walking topology with
+2,633 path nodes / 7,196 directed segments over 955 included pedestrian-eligible
+OSM ways. Graph-side routing can compute shortest, lower-ascent and avoid-known-
+steps paths over that bounded topology. The visitor UI still primarily presents
+qualified high-level routes and discovery rather than claiming a complete turn-
+by-turn navigation engine or complete physical path inventory.
 
 ### Target model
 

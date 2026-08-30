@@ -29,6 +29,34 @@ Durable repository facts at review time:
 The working tree contains concurrent knowledge/research activity. Findings here
 do not authorize edits to those claimed paths.
 
+## Current reconciliation — 2026-08-31
+
+The original review snapshot is historical. At current HEAD the major P0/P1
+foundations have materially advanced:
+
+- `scripts/compose_graph.py` is the composition-only owner of `data/graph.json`
+  and the aggregate now includes trees, benches, path topology, visitor POIs,
+  figures, artworks/collections and semantic edges with input-hash evidence;
+- the runtime-data manifest is the shared publish/load/precache/artifact authority
+  for 11 shipped layers and the production artifact gate is budgeted/fail-closed;
+- Phase-8 walking topology is 2,633 path nodes / 7,196 directed segments over 955
+  included pedestrian-eligible OSM ways in the bounded preserved-source scope;
+- graph-side routing supports shortest, lower-ascent and avoid-known-steps profiles,
+  while the visitor UI has not yet become a general turn-by-turn router;
+- GPS proximity now uses reported accuracy plus entry/exit hysteresis;
+- tree, bench, visitor-POI and semantic layers are visitor-visible with bounded
+  rendering, evidence-aware detail and deep-link support;
+- DGM1 route elevation and the optional MapLibre/shared-depth spatial work are
+  qualified development-baseline additions after alpha.5;
+- `pnpm run check` currently covers Biome, Node/Vitest, 87 Python integrity tests,
+  Vite build and runtime-artifact validation; Chromium E2E remains the broader
+  `check:e2e` gate.
+
+Unannotated findings below should therefore be read as historical review context,
+not as proof that the defect is still present. Remaining high-value work is the
+visitor-facing general-routing seam, source/editorial freshness and schema policy,
+beta browser/device qualification, and measured performance/release convergence.
+
 ## P0 findings
 
 ### 1. Layer generation needs a durable composition boundary
@@ -286,13 +314,16 @@ The review also found several strong implementation choices:
 
 ## Recommended implementation order
 
-1. Finish the currently claimed semantic tranche without widening ownership.
-2. Land composition-safe layer architecture before another broad graph regeneration.
-3. Add common provenance/accuracy schema and deterministic build manifest.
-4. Add repository-wide verify/CI gate.
-5. Extend the landed path-topology projection to the intended complete walking network and real multi-hop routing.
-6. Integrate trees/benches/path topology/semantic layers into runtime/offline packaging.
-7. Harden GPS, accessibility evidence, PWA upgrades and browser qualification.
-8. Complete editorial/source freshness and performance gates before beta/stable.
+1. Turn the bounded Phase-8 topology and existing graph-side routing into a
+   visitor-facing multi-hop routing flow while keeping coverage/access unknowns visible.
+2. Formalize public layer schema/migration policy and source-refresh change reports so
+   future OSM/content updates cannot silently drift producer/runtime contracts.
+3. Complete bilingual editorial/source-freshness gates, especially volatile visitor facts
+   and media/source licensing metadata.
+4. Qualify Firefox plus iOS Safari/WebKit and retain explicit offline-upgrade/device gates.
+5. Measure the optional MapLibre/DGM1/shared-depth path on representative mobile hardware;
+   keep Leaflet as a first-class compatibility/low-power fallback until parity is proven.
+6. Reconcile version, changelog and release evidence before the next deployment from the
+   current branch, which is substantially ahead of the published alpha boundary.
 
 The phase mapping and acceptance criteria are maintained in `ROADMAP.md`.

@@ -70,7 +70,9 @@ being treated as an eternal project constant.
 
 ## Path-topology verification
 
-The current explicit topology is a projection of the qualified landmark routes:
+The current explicit topology covers the qualified bounded preserved-source
+walking scope: 2,633 path nodes and 7,196 directed segments derived from 955
+included pedestrian-eligible OSM ways.
 
 ```sh
 python scripts/build_path_topology.py
@@ -78,13 +80,18 @@ python scripts/validate_path_topology.py
 python -m unittest -v tests.test_path_topology
 ```
 
-Its `scope`/validation notes are part of the contract: this is not yet every
-walkable OSM way in the park.
+Its coverage metadata remains part of the contract. The current source boundary
+is explicitly not fully checked, so this must not be described as proof of every
+physical walkable path in the park.
 
 ## Semantic verification
 
-The semantic layer should have a dedicated validator/test suite and become part
-of the repository-wide verification gate after Phase 3 is durable.
+Semantic/content integrity is now covered by the normal Python repository suite,
+including endpoint/source checks and composed-graph assertions:
+
+```sh
+python -m unittest -v tests.test_semantic
+```
 
 Semantic tooling must not rewrite bilingual knowledge files or the content
 source registry merely to satisfy graph composition.
@@ -102,9 +109,10 @@ The target ownership model is one producer per layer:
 | Bilingual knowledge | editorial/knowledge tooling | parity/source checks |
 | Combined graph | composer only | composition validator |
 
-Until the composition refactor lands, use care: the current spatial builder still
-contains placeholder writes for other layers. Prefer staging builds when a valid
-independent layer is present.
+The composition refactor is durable: `scripts/compose_graph.py` is the only
+producer of `data/graph.json`, validates independently owned layer schemas/counts
+and records input hashes. Layer builders must continue to write only their own
+canonical outputs.
 
 ## Runtime data publishing
 

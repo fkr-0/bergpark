@@ -16,7 +16,9 @@ estimates are never silently promoted to canonical coordinates.
 Current alpha capabilities include:
 
 - touch-friendly Leaflet map with OpenStreetMap/OpenTopoMap layers;
-- landmark markers, walking-network and route polylines;
+- landmark markers, walking-network and route polylines backed by the bounded
+  Phase-8 preserved-source walking topology (2,633 path nodes / 7,196 directed
+  segments across 955 included pedestrian-eligible OSM ways);
 - German/English detail content and Web Speech API narration;
 - GPS proximity activation with a ~30 m trigger and graceful manual fallback;
 - searchable entity index and tree explorer;
@@ -44,11 +46,11 @@ python -m unittest -v tests.test_graph
 - `data/nodes.json` — visitable place nodes
 - `data/edges.json` — directed walking-path edges
 - `data/trees.json` — 569 catalogue-backed dendrological nodes
-- `data/figures.json` — historical people/entities (semantic phase in progress)
-- `data/semantic.json` — typed non-spatial relationships (semantic phase in progress)
+- `data/figures.json` — 23 source-grounded historical people/entities in the current bounded semantic tranche
+- `data/semantic.json` — 54 typed source-grounded semantic relationships plus artwork/collection entities
 - `data/benches.json` — 215 first-class bench POIs from the preserved OSM snapshot
-- `data/path_topology.json` — 1,408 path nodes / 2,858 directed segments projected from the qualified landmark routes
-- `data/graph.json` — combined export; composition refactor is a current P0 roadmap item
+- `data/path_topology.json` — 2,633 path nodes / 7,196 directed segments covering the qualified preserved-source walking scope; physical inventory completeness remains explicitly unproven
+- `data/graph.json` — composition-only aggregate of validated independently owned layers with input hashes
 - `data/validation.json` — machine-readable place/route integrity report
 
 ## Rebuild
@@ -75,11 +77,14 @@ only as a rejected seed assumption in validation metadata.
 
 ## Release status
 
-The alpha is intentionally public before all knowledge layers are complete so
-map/runtime integration can be qualified continuously. The current roadmap now
-tracks semantic composition, explicit routing topology, trees/benches, common
-position accuracy, repository-wide CI, offline upgrades, accessibility and
-mobile/browser qualification as separate evidence gates.
+The alpha is intentionally public while later beta gates remain open so
+map/runtime integration can be qualified continuously. Composition-safe graph
+layers, the bounded Phase-8 walking topology, runtime manifest/offline packaging,
+GPS accuracy/hysteresis, tree/bench/semantic visitor layers and Chromium release
+qualification are already durable. The current roadmap keeps physical walking-
+inventory completeness, general visitor routing, editorial/source freshness,
+Firefox/iOS Safari qualification and performance/device evidence as explicit
+remaining gates.
 
 Visitor facts such as opening hours and accessibility are source-dated and
 should not be interpreted as guarantees when conditions change.

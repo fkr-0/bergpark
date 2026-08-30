@@ -14,6 +14,14 @@ experience have completed their release gates.
   and explicit data/startup budgets.
 - Production artifact verification that rejects undeclared/aggregate data payloads
   and checks the manifest, layer hashes/sizes/schemas and initial JS/CSS budgets.
+- DGM1-derived route elevation summaries and lazily rendered profiles with explicit
+  terrain provenance, source accuracy context and conservative short-segment slope
+  interpretation.
+- Renderer-neutral spatial descriptors plus an optional MapLibre/WebGL2 terrain
+  surface and shared-depth Three.js heritage layer; Leaflet remains available as
+  the compatibility/low-power fallback.
+- Visitor discovery/search foundations spanning places, stories, trees, visitor
+  features and walking-network context without changing canonical entity IDs.
 
 ### Changed
 
@@ -51,6 +59,9 @@ experience have completed their release gates.
 
 ### Documentation
 
+- README, architecture/development guidance, implementation review, ROADMAP and
+  bridge tasks are reconciled with the current composition/runtime authority and
+  the 2,633-node / 7,196-segment bounded Phase-8 walking topology.
 - ROADMAP current-baseline claims now reflect durable alpha.4/alpha.5 visitor
   functionality and the bounded Graph Phase-8 topology/routing authority without
   rewriting historical phase descriptions or release metadata.

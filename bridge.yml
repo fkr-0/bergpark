@@ -4,8 +4,8 @@ description: Bergpark Wilhelmshöhe bilingual visitor guide PWA
 agent:
   notes: Preserve runtime JSON graph compatibility. Keep the map usable without GPS, and cache only tiles actually viewed by the visitor; do not bulk-prefetch OSM.
   tasks:
-    - Complete bilingual content and graph navigation.
-    - Import the full historic tree catalogue when bergpark-graph publishes it.
+    - Expose general visitor multi-hop routing over the bounded Phase-8 topology without overstating physical coverage or accessibility evidence.
+    - Complete bilingual editorial/source-freshness gates and beta Firefox/iOS Safari qualification.
 commands:
   test:
     run: ["pnpm", "run", "test"]

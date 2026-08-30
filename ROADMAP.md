@@ -46,6 +46,23 @@ the composition boundary and Graph Phase 8. Future source refreshes must preserv
 frozen-source completeness caveat, stable IDs and producer ownership rather than
 silently regenerating unrelated content/runtime layers.
 
+### Unreleased development after alpha.5
+
+The current branch also contains qualified work beyond the last published alpha:
+
+- DGM1-derived route elevation summaries/profiles with explicit provenance and
+  conservative interpretation of short-segment slope;
+- renderer-neutral `SpatialWorld` descriptors and an optional MapLibre/WebGL2
+  terrain path that coexists with the Leaflet compatibility/fallback surface;
+- shared-depth Three.js heritage rendering with bounded asset/runtime LOD policy;
+- visitor discovery/search improvements spanning places, stories, trees, visitor
+  features and walking-network context;
+- runtime-data/PWA upgrade hardening and measured performance/specialization
+  evidence without making browser WASM a prerequisite.
+
+These are development-baseline capabilities, not a published-version claim. The
+next release must reconcile version/changelog/release evidence before deployment.
+
 ---
 
 ## Phase 3 — source-grounded semantic layer
@@ -78,15 +95,17 @@ relationships first-class graph entities.
 
 ## Phase 4 — layer composition and schema v2 foundation
 
-**Priority: P0.** This is the architectural gate for every later layer.
+**Status: durable.** `scripts/compose_graph.py` is the composition-only owner of
+`data/graph.json`; it validates layer compatibility/counts and records exact input
+hashes. Runtime publication is separately driven by the versioned runtime-data
+manifest.
 
-### Problem to remove
+### Historical problem removed
 
 The durable pre-Phase-3 place/path builder owned output initialization for trees,
-figures and semantic edges. The active Phase-3 recovery is already changing it to
-read curated tree/semantic layers without overwriting them. That is the correct
-immediate fix, but the architecture still lacks a dedicated composition boundary,
-schema compatibility checks, and composition of the durable bench/path-topology layers.
+figures and semantic edges. That destructive ownership model has been removed:
+independent builders now retain their own outputs and the composer assembles the
+aggregate without regenerating those layers.
 
 ### Deliverables
 
@@ -117,15 +136,16 @@ schema compatibility checks, and composition of the durable bench/path-topology 
 
 ## Phase 5 — explicit routing topology and general routing
 
-**Foundation landed:** commit `97335ba` serializes the already-qualified 122
-landmark routes into 1,408 path nodes and 2,858 directed segments. Its own
-validation explicitly scopes this as a route projection, not every walkable OSM
-way in the park. Only four segments are long enough for GLO-90-derived grade;
-2,854 are below the DEM horizontal resolution, so short-segment grade remains
-intentionally unknown.
+**Current status:** the original `97335ba` landmark-route projection has been
+superseded by durable Graph Phase 8: 2,633 path nodes and 7,196 directed segments
+cover the explicitly bounded preserved-source scope of 955 included pedestrian-
+eligible OSM ways. Graph-side shortest/lower-ascent/avoid-known-steps routing is
+qualified over that topology. The source boundary remains explicitly not fully
+checked, so physical inventory completeness is still unproven.
 
-**Remaining goal:** extend that safe serialization into the complete relevant
-park walking topology and use it for real multi-hop route computation.
+**Remaining goal:** expose general multi-hop routing as a visitor-facing navigation
+capability without overstating source coverage, endpoint/barrier evidence or route
+accessibility.
 
 ### Path node model
 
