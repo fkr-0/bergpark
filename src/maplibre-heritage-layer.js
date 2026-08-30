@@ -3,6 +3,11 @@ import { disposeModelObject, loadBoundedGltfModel } from './model-assets.js';
 import { resolveNodePresentation } from './presentation.js';
 import { createSpatial3dDescriptor, createSpatial3dFamily } from './spatial3d/descriptors.js';
 import { loadSpatial3dObject } from './spatial3d/procedural-models.js';
+import {
+  normalizeSpatial3dRuntimeInputs,
+  resolveSpatial3dRuntimePolicy,
+  spatial3dRuntimeDecisionSignature,
+} from './spatial3d/runtime-policy.js';
 
 export const SHARED_DEPTH_HERITAGE_ID = 'aquaedukt';
 export const SHARED_DEPTH_LAYER_ID = 'terrain-heritage-aquaedukt';
@@ -146,11 +151,14 @@ export function createMapLibreHeritageSharedDepthLayer({
   const records = new Map(descriptors.map((descriptor) => [descriptor.entityId, {
     descriptor,
     object: null,
+    baseModelMatrix: null,
     modelMatrix: null,
     placement: null,
     metadata: null,
     error: null,
     state: 'created',
+    runtimeDecision: null,
+    runtimeSignature: null,
   }]));
 
   let world = initialWorld;
@@ -168,11 +176,13 @@ export function createMapLibreHeritageSharedDepthLayer({
   let abortController = null;
   let state = 'created';
   let hasRendered = false;
+  let runtimeInputs = normalizeSpatial3dRuntimeInputs();
 
   const values = () => [...records.values()];
   const loadedRecords = () => values().filter(({ object }) => Boolean(object));
   const failedRecords = () => values().filter(({ error }) => Boolean(error));
   const placedRecords = () => values().filter(({ object, modelMatrix }) => Boolean(object && modelMatrix));
+  const visibleRecords = () => values().filter(({ object, modelMatrix }) => Boolean(object && modelMatrix && object.visible));
 
   function failureSnapshot() {
     return Object.freeze(failedRecords().map(({ descriptor, error }) => Object.freeze({
@@ -182,7 +192,14 @@ export function createMapLibreHeritageSharedDepthLayer({
   }
 
   function objectSnapshot() {
-    return Object.freeze(values().map(({ descriptor, metadata, error, state: objectState, placement }) => Object.freeze({
+    return Object.freeze(values().map(({
+      descriptor,
+      metadata,
+      error,
+      state: objectState,
+      placement,
+      runtimeDecision,
+    }) => Object.freeze({
       entityId: descriptor.entityId,
       representation: descriptor.representation,
       state: objectState,
@@ -194,6 +211,7 @@ export function createMapLibreHeritageSharedDepthLayer({
       metresPerModelUnit: descriptor.metresPerModelUnit ?? 1,
       orientation: descriptor.orientation,
       placement,
+      runtime: runtimeDecision,
       error: error ? errorMessage(error) : null,
     })));
   }
@@ -215,6 +233,7 @@ export function createMapLibreHeritageSharedDepthLayer({
       modelMetresPerUnit: primaryDescriptor.metresPerModelUnit ?? 1,
       objectCount: loadedRecords().length,
       placedObjectCount: placedRecords().length,
+      visibleObjectCount: visibleRecords().length,
       failureCount: failedRecords().length,
       objects: objectSnapshot(),
       ...(primaryMetadata ?? {}),
@@ -225,11 +244,14 @@ export function createMapLibreHeritageSharedDepthLayer({
   function resetRecord(record) {
     if (record.object) disposeModelObject(record.object);
     record.object = null;
+    record.baseModelMatrix = null;
     record.modelMatrix = null;
     record.placement = null;
     record.metadata = null;
     record.error = null;
     record.state = 'created';
+    record.runtimeDecision = resolveSpatial3dRuntimePolicy(record.descriptor, runtimeInputs);
+    record.runtimeSignature = spatial3dRuntimeDecisionSignature(record.runtimeDecision);
   }
 
   function releaseGraphics() {
@@ -245,13 +267,58 @@ export function createMapLibreHeritageSharedDepthLayer({
     hasRendered = false;
   }
 
+  function applyRuntimePresentation(record, { requestRepaint = true, forceMatrix = false } = {}) {
+    const nextDecision = resolveSpatial3dRuntimePolicy(record.descriptor, runtimeInputs);
+    const nextSignature = spatial3dRuntimeDecisionSignature(nextDecision);
+    const previousSignature = record.runtimeSignature;
+    const previousVisible = record.object?.visible === true;
+    record.runtimeDecision = nextDecision;
+    record.runtimeSignature = nextSignature;
+    if (!record.object) return false;
+
+    const nextVisible = Boolean(record.baseModelMatrix && nextDecision.visible);
+    let matrixChanged = false;
+    if (nextVisible && (forceMatrix || previousSignature !== nextSignature || !record.modelMatrix)) {
+      record.modelMatrix = record.baseModelMatrix.clone();
+      if (nextDecision.scale !== 1) {
+        record.modelMatrix.scale(new THREE.Vector3(nextDecision.scale, nextDecision.scale, nextDecision.scale));
+      }
+      record.object.matrixAutoUpdate = false;
+      record.object.matrix.copy(record.modelMatrix);
+      record.object.matrixWorldNeedsUpdate = true;
+      matrixChanged = true;
+    } else if (!nextVisible) {
+      record.modelMatrix = record.baseModelMatrix;
+    }
+    record.object.visible = nextVisible;
+    const changed = previousVisible !== nextVisible || matrixChanged;
+    if (changed && requestRepaint) map?.triggerRepaint?.();
+    return changed;
+  }
+
+  function applyRuntimePolicy({ emitState = true } = {}) {
+    if (disposed) return false;
+    let changed = false;
+    for (const record of values()) {
+      if (applyRuntimePresentation(record, { requestRepaint: false })) changed = true;
+    }
+    if (changed && attached && !contextLost) map?.triggerRepaint?.();
+    if (changed && emitState && state === 'ready') {
+      emit('ready', { rendered: hasRendered, partial: failedRecords().length > 0 });
+    }
+    return changed;
+  }
+
   function refreshRecordPlacement(record) {
     if (!attached || disposed || contextLost || !terrainAvailable || !THREE || !record.object || !map) return false;
     const next = terrainAwareSpatial3dPlacement(world, map, record.descriptor);
     if (!next) {
+      const changed = Boolean(record.placement || record.baseModelMatrix || record.modelMatrix || record.object.visible);
       record.placement = null;
+      record.baseModelMatrix = null;
       record.modelMatrix = null;
       record.object.visible = false;
+      if (changed) map.triggerRepaint?.();
       return false;
     }
     const changed = !record.placement
@@ -259,17 +326,16 @@ export function createMapLibreHeritageSharedDepthLayer({
       || record.placement.lat !== next.lat
       || record.placement.altitudeM !== next.altitudeM;
     record.placement = next;
-    record.object.visible = true;
     if (changed || !record.modelMatrix) {
-      record.modelMatrix = createMercatorModelMatrix(THREE, next, {
+      record.baseModelMatrix = createMercatorModelMatrix(THREE, next, {
         metresPerModelUnit: record.descriptor.metresPerModelUnit ?? 1,
         orientation: record.descriptor.orientation,
         mercatorCoordinate,
       });
-      record.object.matrixAutoUpdate = false;
-      record.object.matrix.copy(record.modelMatrix);
-      record.object.matrixWorldNeedsUpdate = true;
+      applyRuntimePresentation(record, { requestRepaint: false, forceMatrix: true });
       map.triggerRepaint?.();
+    } else {
+      applyRuntimePresentation(record);
     }
     return true;
   }
@@ -322,6 +388,8 @@ export function createMapLibreHeritageSharedDepthLayer({
             return;
           }
           record.object = resolved.object;
+          record.runtimeDecision = resolveSpatial3dRuntimePolicy(descriptor, runtimeInputs);
+          record.runtimeSignature = spatial3dRuntimeDecisionSignature(record.runtimeDecision);
           record.state = 'ready';
           record.metadata = Object.freeze({
             modelSource: resolved.source,
@@ -412,7 +480,7 @@ export function createMapLibreHeritageSharedDepthLayer({
       void initialize();
     },
     render(_sharedGl, options) {
-      if (!attached || disposed || contextLost || !terrainAvailable || !renderer || !scene || !camera || !placedRecords().length) return;
+      if (!attached || disposed || contextLost || !terrainAvailable || !renderer || !scene || !camera || !visibleRecords().length) return;
       const projection = options?.defaultProjectionData?.mainMatrix ?? options?.modelViewProjectionMatrix;
       if (!projection) return;
       camera.projectionMatrix.fromArray(projection);
@@ -436,6 +504,10 @@ export function createMapLibreHeritageSharedDepthLayer({
     setWorld(nextWorld) {
       world = nextWorld;
       return refreshPlacements();
+    },
+    setRuntimePolicyInputs(nextInputs) {
+      runtimeInputs = normalizeSpatial3dRuntimeInputs(nextInputs);
+      return applyRuntimePolicy();
     },
     setTerrainAvailable(available) {
       const next = available === true;
@@ -473,6 +545,7 @@ export function createMapLibreHeritageSharedDepthLayer({
         entityIds: Object.freeze(descriptors.map(({ entityId }) => entityId)),
         objectCount: loadedRecords().length,
         placedObjectCount: placedRecords().length,
+        visibleObjectCount: visibleRecords().length,
         failureCount: failedRecords().length,
         failures: failureSnapshot(),
         objects: objectSnapshot(),
