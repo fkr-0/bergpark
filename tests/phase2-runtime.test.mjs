@@ -53,6 +53,9 @@ test('tree detail model preserves complete, partial, and missing fields without 
     elevation_m: 311,
     height_m: null,
     height_status: 'unknown_no_measurement_source',
+    circumference_m: 3.2,
+    circumference_source: 'Messung 2018-01-01 in h=1,30 m',
+    start_date: '~1900',
     position_source: { provider: 'OpenStreetMap', element: 'node/1', accuracy_status: 'not_reported_by_source' },
     elevation_source: { provider: 'DEM', dataset: 'grid', resolution_m: 90 },
     image: 'https://commons.wikimedia.org/wiki/File:A.jpg',
@@ -60,11 +63,16 @@ test('tree detail model preserves complete, partial, and missing fields without 
   assert.equal(complete.catalogueRef, '358');
   assert.equal(complete.scientificName, 'Quercus robur');
   assert.equal(complete.heightM, null);
+  assert.equal(complete.circumferenceM, 3.2);
+  assert.equal(complete.circumferenceSource, 'Messung 2018-01-01 in h=1,30 m');
+  assert.equal(complete.startDate, '~1900');
   assert.equal(complete.positionSource.accuracyStatus, 'not_reported_by_source');
 
   const partial = treeDetailModel({ id: 'tree-b', species_de: 'Buche' }, 'de');
   assert.equal(partial.species, 'Buche');
   assert.equal(partial.catalogueRef, null);
+  assert.equal(partial.circumferenceM, null);
+  assert.equal(partial.startDate, null);
   assert.equal(partial.positionSource, null);
   assert.equal(treeDetailModel({ id: 'tree-c' }, 'en').title, 'tree-c');
 });

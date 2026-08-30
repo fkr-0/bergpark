@@ -30,7 +30,7 @@ test('Phase-3 Flora artwork context renders and switches language without losing
   await page.setViewportSize({ width: 768, height: 1024 });
   await openGuide(page);
   await page.getByRole('button', { name: 'Index' }).click();
-  await page.getByPlaceholder(/Name|building|water feature/i).fill('Flora');
+  await page.getByRole('searchbox', { name: /Ziele durchsuchen|Search destinations/ }).fill('Flora');
   await page.locator('[data-node-id="flora"]').click();
 
   const detail = page.locator('#detail-sheet');

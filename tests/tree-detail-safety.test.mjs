@@ -12,6 +12,9 @@ test('tree detail model preserves sourced fields without inventing missing measu
     elevation_m: 361,
     height_m: null,
     height_status: 'unknown_no_measurement_source',
+    circumference_m: 3.2,
+    circumference_source: '<script>measurement</script>',
+    start_date: '~1900',
     position_source: {
       provider: 'OpenStreetMap',
       element: 'node/5702751554',
@@ -30,6 +33,9 @@ test('tree detail model preserves sourced fields without inventing missing measu
   assert.equal(complete.elevationM, 361);
   assert.equal(complete.heightM, null);
   assert.equal(complete.heightStatus, 'unknown_no_measurement_source');
+  assert.equal(complete.circumferenceM, 3.2);
+  assert.equal(complete.circumferenceSource, '<script>measurement</script>');
+  assert.equal(complete.startDate, '~1900');
   assert.equal(complete.positionSource.accuracyStatus, 'not_reported_by_source');
   assert.equal(complete.elevationSource.resolutionM, 90);
 
@@ -37,6 +43,8 @@ test('tree detail model preserves sourced fields without inventing missing measu
   assert.equal(partial.species, 'Buche');
   assert.equal(partial.catalogueRef, null);
   assert.equal(partial.location, null);
+  assert.equal(partial.circumferenceM, null);
+  assert.equal(partial.startDate, null);
   assert.equal(partial.positionSource, null);
   assert.equal(partial.elevationSource, null);
 

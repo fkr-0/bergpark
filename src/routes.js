@@ -283,7 +283,12 @@ export function renderRouteDetail(container, { edge, from, to, i18n, onSelectNod
         profileButton.setAttribute('aria-expanded', 'true');
         profileButton.textContent = language === 'de' ? 'Höhenprofil ausblenden' : 'Hide elevation profile';
       } catch {
-        profileButton.textContent = language === 'de' ? 'Höhenprofil nicht verfügbar' : 'Elevation profile unavailable';
+        graphic.innerHTML = `<div class="route-profile__placeholder" role="status"><p>${language === 'de'
+          ? 'Das grafische Höhenprofil konnte nicht geladen werden. Die oben gezeigten DGM1-Kennwerte bleiben verfügbar.'
+          : 'The graphical elevation profile could not be loaded. The DGM1 summary values above remain available.'}</p></div>`;
+        graphic.hidden = false;
+        profileButton.disabled = false;
+        profileButton.textContent = language === 'de' ? 'Höhenprofil erneut laden' : 'Retry elevation profile';
         profileButton.setAttribute('aria-expanded', 'false');
       }
     });

@@ -47,6 +47,11 @@ export function treeDetailModel(tree, language = 'de') {
     elevationM: Number.isFinite(tree?.elevation_m) ? tree.elevation_m : null,
     heightM: Number.isFinite(tree?.height_m) ? tree.height_m : null,
     heightStatus: tree?.height_status ?? null,
+    circumferenceM: Number.isFinite(tree?.circumference_m) ? tree.circumference_m : null,
+    circumferenceSource: typeof tree?.circumference_source === 'string' && tree.circumference_source.trim()
+      ? tree.circumference_source.trim()
+      : null,
+    startDate: typeof tree?.start_date === 'string' && tree.start_date.trim() ? tree.start_date.trim() : null,
     positionSource: sourceSummary(tree?.position_source),
     elevationSource: sourceSummary(tree?.elevation_source),
     sourceRefs: Array.isArray(tree?.source_refs) ? tree.source_refs.filter(Boolean) : [],
@@ -87,6 +92,8 @@ export function renderTreeDetail(container, { tree, i18n, onClose }) {
         ${model.elevationM != null ? `<div><dt>${language === 'de' ? 'Geländehöhe' : 'Terrain elevation'}</dt><dd>${model.elevationM.toFixed(0)} m</dd></div>` : ''}
         ${model.heightM != null ? `<div><dt>${language === 'de' ? 'Baumhöhe' : 'Tree height'}</dt><dd>${model.heightM.toFixed(1)} m</dd></div>` : ''}
         ${unknownHeight ? `<div><dt>${language === 'de' ? 'Baumhöhe' : 'Tree height'}</dt><dd>${language === 'de' ? 'Nicht aus einer Messquelle belegt' : 'Not established by a measurement source'}</dd></div>` : ''}
+        ${model.circumferenceM != null ? `<div><dt>${language === 'de' ? 'Stammumfang' : 'Trunk circumference'}</dt><dd>${Number(model.circumferenceM.toFixed(2))} m${model.circumferenceSource ? `<small>${language === 'de' ? 'Messbeleg' : 'Measurement record'}: ${escapeHtml(model.circumferenceSource)}</small>` : ''}</dd></div>` : ''}
+        ${model.startDate ? `<div><dt>${language === 'de' ? 'Erfasster Beginn' : 'Recorded start date'}</dt><dd>${escapeHtml(model.startDate)}</dd></div>` : ''}
       </dl>
       ${model.description ? `<section class="detail-section"><h3>${language === 'de' ? 'Katalogbeschreibung' : 'Catalogue description'}</h3><p>${escapeHtml(model.description)}</p></section>` : ''}
       ${imageUrl ? `<p><a class="tree-image-link" href="${escapeHtml(imageUrl)}" target="_blank" rel="noreferrer">${language === 'de' ? 'Bildnachweis bei Wikimedia Commons öffnen' : 'Open image record on Wikimedia Commons'}</a></p>` : ''}
@@ -94,8 +101,8 @@ export function renderTreeDetail(container, { tree, i18n, onClose }) {
         <h3>${language === 'de' ? 'Quelle & Genauigkeit' : 'Source & accuracy'}</h3>
         <dl>${renderSourceSummary(model.positionSource, language, 'position')}${renderSourceSummary(model.elevationSource, language, 'elevation')}</dl>
         <p class="uncertainty-note">${language === 'de'
-          ? 'Die Kartenposition und die Geländehöhe stammen aus den angegebenen Quellen. Fehlende Messwerte werden nicht aus Artenbeschreibungen abgeleitet.'
-          : 'The mapped position and terrain elevation come from the stated sources. Missing measurements are not inferred from species descriptions.'}</p>
+          ? 'Die Kartenposition und die Geländehöhe stammen aus den angegebenen Quellen. Umfang und start_date werden nur angezeigt, wenn sie im Katalog-/OSM-Datensatz belegt sind; ein ungefährer start_date-Wert ist keine exakte Pflanzdatierung. Fehlende Messwerte werden nicht aus Artenbeschreibungen abgeleitet.'
+          : 'The mapped position and terrain elevation come from the stated sources. Circumference and start_date are shown only when present in the catalogue/OSM record; an approximate start_date is not an exact planting date. Missing measurements are not inferred from species descriptions.'}</p>
         ${sourceLink ? `<a href="${escapeHtml(sourceLink)}" target="_blank" rel="noreferrer">${language === 'de' ? 'Primären Karten-/Katalogbeleg öffnen' : 'Open primary map/catalogue evidence'}</a>` : ''}
       </section>
     </div>
