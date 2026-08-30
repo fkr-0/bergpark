@@ -202,6 +202,22 @@ test('idle host-view refresh is idempotent, crosses thresholds once and never re
   fixture.layer.dispose();
 });
 
+test('host render lifecycle refreshes view policy without scheduling a parallel repaint', async () => {
+  const map = hostMap();
+  const fixture = layerFixture(map);
+  fixture.layer.onAdd(map, { owner: 'maplibre-webgl2' });
+  await settleUntil(() => fixture.states.some(({ state }) => state === 'ready'));
+  const before = map.repaintCount;
+  map.setView({ lng: AQUAEDUKT.position.lng, lat: AQUAEDUKT.position.lat + 0.01 });
+  fixture.layer.render({ owner: 'maplibre-webgl2' }, {
+    defaultProjectionData: { mainMatrix: new THREE.Matrix4().identity().toArray() },
+  });
+  assert.equal(fixture.layer.debugState().objects[0].runtime.mode, 'cue');
+  assert.equal(map.repaintCount, before, 'the current host render already satisfies the visual update demand');
+  assert.equal(fixture.loadCount(), 1);
+  fixture.layer.dispose();
+});
+
 test('selection/focus hints merge with latest automatic view without becoming selection authority', async () => {
   const map = hostMap();
   const fixture = layerFixture(map);

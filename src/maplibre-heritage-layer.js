@@ -308,19 +308,19 @@ export function createMapLibreHeritageSharedDepthLayer({
     });
   }
 
-  function refreshHostView({ emitState = true } = {}) {
+  function refreshHostView({ emitState = true, requestRepaint = true } = {}) {
     if (!attached || disposed || contextLost || !map) return false;
     mergeRuntimeView(deriveSpatial3dHostView(map, descriptors));
-    return applyRuntimePolicy({ emitState });
+    return applyRuntimePolicy({ emitState, requestRepaint });
   }
 
-  function applyRuntimePolicy({ emitState = true } = {}) {
+  function applyRuntimePolicy({ emitState = true, requestRepaint = true } = {}) {
     if (disposed) return false;
     let changed = false;
     for (const record of values()) {
       if (applyRuntimePresentation(record, { requestRepaint: false })) changed = true;
     }
-    if (changed && attached && !contextLost) map?.triggerRepaint?.();
+    if (changed && requestRepaint && attached && !contextLost) map?.triggerRepaint?.();
     if (changed && emitState && state === 'ready') {
       emit('ready', { rendered: hasRendered, partial: failedRecords().length > 0 });
     }
@@ -501,7 +501,9 @@ export function createMapLibreHeritageSharedDepthLayer({
       void initialize();
     },
     render(_sharedGl, options) {
-      if (!attached || disposed || contextLost || !terrainAvailable || !renderer || !scene || !camera || !visibleRecords().length) return;
+      if (!attached || disposed || contextLost || !terrainAvailable || !renderer || !scene || !camera) return;
+      refreshHostView({ requestRepaint: false });
+      if (!visibleRecords().length) return;
       const projection = options?.defaultProjectionData?.mainMatrix ?? options?.modelViewProjectionMatrix;
       if (!projection) return;
       camera.projectionMatrix.fromArray(projection);
