@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "authority": "reimagined.md sections 16, 20 and WASM adoption gate",
+  "evidence_scope": {
+    "desktop": "representative-local-browser-evidence",
+    "mobile_emulation": "comparative-only-not-physical-device-acceptance"
+  },
+  "startup": {
+    "warm_useful_terrain_frame_ms": 1500
+  },
+  "interaction": {
+    "mobile_reference_p95_ms": 50,
+    "main_thread_hotspot_ms": 50
+  },
+  "memory": {
+    "settled_js_heap_bytes": 157286400,
+    "active_scene_gpu_bytes": 134217728
+  },
+  "offline": {
+    "preferred_default_pack_bytes": 62914560,
+    "hard_review_default_pack_bytes": 83886080
+  },
+  "wasm": {
+    "minimum_hotspot_speedup_ratio": 1.5,
+    "require_startup_and_copy_costs": true,
+    "require_worker_js_baseline_first": true
+  },
+  "webgpu": {
+    "required": false,
+    "baseline_renderer": "webgl2",
+    "retain_only_with_measured_quality_or_performance_win": true
+  }
+}
