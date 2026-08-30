@@ -313,6 +313,22 @@ export async function createMapLibreTerrainSpatialAdapter(element, graph, initia
     fadeDuration: reducedMotion ? 0 : 300,
     attributionControl: true,
   });
+  // MapLibre begins source loading during construction. Register the terrain
+  // failure boundary immediately so a fast DEM error cannot race ahead of the
+  // later interaction/source wiring and leave the UI claiming terrain is live.
+  map.on('error', (event) => {
+    if (!terrainEnabled || !isTerrainSourceError(event)) return;
+    terrainEnabled = false;
+    try {
+      map.setTerrain(null);
+    } catch {
+      // The flat MapLibre fallback remains usable even if style teardown raced.
+    }
+    element.dataset.spatialTerrainState = 'flat-fallback';
+    element.dataset.spatialTerrainError = 'terrain-source-unavailable';
+    heritageLayer?.setTerrainAvailable?.(false);
+    disableHeritageLayer('terrain-unavailable', 'terrain-source-unavailable');
+  });
   map.addControl(new NavigationControl({ showCompass: true, showZoom: true, visualizePitch: true }), 'bottom-right');
 
   element.dataset.terrainEncoding = manifest.encoding;
@@ -494,19 +510,6 @@ export async function createMapLibreTerrainSpatialAdapter(element, graph, initia
   map.on('load', () => {
     syncSources();
     void ensureHeritageLayer();
-  });
-  map.on('error', (event) => {
-    if (!terrainEnabled || !isTerrainSourceError(event)) return;
-    terrainEnabled = false;
-    try {
-      map.setTerrain(null);
-    } catch {
-      // The flat MapLibre fallback remains usable even if style teardown raced.
-    }
-    element.dataset.spatialTerrainState = 'flat-fallback';
-    element.dataset.spatialTerrainError = 'terrain-source-unavailable';
-    heritageLayer?.setTerrainAvailable?.(false);
-    disableHeritageLayer('terrain-unavailable', 'terrain-source-unavailable');
   });
   map.once('idle', () => {
     if (!destroyed) element.dataset.spatialTerrainReady = terrainEnabled ? 'true' : 'flat';
