@@ -56,10 +56,10 @@ test('route detail preserves mapped-path uncertainty, semantic links, and keyboa
   await detail.locator('[data-route-to]').first().click();
   await expect(detail.locator('.route-metrics')).toBeVisible();
   await expect(detail).toContainText('Distanz');
-  await expect(detail).toContainText('Gehzeit');
+  await expect(detail).toContainText('Planzeit');
   await expect(detail).toContainText('Anstieg');
   await expect(detail).toContainText('Abstieg');
-  await expect(detail).toContainText('Ø Steigung');
+  await expect(detail).toContainText('Netto-Steigung');
   await expect(detail).toContainText('Kartierter Weg');
   await expect(detail).toContainText('nicht auf Barrieren geprüft');
   await expect(detail.locator('[data-action="close-route"]')).toBeFocused();
