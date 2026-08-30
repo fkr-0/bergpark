@@ -2,6 +2,7 @@ import { MercatorCoordinate } from 'maplibre-gl';
 import { disposeModelObject, loadBoundedGltfModel } from './model-assets.js';
 import { resolveNodePresentation } from './presentation.js';
 import { createSpatial3dDescriptor, createSpatial3dFamily } from './spatial3d/descriptors.js';
+import { deriveSpatial3dHostView } from './spatial3d/host-view.js';
 import { loadSpatial3dObject } from './spatial3d/procedural-models.js';
 import {
   normalizeSpatial3dRuntimeInputs,
@@ -176,6 +177,7 @@ export function createMapLibreHeritageSharedDepthLayer({
   let abortController = null;
   let state = 'created';
   let hasRendered = false;
+  let runtimeHints = normalizeSpatial3dRuntimeInputs();
   let runtimeInputs = normalizeSpatial3dRuntimeInputs();
 
   const values = () => [...records.values()];
@@ -294,6 +296,22 @@ export function createMapLibreHeritageSharedDepthLayer({
     const changed = previousVisible !== nextVisible || matrixChanged;
     if (changed && requestRepaint) map?.triggerRepaint?.();
     return changed;
+  }
+
+  function mergeRuntimeView(viewByEntityId) {
+    runtimeInputs = normalizeSpatial3dRuntimeInputs({
+      selectedEntityId: runtimeHints.selectedEntityId,
+      focusedEntityId: runtimeHints.focusedEntityId,
+      reducedMotion: runtimeHints.reducedMotion,
+      lowPower: runtimeHints.lowPower,
+      viewByEntityId,
+    });
+  }
+
+  function refreshHostView({ emitState = true } = {}) {
+    if (!attached || disposed || contextLost || !map) return false;
+    mergeRuntimeView(deriveSpatial3dHostView(map, descriptors));
+    return applyRuntimePolicy({ emitState });
   }
 
   function applyRuntimePolicy({ emitState = true } = {}) {
@@ -433,6 +451,7 @@ export function createMapLibreHeritageSharedDepthLayer({
 
   function onIdle() {
     refreshPlacements();
+    refreshHostView();
   }
 
   function onContextLost() {
@@ -446,6 +465,7 @@ export function createMapLibreHeritageSharedDepthLayer({
   function onContextRestored() {
     if (!attached || disposed || !contextLost) return;
     contextLost = false;
+    refreshHostView({ emitState: false });
     emit('restoring', { rendered: false });
     void initialize();
   }
@@ -477,6 +497,7 @@ export function createMapLibreHeritageSharedDepthLayer({
       map.on?.('idle', onIdle);
       map.on?.('webglcontextlost', onContextLost);
       map.on?.('webglcontextrestored', onContextRestored);
+      refreshHostView({ emitState: false });
       void initialize();
     },
     render(_sharedGl, options) {
@@ -506,7 +527,16 @@ export function createMapLibreHeritageSharedDepthLayer({
       return refreshPlacements();
     },
     setRuntimePolicyInputs(nextInputs) {
-      runtimeInputs = normalizeSpatial3dRuntimeInputs(nextInputs);
+      const normalized = normalizeSpatial3dRuntimeInputs(nextInputs);
+      runtimeHints = normalizeSpatial3dRuntimeInputs({
+        selectedEntityId: normalized.selectedEntityId,
+        focusedEntityId: normalized.focusedEntityId,
+        reducedMotion: normalized.reducedMotion,
+        lowPower: normalized.lowPower,
+      });
+      const hasViewOverride = Boolean(nextInputs)
+        && Object.hasOwn(nextInputs, 'viewByEntityId');
+      mergeRuntimeView(hasViewOverride ? normalized.viewByEntityId : runtimeInputs.viewByEntityId);
       return applyRuntimePolicy();
     },
     setTerrainAvailable(available) {
@@ -525,6 +555,7 @@ export function createMapLibreHeritageSharedDepthLayer({
       return refreshPlacements();
     },
     refreshPlacements,
+    refreshHostView,
     dispose() {
       if (disposed) return;
       detach();
