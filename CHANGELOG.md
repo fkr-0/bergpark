@@ -25,6 +25,10 @@ experience have completed their release gates.
 
 ### Changed
 
+- Playwright browser qualification now defaults to the same bounded two-worker
+  concurrency locally and in CI; `BERGPARK_E2E_WORKERS` remains available for
+  explicit stress runs. This avoids false timing/network failures from oversubscribing
+  MapLibre/WebGL and service-worker scenarios on high-core development hosts.
 - Runtime data publishing, browser hydration and service-worker precache now use
   the same manifest authority instead of three drifting filename lists.
 - Pages derives runtime release metadata from the checked-out commit timestamp and
@@ -36,6 +40,9 @@ experience have completed their release gates.
 
 ### Fixed
 
+- Late supplemental-data hydration no longer replays the source-place fragment over
+  an active route detail sheet, so route evidence and failed/retryable lazy DGM1
+  elevation-profile state survive background hydration.
 - Runtime JSON loading rejects incompatible schemas and successful non-JSON
   responses explicitly. Offline uncached data now returns structured JSON 503,
   and application HTML is reserved for navigation fallback instead of ever being
