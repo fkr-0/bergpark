@@ -10,6 +10,7 @@ import {
   SHARED_DEPTH_HERITAGE_ID,
   SHARED_DEPTH_LAYER_ID,
   SHARED_DEPTH_MODEL_METRES_PER_UNIT,
+  SPATIAL3D_FAMILY_LAYER_ID,
   sharedDepthHeritageSpec,
   terrainAwareHeritagePlacement,
 } from '../src/maplibre-heritage-layer.js';
@@ -24,6 +25,25 @@ function worldAt(lng = 9.40849, lat = 51.31654) {
   return Object.freeze({
     places: Object.freeze([place]),
     placesById: new Map([[place.id, place]]),
+  });
+}
+
+function familyWorld() {
+  const places = [
+    ['aquaedukt', 9.408494, 51.3165378],
+    ['herkules', 9.3932069, 51.3161018],
+    ['schloss', 9.4159308, 51.3149835],
+    ['loewenburg', 9.4087631, 51.3114009],
+    ['grosse-fontaene', 9.4117938, 51.3151826],
+  ].map(([id, lng, lat]) => Object.freeze({
+    id,
+    kind: 'place',
+    position: Object.freeze({ lng, lat }),
+    deepLink: Object.freeze({ kind: 'place', id }),
+  }));
+  return Object.freeze({
+    places: Object.freeze(places),
+    placesById: new Map(places.map((place) => [place.id, place])),
   });
 }
 
@@ -76,6 +96,125 @@ test('one-object contract is exact Aquaedukt identity plus existing bounded glTF
   assert.equal(spec.displayOffsetM, SHARED_DEPTH_DISPLAY_OFFSET_M);
   assert.equal(spec.metresPerModelUnit, SHARED_DEPTH_MODEL_METRES_PER_UNIT);
   assert.equal(sharedDepthHeritageSpec({ id: 'herkules' }), null);
+});
+
+test('curated family shares one renderer/depth scene and isolates one object failure', async () => {
+  const states = [];
+  const renderers = [];
+  const disposed = [];
+  const map = fakeMap(330);
+  const sharedGl = { owner: 'maplibre-webgl2' };
+  const world = familyWorld();
+  const nodes = world.places.map(({ id }) => ({ id }));
+
+  const layer = createMapLibreHeritageSharedDepthLayer({
+    node: { id: 'aquaedukt' },
+    nodes,
+    world,
+    onStateChange: (event) => states.push(event),
+    threeLoader: async () => THREE,
+    objectLoader: async (_three, descriptor) => {
+      if (descriptor.entityId === 'loewenburg') throw new Error('fixture object failed');
+      const geometry = new THREE.BoxGeometry(1, 1, 1);
+      const material = new THREE.MeshBasicMaterial();
+      geometry.addEventListener('dispose', () => disposed.push(`geometry:${descriptor.entityId}`));
+      material.addEventListener('dispose', () => disposed.push(`material:${descriptor.entityId}`));
+      const object = new THREE.Group();
+      object.add(new THREE.Mesh(geometry, material));
+      return {
+        object,
+        source: descriptor.representation,
+        triangles: 12,
+        bytes: descriptor.representation === 'gltf' ? 3111 : 0,
+        provenance: descriptor.provenance,
+      };
+    },
+    rendererFactory: (_three, ownerMap, gl) => {
+      const record = { canvas: ownerMap.getCanvas(), gl, renderCount: 0, disposed: false };
+      renderers.push(record);
+      return {
+        autoClear: true,
+        resetState: () => {},
+        render: () => { record.renderCount += 1; },
+        dispose: () => { record.disposed = true; },
+      };
+    },
+  });
+
+  assert.equal(layer.id, SPATIAL3D_FAMILY_LAYER_ID);
+  layer.onAdd(map, sharedGl);
+  await settleUntil(() => states.some(({ state }) => state === 'ready'));
+
+  assert.equal(renderers.length, 1, 'the family must share one Three renderer');
+  assert.equal(renderers[0].canvas.owner, 'maplibre');
+  assert.equal(renderers[0].gl, sharedGl);
+  assert.equal(layer.debugState().objectCount, 4);
+  assert.equal(layer.debugState().placedObjectCount, 4);
+  assert.equal(layer.debugState().failureCount, 1);
+  assert.deepEqual(layer.debugState().failures, [{ entityId: 'loewenburg', reason: 'fixture object failed' }]);
+  assert.equal(map.repaintCount, 4, 'one repaint is requested for each newly resolved placement, never an idle loop');
+  assert.equal(states.at(-1).partial, true);
+  assert.deepEqual(states.at(-1).failedEntityIds, ['loewenburg']);
+  assert.deepEqual(states.at(-1).loadedEntityIds, ['aquaedukt', 'herkules', 'schloss', 'grosse-fontaene']);
+  const aquaedukt = states.at(-1).objects.find(({ entityId }) => entityId === 'aquaedukt');
+  const herkules = states.at(-1).objects.find(({ entityId }) => entityId === 'herkules');
+  const loewenburg = states.at(-1).objects.find(({ entityId }) => entityId === 'loewenburg');
+  assert.equal(aquaedukt.source, 'gltf');
+  assert.equal(aquaedukt.provenance.representationAccuracy, 'schematic-not-surveyed-reconstruction');
+  assert.equal(herkules.source, 'procedural-cue');
+  assert.equal(herkules.provenance.representationAccuracy, 'abstract-location-cue-not-monument-reconstruction');
+  assert.equal(loewenburg.state, 'unavailable');
+  assert.equal(loewenburg.error, 'fixture object failed');
+  assert.equal(aquaedukt.placement.altitudeM, 330.35);
+  assert.equal(herkules.placement.altitudeM, 330.2);
+
+  const projection = new THREE.Matrix4().identity().toArray();
+  layer.render(sharedGl, { defaultProjectionData: { mainMatrix: projection } });
+  assert.equal(renderers[0].renderCount, 1, 'all healthy objects are rendered in one scene pass');
+  assert.equal(states.at(-1).rendered, true);
+  assert.equal(states.at(-1).failureCount, 1);
+
+  layer.onRemove();
+  assert.equal(renderers[0].disposed, true);
+  assert.equal(disposed.length, 8, 'four healthy geometry/material pairs are disposed');
+  assert.equal(layer.debugState().objectCount, 0);
+  assert.equal(layer.debugState().failureCount, 0);
+});
+
+test('family-wide resolution failure reports every failed descriptor while releasing shared graphics', async () => {
+  const states = [];
+  const map = fakeMap(330);
+  const world = familyWorld();
+  const nodes = world.places.map(({ id }) => ({ id }));
+  let rendererDisposed = false;
+  const layer = createMapLibreHeritageSharedDepthLayer({
+    node: { id: 'aquaedukt' },
+    nodes,
+    world,
+    onStateChange: (event) => states.push(event),
+    threeLoader: async () => THREE,
+    objectLoader: async (_three, descriptor) => {
+      throw new Error(`fixture unavailable: ${descriptor.entityId}`);
+    },
+    rendererFactory: () => ({
+      autoClear: true,
+      resetState() {},
+      render() {},
+      dispose() { rendererDisposed = true; },
+    }),
+  });
+
+  layer.onAdd(map, { owner: 'maplibre-webgl2' });
+  await settleUntil(() => states.at(-1)?.state === 'unavailable');
+  const unavailable = states.at(-1);
+  assert.equal(unavailable.failureCount, 5);
+  assert.deepEqual(unavailable.failedEntityIds, nodes.map(({ id }) => id));
+  assert.equal(unavailable.objects.length, 5);
+  assert.ok(unavailable.objects.every(({ state }) => state === 'unavailable'));
+  assert.ok(unavailable.objects.every(({ error }) => error?.startsWith('fixture unavailable:')));
+  assert.equal(rendererDisposed, true);
+  assert.equal(layer.debugState().hasRenderer, false);
+  assert.equal(layer.debugState().objectCount, 0);
 });
 
 test('terrain placement reads canonical SpatialWorld coordinates without persisting renderer elevation', () => {
