@@ -1,7 +1,12 @@
 import { localized } from './i18n.js';
 import { semanticRelationLabel } from './semantic.js';
 import { createNarrationDescriptor, createSpeechNarrator } from './audio-guide.js';
-import { connectedRouteOptions, routeAccessSummary, routeSurfaceSummary } from './discovery.js';
+import {
+  discoverMountainRoutes,
+  routeAccessSummary,
+  routeSurfaceSummary,
+  routeTerrainSummary,
+} from './discovery.js';
 
 const speechNarrator = createSpeechNarrator();
 
@@ -128,6 +133,7 @@ function compactRouteMetrics(evidence, i18n) {
   if (evidence.walkingMin != null) values.push(`${evidence.walkingMin} ${i18n.t('minutes')}`);
   if (evidence.distanceM != null) values.push(`${Math.round(evidence.distanceM)} ${i18n.t('metres')}`);
   if (evidence.ascentM != null) values.push(`↑ ${Math.round(evidence.ascentM)} ${i18n.t('metres')}`);
+  if (evidence.descentM != null) values.push(`↓ ${Math.round(evidence.descentM)} ${i18n.t('metres')}`);
   return values.join(' · ');
 }
 
@@ -136,6 +142,7 @@ function routeCardsMarkup(options, language, i18n) {
     <button type="button" data-node-id="${escapeHtml(option.toId)}">
       <strong>${escapeHtml(option.title)}</strong>
       <span class="route-option__metrics">${escapeHtml(compactRouteMetrics(option.evidence, i18n))}</span>
+      <span class="route-option__terrain">${escapeHtml(routeTerrainSummary(option.evidence, language))}</span>
       <span class="route-option__evidence">${escapeHtml(routeAccessSummary(option.evidence, language))} · ${escapeHtml(routeSurfaceSummary(option.evidence, language))}</span>
     </button>
     <button type="button" class="route-button" data-route-to="${escapeHtml(option.toId)}">${escapeHtml(i18n.t('navigate'))}</button>
@@ -211,7 +218,7 @@ export function renderNodeDetail(container, { node, graph, i18n, onNavigate, onS
   const description = localized(node.description, language, localized(node.summary, language));
   const sections = contentSections(node, language);
   const narrationDescriptor = createNarrationDescriptor(node, language);
-  const routeOptions = connectedRouteOptions(graph, node.id, language);
+  const routeOptions = discoverMountainRoutes(graph, node.id, language);
 
   container.hidden = false;
   container.innerHTML = `
@@ -243,13 +250,25 @@ export function renderNodeDetail(container, { node, graph, i18n, onNavigate, onS
       ${routeOptions.length ? `
         <section class="detail-section">
           <div class="route-comparison__heading"><div><h3>${escapeHtml(i18n.t('nearby'))}</h3><p>${escapeHtml(i18n.t('routeComparisonNote'))}</p></div>
-            <label>${escapeHtml(i18n.t('sortRoutes'))}<select data-route-sort>
-              <option value="time">${escapeHtml(i18n.t('sortByTime'))}</option>
-              <option value="distance">${escapeHtml(i18n.t('sortByDistance'))}</option>
-              <option value="ascent">${escapeHtml(i18n.t('sortByAscent'))}</option>
-            </select></label>
+            <div class="route-comparison__controls">
+              <label>${language === 'de' ? 'Gelände-Ziel' : 'Mountain focus'}<select data-route-filter>
+                <option value="nearby">${language === 'de' ? 'Alle direkten Wege' : 'All direct walks'}</option>
+                <option value="uphill">${language === 'de' ? 'Bergauf' : 'Uphill'}</option>
+                <option value="downhill">${language === 'de' ? 'Bergab' : 'Downhill'}</option>
+                <option value="viewpoint">${language === 'de' ? 'Aussichtspunkt' : 'Viewpoint'}</option>
+                <option value="water-axis">${language === 'de' ? 'Belegte Wasserachse' : 'Evidenced water axis'}</option>
+                <option value="heritage">${language === 'de' ? 'Historisch kartiert' : 'Mapped heritage'}</option>
+              </select></label>
+              <label>${escapeHtml(i18n.t('sortRoutes'))}<select data-route-sort>
+                <option value="time">${escapeHtml(i18n.t('sortByTime'))}</option>
+                <option value="distance">${escapeHtml(i18n.t('sortByDistance'))}</option>
+                <option value="ascent">${escapeHtml(i18n.t('sortByAscent'))}</option>
+                <option value="descent">${language === 'de' ? 'Wenigster Abstieg' : 'Least descent'}</option>
+              </select></label>
+            </div>
           </div>
           <div class="connection-list" data-route-options>${routeCardsMarkup(routeOptions, language, i18n)}</div>
+          <p class="route-comparison__empty" data-route-empty hidden>${language === 'de' ? 'Für diesen direkten Anschluss liegt kein Ziel mit dieser belegten Eigenschaft vor.' : 'No directly connected destination has this evidenced property.'}</p>
         </section>
       ` : ''}
       ${renderSources(node, language, i18n.t.bind(i18n))}
@@ -286,16 +305,21 @@ export function renderNodeDetail(container, { node, graph, i18n, onNavigate, onS
   };
   bindRouteButtons(container);
   const routeSort = container.querySelector('[data-route-sort]');
-  routeSort?.addEventListener('change', () => {
+  const routeFilter = container.querySelector('[data-route-filter]');
+  const refreshRouteOptions = () => {
     const routeList = container.querySelector('[data-route-options]');
     if (!routeList) return;
-    routeList.innerHTML = routeCardsMarkup(
-      connectedRouteOptions(graph, node.id, language, { sort: routeSort.value }),
-      language,
-      i18n,
-    );
+    const options = discoverMountainRoutes(graph, node.id, language, {
+      sort: routeSort?.value ?? 'time',
+      filter: routeFilter?.value ?? 'nearby',
+    });
+    routeList.innerHTML = routeCardsMarkup(options, language, i18n);
+    const empty = container.querySelector('[data-route-empty]');
+    if (empty) empty.hidden = options.length > 0;
     bindRouteButtons(routeList);
-  });
+  };
+  routeSort?.addEventListener('change', refreshRouteOptions);
+  routeFilter?.addEventListener('change', refreshRouteOptions);
   for (const button of container.querySelectorAll('[data-semantic-id]')) {
     button.addEventListener('click', () => onSelectNode?.(button.dataset.semanticId));
   }

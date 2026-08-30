@@ -12,10 +12,11 @@ import {
 import { createWalkingNetworkDescriptor } from '../src/spatial-world.js';
 
 test('connected route comparison is deterministic and only projects existing route evidence', () => {
+  const glo90 = { dataset: 'Copernicus DEM 2021 GLO-90', provider: 'Open-Meteo Elevation API' };
   const edges = [
-    { id: 'a--slow', from: 'a', to: 'slow', distance_m: 120, walking_min: 4, ascent_m: 20, surface_mix: ['gravel'], mapped_path_accessibility: 'unknown', contains_steps: false },
-    { id: 'a--short', from: 'a', to: 'short', distance_m: 80, walking_min: 5, ascent_m: 2, surface_mix: ['paved'], mapped_path_accessibility: 'potentially_step_free_mapped_path', contains_steps: false },
-    { id: 'a--steps', from: 'a', to: 'steps', distance_m: 95, walking_min: 3, ascent_m: 9, surface_mix: ['stone_steps'], mapped_path_accessibility: 'limited', contains_steps: true },
+    { id: 'a--slow', from: 'a', to: 'slow', distance_m: 120, walking_min: 4, ascent_m: 20, elevation_profile_m: [100, 120], elevation_source: glo90, surface_mix: ['gravel'], mapped_path_accessibility: 'unknown', contains_steps: false },
+    { id: 'a--short', from: 'a', to: 'short', distance_m: 80, walking_min: 5, ascent_m: 2, elevation_profile_m: [100, 102], elevation_source: glo90, surface_mix: ['paved'], mapped_path_accessibility: 'potentially_step_free_mapped_path', contains_steps: false },
+    { id: 'a--steps', from: 'a', to: 'steps', distance_m: 95, walking_min: 3, ascent_m: 9, elevation_profile_m: [100, 109], elevation_source: glo90, surface_mix: ['stone_steps'], mapped_path_accessibility: 'limited', contains_steps: true },
   ];
   const graph = {
     outgoing: new Map([['a', edges]]),

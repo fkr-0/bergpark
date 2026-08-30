@@ -1,10 +1,13 @@
 import { localized } from './i18n.js';
 import { routeEvidence } from './routes.js';
+import { terrainDirection } from './elevation/profile.js';
 
 export const ROUTE_COMPARISON_LIMIT = 8;
 export const NETWORK_RESULT_LIMIT = 40;
 
-const ROUTE_SORTS = new Set(['time', 'distance', 'ascent']);
+const ROUTE_SORTS = new Set(['time', 'distance', 'ascent', 'descent']);
+export const MOUNTAIN_ROUTE_FILTERS = Object.freeze(['nearby', 'uphill', 'downhill', 'viewpoint', 'water-axis', 'heritage']);
+const MOUNTAIN_ROUTE_FILTER_SET = new Set(MOUNTAIN_ROUTE_FILTERS);
 const NETWORK_KINDS = new Set(['all', 'junction', 'steps', 'path']);
 const NETWORK_KIND_ORDER = { junction: 0, steps: 1, path: 2 };
 
@@ -20,7 +23,31 @@ function nullableMetric(value) {
 function routeMetric(option, sort) {
   if (sort === 'distance') return nullableMetric(option.evidence.distanceM);
   if (sort === 'ascent') return nullableMetric(option.evidence.ascentM);
+  if (sort === 'descent') return nullableMetric(option.evidence.descentM);
   return nullableMetric(option.evidence.walkingMin);
+}
+
+function targetHasWaterAxisEvidence(graph, targetId) {
+  return (graph?.semanticEdges ?? []).some((relation) => {
+    if (relation?.to !== targetId && relation?.from !== targetId) return false;
+    const assertion = String(relation?.provenance?.assertion ?? '');
+    return /(?:water|Wasser).*(?:axis|achse)|(?:axis|achse).*(?:water|Wasser)/i.test(assertion);
+  });
+}
+
+function targetHasHeritageEvidence(target) {
+  const historic = target?.osm_tags?.historic;
+  return Boolean(historic && historic !== 'no');
+}
+
+function routeAffordances(graph, target, evidence) {
+  const values = new Set(['nearby']);
+  const direction = terrainDirection(evidence);
+  if (direction === 'uphill' || direction === 'downhill') values.add(direction);
+  if (target?.type === 'viewpoint' || target?.osm_tags?.tourism === 'viewpoint') values.add('viewpoint');
+  if (targetHasWaterAxisEvidence(graph, target?.id)) values.add('water-axis');
+  if (targetHasHeritageEvidence(target)) values.add('heritage');
+  return Object.freeze([...values]);
 }
 
 /** Deterministic comparison of already-canonical direct walking edges. */
@@ -43,6 +70,8 @@ export function connectedRouteOptions(graph, fromId, language = 'de', {
     };
   }).filter(Boolean);
 
+  for (const option of options) option.affordances = routeAffordances(graph, option.target, option.evidence);
+
   options.sort((left, right) => {
     const metricDelta = routeMetric(left, normalizedSort) - routeMetric(right, normalizedSort);
     if (metricDelta) return metricDelta;
@@ -55,6 +84,49 @@ export function connectedRouteOptions(graph, fromId, language = 'de', {
 
   const safeLimit = Number.isFinite(limit) ? Math.max(0, Math.floor(limit)) : ROUTE_COMPARISON_LIMIT;
   return options.slice(0, safeLimit);
+}
+
+/**
+ * Filter canonical direct routes by source-backed mountain semantics. This never
+ * creates a new path or route identity; unsupported categories simply return none.
+ */
+export function discoverMountainRoutes(graph, fromId, language = 'de', {
+  filter = 'nearby',
+  sort = 'time',
+  limit = ROUTE_COMPARISON_LIMIT,
+} = {}) {
+  const normalizedFilter = MOUNTAIN_ROUTE_FILTER_SET.has(filter) ? filter : 'nearby';
+  return connectedRouteOptions(graph, fromId, language, { sort, limit: Number.MAX_SAFE_INTEGER })
+    .filter((option) => option.affordances.includes(normalizedFilter))
+    .slice(0, Number.isFinite(limit) ? Math.max(0, Math.floor(limit)) : ROUTE_COMPARISON_LIMIT);
+}
+
+export function routeTerrainSummary(evidence, language = 'de') {
+  const direction = terrainDirection(evidence);
+  const directionLabel = {
+    de: { uphill: 'bergauf', downhill: 'bergab', level: 'nahezu höhengleich', unknown: 'Richtung unbekannt' },
+    en: { uphill: 'uphill', downhill: 'downhill', level: 'nearly level', unknown: 'direction unknown' },
+  }[language] ?? { uphill: 'uphill', downhill: 'downhill', level: 'nearly level', unknown: 'direction unknown' };
+  const values = [directionLabel[direction] ?? directionLabel.unknown];
+  if (evidence?.ascentM != null) values.push(`↑ ${Math.round(evidence.ascentM)} m`);
+  if (evidence?.descentM != null) values.push(`↓ ${Math.round(evidence.descentM)} m`);
+  if (evidence?.minElevationM != null && evidence?.maxElevationM != null) {
+    values.push(`${Math.round(evidence.minElevationM)}–${Math.round(evidence.maxElevationM)} m`);
+  }
+  if (evidence?.netGradePct != null) {
+    const sign = evidence.netGradePct > 0 ? '+' : '';
+    values.push(`${language === 'de' ? 'netto' : 'net'} ${sign}${evidence.netGradePct.toFixed(1)}%`);
+  }
+  const steep = [];
+  if (evidence?.maxUphillGradePct > 0) steep.push(`+${evidence.maxUphillGradePct.toFixed(1)}%`);
+  if (evidence?.maxDownhillGradePct < 0) steep.push(`−${Math.abs(evidence.maxDownhillGradePct).toFixed(1)}%`);
+  if (steep.length) {
+    values.push(`${language === 'de' ? 'steilste Segmente' : 'steepest segments'} ${steep.join('/')}`);
+  }
+  if (evidence?.elevationStatus === 'dgm1') values.push('DGM1');
+  else if (evidence?.elevationStatus === 'legacy') values.push(language === 'de' ? 'GLO-90 Fallback' : 'GLO-90 fallback');
+  else values.push(language === 'de' ? 'Höhe unbekannt' : 'elevation unknown');
+  return values.join(' · ');
 }
 
 export function routeAccessSummary(evidence, language = 'de') {

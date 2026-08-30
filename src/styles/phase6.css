@@ -96,9 +96,12 @@
 .route-comparison__heading p { margin-bottom: 0; }
 .route-comparison__heading label { color: #52635b; font-size: .72rem; font-weight: 800; }
 .route-comparison__heading select { min-height: 42px; margin-top: .2rem; padding: .5rem .6rem; }
+.route-comparison__controls { display: grid; grid-template-columns: repeat(2, minmax(8.5rem, 1fr)); gap: .45rem; }
 .connection-card > button:first-child { min-width: 0; }
 .route-option__metrics { color: #445a4f !important; font-weight: 750; }
+.route-option__terrain { color: #315e46 !important; font-size: .72rem !important; font-weight: 800; }
 .route-option__evidence { color: #6b756f !important; font-size: .7rem !important; line-height: 1.35; }
+.route-comparison__empty { margin: .6rem 0 0; color: #5f6863; font-size: .82rem; }
 
 .almanac-controls select:focus-visible,
 .network-controls select:focus-visible,
@@ -112,7 +115,8 @@
 @media (max-width: 620px) {
   .almanac-controls,
   .network-controls,
-  .route-comparison__heading { grid-template-columns: 1fr; }
+  .route-comparison__heading,
+  .route-comparison__controls { grid-template-columns: 1fr; }
   .network-list > button { grid-template-columns: 1fr; }
   .network-list > button > span:last-child { text-align: left; }
 }
