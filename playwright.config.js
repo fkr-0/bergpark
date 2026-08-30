@@ -2,13 +2,21 @@ import { defineConfig, devices } from '@playwright/test';
 
 const externalBaseUrl = process.env.BERGPARK_E2E_BASE_URL;
 const localBaseUrl = 'http://127.0.0.1:4174';
+const e2eWorkers = Number.parseInt(process.env.BERGPARK_E2E_WORKERS ?? '2', 10);
+
+if (!Number.isInteger(e2eWorkers) || e2eWorkers < 1) {
+  throw new Error('BERGPARK_E2E_WORKERS must be a positive integer');
+}
 
 export default defineConfig({
   testDir: './tests/e2e',
   fullyParallel: true,
   forbidOnly: Boolean(process.env.CI),
   retries: process.env.CI ? 1 : 0,
-  workers: process.env.CI ? 2 : undefined,
+  // MapLibre/WebGL and service-worker scenarios become timing-noisy when the
+  // local host auto-spawns one worker per CPU. Match the proven CI concurrency
+  // by default; BERGPARK_E2E_WORKERS remains an explicit stress-test override.
+  workers: e2eWorkers,
   reporter: process.env.CI
     ? [['line'], ['html', { outputFolder: 'playwright-report', open: 'never' }]]
     : 'line',

@@ -23,6 +23,12 @@ tests, Vitest, Python repository-integrity tests, and the Vite production build.
 Use `pnpm run check:e2e` when the Chromium browser/offline/accessibility gate is
 also required.
 
+Playwright defaults to two workers locally as well as in CI. The MapLibre/WebGL,
+service-worker and deliberate network-failure scenarios are reliable at that
+qualified concurrency but become timing-noisy when Playwright auto-scales to the
+host CPU count. `BERGPARK_E2E_WORKERS=<n>` is available only as an explicit
+stress/concurrency override.
+
 ## Spatial graph verification
 
 Current place/route graph checks:
