@@ -42,8 +42,11 @@ foundations have materially advanced:
   for 11 shipped layers and the production artifact gate is budgeted/fail-closed;
 - Phase-8 walking topology is 2,633 path nodes / 7,196 directed segments over 955
   included pedestrian-eligible OSM ways in the bounded preserved-source scope;
-- graph-side routing supports shortest, lower-ascent and avoid-known-steps profiles,
-  while the visitor UI has not yet become a general turn-by-turn router;
+- graph-side route comparison retains shortest, lower-ascent and avoid-known-steps
+  policies, while the visitor UI now also computes deterministic multi-hop routes over
+  the published walking network using shortest-distance and avoid-mapped-steps profiles;
+  this remains bounded source-snapshot routing, not a physically complete or certified
+  accessible park router;
 - GPS proximity now uses reported accuracy plus entry/exit hysteresis;
 - trees have bounded filterable catalogue results, clustered/individual map
   presentation and evidence-aware detail; benches and visitor POIs are selective
@@ -57,9 +60,10 @@ foundations have materially advanced:
   `check:e2e` gate.
 
 Unannotated findings below should therefore be read as historical review context,
-not as proof that the defect is still present. Remaining high-value work is the
-visitor-facing general-routing seam, source/editorial freshness and schema policy,
-beta browser/device qualification, and measured performance/release convergence.
+not as proof that the defect is still present. Remaining high-value work is source/
+editorial freshness and schema policy, beta browser/device qualification, measured
+performance/release convergence, and keeping the new bounded routing policy explicit
+about incomplete topology and unknown accessibility evidence.
 
 ## P0 findings
 
@@ -144,6 +148,13 @@ park router would overstate its coverage.
 **Required change:** extend topology coverage deliberately, then run multi-hop
 routing over the validated topology while keeping the projection/full-network
 scope distinction machine-readable.
+
+**Current resolution (2026-08-31):** visitor-facing multi-hop routing is now landed
+on the manifest-published walking-network projection. The runtime resolves canonical
+place anchors and offers deterministic shortest-mapped-distance and avoid-mapped-steps
+profiles without mutating factual segment metadata. Route detail preserves surface,
+step, barrier and endpoint unknowns plus the bounded Phase-8 source-snapshot caveat;
+“avoid mapped steps” is explicitly not a guarantee of a step-free route.
 
 ### 6. Place position provenance is weaker than the new tree/bench contract
 
@@ -298,9 +309,10 @@ only.
 known/unknown step and endpoint-access evidence, semantic links, and DGM1-derived
 terrain/elevation summaries. The detailed DGM1 profile remains lazily loaded; a
 chunk failure preserves the summary, exposes a bilingual retry state, and does not
-invent missing accessibility/elevation facts. The remaining limitation is broader
-visitor-facing multi-hop/turn-by-turn routing over the bounded topology, not route
-evidence presentation.
+invent missing accessibility/elevation facts. Multi-hop planning is now available
+for canonical place anchors over the bounded walking-network projection; remaining
+limitations are incomplete physical coverage, unknown accessibility/barrier evidence,
+and the absence of a certified accessible or live turn-by-turn navigation guarantee.
 
 ### 17. Browser/a11y qualification is reproducible from the repo
 
@@ -341,8 +353,9 @@ The review also found several strong implementation choices:
 
 ## Recommended implementation order
 
-1. Turn the bounded Phase-8 topology and existing graph-side routing into a
-   visitor-facing multi-hop routing flow while keeping coverage/access unknowns visible.
+1. Keep the new bounded multi-hop routing contract narrow and release-qualified:
+   preserve source-coverage/access unknowns and add routing profiles only when the
+   published evidence can support their semantics.
 2. Formalize public layer schema/migration policy and source-refresh change reports so
    future OSM/content updates cannot silently drift producer/runtime contracts.
 3. Complete bilingual editorial/source-freshness gates, especially volatile visitor facts
