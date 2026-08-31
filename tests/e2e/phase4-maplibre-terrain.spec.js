@@ -142,12 +142,20 @@ test('terrain tile failure degrades MapLibre to a flat usable map without changi
   const context = await browser.newContext({ serviceWorkers: 'block' });
   const page = await context.newPage();
   await stubThirdPartyMapTiles(page);
-  await page.route('**/terrain/dgm1-terrarium/*/*/*.png', (route) => route.fulfill({
-    status: 503,
-    contentType: 'text/plain',
-    body: 'fixture terrain tile unavailable',
-  }));
+  let resolveTerrainFailure;
+  const terrainFailureServed = new Promise((resolve) => {
+    resolveTerrainFailure = resolve;
+  });
+  await page.route('**/terrain/dgm1-terrarium/*/*/*.png', async (route) => {
+    await route.fulfill({
+      status: 503,
+      contentType: 'text/plain',
+      body: 'fixture terrain tile unavailable',
+    });
+    resolveTerrainFailure();
+  });
   await page.goto('/?renderer=terrain#place=herkules');
+  await terrainFailureServed;
 
   const map = page.locator('#map');
   await expect(map).toHaveAttribute('data-spatial-renderer', 'terrain');
