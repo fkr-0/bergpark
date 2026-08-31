@@ -11,11 +11,13 @@ import { renderGlossary } from './glossary.js';
 import { renderTreeExplorer } from './trees.js';
 import { createTreeMapLayer } from './tree-map.js';
 import { renderRouteDetail } from './routes.js';
+import { renderWalkingRouteDetail } from './walking-route-detail.js';
 import { renderTreeDetail } from './tree-detail.js';
 import { createVisitorLayerController, renderVisitorFeatureDetail, renderVisitorLayerControl } from './visitor-layers.js';
-import { deepLinkHash, parseDeepLink } from './deep-link.js';
+import { deepLinkHash, parseDeepLink, routeDeepLinkHash } from './deep-link.js';
 import { createBrowserSpatialController, LEAFLET_OVERLAY_COMPATIBILITY } from './spatial-controller.js';
 import { createSpatialWorld, createWalkingNetworkDescriptor } from './spatial-world.js';
+import { planWalkingRoute } from './walking-router.js';
 
 const app = document.querySelector('#app');
 const i18n = createI18n();
@@ -81,6 +83,8 @@ let coreDocuments = null;
 let supplementalHydrationPromise = null;
 let supplementalHydrationTimer = null;
 let walkingNetworkDescriptor = null;
+let walkingNetworkState = 'loading';
+let walkingRouteError = null;
 
 function syncDeepLink(kind, id, mode = 'push') {
   if (mode === 'none') return;
@@ -93,6 +97,63 @@ function syncDeepLink(kind, id, mode = 'push') {
   if (mode === 'replace') history.replaceState(null, '', hash);
   else history.pushState(null, '', hash);
   lastHandledFragment = hash;
+}
+
+function syncWalkingRouteDeepLink(fromId, toId, profileId, mode = 'push') {
+  if (mode === 'none') return;
+  const hash = routeDeepLinkHash(fromId, toId, profileId);
+  if (!hash) return;
+  if (location.hash === hash) {
+    lastHandledFragment = hash;
+    return;
+  }
+  if (mode === 'replace') history.replaceState(null, '', hash);
+  else history.pushState(null, '', hash);
+  lastHandledFragment = hash;
+}
+
+function walkingRouteErrorText(reason) {
+  const language = i18n.language;
+  const text = {
+    de: {
+      'network-unavailable': 'Das detaillierte Wegenetz ist derzeit nicht verfügbar.',
+      'unknown-profile': 'Das gespeicherte Routenprofil wird nicht unterstützt.',
+      'same-place': 'Bitte wähle ein anderes Ziel.',
+      'unknown-source-anchor': 'Der Startort ist im veröffentlichten Wegenetz nicht verankert.',
+      'unknown-destination-anchor': 'Der Zielort ist im veröffentlichten Wegenetz nicht verankert.',
+      'disconnected-components': 'Start und Ziel liegen in getrennten Komponenten des veröffentlichten Wegenetzes.',
+      'no-route-for-profile': 'Für dieses Profil wurde im veröffentlichten Wegenetz keine Route gefunden.',
+      'route-reconstruction-failed': 'Die berechnete Route konnte nicht sicher rekonstruiert werden.',
+      'route-render-failed': 'Die berechnete Route konnte auf der Karte nicht dargestellt werden.',
+    },
+    en: {
+      'network-unavailable': 'The detailed walking network is currently unavailable.',
+      'unknown-profile': 'The saved routing profile is not supported.',
+      'same-place': 'Choose a different destination.',
+      'unknown-source-anchor': 'The start place is not anchored in the published walking network.',
+      'unknown-destination-anchor': 'The destination is not anchored in the published walking network.',
+      'disconnected-components': 'Start and destination are in separate components of the published walking network.',
+      'no-route-for-profile': 'No route was found for this profile in the published walking network.',
+      'route-reconstruction-failed': 'The computed route could not be reconstructed safely.',
+      'route-render-failed': 'The computed route could not be rendered on the map.',
+    },
+  };
+  return text[language]?.[reason] ?? text.en[reason] ?? text.en['no-route-for-profile'];
+}
+
+function walkingRoutePlanner(nodeId) {
+  if (!graph?.nodesById.has(nodeId)) return null;
+  if (walkingNetworkState === 'loading') return { state: 'loading' };
+  if (walkingNetworkState !== 'ready' || !walkingNetworkDescriptor) return { state: 'unavailable' };
+  const destinations = graph.nodes
+    .filter(({ id }) => id !== nodeId && walkingNetworkDescriptor.placeAnchorsByPlaceId.has(id))
+    .map((node) => ({ id: node.id, title: localized(node.name, i18n.language, node.id) }))
+    .sort((left, right) => left.title.localeCompare(right.title, i18n.language) || left.id.localeCompare(right.id));
+  return {
+    state: 'ready',
+    destinations,
+    errorText: walkingRouteError?.fromId === nodeId ? walkingRouteErrorText(walkingRouteError.reason) : null,
+  };
 }
 
 function renderIndexView() {
@@ -127,12 +188,25 @@ function scheduleWalkingNetworkHydration() {
   window.setTimeout(() => runWhenIdle(() => {
     loadWalkingNetwork()
       .then((walkingNetwork) => {
-        if (!walkingNetwork) return;
+        if (!walkingNetwork) {
+          walkingNetworkState = 'unavailable';
+          if (currentNodeId && !currentRoute && !elements.detail.hidden) showDetail(graph.entitiesById.get(currentNodeId));
+          if (parseDeepLink(location.hash)?.kind === 'route' && !currentRoute) restoreDeepLink({ force: true });
+          return;
+        }
         walkingNetworkDescriptor = createWalkingNetworkDescriptor(walkingNetwork);
+        walkingNetworkState = 'ready';
         mapController?.setWalkingNetwork(walkingNetworkDescriptor);
         if (currentView === 'index' && !currentTreeId && !currentVisitorFeatureId) renderIndexView();
+        if (currentNodeId && !currentRoute && !elements.detail.hidden) showDetail(graph.entitiesById.get(currentNodeId));
+        if (parseDeepLink(location.hash)?.kind === 'route' && !currentRoute) restoreDeepLink({ force: true });
       })
-      .catch((error) => console.warn('Complete walking network unavailable:', error));
+      .catch((error) => {
+        walkingNetworkState = 'unavailable';
+        console.warn('Complete walking network unavailable:', error);
+        if (currentNodeId && !currentRoute && !elements.detail.hidden) showDetail(graph.entitiesById.get(currentNodeId));
+        if (parseDeepLink(location.hash)?.kind === 'route' && !currentRoute) restoreDeepLink({ force: true });
+      });
   }), 1500);
 }
 
@@ -319,6 +393,8 @@ function showDetail(node, { focusClose = false } = {}) {
     i18n,
     onNavigate: showRoute,
     onSelectNode: selectEntity,
+    routePlanner: walkingRoutePlanner(node?.id),
+    onPlanWalkingRoute: showWalkingRoute,
   });
   const close = elements.detail.querySelector('[data-action="close-detail"]');
   close?.addEventListener('click', closeNodeDetail);
@@ -335,6 +411,7 @@ function closeNodeDetail() {
 function selectNode(id, { source = 'manual', historyMode } = {}) {
   const node = graph?.nodesById.get(id);
   if (!node) return;
+  walkingRouteError = null;
   nodeReturnContext = captureSelectionReturn('place', id, {
     enabled: historyMode !== 'none' && source !== 'gps' && source !== 'deeplink',
   });
@@ -353,6 +430,7 @@ function selectEntity(id, { historyMode = 'push' } = {}) {
   }
   const entity = graph?.entitiesById.get(id);
   if (!entity) return;
+  walkingRouteError = null;
   nodeReturnContext = captureSelectionReturn('place', id, { enabled: historyMode !== 'none' });
   currentNodeId = id;
   setView('map');
@@ -415,7 +493,7 @@ function showRoute(fromId, toId) {
     return;
   }
   setView('map');
-  currentRoute = { edge, fromId, toId };
+  currentRoute = { kind: 'direct', edge, fromId, toId };
   const target = graph.nodesById.get(toId);
   const source = graph.nodesById.get(fromId);
   if (target) {
@@ -431,10 +509,67 @@ function showRoute(fromId, toId) {
   });
 }
 
+function renderCurrentWalkingRoute() {
+  if (currentRoute?.kind !== 'network') return;
+  const { route } = currentRoute;
+  renderWalkingRouteDetail(elements.detail, {
+    route,
+    from: graph.nodesById.get(route.fromId),
+    to: graph.nodesById.get(route.toId),
+    i18n,
+    onSelectNode: selectEntity,
+    onClose: closeRouteDetail,
+  });
+}
+
+function showWalkingRoute(fromId, toId, profileId = 'shortest', { historyMode = 'push' } = {}) {
+  const source = graph?.nodesById.get(fromId);
+  const target = graph?.nodesById.get(toId);
+  const route = planWalkingRoute(walkingNetworkDescriptor, fromId, toId, profileId);
+  if (!route.ok) {
+    walkingRouteError = { fromId, reason: route.reason };
+    currentRoute = null;
+    currentNodeId = source?.id ?? null;
+    if (source) {
+      setView('map');
+      showDetail(source);
+    }
+    setStatus(walkingRouteErrorText(route.reason), true);
+    return false;
+  }
+  const rendered = mapController?.showRoute({
+    id: route.id,
+    coordinates: route.coordinates,
+    distanceM: route.distanceM,
+    walkingMin: route.walkingMin,
+  });
+  if (!rendered) {
+    walkingRouteError = { fromId, reason: 'route-render-failed' };
+    currentRoute = null;
+    currentNodeId = source?.id ?? null;
+    if (source) {
+      setView('map');
+      showDetail(source);
+    }
+    setStatus(walkingRouteErrorText('route-render-failed'), true);
+    return false;
+  }
+  walkingRouteError = null;
+  currentNodeId = fromId;
+  setView('map');
+  currentRoute = { kind: 'network', route, fromId, toId, profileId };
+  if (target) setStatus(`${localized(target.name, i18n.language, target.id)} · ${Math.round(route.distanceM)} ${i18n.t('metres')}`, true);
+  renderCurrentWalkingRoute();
+  syncWalkingRouteDeepLink(fromId, toId, profileId, historyMode);
+  return true;
+}
+
 function closeRouteDetail() {
   const source = currentRoute ? graph.nodesById.get(currentRoute.fromId) : null;
+  const routeKind = currentRoute?.kind;
   currentRoute = null;
   if (!source) return;
+  if (routeKind === 'network') syncDeepLink('place', source.id, 'replace');
   showDetail(source);
   elements.detail.querySelector('[data-action="close-detail"]')?.focus();
 }
@@ -487,7 +622,10 @@ function restoreDeepLink({ force = false } = {}) {
   }
 
   let restored = false;
-  if (deepLink.kind === 'place') {
+  if (deepLink.kind === 'route') {
+    if (walkingNetworkState === 'loading') return false;
+    restored = showWalkingRoute(deepLink.fromId, deepLink.toId, deepLink.profile, { historyMode: 'none' });
+  } else if (deepLink.kind === 'place') {
     if (graph.nodesById.has(deepLink.id)) {
       selectNode(deepLink.id, { source: 'deeplink', historyMode: 'none' });
       restored = true;
@@ -506,7 +644,7 @@ function restoreDeepLink({ force = false } = {}) {
     }
   }
   lastHandledFragment = fragment;
-  if (!restored && force && document.querySelector('#map')?.dataset.supplementalData === 'ready') {
+  if (!restored && deepLink.kind !== 'route' && force && document.querySelector('#map')?.dataset.supplementalData === 'ready') {
     setStatus(i18n.t('savedLinkUnavailable'), true);
   }
   return restored;
@@ -555,7 +693,9 @@ i18n.subscribe(() => {
   treeMapController?.updateLanguage(i18n.language);
   visitorLayerController?.updateLanguage(i18n.language);
   renderVisitorLayersControl();
-  if (currentRoute && !elements.detail.hidden) {
+  if (currentRoute?.kind === 'network' && !elements.detail.hidden) {
+    renderCurrentWalkingRoute();
+  } else if (currentRoute && !elements.detail.hidden) {
     renderRouteDetail(elements.detail, {
       edge: currentRoute.edge,
       from: graph.nodesById.get(currentRoute.fromId),

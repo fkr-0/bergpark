@@ -249,7 +249,9 @@ export function createLeafletSpatialAdapter(element, graph, world, { language = 
       const coordinates = routeDescriptor?.coordinates?.map(({ lat, lng }) => [lat, lng]) ?? [];
       if (coordinates.length < 2) return false;
       const route = L.polyline(coordinates, routeStyle(true)).addTo(routeLayer);
-      route.bindTooltip(`${Math.round(routeDescriptor.distanceM)} m · ${routeDescriptor.walkingMin} min`);
+      const tooltip = [`${Math.round(routeDescriptor.distanceM)} m`];
+      if (Number.isFinite(routeDescriptor.walkingMin)) tooltip.push(`${routeDescriptor.walkingMin} min`);
+      route.bindTooltip(tooltip.join(' · '));
       map.fitBounds(route.getBounds(), { paddingTopLeft: [24, 130], paddingBottomRight: [24, 110], maxZoom: 17 });
       return true;
     },

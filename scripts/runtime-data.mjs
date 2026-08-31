@@ -109,6 +109,17 @@ function graphCounts(graph = {}) {
 export function projectWalkingNetwork(pathTopology = {}, graph = {}, hashes = {}) {
   const seenPairs = new Set();
   const segments = [];
+  const placeAnchors = {};
+
+  for (const node of pathTopology.path_nodes ?? []) {
+    for (const placeId of node.related_place_ids ?? []) {
+      if (typeof placeId !== 'string' || !placeId || placeAnchors[placeId]) continue;
+      placeAnchors[placeId] = {
+        path_node_id: node.id,
+        component_id: node.component_id ?? null,
+      };
+    }
+  }
 
   for (const segment of pathTopology.directed_segments ?? []) {
     if (!Array.isArray(segment.geometry) || segment.geometry.length < 2) continue;
@@ -123,10 +134,11 @@ export function projectWalkingNetwork(pathTopology = {}, graph = {}, hashes = {}
       distance_m: Number.isFinite(segment.distance_m) ? segment.distance_m : null,
       surface: segment.surface ?? null,
       highway: segment.highway ?? null,
-      steps: segment.steps === true,
+      steps: segment.steps == null ? null : segment.steps === true,
       routing_eligible: segment.routing_eligible !== false,
       pedestrian_oneway: segment.pedestrian_oneway ?? null,
       accessibility_status: segment.accessibility_status ?? 'unknown',
+      source_kind: segment.source_kind ?? null,
     });
   }
 
@@ -146,6 +158,7 @@ export function projectWalkingNetwork(pathTopology = {}, graph = {}, hashes = {}
       },
     },
     status: pathTopology.status ?? 'unknown',
+    place_anchors: Object.fromEntries(Object.entries(placeAnchors).sort(([left], [right]) => left.localeCompare(right))),
     counts: {
       path_nodes: pathTopology.path_node_count ?? pathTopology.path_nodes?.length ?? 0,
       directed_segments: pathTopology.directed_segment_count ?? pathTopology.directed_segments?.length ?? 0,

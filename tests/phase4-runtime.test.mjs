@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
-import { deepLinkHash, parseDeepLink } from '../src/deep-link.js';
+import { deepLinkHash, parseDeepLink, routeDeepLinkHash } from '../src/deep-link.js';
 import { markerKeyboardActivation } from '../src/leaflet-keyboard.js';
 import { firstAbsoluteHttpUrl } from '../src/public-url.js';
 import { normalizeSemanticData, semanticRelationLabel } from '../src/semantic.js';
@@ -39,6 +39,19 @@ test('deep-link parsing covers place/tree/feature and fails closed on malformed 
   assert.equal(parseDeepLink('#feature=%E0%A4%A'), null);
   assert.equal(parseDeepLink('#route=herkules'), null);
   assert.equal(deepLinkHash('feature', 'bench 1'), '#feature=bench%201');
+  assert.equal(routeDeepLinkHash('herkules', 'schloss', 'avoid-mapped-steps'), '#route=herkules&to=schloss&profile=avoid-mapped-steps');
+  assert.deepEqual(parseDeepLink('#route=herkules&to=schloss&profile=avoid-mapped-steps'), {
+    kind: 'route',
+    fromId: 'herkules',
+    toId: 'schloss',
+    profile: 'avoid-mapped-steps',
+  });
+  assert.deepEqual(parseDeepLink('#route=herkules&to=schloss'), {
+    kind: 'route',
+    fromId: 'herkules',
+    toId: 'schloss',
+    profile: 'shortest',
+  });
 });
 
 test('shared marker keyboard helper activates Enter/Space only once and suppresses handled events', () => {

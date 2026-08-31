@@ -103,10 +103,24 @@
 .route-option__evidence { color: #6b756f !important; font-size: .7rem !important; line-height: 1.35; }
 .route-comparison__empty { margin: .6rem 0 0; color: #5f6863; font-size: .82rem; }
 
+.walking-route-planner {
+  padding: .8rem;
+  border: 1px solid #d5d0c2;
+  border-radius: .85rem;
+  background: #f8f4e9;
+}
+.walking-route-planner form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)) auto; gap: .55rem; align-items: end; }
+.walking-route-planner label { color: #52635b; font-size: .72rem; font-weight: 800; }
+.walking-route-planner select { width: 100%; min-height: 44px; margin-top: .2rem; padding: .55rem .6rem; border: 1px solid #c8c8bb; border-radius: .7rem; background: white; color: #1a2420; }
+.walking-route-planner__error { margin: .6rem 0 0; color: #7d2f2f; font-weight: 750; }
+.walking-route-coverage details { margin-top: .6rem; }
+.walking-route-coverage summary { cursor: pointer; font-weight: 800; }
+
 .almanac-controls select:focus-visible,
 .network-controls select:focus-visible,
 .network-list > button:focus-visible,
 .route-comparison__heading select:focus-visible,
+.walking-route-planner select:focus-visible,
 .narration-transcript summary:focus-visible {
   outline: 3px solid var(--gold);
   outline-offset: 2px;
@@ -116,7 +130,8 @@
   .almanac-controls,
   .network-controls,
   .route-comparison__heading,
-  .route-comparison__controls { grid-template-columns: 1fr; }
+  .route-comparison__controls,
+  .walking-route-planner form { grid-template-columns: 1fr; }
   .network-list > button { grid-template-columns: 1fr; }
   .network-list > button > span:last-child { text-align: left; }
 }

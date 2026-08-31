@@ -2,6 +2,8 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 import { projectWalkingNetwork, sha256Buffer } from '../scripts/runtime-data.mjs';
+import { createWalkingNetworkDescriptor } from '../src/spatial-world.js';
+import { planWalkingRoute } from '../src/walking-router.js';
 
 async function readJson(path) {
   const buffer = await readFile(new URL(path, import.meta.url));
@@ -28,7 +30,18 @@ test('Phase-8 walking topology projects every unique segment without shipping au
   assert.equal(projected.generated_from.graph.counts.path_nodes, graph.json.path_nodes.length);
   assert.ok(projected.segments.every((segment) => segment.geometry.length >= 2));
   assert.ok(projected.segments.some((segment) => segment.steps));
+  assert.equal(Object.keys(projected.place_anchors).length, graph.json.nodes.length);
+  assert.equal(projected.place_anchors.herkules.path_node_id, 'pathnode-place-herkules');
+  assert.ok(projected.segments.some((segment) => segment.source_kind === 'representative_point_snap_connector' && segment.steps === null));
   assert.ok(!('path_nodes' in projected), 'runtime projection must not duplicate the 26 MB graph audit payload');
+
+  const descriptor = createWalkingNetworkDescriptor(projected);
+  const route = planWalkingRoute(descriptor, 'herkules', 'schloss', 'shortest');
+  assert.equal(route.ok, true);
+  assert.ok(route.segments.length > 2, 'visitor route must traverse multiple Phase-8 topology segments');
+  assert.ok(route.distanceM > 0);
+  assert.ok(route.evidence.endpointUnknownSegments >= 2, 'canonical place snaps must remain explicit endpoint unknowns');
+  assert.equal(route.coverage.physical_inventory_claim, false);
 });
 
 test('Phase-3 bilingual knowledge and cultural semantics remain complete for the web consumer', async () => {

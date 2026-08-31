@@ -10,6 +10,7 @@ import {
   searchNetworkDiscovery,
 } from '../src/discovery.js';
 import { createWalkingNetworkDescriptor } from '../src/spatial-world.js';
+import { planWalkingRoute, WALKING_ROUTING_PROFILES } from '../src/walking-router.js';
 
 test('connected route comparison is deterministic and only projects existing route evidence', () => {
   const glo90 = { dataset: 'Copernicus DEM 2021 GLO-90', provider: 'Open-Meteo Elevation API' };
@@ -32,6 +33,61 @@ test('connected route comparison is deterministic and only projects existing rou
   assert.equal(connectedRouteOptions(graph, 'a', 'en')[0].evidence.ascentM, 9);
   assert.equal(connectedRouteOptions(graph, 'a', 'en')[0].evidence.elevationSamplingM, null);
   assert.equal(routeAccessSummary(connectedRouteOptions(graph, 'a', 'en')[0].evidence, 'en'), 'Mapped steps');
+});
+
+test('multi-hop routing separates distance policy from segment facts and keeps unknown accessibility explicit', () => {
+  const raw = {
+    coverage: { physical_inventory_claim: false },
+    place_anchors: {
+      start: { path_node_id: 'a', component_id: 'main' },
+      finish: { path_node_id: 'b', component_id: 'main' },
+    },
+    segments: [
+      { id: 'direct-steps', from: 'a', to: 'b', geometry: [[51.31, 9.41], [51.312, 9.412]], distance_m: 5, surface: 'stone', steps: true, routing_eligible: true, pedestrian_oneway: 'both', accessibility_status: 'known_steps' },
+      { id: 'detour-a-c', from: 'a', to: 'c', geometry: [[51.31, 9.41], [51.311, 9.411]], distance_m: 4, surface: null, steps: null, routing_eligible: true, pedestrian_oneway: 'both', accessibility_status: 'unknown_unmapped_connector', source_kind: 'representative_point_snap_connector' },
+      { id: 'detour-c-b', from: 'c', to: 'b', geometry: [[51.311, 9.411], [51.312, 9.412]], distance_m: 4, surface: 'gravel', steps: false, routing_eligible: true, pedestrian_oneway: 'both', accessibility_status: 'unknown_not_field_verified' },
+    ],
+  };
+  const network = createWalkingNetworkDescriptor(raw);
+  const factsBefore = JSON.stringify(network.segments.map(({ id, distanceM, surface, steps, accessibilityStatus }) => ({ id, distanceM, surface, steps, accessibilityStatus })));
+  const shortest = planWalkingRoute(network, 'start', 'finish', 'shortest');
+  const avoidSteps = planWalkingRoute(network, 'start', 'finish', 'avoid-mapped-steps');
+
+  assert.equal(WALKING_ROUTING_PROFILES.shortest.weight, 'distance_m');
+  assert.equal(shortest.ok, true);
+  assert.equal(shortest.distanceM, 5);
+  assert.deepEqual(shortest.segments.map(({ segment }) => segment.id), ['direct-steps']);
+  assert.equal(shortest.evidence.mappedStepSegments, 1);
+  assert.equal(avoidSteps.ok, true);
+  assert.equal(avoidSteps.distanceM, 8);
+  assert.deepEqual(avoidSteps.segments.map(({ segment }) => segment.id), ['detour-a-c', 'detour-c-b']);
+  assert.equal(avoidSteps.evidence.mappedStepSegments, 0);
+  assert.equal(avoidSteps.evidence.stepUnknownSegments, 1, 'avoiding mapped steps must not upgrade unknown step evidence');
+  assert.equal(avoidSteps.evidence.endpointUnknownSegments, 1);
+  assert.equal(avoidSteps.evidence.surfaceDistanceM.unknown, 4);
+  assert.equal(avoidSteps.coverage.physical_inventory_claim, false);
+  assert.equal(JSON.stringify(network.segments.map(({ id, distanceM, surface, steps, accessibilityStatus }) => ({ id, distanceM, surface, steps, accessibilityStatus }))), factsBefore, 'routing policy must not mutate factual segment metadata');
+});
+
+test('multi-hop routing fails closed for unsupported profiles and disconnected anchors', () => {
+  const network = createWalkingNetworkDescriptor({
+    place_anchors: {
+      a: { path_node_id: 'node-a', component_id: 'component-a' },
+      b: { path_node_id: 'node-b', component_id: 'component-b' },
+    },
+    segments: [],
+  });
+  assert.deepEqual(planWalkingRoute(network, 'a', 'b', 'shortest'), {
+    ok: false,
+    reason: 'disconnected-components',
+    fromComponentId: 'component-a',
+    toComponentId: 'component-b',
+  });
+  assert.deepEqual(planWalkingRoute(network, 'a', 'b', 'wheelchair'), {
+    ok: false,
+    reason: 'unknown-profile',
+    profileId: 'wheelchair',
+  });
 });
 
 test('almanac category filter preserves stable canonical IDs across places, stories, trees and visitor features', () => {

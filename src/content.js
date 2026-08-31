@@ -19,6 +19,35 @@ function escapeHtml(value = '') {
     .replaceAll("'", '&#039;');
 }
 
+function walkingRoutePlannerMarkup(routePlanner, language) {
+  if (!routePlanner) return '';
+  const heading = language === 'de' ? 'Route im kartierten Wegenetz' : 'Route through the mapped network';
+  const caveat = language === 'de'
+    ? 'Berechnet über den begrenzten erhaltenen Phase-8-Quell-Snapshot; keine physisch vollständige Parkinventur.'
+    : 'Computed over the bounded preserved Phase-8 source snapshot; not a physically complete park inventory.';
+  if (routePlanner.state === 'loading') {
+    return `<section class="detail-section walking-route-planner" data-walking-route-planner="loading"><h3>${heading}</h3><p>${language === 'de' ? 'Das detaillierte Wegenetz wird nachgeladen …' : 'The detailed walking network is loading …'}</p><p class="uncertainty-note">${caveat}</p></section>`;
+  }
+  if (routePlanner.state !== 'ready') {
+    return `<section class="detail-section walking-route-planner" data-walking-route-planner="unavailable"><h3>${heading}</h3><p role="status">${language === 'de' ? 'Das detaillierte Wegenetz ist derzeit nicht verfügbar.' : 'The detailed walking network is currently unavailable.'}</p><p class="uncertainty-note">${caveat}</p></section>`;
+  }
+  const destinations = routePlanner.destinations ?? [];
+  return `<section class="detail-section walking-route-planner" data-walking-route-planner="ready">
+    <h3>${heading}</h3>
+    <p>${language === 'de' ? 'Wähle ein kanonisches Parkziel und eine explizite Gewichtungspolitik.' : 'Choose a canonical park destination and an explicit weighting policy.'}</p>
+    ${destinations.length ? `<form data-walking-route-form>
+      <label>${language === 'de' ? 'Ziel' : 'Destination'}<select data-walking-route-to>${destinations.map((destination) => `<option value="${escapeHtml(destination.id)}">${escapeHtml(destination.title)}</option>`).join('')}</select></label>
+      <label>${language === 'de' ? 'Profil' : 'Profile'}<select data-walking-route-profile>
+        <option value="shortest">${language === 'de' ? 'Kürzeste kartierte Distanz' : 'Shortest mapped distance'}</option>
+        <option value="avoid-mapped-steps">${language === 'de' ? 'Kartierte Stufen meiden' : 'Avoid mapped steps'}</option>
+      </select></label>
+      <button class="action-button" type="submit">${language === 'de' ? 'Route berechnen' : 'Compute route'}</button>
+    </form>` : `<p>${language === 'de' ? 'Für diesen Ort sind keine weiteren verankerten Parkziele verfügbar.' : 'No other anchored park destinations are available from this place.'}</p>`}
+    <p class="uncertainty-note">${caveat}</p>
+    ${routePlanner.errorText ? `<p class="walking-route-planner__error" data-walking-route-error role="status">${escapeHtml(routePlanner.errorText)}</p>` : ''}
+  </section>`;
+}
+
 function renderArtworkContext(node, graph, language) {
   const context = localizedStructured(node.artworkContext, language, null);
   if (!context || typeof context !== 'object') return '';
@@ -207,7 +236,7 @@ function renderSources(node, language, t) {
   return `<details class="detail-sources"><summary>${escapeHtml(t('source'))}</summary><ul>${items.join('')}</ul></details>`;
 }
 
-export function renderNodeDetail(container, { node, graph, i18n, onNavigate, onSelectNode }) {
+export function renderNodeDetail(container, { node, graph, i18n, onNavigate, onSelectNode, routePlanner = null, onPlanWalkingRoute }) {
   if (!node) {
     container.hidden = true;
     container.innerHTML = '';
@@ -247,6 +276,7 @@ export function renderNodeDetail(container, { node, graph, i18n, onNavigate, onS
       ${renderSemanticFacts(node, graph, language)}
       ${renderSemanticLinks(node, graph, language)}
       ${renderVisitInfo(node, language)}
+      ${walkingRoutePlannerMarkup(routePlanner, language)}
       ${routeOptions.length ? `
         <section class="detail-section">
           <div class="route-comparison__heading"><div><h3>${escapeHtml(i18n.t('nearby'))}</h3><p>${escapeHtml(i18n.t('routeComparisonNote'))}</p></div>
@@ -320,6 +350,12 @@ export function renderNodeDetail(container, { node, graph, i18n, onNavigate, onS
   };
   routeSort?.addEventListener('change', refreshRouteOptions);
   routeFilter?.addEventListener('change', refreshRouteOptions);
+  container.querySelector('[data-walking-route-form]')?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const destination = container.querySelector('[data-walking-route-to]')?.value;
+    const profile = container.querySelector('[data-walking-route-profile]')?.value ?? 'shortest';
+    if (destination) onPlanWalkingRoute?.(node.id, destination, profile);
+  });
   for (const button of container.querySelectorAll('[data-semantic-id]')) {
     button.addEventListener('click', () => onSelectNode?.(button.dataset.semanticId));
   }

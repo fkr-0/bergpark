@@ -148,12 +148,14 @@ export function createWalkingNetworkDescriptor(walkingNetwork) {
       kind: 'path-segment',
       fromId: segment.from ?? null,
       toId: segment.to ?? null,
-      steps: segment.steps === true,
+      steps: segment.steps == null ? null : segment.steps === true,
       coordinates: Object.freeze(coordinates),
     };
     if (segment.surface != null) descriptor.surface = segment.surface;
     if (segment.highway != null) descriptor.highway = segment.highway;
     if (segment.accessibility_status != null) descriptor.accessibilityStatus = segment.accessibility_status;
+    if (segment.pedestrian_oneway != null) descriptor.pedestrianOneway = segment.pedestrian_oneway;
+    if (segment.source_kind != null) descriptor.sourceKind = segment.source_kind;
     if (segment.routing_eligible != null) descriptor.routingEligible = segment.routing_eligible === true;
     if (Number.isFinite(segment.distance_m)) descriptor.distanceM = segment.distance_m;
     touchNode(descriptor.fromId, coordinates[0], descriptor.toId);
@@ -168,13 +170,25 @@ export function createWalkingNetworkDescriptor(walkingNetwork) {
       degree: neighbors.size,
     }))
     .sort((left, right) => left.id.localeCompare(right.id));
+  const placeAnchors = Object.entries(walkingNetwork.place_anchors ?? {})
+    .map(([placeId, anchor]) => ({
+      placeId,
+      pathNodeId: anchor?.path_node_id ?? null,
+      componentId: anchor?.component_id ?? null,
+    }))
+    .filter(({ placeId, pathNodeId }) => Boolean(placeId && pathNodeId))
+    .sort((left, right) => left.placeId.localeCompare(right.placeId))
+    .map(Object.freeze);
   return Object.freeze({
     crs: COORDINATE_REFERENCE_SYSTEM,
     coordinateOrder: 'lng-lat',
     nodes: Object.freeze(nodes),
     segments: Object.freeze(segments.map(Object.freeze)),
+    placeAnchors: Object.freeze(placeAnchors),
+    coverage: walkingNetwork.coverage ? Object.freeze({ ...walkingNetwork.coverage }) : null,
     counts: Object.freeze({ ...(walkingNetwork.counts ?? {}) }),
     nodesById: indexById(nodes),
     segmentsById: indexById(segments),
+    placeAnchorsByPlaceId: new Map(placeAnchors.map((anchor) => [anchor.placeId, anchor])),
   });
 }

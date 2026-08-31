@@ -42,6 +42,8 @@ test('SpatialWorld never invents elevation and rejects incomplete coordinates', 
 test('walking-network descriptor converts legacy lat/lng tuples at the renderer boundary', () => {
   const network = createWalkingNetworkDescriptor({
     counts: { path_nodes: 2, directed_segments: 1 },
+    coverage: { physical_inventory_claim: false },
+    place_anchors: { herkules: { path_node_id: 'pathnode-a', component_id: 'main' } },
     segments: [{
       id: 'pathseg-a--b',
       from: 'pathnode-a',
@@ -51,6 +53,8 @@ test('walking-network descriptor converts legacy lat/lng tuples at the renderer 
       highway: 'steps',
       distance_m: 42,
       accessibility_status: 'known_steps',
+      pedestrian_oneway: 'both',
+      source_kind: 'osm_walkable_adjacency',
       geometry: [[51.31, 9.41], [51.32, 9.42]],
     }],
   });
@@ -58,6 +62,10 @@ test('walking-network descriptor converts legacy lat/lng tuples at the renderer 
   assert.equal(network.segments[0].id, 'pathseg-a--b');
   assert.equal(network.segments[0].steps, true);
   assert.equal(network.segments[0].surface, 'stone_steps');
+  assert.equal(network.segments[0].pedestrianOneway, 'both');
+  assert.equal(network.segments[0].sourceKind, 'osm_walkable_adjacency');
   assert.equal(network.nodesById.get('pathnode-a').degree, 1);
   assert.deepEqual(network.nodesById.get('pathnode-b').position, { lng: 9.42, lat: 51.32 });
+  assert.equal(network.placeAnchorsByPlaceId.get('herkules').pathNodeId, 'pathnode-a');
+  assert.equal(network.coverage.physical_inventory_claim, false);
 });
