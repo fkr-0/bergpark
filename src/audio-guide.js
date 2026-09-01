@@ -47,6 +47,16 @@ export function createNarrationDescriptor(node, language = 'de') {
  * Manual-only browser speech controller. Construction is inert; play() is the sole path
  * to speak(), and a second play always cancels the previous utterance first.
  */
+export function createNarrationVariants(node, languages = ['de', 'en']) {
+  return Object.freeze(
+    [...new Set(languages)]
+      .filter((language) => ['de', 'en'].includes(language))
+      .map((language) => createNarrationDescriptor(node, language))
+      .filter(Boolean)
+      .map(Object.freeze),
+  );
+}
+
 export function createSpeechNarrator({
   speechSynthesisRef = globalThis.speechSynthesis,
   UtteranceCtor = globalThis.SpeechSynthesisUtterance,
@@ -92,6 +102,20 @@ export function createSpeechNarrator({
       utterance.onend = () => finish(descriptor.id, 'idle', onState);
       utterance.onerror = () => finish(descriptor.id, 'idle', onState);
       speechSynthesisRef.speak(utterance);
+      return true;
+    },
+    pause({ onState } = {}) {
+      if (!active || typeof speechSynthesisRef.pause !== 'function') return false;
+      speechSynthesisRef.pause();
+      state = 'paused';
+      onState?.('paused');
+      return true;
+    },
+    resume({ onState } = {}) {
+      if (!active || typeof speechSynthesisRef.resume !== 'function') return false;
+      speechSynthesisRef.resume();
+      state = 'playing';
+      onState?.('playing');
       return true;
     },
     stop({ onState } = {}) {

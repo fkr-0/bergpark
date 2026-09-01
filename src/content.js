@@ -1,6 +1,8 @@
 import { localized } from './i18n.js';
 import { semanticRelationLabel } from './semantic.js';
 import { createNarrationDescriptor, createSpeechNarrator } from './audio-guide.js';
+import { relatedJourneyBuckets } from './related-journey.js';
+import './companion.css';
 import {
   discoverMountainRoutes,
   routeAccessSummary,
@@ -149,12 +151,36 @@ export function narrateNode(node, language, options = {}) {
   return speechNarrator.play(descriptor, options);
 }
 
+export function pauseNarration(options = {}) {
+  return speechNarrator.pause(options);
+}
+
+export function resumeNarration(options = {}) {
+  return speechNarrator.resume(options);
+}
+
 function narrationTranscriptMarkup(descriptor, i18n) {
   if (!descriptor?.transcript?.length) return '';
   return `<details class="narration-transcript" data-narration-transcript>
     <summary>${escapeHtml(i18n.t('transcript'))}</summary>
     <div>${descriptor.transcript.map(({ heading, text }) => `${heading ? `<h3>${escapeHtml(heading)}</h3>` : ''}<p>${escapeHtml(text)}</p>`).join('')}</div>
   </details>`;
+}
+
+function renderRelatedJourney(node, graph, language) {
+  const { semantic, nearby } = relatedJourneyBuckets(graph, node.id, language, { limit: 8 });
+  if (!semantic.length && !nearby.length) return '';
+  const renderItem = (item) => {
+    const evidence = item.source === 'semantic'
+      ? item.provenance?.assertion ?? ''
+      : [item.evidence?.distanceM != null ? `${Math.round(item.evidence.distanceM)} m` : '', item.context].filter(Boolean).join(' · ');
+    return `<button type="button" class="journey-link" data-related-id="${escapeHtml(item.id)}">
+      <span class="journey-link__main"><strong>${escapeHtml(item.title)}</strong><small>${escapeHtml(item.relation)}${item.context && item.source === 'semantic' ? ` · ${escapeHtml(item.context)}` : ''}</small></span>
+      ${evidence ? `<span class="journey-link__evidence">${escapeHtml(evidence)}</span>` : ''}
+    </button>`;
+  };
+  return `${semantic.length ? `<section class="detail-section related-journey"><h3>${language === 'de' ? 'Verbundenes Wissen' : 'Related knowledge'}</h3><div class="journey-links">${semantic.map(renderItem).join('')}</div></section>` : ''}
+    ${nearby.length ? `<section class="detail-section related-journey"><h3>${language === 'de' ? 'Weitergehen' : 'Continue walking'}</h3><div class="journey-links">${nearby.map(renderItem).join('')}</div></section>` : ''}`;
 }
 
 function compactRouteMetrics(evidence, i18n) {
@@ -247,6 +273,7 @@ export function renderNodeDetail(container, { node, graph, i18n, onNavigate, onS
   const description = localized(node.description, language, localized(node.summary, language));
   const sections = contentSections(node, language);
   const narrationDescriptor = createNarrationDescriptor(node, language);
+  const narrationVariants = ['de', 'en'].map((candidate) => createNarrationDescriptor(node, candidate)).filter(Boolean);
   const routeOptions = discoverMountainRoutes(graph, node.id, language);
 
   container.hidden = false;
@@ -263,9 +290,12 @@ export function renderNodeDetail(container, { node, graph, i18n, onNavigate, onS
       ${description ? `<p class="detail-lead">${escapeHtml(description)}</p>` : ''}
       ${narrationDescriptor ? `<section class="audio-guide" aria-label="${escapeHtml(i18n.t('audioGuide'))}">
         <div class="detail-actions">
-          <button class="action-button" data-action="narrate" type="button" aria-pressed="false"${speechNarrator.supported ? '' : ' disabled'}>◉ ${escapeHtml(i18n.t('listen'))}</button>
+          <button class="action-button" data-action="narrate" type="button" aria-pressed="false"${speechNarrator.supported ? '' : ' disabled'}>▶ ${escapeHtml(i18n.t('listen'))}</button>
+          <button class="action-button action-button--quiet" data-action="pause-narration" type="button" hidden>Ⅱ ${escapeHtml(i18n.t('pauseAudio'))}</button>
+          <button class="action-button action-button--quiet" data-action="resume-narration" type="button" hidden>▶ ${escapeHtml(i18n.t('resumeAudio'))}</button>
           <button class="action-button action-button--quiet" data-action="stop-narration" type="button" hidden>■ ${escapeHtml(i18n.t('stopAudio'))}</button>
         </div>
+        ${narrationVariants.length > 1 ? `<label class="audio-language"><span>${escapeHtml(i18n.t('audioLanguage'))}</span><select data-audio-language>${narrationVariants.map((variant) => `<option value="${escapeHtml(variant.language)}"${variant.language === language ? ' selected' : ''}>${variant.language === 'de' ? 'Deutsch' : 'English'}</option>`).join('')}</select></label>` : ''}
         <p class="sr-only" data-narration-status role="status">${escapeHtml(speechNarrator.supported ? i18n.t('audioReady') : i18n.t('audioUnavailable'))}</p>
         ${narrationTranscriptMarkup(narrationDescriptor, i18n)}
       </section>` : ''}
@@ -275,6 +305,7 @@ export function renderNodeDetail(container, { node, graph, i18n, onNavigate, onS
       ${renderArtworkContext(node, graph, language)}
       ${renderSemanticFacts(node, graph, language)}
       ${renderSemanticLinks(node, graph, language)}
+      ${renderRelatedJourney(node, graph, language)}
       ${renderVisitInfo(node, language)}
       ${walkingRoutePlannerMarkup(routePlanner, language)}
       ${routeOptions.length ? `
@@ -307,22 +338,33 @@ export function renderNodeDetail(container, { node, graph, i18n, onNavigate, onS
 
   const setNarrationState = (state) => {
     const play = container.querySelector('[data-action="narrate"]');
+    const pause = container.querySelector('[data-action="pause-narration"]');
+    const resume = container.querySelector('[data-action="resume-narration"]');
     const stop = container.querySelector('[data-action="stop-narration"]');
     const status = container.querySelector('[data-narration-status]');
     if (play) play.setAttribute('aria-pressed', state === 'playing' ? 'true' : 'false');
-    if (stop) stop.hidden = state !== 'playing';
-    if (status) status.textContent = state === 'playing' ? i18n.t('audioPlaying') : i18n.t('audioReady');
+    if (pause) pause.hidden = state !== 'playing';
+    if (resume) resume.hidden = state !== 'paused';
+    if (stop) stop.hidden = !['playing', 'paused'].includes(state);
+    if (status) status.textContent = state === 'playing'
+      ? i18n.t('audioPlaying')
+      : state === 'paused'
+        ? i18n.t('audioPaused')
+        : i18n.t('audioReady');
   };
   container.querySelector('[data-action="close-detail"]')?.addEventListener('click', () => {
     stopNarration({ onState: setNarrationState });
     container.hidden = true;
   });
   container.querySelector('[data-action="narrate"]')?.addEventListener('click', () => {
-    if (!narrateNode(node, language, { onState: setNarrationState })) {
+    const selectedLanguage = container.querySelector('[data-audio-language]')?.value ?? language;
+    if (!narrateNode(node, selectedLanguage, { onState: setNarrationState })) {
       const status = container.querySelector('[data-narration-status]');
       if (status) status.textContent = i18n.t('audioUnavailable');
     }
   });
+  container.querySelector('[data-action="pause-narration"]')?.addEventListener('click', () => pauseNarration({ onState: setNarrationState }));
+  container.querySelector('[data-action="resume-narration"]')?.addEventListener('click', () => resumeNarration({ onState: setNarrationState }));
   container.querySelector('[data-action="stop-narration"]')?.addEventListener('click', () => stopNarration({ onState: setNarrationState }));
 
   const bindRouteButtons = (scope) => {
@@ -358,5 +400,8 @@ export function renderNodeDetail(container, { node, graph, i18n, onNavigate, onS
   });
   for (const button of container.querySelectorAll('[data-semantic-id]')) {
     button.addEventListener('click', () => onSelectNode?.(button.dataset.semanticId));
+  }
+  for (const button of container.querySelectorAll('[data-related-id]')) {
+    button.addEventListener('click', () => onSelectNode?.(button.dataset.relatedId));
   }
 }
