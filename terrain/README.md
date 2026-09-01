@@ -50,15 +50,16 @@ manifest without re-downloading or replacing the Phase-3 authority.
 
 `terrain/pipeline/maplibre_dem.py` has no network acquisition path. It verifies the three
 reviewed Phase-3 hashes before reading the intermediate and emits only the canonical park
-AOI at Web-Mercator zooms **14, 15 and 16**:
+AOI at Web-Mercator zooms **13, 14, 15 and 16**:
 
+- z13: 4 tiles
 - z14: 4 tiles
 - z15: 12 tiles
 - z16: 40 tiles
-- total: **56** 256×256 RGB Terrarium PNG tiles
-- tile bytes: **4,670,817 bytes** (about 4.45 MiB)
+- total: **60** 256×256 RGB Terrarium PNG tiles
+- tile bytes: **4,817,250 bytes** (about 4.59 MiB)
 - renderer-derivative cap: 8 MiB
-- manifest SHA256: `2d48c4f1c14958304e6fe8c5ec3b6174b4687ba2e7f61b659f8f0fade3d38417`
+- manifest SHA256: `13bd770949d5f594d0c3a942856f3cfd325ecdb1051a8c859183dc3fa608e4f7`
 - output: `public/terrain/dgm1-terrarium/`
 
 Terrarium values remain metres with no visual exaggeration (`1.0`). The encoder's
@@ -67,6 +68,8 @@ validation bound measured a maximum endpoint quantization error of about **0.001
 The manifest records source/intermediate/manifest hashes, renderer/source bounds, axis
 order, DHHN2016_NH vertical reference, attribution/license links, camera limits, tile
 hashes/sizes and the exact generation command.
+
+MapLibre 6.6 terrain renders through 512 px internal terrain tiles while this authority uses 256 px DEM tiles; its terrain manager therefore requests the DEM at `terrain_zoom - 1`. The z13 parent level is required so the park overview can render real relief instead of a flat missing-parent mesh. It is generated from the same immutable Phase-3 Float32 authority and does not expand the renderer bounds.
 
 The renderer bounds remain the canonical runtime bbox `[9.385, 51.307, 9.425, 51.323]`.
 Edge pixels that fall inside a Web-Mercator tile but just outside the larger reviewed DGM

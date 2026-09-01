@@ -23,7 +23,7 @@ test('MapLibre terrain style is bounded to the committed Terrarium derivative wi
   assert.equal(dem.type, 'raster-dem');
   assert.equal(dem.encoding, 'terrarium');
   assert.equal(dem.tileSize, 256);
-  assert.equal(dem.minzoom, 14);
+  assert.equal(dem.minzoom, 13);
   assert.equal(dem.maxzoom, 16);
   assert.deepEqual(dem.bounds, [9.385, 51.307, 9.425, 51.323]);
   assert.deepEqual(dem.tiles, ['https://example.test/bergpark/terrain/dgm1-terrarium/{z}/{x}/{y}.png']);
