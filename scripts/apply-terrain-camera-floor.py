@@ -4,9 +4,14 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+DEBUG_BEGIN = "    // TERRAIN_DIAGNOSTIC_BEGIN\n"
+DEBUG_END = "    // TERRAIN_DIAGNOSTIC_END\n"
+TEST_DEBUG_BEGIN = "  // TERRAIN_DIAGNOSTIC_BEGIN\n"
+TEST_DEBUG_END = "  // TERRAIN_DIAGNOSTIC_END\n"
 
 
 def replace_one(path: str, old: str, new: str) -> None:
@@ -16,6 +21,32 @@ def replace_one(path: str, old: str, new: str) -> None:
     if count != 1:
         raise RuntimeError(f"{path}: expected one replacement, found {count}: {old!r}")
     target.write_text(text.replace(old, new))
+
+
+def strip_between(path: str, begin: str, end: str) -> None:
+    target = ROOT / path
+    text = target.read_text()
+    start = text.find(begin)
+    finish = text.find(end, start + len(begin)) if start >= 0 else -1
+    if start < 0 or finish < 0:
+        raise RuntimeError(f"{path}: diagnostic markers not found")
+    finish += len(end)
+    target.write_text(text[:start] + text[finish:])
+
+
+if "--strip-debug" in sys.argv:
+    strip_between("src/maplibre-map.js", DEBUG_BEGIN, DEBUG_END)
+    test_path = ROOT / "tests/e2e/terrain-relief-regression.spec.js"
+    text = test_path.read_text()
+    start = text.find(TEST_DEBUG_BEGIN)
+    finish = text.find(TEST_DEBUG_END, start + len(TEST_DEBUG_BEGIN)) if start >= 0 else -1
+    if start < 0 or finish < 0:
+        raise RuntimeError("terrain relief E2E diagnostic markers not found")
+    finish += len(TEST_DEBUG_END)
+    replacement = "  await expect(map).toHaveAttribute('data-spatial-terrain-ready', 'true', { timeout: 20_000 });\n"
+    test_path.write_text(text[:start] + replacement + text[finish:])
+    print(json.dumps({"ok": True, "stripped_debug": True}, indent=2))
+    raise SystemExit(0)
 
 
 # The z13 DEM parent is valid for terrain render tiles at z14+. MapLibre 6.6
@@ -50,6 +81,31 @@ replace_one(
     "  if (!(camera.min_zoom >= manifest.zooms[0] + 1 && camera.max_zoom <= 19 && camera.min_zoom < camera.max_zoom)) throw new Error('terrain camera zoom limits cannot satisfy MapLibre DEM parent loading');",
 )
 
+# Temporary cache/coverage observability. It is stripped before any successful
+# product commit; failed focused runs keep the values visible in Playwright logs.
+replace_one(
+    "src/maplibre-map.js",
+    "    const sanity = terrainRiseSanity(lower, upper);\n",
+    "    const sanity = terrainRiseSanity(lower, upper);\n"
+    + DEBUG_BEGIN
+    + "    const centerElevation = map.queryTerrainElevation(map.getCenter());\n"
+    + "    const lowerPoint = map.project([CASCADES_TERRAIN_CONTROL.lower.lng, CASCADES_TERRAIN_CONTROL.lower.lat]);\n"
+    + "    const upperPoint = map.project([CASCADES_TERRAIN_CONTROL.upper.lng, CASCADES_TERRAIN_CONTROL.upper.lat]);\n"
+    + "    const canvas = map.getCanvas();\n"
+    + "    element.dataset.spatialTerrainDebugZoom = String(map.getZoom());\n"
+    + "    element.dataset.spatialTerrainDebugSourceLoaded = String(map.isSourceLoaded?.(TERRAIN_SOURCE_ID) ?? false);\n"
+    + "    element.dataset.spatialTerrainDebugCenterM = String(centerElevation);\n"
+    + "    element.dataset.spatialTerrainDebugLowerM = String(lower);\n"
+    + "    element.dataset.spatialTerrainDebugUpperM = String(upper);\n"
+    + "    element.dataset.spatialTerrainDebugLowerX = String(lowerPoint.x);\n"
+    + "    element.dataset.spatialTerrainDebugLowerY = String(lowerPoint.y);\n"
+    + "    element.dataset.spatialTerrainDebugUpperX = String(upperPoint.x);\n"
+    + "    element.dataset.spatialTerrainDebugUpperY = String(upperPoint.y);\n"
+    + "    element.dataset.spatialTerrainDebugCanvasWidth = String(canvas.clientWidth);\n"
+    + "    element.dataset.spatialTerrainDebugCanvasHeight = String(canvas.clientHeight);\n"
+    + DEBUG_END,
+)
+
 replace_one(
     "tests/e2e/phase4-maplibre-terrain.spec.js",
     "  await expect(map).toHaveAttribute('data-terrain-tile-count', '56');\n  await expect(map).toHaveAttribute('data-terrain-zooms', '14,15,16');",
@@ -69,6 +125,28 @@ replace_one(
     '        manifest = json.loads((ROOT / "public/terrain/dgm1-terrarium/manifest.json").read_text())\n'
     '        self.assertGreaterEqual(manifest["camera"]["min_zoom"], manifest["zooms"][0] + 1)\n'
     '        self.assertLessEqual(result["tile_bytes"], maplibre_dem.MAX_DERIVATIVE_BYTES)',
+)
+
+replace_one(
+    "tests/e2e/terrain-relief-regression.spec.js",
+    "  await expect(map).toHaveAttribute('data-spatial-terrain-ready', 'true', { timeout: 20_000 });\n",
+    TEST_DEBUG_BEGIN
+    + "  try {\n"
+    + "    await expect(map).toHaveAttribute('data-spatial-terrain-ready', 'true', { timeout: 20_000 });\n"
+    + "  } catch (error) {\n"
+    + "    const diagnostics = await map.evaluate((element) => ({ ...element.dataset }));\n"
+    + "    diagnostics.resources = await page.evaluate(() => performance.getEntriesByType('resource')\n"
+    + "      .map(({ name }) => name)\n"
+    + "      .filter((name) => /\\/terrain\\/dgm1-terrarium\\/(?:13|14|15|16)\\/\\d+\\/\\d+\\.png$/.test(name)));\n"
+    + "    console.log(`TERRAIN_DIAGNOSTIC ${JSON.stringify(diagnostics)}`);\n"
+    + "    throw error;\n"
+    + "  }\n"
+    + TEST_DEBUG_END,
+)
+replace_one(
+    "tests/e2e/terrain-relief-regression.spec.js",
+    "/\\/terrain\\/dgm1-terrarium\\/(?:14|15|16)\\/\\d+\\/\\d+\\.png$/",
+    "/\\/terrain\\/dgm1-terrarium\\/(?:13|14|15|16)\\/\\d+\\/\\d+\\.png$/",
 )
 
 readme = ROOT / "terrain/README.md"
@@ -103,4 +181,4 @@ replace_one(
     "  supports MapLibre's one-level DEM parent lookup while the terrain camera is floored at z14;",
 )
 
-print(json.dumps({"ok": True, "manifest_sha256": manifest_sha}, indent=2))
+print(json.dumps({"ok": True, "manifest_sha256": manifest_sha, "diagnostic": True}, indent=2))
