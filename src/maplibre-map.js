@@ -5,6 +5,9 @@ import { moveMapLibreCamera, prefersReducedMotion } from './motion-policy.js';
 const TERRAIN_PATH = 'terrain/dgm1-terrarium/';
 const TERRAIN_SOURCE_ID = 'terrain-dem';
 const HILLSHADE_SOURCE_ID = 'terrain-hillshade-dem';
+const TERRAIN_VERIFY_INTERVAL_MS = 250;
+const TERRAIN_VERIFY_MAX_ATTEMPTS = 48;
+const TERRAIN_MIN_PLAUSIBLE_ELEVATION_M = 150;
 
 // Side-on cascades acceptance control derived from the user-visible regression
 // evidence: Neptunbassin is the lower/eastern end; Herkules is upper/western.
@@ -326,6 +329,8 @@ export async function createMapLibreTerrainSpatialAdapter(element, graph, initia
   let userPosition = null;
   let terrainEnabled = true;
   let terrainVerified = false;
+  let terrainVerifyAttempts = 0;
+  let terrainVerifyTimer = null;
   let destroyed = false;
   let heritageLayer = null;
   let heritageInstallPromise = null;
@@ -355,70 +360,128 @@ export async function createMapLibreTerrainSpatialAdapter(element, graph, initia
   map.on('error', (event) => {
     if (!terrainEnabled || !isTerrainSourceError(event)) return;
     terrainEnabled = false;
+    clearTerrainVerifyTimer();
     try {
       map.setTerrain(null);
     } catch {
       // The flat MapLibre fallback remains usable even if style teardown raced.
     }
     element.dataset.spatialTerrainState = 'flat-fallback';
+    element.dataset.spatialTerrainReady = 'flat';
+    element.dataset.spatialTerrainVerified = 'failed';
+    element.dataset.spatialTerrainActive = 'false';
     element.dataset.spatialTerrainError = 'terrain-source-unavailable';
     heritageLayer?.setTerrainAvailable?.(false);
     disableHeritageLayer('terrain-unavailable', 'terrain-source-unavailable');
   });
   map.addControl(new NavigationControl({ showCompass: true, showZoom: true, visualizePitch: true }), 'bottom-right');
 
+  function clearTerrainVerifyTimer() {
+    if (terrainVerifyTimer == null) return;
+    globalThis.clearTimeout?.(terrainVerifyTimer);
+    terrainVerifyTimer = null;
+  }
+
+  function terrainIsActive() {
+    if (typeof map.getTerrain !== 'function') return false;
+    return map.getTerrain()?.source === TERRAIN_SOURCE_ID;
+  }
+
+  function failTerrainVerification(reason) {
+    clearTerrainVerifyTimer();
+    terrainEnabled = false;
+    terrainVerified = false;
+    try { map.setTerrain(null); } catch { /* flat fallback remains usable */ }
+    element.dataset.spatialTerrainState = 'flat-fallback';
+    element.dataset.spatialTerrainReady = 'flat';
+    element.dataset.spatialTerrainVerified = 'failed';
+    element.dataset.spatialTerrainActive = 'false';
+    element.dataset.spatialTerrainError = reason;
+    heritageLayer?.setTerrainAvailable?.(false);
+    disableHeritageLayer('terrain-unavailable', reason);
+  }
+
   function activateTerrain() {
     if (!terrainEnabled || destroyed) return false;
+    // A style-level terrain declaration already creates the Terrain instance.
+    // MapLibre setTerrain() destroys/recreates an existing instance, so only
+    // call it when context/style recovery has genuinely left terrain inactive.
+    if (terrainIsActive()) {
+      element.dataset.spatialTerrainActive = 'true';
+      return true;
+    }
     try {
       map.setTerrain({ source: TERRAIN_SOURCE_ID, exaggeration: manifest.terrain_exaggeration });
       terrainVerified = false;
+      terrainVerifyAttempts = 0;
       element.dataset.spatialTerrainReady = 'pending';
       element.dataset.spatialTerrainVerified = 'pending';
+      element.dataset.spatialTerrainActive = 'true';
       return true;
     } catch {
+      element.dataset.spatialTerrainActive = 'false';
       return false;
     }
   }
 
   function verifyTerrainRise() {
     if (!terrainEnabled || terrainVerified || destroyed || typeof map.queryTerrainElevation !== 'function') return false;
+    terrainVerifyAttempts += 1;
+    element.dataset.spatialTerrainVerifyAttempts = String(terrainVerifyAttempts);
+    if (!terrainIsActive()) {
+      element.dataset.spatialTerrainActive = 'false';
+      return false;
+    }
+    element.dataset.spatialTerrainActive = 'true';
+
     const lower = map.queryTerrainElevation(
       [CASCADES_TERRAIN_CONTROL.lower.lng, CASCADES_TERRAIN_CONTROL.lower.lat],
-      { exaggerated: false },
     );
     const upper = map.queryTerrainElevation(
       [CASCADES_TERRAIN_CONTROL.upper.lng, CASCADES_TERRAIN_CONTROL.upper.lat],
-      { exaggerated: false },
     );
     const sanity = terrainRiseSanity(lower, upper);
-    // A control tile may not be resident yet. Stay pending instead of producing a
-    // false failure; source errors still go through the existing fail-closed path.
-    if (sanity.lowerM == null || sanity.upperM == null) return false;
+    // MapLibre returns null while terrain is inactive and may return 0 while a
+    // requested DEM parent is not resident. Bergpark's reviewed DGM1 elevations
+    // are safely above 150 m, so neither sentinel is accepted as real relief.
+    if (
+      sanity.lowerM == null
+      || sanity.upperM == null
+      || sanity.lowerM < TERRAIN_MIN_PLAUSIBLE_ELEVATION_M
+      || sanity.upperM < TERRAIN_MIN_PLAUSIBLE_ELEVATION_M
+    ) return false;
 
     element.dataset.spatialTerrainLowerM = sanity.lowerM.toFixed(3);
     element.dataset.spatialTerrainUpperM = sanity.upperM.toFixed(3);
     element.dataset.spatialTerrainRiseM = sanity.riseM.toFixed(3);
     if (!sanity.ok) {
-      terrainEnabled = false;
-      try { map.setTerrain(null); } catch { /* flat fallback remains usable */ }
-      element.dataset.spatialTerrainState = 'flat-fallback';
-      element.dataset.spatialTerrainReady = 'flat';
-      element.dataset.spatialTerrainVerified = 'failed';
-      element.dataset.spatialTerrainError = 'terrain-elevation-direction-invalid';
-      heritageLayer?.setTerrainAvailable?.(false);
-      disableHeritageLayer('terrain-unavailable', 'terrain-elevation-direction-invalid');
+      failTerrainVerification('terrain-elevation-direction-invalid');
       return false;
     }
 
     terrainVerified = true;
+    clearTerrainVerifyTimer();
     element.dataset.spatialTerrainReady = 'true';
     element.dataset.spatialTerrainVerified = 'cascades-rise';
     delete element.dataset.spatialTerrainError;
     if (typeof map.setCenterElevation === 'function') {
-      const centerElevation = map.queryTerrainElevation(map.getCenter(), { exaggerated: false });
+      const centerElevation = map.queryTerrainElevation(map.getCenter());
       if (Number.isFinite(centerElevation)) map.setCenterElevation(centerElevation);
     }
     return true;
+  }
+
+  function scheduleTerrainVerification({ immediate = false } = {}) {
+    if (!terrainEnabled || terrainVerified || destroyed || terrainVerifyTimer != null) return;
+    if (terrainVerifyAttempts >= TERRAIN_VERIFY_MAX_ATTEMPTS) {
+      failTerrainVerification('terrain-elevation-unavailable');
+      return;
+    }
+    const delay = immediate ? 0 : TERRAIN_VERIFY_INTERVAL_MS;
+    terrainVerifyTimer = globalThis.setTimeout(() => {
+      terrainVerifyTimer = null;
+      if (!verifyTerrainRise()) scheduleTerrainVerification();
+    }, delay);
   }
 
   element.dataset.terrainEncoding = manifest.encoding;
@@ -430,6 +493,8 @@ export async function createMapLibreTerrainSpatialAdapter(element, graph, initia
   element.dataset.spatialTerrainState = 'terrain';
   element.dataset.spatialTerrainReady = 'pending';
   element.dataset.spatialTerrainVerified = 'pending';
+  element.dataset.spatialTerrainActive = 'pending';
+  element.dataset.spatialTerrainVerifyAttempts = '0';
   element.dataset.spatialHeritageId = 'aquaedukt';
   element.dataset.spatialHeritageLayer = 'terrain-heritage-aquaedukt';
   element.dataset.spatialHeritageDepth = 'shared';
@@ -581,12 +646,19 @@ export async function createMapLibreTerrainSpatialAdapter(element, graph, initia
     const id = event.features?.[0]?.properties?.id;
     if (id) onSelectFeature?.(String(id));
   });
+  map.on('sourcedata', (event) => {
+    if (destroyed || !terrainEnabled || terrainVerified || event?.sourceId !== TERRAIN_SOURCE_ID) return;
+    scheduleTerrainVerification({ immediate: true });
+  });
   map.on('webglcontextlost', () => {
     if (destroyed || heritageDisabled) return;
     heritageContextLost = true;
     terrainVerified = false;
+    terrainVerifyAttempts = 0;
+    clearTerrainVerifyTimer();
     element.dataset.spatialTerrainReady = 'pending';
     element.dataset.spatialTerrainVerified = 'pending';
+    element.dataset.spatialTerrainActive = 'false';
     element.dataset.spatialHeritageState = 'context-lost';
     element.dataset.spatialHeritageRendered = 'false';
   });
@@ -594,6 +666,8 @@ export async function createMapLibreTerrainSpatialAdapter(element, graph, initia
     if (destroyed || heritageDisabled) return;
     heritageContextLost = false;
     terrainVerified = false;
+    terrainVerifyAttempts = 0;
+    element.dataset.spatialTerrainActive = 'pending';
     element.dataset.spatialHeritageState = 'restoring';
     element.dataset.spatialHeritageRendered = 'false';
     // MapLibre calls setStyle() before this event; its subsequent style.load
@@ -603,14 +677,16 @@ export async function createMapLibreTerrainSpatialAdapter(element, graph, initia
     if (terrainEnabled) activateTerrain();
     syncSources();
     void ensureHeritageLayer();
+    scheduleTerrainVerification({ immediate: true });
   });
   map.on('load', () => {
     if (terrainEnabled) activateTerrain();
     syncSources();
     void ensureHeritageLayer();
+    scheduleTerrainVerification({ immediate: true });
   });
   map.on('idle', () => {
-    if (!destroyed && terrainEnabled && !terrainVerified) verifyTerrainRise();
+    scheduleTerrainVerification({ immediate: true });
   });
   syncPlaceMarkers();
 
@@ -712,6 +788,7 @@ export async function createMapLibreTerrainSpatialAdapter(element, graph, initia
     },
     destroy() {
       destroyed = true;
+      clearTerrainVerifyTimer();
       heritageDisabled = true;
       removeHeritageLayer();
       for (const { marker } of placeMarkers.values()) marker.remove();
