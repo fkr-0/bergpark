@@ -78,3 +78,23 @@ test('destination list remains DOM-bounded before a query', async ({ page }) => 
   await expect(rows).toHaveCount(80);
   await expect(page.locator('.destination-search-summary')).toContainText(/80 von .* Zielen/);
 });
+
+test('almanac exposes the deferred walking network as a bounded canonical discovery category', async ({ page }) => {
+  const errors = captureRuntimeErrors(page);
+  const search = await openSearch(page);
+  await expect(page.locator('[data-network-discovery]')).toBeVisible();
+
+  await page.getByLabel('Almanach filtern').selectOption('walk');
+  await search.fill('steps');
+  const results = page.locator('[data-destination-kind="network"]');
+  await expect(results.first()).toBeVisible();
+  expect(await results.count()).toBeLessThanOrEqual(80);
+
+  const first = results.first();
+  const canonicalId = await first.getAttribute('data-destination-id');
+  expect(canonicalId).toMatch(/^path(?:node|seg)-/);
+  await first.click();
+  await expect(page.getByRole('button', { name: 'Karte' })).toHaveClass(/is-active/);
+  await expect(page.locator('#map-status')).toContainText(canonicalId);
+  expect(errors).toEqual([]);
+});

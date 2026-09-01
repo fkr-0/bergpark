@@ -59,6 +59,8 @@ test('unified companion almanac preserves canonical IDs and separates source evi
   const walk = searchCompanionAlmanac(almanac, 'steps', 'en', { category: 'walk' });
   assert.equal(walk.results[0].id, 'pathseg-a');
   assert.equal(walk.results[0].canonicalId, 'pathseg-a');
+  assert.equal(walk.results[0].networkDiscovery.id, 'pathseg-a');
+  assert.deepEqual(walk.results[0].networkDiscovery.position, { lat: 51.3161, lng: 9.4001 });
   assert.deepEqual(walk.results[0].runtimeEvidence.map(({ id }) => id), ['walking-network']);
 
   const nearby = nearbyCompanionEntries(almanac, place, { radiusM: 100, excludeId: place.id });

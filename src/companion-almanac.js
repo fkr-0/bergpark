@@ -99,6 +99,7 @@ function networkEntry(result, language) {
     coordinate,
     spatial: Boolean(coordinate),
     item: result.source,
+    networkDiscovery: result,
     networkKind: result.kind,
     facets: [{ values: [result.kind, kindLabel], label: kindLabel }],
     keywords: [result.id, ...(result.keywords ?? [])].filter(Boolean),

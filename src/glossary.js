@@ -1,5 +1,6 @@
 import { createDestinationIndex, searchDestinationIndex } from './destination-search.js';
 import { createNetworkDiscoveryIndex, searchNetworkDiscovery } from './discovery.js';
+import { createCompanionAlmanac, searchCompanionAlmanac } from './companion-almanac.js';
 
 function escapeHtml(value = '') {
   return String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#039;');
@@ -28,7 +29,20 @@ export function renderGlossary(container, {
   const previousNetworkQuery = container.querySelector('[data-network-search]')?.value ?? '';
   const previousNetworkKind = container.querySelector('[data-network-filter]')?.value ?? 'all';
   const networkWasOpen = container.querySelector('[data-network-discovery]')?.open ?? false;
-  const index = createDestinationIndex({ entities: nodes, nodeIds, trees, visitorFeatures, language });
+  const almanac = createCompanionAlmanac({ entities: nodes, nodeIds, trees, visitorFeatures, language });
+  let walkAlmanac = null;
+  const ensureWalkAlmanac = () => {
+    if (!walkingNetwork) return almanac;
+    walkAlmanac ??= createCompanionAlmanac({
+      entities: nodes,
+      nodeIds,
+      trees,
+      visitorFeatures,
+      walkingNetwork,
+      language,
+    });
+    return walkAlmanac;
+  };
   container.innerHTML = `
     <section class="panel-view" aria-labelledby="glossary-title">
       <header class="panel-view__header">
@@ -43,6 +57,7 @@ export function renderGlossary(container, {
           <option value="story">${escapeHtml(i18n.t('almanacStories'))}</option>
           <option value="tree">${escapeHtml(i18n.t('almanacTrees'))}</option>
           <option value="feature">${escapeHtml(i18n.t('almanacFeatures'))}</option>
+          <option value="walk">${escapeHtml(i18n.t('pathNetwork'))}</option>
         </select></label>
       </div>
       <p class="destination-search-summary" role="status"></p>
@@ -73,15 +88,23 @@ export function renderGlossary(container, {
   if (filter) filter.value = previousCategory;
 
   function update() {
-    const matches = searchDestinationIndex(index, input.value, language, { category: filter?.value ?? 'all' });
-    summary.textContent = i18n.t('destinationResultCount', matches.results.length, matches.total);
+    const category = filter?.value ?? 'all';
+    const activeAlmanac = category === 'walk' ? ensureWalkAlmanac() : almanac;
+    const matches = searchCompanionAlmanac(activeAlmanac, input.value, language, { category });
+    summary.textContent = category === 'walk'
+      ? (walkingNetwork
+        ? i18n.t('pathNetworkResultCount', matches.results.length, matches.total)
+        : i18n.t('pathNetworkLoading'))
+      : i18n.t('destinationResultCount', matches.results.length, matches.total);
     list.innerHTML = matches.results.length
       ? matches.results.map((result) => {
           const idAttribute = result.routeKind === 'place'
             ? `data-node-id="${escapeHtml(result.id)}"`
             : result.routeKind === 'tree'
               ? `data-tree-id="${escapeHtml(result.id)}"`
-              : `data-feature-id="${escapeHtml(result.id)}"`;
+              : result.routeKind === 'feature'
+                ? `data-feature-id="${escapeHtml(result.id)}"`
+                : `data-network-id="${escapeHtml(result.id)}"`;
           const context = [result.context, result.matchLabel && result.matchLabel !== result.context ? result.matchLabel : ''].filter(Boolean).join(' · ');
           return `<button type="button" data-destination-kind="${escapeHtml(result.routeKind)}" data-destination-id="${escapeHtml(result.id)}" data-spatial="${result.spatial ? 'true' : 'false'}" ${idAttribute}>
             <span class="destination-result__main"><strong>${escapeHtml(result.title)}</strong><small>${escapeHtml(result.kindLabel)}</small></span>
@@ -91,10 +114,11 @@ export function renderGlossary(container, {
       : `<p class="empty-state">${i18n.t('noResults')}</p>`;
     for (const button of list.querySelectorAll('[data-destination-id]')) {
       button.addEventListener('click', () => {
-        const result = index.find(({ id, routeKind }) => id === button.dataset.destinationId && routeKind === button.dataset.destinationKind);
+        const result = activeAlmanac.entries.find(({ id, routeKind }) => id === button.dataset.destinationId && routeKind === button.dataset.destinationKind);
         if (!result) return;
         if (result.routeKind === 'tree') onSelectTree?.(result.id, { source: 'search' });
         else if (result.routeKind === 'feature') onSelectFeature?.(result.item, { source: 'search' });
+        else if (result.routeKind === 'network') onSelectNetwork?.(result.networkDiscovery);
         else onSelectNode?.(result.id);
       });
     }
