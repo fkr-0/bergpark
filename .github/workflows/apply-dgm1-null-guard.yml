@@ -1,0 +1,29 @@
+name: Apply DGM1 terrain null guard
+
+on:
+  push:
+    branches:
+      - 'fix/dgm1-terrain-relief-null'
+    paths:
+      - '.github/workflows/apply-dgm1-null-guard.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: 'fix/dgm1-terrain-relief-null'
+          fetch-depth: 0
+      - run: python scripts/apply_dgm1_null_guard.py
+      - run: node --check src/maplibre-map.js
+      - run: |
+          git rm .github/workflows/apply-dgm1-null-guard.yml scripts/apply_dgm1_null_guard.py
+          git config user.name 'bergpark-ci'
+          git config user.email '26308101+fkr-0@users.noreply.github.com'
+          git add src/maplibre-map.js
+          git commit -m 'fix: reject unloaded DGM1 terrain controls'
+          git push origin HEAD:fix/dgm1-terrain-relief-null
