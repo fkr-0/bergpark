@@ -31,6 +31,12 @@ test('MapLibre terrain style is bounded to the committed Terrarium derivative wi
   assert.match(dem.attribution, /dl-zero-de\/2\.0/);
 });
 
+test('MapLibre v6 worker is explicitly bundled for the Vite runtime', async () => {
+  const source = await readFile(new URL('../src/maplibre-map.js', import.meta.url), 'utf8');
+  assert.match(source, /maplibre-gl\/dist\/maplibre-gl-worker\.mjs\?worker&url/);
+  assert.match(source, /setWorkerUrl\(mapLibreWorkerUrl\)/);
+});
+
 test('renderer manifest rejects unbounded zoom, exaggerated units, inverted bounds and provenance drift', async () => {
   const terrain = await manifest();
   for (const mutation of [
