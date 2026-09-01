@@ -32,6 +32,7 @@ app.innerHTML = `
         <h1 data-i18n="appTitle"></h1>
       </div>
       <div class="topbar-actions">
+        <button id="renderer-switch" class="renderer-switch" type="button" aria-label="Geländemodus wechseln" aria-pressed="false">3D</button>
         <button id="language" class="language-button" type="button" aria-label="Sprache wechseln">EN</button>
         <button id="locate" class="locate-button" type="button">
           <span aria-hidden="true">◎</span><span data-i18n="locate"></span>
@@ -54,6 +55,7 @@ app.innerHTML = `
 `;
 
 const elements = {
+  rendererSwitch: document.querySelector('#renderer-switch'),
   language: document.querySelector('#language'),
   locate: document.querySelector('#locate'),
   status: document.querySelector('#map-status'),
@@ -84,6 +86,9 @@ let supplementalHydrationPromise = null;
 let supplementalHydrationTimer = null;
 let walkingNetworkDescriptor = null;
 let walkingNetworkState = 'loading';
+let latestUserPosition = null;
+let spatialSwitchPromise = null;
+let activeTreeFilterIds = null;
 let walkingRouteError = null;
 
 function syncDeepLink(kind, id, mode = 'push') {
@@ -210,15 +215,12 @@ function scheduleWalkingNetworkHydration() {
   }), 1500);
 }
 
-function applySupplementalGraph(hydratedGraph) {
-  graph = hydratedGraph;
-  spatialWorld = createSpatialWorld(graph);
+function bindSpatialOverlays() {
   treeMapController?.destroy();
   visitorLayerController?.destroy();
-  mapController?.setWorld(spatialWorld);
-  // Slice 0 keeps these viewport-driven Leaflet overlays behind one explicit,
-  // temporary compatibility surface. MapLibre consumes the same SpatialWorld
-  // through the controller instead; core orchestration never receives either map.
+  treeMapController = null;
+  visitorLayerController = null;
+  if (!graph?.trees || !graph?.visitorLayers) return;
   const leafletCompatibility = mapController?.compatibilitySurface(LEAFLET_OVERLAY_COMPATIBILITY);
   if (leafletCompatibility?.map) {
     treeMapController = createTreeMapLayer(leafletCompatibility.map, graph.trees, {
@@ -246,6 +248,13 @@ function applySupplementalGraph(hydratedGraph) {
     };
   }
   renderVisitorLayersControl();
+}
+
+function applySupplementalGraph(hydratedGraph) {
+  graph = hydratedGraph;
+  spatialWorld = createSpatialWorld(graph);
+  mapController?.setWorld(spatialWorld);
+  bindSpatialOverlays();
   document.querySelector('#map').dataset.supplementalData = 'ready';
 
   if (currentView !== 'map' && !currentTreeId && !currentVisitorFeatureId) setView(currentView);
@@ -291,6 +300,147 @@ function setStatus(message, transient = false) {
   elements.status.textContent = message;
   if (transient) elements.status.dataset.transient = 'true';
   else delete elements.status.dataset.transient;
+}
+
+function spatialPreferenceUrl(preference) {
+  const url = new URL(location.href);
+  if (preference === 'auto') {
+    url.searchParams.delete('renderer');
+    url.searchParams.delete('spatialRenderer');
+  } else {
+    url.searchParams.set('renderer', preference);
+    url.searchParams.delete('spatialRenderer');
+  }
+  return `${url.pathname}${url.search}${url.hash}`;
+}
+
+function syncSpatialPreference(preference) {
+  const next = spatialPreferenceUrl(preference);
+  if (next !== `${location.pathname}${location.search}${location.hash}`) history.replaceState(null, '', next);
+}
+
+function renderRendererSwitch() {
+  const terrain = mapController?.renderer === 'terrain';
+  elements.rendererSwitch.disabled = Boolean(spatialSwitchPromise);
+  elements.rendererSwitch.setAttribute('aria-pressed', String(terrain));
+  elements.rendererSwitch.setAttribute('aria-label', terrain
+    ? (i18n.language === 'de' ? 'Zur 2D-Ansicht wechseln' : 'Switch to the 2D view')
+    : (i18n.language === 'de' ? '3D-Geländemodus öffnen' : 'Open 3D terrain mode'));
+  elements.rendererSwitch.dataset.renderer = terrain ? 'terrain' : 'leaflet';
+  elements.rendererSwitch.textContent = terrain ? '2D' : '3D';
+  elements.rendererSwitch.title = terrain
+    ? (i18n.language === 'de' ? 'Zur normalen Karte wechseln' : 'Switch to the standard map')
+    : (i18n.language === 'de' ? 'Geländemodus öffnen' : 'Open terrain mode');
+}
+
+function restoreSpatialPresentation() {
+  if (!mapController) return;
+  mapController.setWorld(spatialWorld);
+  if (walkingNetworkState === 'ready') mapController.setWalkingNetwork(walkingNetworkDescriptor);
+  if (latestUserPosition) mapController.setUserPosition(latestUserPosition);
+  treeMapController?.setVisible(currentView === 'trees');
+  if (activeTreeFilterIds) {
+    const filteredTrees = graph.trees.filter(({ id }) => activeTreeFilterIds.includes(id));
+    treeMapController?.setTrees(filteredTrees);
+  }
+  visitorLayerController?.setActiveKinds([...activeVisitorKinds]);
+
+  if (currentRoute?.kind === 'network') {
+    const rendered = mapController.showRoute({
+      id: currentRoute.route.id,
+      coordinates: currentRoute.route.coordinates,
+      distanceM: currentRoute.route.distanceM,
+      walkingMin: currentRoute.route.walkingMin,
+    });
+    if (rendered) renderCurrentWalkingRoute();
+    return;
+  }
+  if (currentRoute?.kind === 'direct') {
+    const routeDescriptor = currentRoute.edge?.id ? spatialWorld?.routesById.get(currentRoute.edge.id) : null;
+    if (routeDescriptor && mapController.showRoute(routeDescriptor)) {
+      renderRouteDetail(elements.detail, {
+        edge: currentRoute.edge,
+        from: graph.nodesById.get(currentRoute.fromId),
+        to: graph.nodesById.get(currentRoute.toId),
+        i18n,
+        onSelectNode: selectEntity,
+        onClose: closeRouteDetail,
+      });
+    } else {
+      currentRoute = null;
+    }
+    return;
+  }
+  if (currentNodeId) {
+    mapController.focusPlace(currentNodeId, { popup: false });
+  } else if (currentTreeId) {
+    const descriptor = spatialWorld?.treesById.get(currentTreeId);
+    if (descriptor) mapController.focusPosition(descriptor.position, { minZoom: 17, duration: 0 });
+  } else if (currentVisitorFeatureId) {
+    const descriptor = spatialWorld?.visitorFeaturesById.get(currentVisitorFeatureId);
+    if (descriptor) mapController.focusPosition(descriptor.position, { minZoom: 17, duration: 0 });
+  } else if (currentView === 'map') {
+    mapController.fitWorld();
+  }
+}
+
+async function switchSpatialRenderer(nextPreference) {
+  const preference = nextPreference === 'terrain' ? 'terrain' : 'auto';
+  const current = mapController;
+  const expectedRenderer = preference === 'terrain' ? 'terrain' : 'leaflet';
+  if (!graph || spatialSwitchPromise || (current?.requestedRenderer === preference && current?.renderer === expectedRenderer)) return;
+  spatialSwitchPromise = (async () => {
+    const wasVisibleDetail = !elements.detail.hidden;
+    treeMapController?.destroy();
+    visitorLayerController?.destroy();
+    current?.destroy();
+    mapController = null;
+    try {
+      mapController = await createBrowserSpatialController({
+        element: document.querySelector('#map'),
+        graph,
+        world: spatialWorld,
+        language: i18n.language,
+        preference,
+        onSelectPlace: (id) => selectNode(id),
+        onSelectTree: (id) => selectTree(id, { source: 'map' }),
+        onSelectFeature: (id) => {
+          const feature = graph?.visitorFeaturesById.get(id);
+          if (feature) selectVisitorFeature(feature);
+        },
+        onLocationError: () => setStatus(i18n.t('gpsUnavailable'), true),
+      });
+      bindSpatialOverlays();
+      elements.detail.hidden = !wasVisibleDetail;
+      restoreSpatialPresentation();
+      syncSpatialPreference(preference);
+    } catch (error) {
+      console.warn('Spatial renderer switch failed:', error);
+      mapController = await createBrowserSpatialController({
+        element: document.querySelector('#map'),
+        graph,
+        world: spatialWorld,
+        language: i18n.language,
+        preference: 'auto',
+        onSelectPlace: (id) => selectNode(id),
+        onSelectTree: (id) => selectTree(id, { source: 'map' }),
+        onSelectFeature: (id) => {
+          const feature = graph?.visitorFeaturesById.get(id);
+          if (feature) selectVisitorFeature(feature);
+        },
+        onLocationError: () => setStatus(i18n.t('gpsUnavailable'), true),
+      });
+      bindSpatialOverlays();
+      elements.detail.hidden = !wasVisibleDetail;
+      restoreSpatialPresentation();
+      syncSpatialPreference('auto');
+      setStatus(i18n.t('loadError'), true);
+    } finally {
+      spatialSwitchPromise = null;
+      renderRendererSwitch();
+    }
+  })();
+  await spatialSwitchPromise;
 }
 
 function renderVisitorLayersControl() {
@@ -377,7 +527,10 @@ function setView(view, { reusePanel = false } = {}) {
       metadata: graph.metadata,
       i18n,
       onSelectTree: selectTree,
-      onFilterChange: (trees) => treeMapController?.setTrees(trees),
+      onFilterChange: (trees) => {
+        activeTreeFilterIds = trees.map(({ id }) => id);
+        treeMapController?.setTrees(trees);
+      },
     });
   }
 }
@@ -579,6 +732,7 @@ function setupGps() {
     nodes: graph.nodes,
     radiusM: 30,
     onPosition(position) {
+      latestUserPosition = position;
       mapController.setUserPosition(position);
     },
     onEnter(node) {
@@ -672,6 +826,7 @@ async function boot() {
   });
   setupGps();
   mapController.fitWorld();
+  renderRendererSwitch();
   setStatus(i18n.t('mapHint'));
   restoreDeepLink({ force: true });
   scheduleSupplementalHydration();
@@ -686,11 +841,15 @@ for (const button of elements.nav) {
   });
 }
 
+elements.rendererSwitch.addEventListener('click', () => {
+  void switchSpatialRenderer(mapController?.renderer === 'terrain' ? 'auto' : 'terrain');
+});
 elements.language.addEventListener('click', () => i18n.toggle());
 i18n.subscribe(() => {
   renderChrome();
   mapController?.setLanguage(i18n.language);
   treeMapController?.updateLanguage(i18n.language);
+  renderRendererSwitch();
   visitorLayerController?.updateLanguage(i18n.language);
   renderVisitorLayersControl();
   if (currentRoute?.kind === 'network' && !elements.detail.hidden) {

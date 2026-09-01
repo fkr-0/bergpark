@@ -372,6 +372,7 @@ h1 { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: clamp
 .maplibregl-ctrl-attrib { font-size: 10px; }
 
 .topbar-actions { display: flex; align-items: center; gap: .45rem; }
+.renderer-switch,
 .language-button,
 .icon-button {
   display: grid;
@@ -386,6 +387,7 @@ h1 { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: clamp
   font-weight: 800;
   cursor: pointer;
 }
+.renderer-switch[aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--gold); }
 .locate-button.is-active { box-shadow: inset 0 0 0 2px var(--gold); }
 
 .panel-overlay {

@@ -1508,7 +1508,30 @@ Authority and regression audit:
   48/48 green. Python remains the exact inherited 86/87 only at `tests/test_semantic.py:136`;
   the stale `tests/e2e/phase6-integration.spec.js` fixture remains unchanged and out of scope.
 
-The smallest truthful continuation is external qualification only: attach and authorize the
+### Integration-seam continuation — 2026-09-01
+
+The visitor product now has a same-session renderer switch in the shared top-level chrome. Leaflet
+remains the default; activating the switch replaces the existing renderer rather than mounting a
+second map. The controller accepts an explicit in-session renderer preference, while canonical
+selection, current view, route state, language, GPS position, visitor filters and the bounded tree
+filter remain in the main orchestration and are rehydrated into the replacement renderer.
+
+The switch also rebuilds the named Leaflet compatibility overlays whenever a Leaflet adapter is
+created, preventing stale tree/visitor layer references from surviving a terrain transition.
+Renderer preference is reflected in the URL without creating a second deep-link namespace;
+returning to the default map removes the explicit renderer query while preserving the canonical
+hash identity.
+
+The new product-shaped headed Chromium qualification covers same-session Leaflet -> terrain ->
+Leaflet switching, landmark selection, direct-route detail with DGM1 elevation evidence, route
+detail return, canonical deep-link continuity, offline reload of warmed content, terrain-init
+failure recovery, shared-depth model failure recovery, and final selection continuity. The
+focused integration matrix is 9/9 green and the current spatial/navigation Node matrix is 36/36;
+`pnpm run check` is green with 120 Node tests + 2 Vitest tests + 87 Python tests, production build
+and runtime budgets green. This continuation does not change DGM1, route calculation, heritage
+geometry, or the one-object shared-depth architecture.
+
+The smallest truthful continuation remains external qualification only: attach and authorize the
 representative physical mobile browser/device required by this architecture, collect sustained
 interaction + idle p95/thermal/battery/GPU-memory/context evidence, and exercise a real
 screen-reader fixture if screen-reader product acceptance is required. Until those fixtures

@@ -96,6 +96,7 @@ export async function createBrowserSpatialController({
   onSelectTree,
   onSelectFeature,
   onLocationError,
+  preference = null,
 }) {
   let storage = null;
   try {
@@ -103,9 +104,11 @@ export async function createBrowserSpatialController({
   } catch {
     storage = null;
   }
-  const preference = readSpatialPreference({ search: globalThis.location?.search ?? '', storage });
+  const requestedPreference = preference == null
+    ? readSpatialPreference({ search: globalThis.location?.search ?? '', storage })
+    : normalizeSpatialPreference(preference);
   const capabilities = detectSpatialCapabilities();
-  const requestedSelection = selectSpatialRenderer({ preference, capabilities });
+  const requestedSelection = selectSpatialRenderer({ preference: requestedPreference, capabilities });
   let selection = requestedSelection;
   let adapter = null;
 
