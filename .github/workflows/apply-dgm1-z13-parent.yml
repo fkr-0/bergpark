@@ -1,0 +1,47 @@
+name: Apply DGM1 z13 parent level
+
+on:
+  push:
+    branches: [fix/dgm1-z13-parent]
+    paths: [.github/workflows/apply-dgm1-z13-parent.yml]
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: fix/dgm1-z13-parent
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+      - name: Install dependencies
+        run: |
+          python -m pip install --requirement requirements-python.txt
+          corepack enable
+          corepack install --global pnpm@11.3.0
+          pnpm install --frozen-lockfile
+      - name: Extend and rebuild DGM1 derivative
+        run: |
+          python scripts/apply-dgm1-z13-parent.py
+          python terrain/pipeline/maplibre_dem.py build --replace
+          python scripts/apply-dgm1-z13-parent.py --finalize-docs
+      - name: Validate derivative and focused contracts
+        run: |
+          python terrain/pipeline/maplibre_dem.py validate
+          python -m unittest tests.test_maplibre_dem
+          node --check src/maplibre-map.js
+          node --test tests/maplibre-terrain.test.mjs tests/terrain-relief-guard.test.mjs tests/terrain-runtime-lifecycle.test.mjs
+          git diff --check
+      - name: Commit product patch
+        run: |
+          git rm .github/workflows/apply-dgm1-z13-parent.yml scripts/apply-dgm1-z13-parent.py
+          git config user.name 'bergpark-ci'
+          git config user.email '26308101+fkr-0@users.noreply.github.com'
+          git add terrain/pipeline/maplibre_dem.py terrain/README.md public/terrain/dgm1-terrarium src/maplibre-map.js tests/test_maplibre_dem.py tests/maplibre-terrain.test.mjs
+          git commit -m 'fix: add DGM1 parent level for MapLibre terrain'
+          git push origin HEAD:fix/dgm1-z13-parent
