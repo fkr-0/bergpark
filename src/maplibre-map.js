@@ -23,8 +23,8 @@ function finite(value) {
 }
 
 export function terrainRiseSanity(lowerElevation, upperElevation, minRiseM = CASCADES_TERRAIN_CONTROL.minRiseM) {
-  const lowerM = finite(lowerElevation);
-  const upperM = finite(upperElevation);
+  const lowerM = lowerElevation == null ? null : finite(lowerElevation);
+  const upperM = upperElevation == null ? null : finite(upperElevation);
   const riseM = lowerM == null || upperM == null ? null : upperM - lowerM;
   return {
     ok: riseM != null && riseM >= minRiseM,
