@@ -7,6 +7,7 @@ test('DGM1 runtime mesh proves the side-view cascades rise before terrain is rea
   const map = page.locator('#map');
   await expect(map).toHaveAttribute('data-spatial-renderer', 'terrain');
   await expect(map).toHaveAttribute('data-spatial-terrain-state', 'terrain');
+  await expect(map).toHaveAttribute('data-spatial-terrain-active', 'true');
   await expect(map).toHaveAttribute('data-spatial-terrain-ready', 'true', { timeout: 20_000 });
   await expect(map).toHaveAttribute('data-spatial-terrain-verified', 'cascades-rise');
 
