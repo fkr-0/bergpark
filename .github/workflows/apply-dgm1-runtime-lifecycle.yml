@@ -16,6 +16,11 @@ jobs:
         with:
           ref: fix/dgm1-terrain-runtime-lifecycle
           fetch-depth: 0
+      - name: Enable pnpm and install dependencies
+        run: |
+          corepack enable
+          corepack install --global pnpm@11.3.0
+          pnpm install --frozen-lockfile
       - name: Apply patch
         run: python scripts/apply-dgm1-runtime-lifecycle.py
       - name: Focused syntax and unit checks
