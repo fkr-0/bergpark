@@ -1,0 +1,35 @@
+name: Qualify MapLibre v6 worker
+
+on:
+  push:
+    branches:
+      - fix/maplibre-v6-worker
+
+permissions:
+  contents: read
+
+jobs:
+  qualify:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: fix/maplibre-v6-worker
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+      - name: Install dependencies
+        run: |
+          corepack enable
+          corepack install --global pnpm@11.3.0
+          pnpm install --frozen-lockfile
+      - name: Unit and build qualification
+        run: |
+          node --test tests/maplibre-terrain.test.mjs tests/terrain-relief-guard.test.mjs tests/terrain-runtime-lifecycle.test.mjs
+          pnpm exec biome check src/maplibre-map.js tests/maplibre-terrain.test.mjs
+          pnpm run build
+          test -n "$(find dist/assets -maxdepth 1 -type f -name '*worker*' -print -quit)"
+      - name: Install Chromium
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Focused terrain browser acceptance
+        run: pnpm exec playwright test tests/e2e/terrain-relief-regression.spec.js tests/e2e/phase4-maplibre-terrain.spec.js --project=chromium
