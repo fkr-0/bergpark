@@ -3,7 +3,7 @@
 
 This renderer derivative is intentionally downstream of the immutable Phase-3
 Float32 intermediate. It never downloads terrain and it never rewrites graph data.
-The only supported pyramid is the fixed Bergpark z14-z16 AOI.
+The only supported pyramid is the fixed Bergpark z13-z16 AOI.
 """
 
 from __future__ import annotations
@@ -24,7 +24,7 @@ from dgm1 import canonical_json, load_intermediate, sha256, utm32_inverse
 
 
 TILE_SIZE = 256
-ZOOMS = (14, 15, 16)
+ZOOMS = (13, 14, 15, 16)
 TERRARIUM_OFFSET_M = 32768.0
 TERRARIUM_QUANTIZATION_M = 1.0 / 256.0
 MAX_DERIVATIVE_BYTES = 8 * 1024 * 1024
@@ -249,7 +249,7 @@ def build_derivative(
     runtime_bounds = {key: float(runtime_bounds[key]) for key in ("west", "south", "east", "north")}
     native_bounds = [float(v) for v in artifact_manifest["bounds_epsg25832"]]
     counts = tile_count(runtime_bounds)
-    if counts != {14: 4, 15: 12, 16: 40}:
+    if counts != {13: 4, 14: 4, 15: 12, 16: 40}:
         raise ValueError(f"canonical AOI tile coverage drifted: {counts}")
 
     if output.exists():
@@ -371,8 +371,8 @@ def validate_derivative(
         raise ValueError("renderer derivative lost Phase-3 manifest provenance")
 
     tiles = manifest.get("tiles")
-    if not isinstance(tiles, list) or len(tiles) != 56:
-        raise ValueError("bounded derivative must contain exactly 56 tiles")
+    if not isinstance(tiles, list) or len(tiles) != 60:
+        raise ValueError("bounded derivative must contain exactly 60 tiles")
     expected_counts = {str(k): v for k, v in tile_count(runtime_bounds).items()}
     if manifest.get("tile_counts") != expected_counts:
         raise ValueError("tile coverage counts drifted")

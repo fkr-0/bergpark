@@ -49,8 +49,8 @@ export function validateTerrainManifest(manifest) {
   if (!manifest || typeof manifest !== 'object') throw new TypeError('terrain manifest is missing');
   if (manifest.format !== 'maplibre-raster-dem-terrarium-v1') throw new Error('unsupported terrain derivative format');
   if (manifest.encoding !== 'terrarium' || manifest.tile_size !== 256) throw new Error('invalid terrain tile encoding');
-  if (JSON.stringify(manifest.zooms) !== JSON.stringify([14, 15, 16])) throw new Error('terrain zoom pyramid is not the bounded z14-z16 authority');
-  if (manifest.tile_count !== 56 || manifest.tile_bytes > manifest.max_derivative_bytes) throw new Error('terrain derivative exceeds bounded tile/size contract');
+  if (JSON.stringify(manifest.zooms) !== JSON.stringify([13, 14, 15, 16])) throw new Error('terrain zoom pyramid is not the bounded z13-z16 authority');
+  if (manifest.tile_count !== 60 || manifest.tile_bytes > manifest.max_derivative_bytes) throw new Error('terrain derivative exceeds bounded tile/size contract');
   if (manifest.vertical_units !== 'metres' || manifest.terrain_exaggeration !== 1) throw new Error('terrain unit/exaggeration contract drifted');
   const bounds = manifest.renderer_bounds_wgs84;
   if (!Array.isArray(bounds) || bounds.length !== 4 || bounds.some((value) => finite(value) == null)) throw new Error('terrain renderer bounds are invalid');
@@ -86,7 +86,8 @@ export function buildTerrainStyle(manifest, { baseUrl = null } = {}) {
   validateTerrainManifest(manifest);
   const base = assetBaseUrl(baseUrl);
   const tileUrl = `${base}${manifest.tile_url_template}`;
-  const [minzoom, , maxzoom] = manifest.zooms;
+  const minzoom = manifest.zooms[0];
+  const maxzoom = manifest.zooms.at(-1);
   return {
     version: 8,
     sources: {

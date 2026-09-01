@@ -61,9 +61,10 @@
   "source_crs": "EPSG:25832",
   "terrain_exaggeration": 1.0,
   "terrarium_quantization_m": 0.00390625,
-  "tile_bytes": 4670817,
-  "tile_count": 56,
+  "tile_bytes": 4817250,
+  "tile_count": 60,
   "tile_counts": {
+    "13": 4,
     "14": 4,
     "15": 12,
     "16": 40
@@ -71,6 +72,38 @@
   "tile_size": 256,
   "tile_url_template": "terrain/dgm1-terrarium/{z}/{x}/{y}.png",
   "tiles": [
+    {
+      "bytes": 32632,
+      "path": "13/4309/2730.png",
+      "sha256": "171e8850f049c4c817f23f83f61fd023ea3c856298592dd9b62db59452a95f26",
+      "x": 4309,
+      "y": 2730,
+      "z": 13
+    },
+    {
+      "bytes": 39682,
+      "path": "13/4309/2731.png",
+      "sha256": "9bec134ea120be614197b5300d17df4a26ce16e316f2be0a587483b195013a01",
+      "x": 4309,
+      "y": 2731,
+      "z": 13
+    },
+    {
+      "bytes": 33138,
+      "path": "13/4310/2730.png",
+      "sha256": "14350756581d2995d305c2eb4b61bd659fd85f09796c38f5c85fb4f706454942",
+      "x": 4310,
+      "y": 2730,
+      "z": 13
+    },
+    {
+      "bytes": 40981,
+      "path": "13/4310/2731.png",
+      "sha256": "d526d71a157e6784f53fe218281aa739b4329e9a3bb5443ddde3b2011c604b37",
+      "x": 4310,
+      "y": 2731,
+      "z": 13
+    },
     {
       "bytes": 69300,
       "path": "14/8619/5461.png",
@@ -523,6 +556,7 @@
   "vertical_reference": "DHHN2016_NH",
   "vertical_units": "metres",
   "zooms": [
+    13,
     14,
     15,
     16

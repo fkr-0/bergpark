@@ -31,14 +31,14 @@ class MapLibreTerrainDerivativeTests(unittest.TestCase):
             maplibre_dem.EXPECTED_ARTIFACT_MANIFEST_SHA256,
         )
 
-    def test_fixed_park_aoi_is_exactly_56_tiles_across_three_zooms(self):
+    def test_fixed_park_aoi_is_exactly_60_tiles_across_four_zooms(self):
         source = json.loads((ROOT / "terrain/sources/hessen-dgm1.yml").read_text())
         self.assertEqual(
             maplibre_dem.tile_count(source["runtime_bounds_wgs84"]),
-            {14: 4, 15: 12, 16: 40},
+            {13: 4, 14: 4, 15: 12, 16: 40},
         )
         with self.assertRaises(ValueError):
-            maplibre_dem.tile_ranges(source["runtime_bounds_wgs84"], [13])
+            maplibre_dem.tile_ranges(source["runtime_bounds_wgs84"], [12])
         with self.assertRaises(ValueError):
             maplibre_dem.tile_ranges(source["runtime_bounds_wgs84"], [17])
 
@@ -59,7 +59,7 @@ class MapLibreTerrainDerivativeTests(unittest.TestCase):
             output=ROOT / "public/terrain/dgm1-terrarium",
         )
         self.assertTrue(result["ok"])
-        self.assertEqual(result["tile_count"], 56)
+        self.assertEqual(result["tile_count"], 60)
         self.assertLessEqual(result["tile_bytes"], maplibre_dem.MAX_DERIVATIVE_BYTES)
 
     def test_renderer_derivative_has_no_network_acquisition_path(self):
