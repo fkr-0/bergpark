@@ -3,7 +3,7 @@
 Open-data knowledge graph and installable bilingual visitor PWA for Bergpark
 Wilhelmshöhe in Kassel, Germany.
 
-**Public alpha:** https://bergpark.fkr.dev
+**Release candidate:** `0.1.0-rc.1` (deployment not authorized) — https://bergpark.fkr.dev
 
 The map is the visitor application's primary interface. Its coordinates and
 walking network come from reproducible spatial graph exports; historical and
@@ -13,7 +13,7 @@ estimates are never silently promoted to canonical coordinates.
 
 ## Visitor application
 
-Current alpha capabilities include:
+The current release candidate provides:
 
 - touch-friendly Leaflet map with OpenStreetMap/OpenTopoMap layers;
 - landmark markers, walking-network and route polylines backed by the bounded
@@ -77,14 +77,20 @@ only as a rejected seed assumption in validation metadata.
 
 ## Release status
 
-The alpha is intentionally public while later beta gates remain open so
-map/runtime integration can be qualified continuously. Composition-safe graph
-layers, the bounded Phase-8 walking topology, runtime manifest/offline packaging,
-GPS accuracy/hysteresis, tree/bench/semantic visitor layers and Chromium release
-qualification are already durable. The current roadmap keeps physical walking-
-inventory completeness, general visitor routing, editorial/source freshness,
-Firefox/iOS Safari qualification and performance/device evidence as explicit
-remaining gates.
+The `0.1.0-rc.1` candidate is qualified as a first complete nature-first visitor
+product at the repository boundary. Leaflet remains the reliable default and
+compatibility/low-power renderer; MapLibre terrain plus the shared-depth Three.js
+heritage layer are optional advanced/beta paths and fail closed back to Leaflet.
+The candidate includes the bilingual almanac/discovery journeys, canonical
+multi-hop walking routes, narration/transcripts, offline runtime packaging and
+same-session renderer switching.
+
+The RC does **not** claim complete physical walking-inventory coverage, surveyed
+3D reconstructions, or universal device accessibility/performance. Real iOS
+Safari/WebKit, physical-mobile thermal/battery/GPU-memory characterization and a
+real assistive-technology/screen-reader fixture remain external/manual gates.
+Live opening hours, field accessibility and water-feature schedules remain
+source-dated facts rather than operational guarantees.
 
 Visitor facts such as opening hours and accessibility are source-dated and
 should not be interpreted as guarantees when conditions change.

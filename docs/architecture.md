@@ -94,10 +94,13 @@ source-resolution logic.
 
 ### Rich node presentation and 3D runtime
 
-Leaflet remains the authoritative 2D navigation surface. Replacing the whole
-visitor map with a permanent WebGL scene would make GPS, routing, accessibility,
-offline operation and low-end-mobile performance harder for little benefit.
-Instead, individual entities opt into richer presentation independently.
+Leaflet remains the reliable default and compatibility/low-power 2D navigation surface.
+The renderer-neutral spatial controller can optionally switch the visitor session to
+MapLibre terrain plus a shared-depth Three.js layer when WebGL2 and terrain capability
+are available. The terrain path is an advanced/optional renderer, not a prerequisite:
+initial boot, reduced-power devices, renderer initialization failure and WebGL2 absence
+all remain safely served by Leaflet. Canonical selection, routing, GPS, almanac/detail
+content and accessible DOM controls remain renderer-neutral.
 
 The browser presentation contract has two independent surfaces:
 

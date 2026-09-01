@@ -14,7 +14,7 @@ accuracy limits or source distinctions.
 Release progression is evidence-driven. A phase is complete only when its data,
 validation, runtime compatibility and provenance gates are all durable.
 
-## Current baseline — 0.1.0-alpha.5 plus durable Graph Phase 8
+## Current baseline — 0.1.0-rc.1 nature-first visitor RC
 
 Durable capabilities at the current repository boundary include:
 
@@ -36,9 +36,13 @@ Durable capabilities at the current repository boundary include:
 - [x] tree/bench/path-topology layers preserved through the non-destructive composition boundary;
 - [x] a non-destructive graph composition pipeline for independently generated layers;
 - [x] graph-side shortest and avoid-known-steps/lower-ascent routing over the bounded Phase-8 topology;
-- [x] repository-wide pnpm verification commands covering Node/Vitest, Python integrity tests and the runtime build, plus Chromium browser qualification;
+- [x] repository-wide pnpm verification commands covering Node/Vitest, Python integrity tests and the runtime build, plus 57/57 Chromium browser qualification;
+- [x] bilingual nature-first almanac/discovery journeys spanning places, stories, trees, visitor features and bounded walking-network discovery;
+- [x] optional MapLibre/WebGL2 terrain renderer with shared-depth Three.js heritage presentation, same-session renderer switching, and fail-closed Leaflet fallback;
+- [x] offline runtime-manifest packaging, warmed visitor PWA behavior and conservative reduced-motion/a11y browser qualification;
 - [ ] physically complete park walking inventory; the preserved Phase-8 source boundary includes an explicit unchecked-boundary caveat and must not be promoted to complete coverage;
-- [ ] Safari/iOS WebKit qualification on a host with the required runtime libraries.
+- [ ] real iOS Safari/WebKit qualification;
+- [ ] physical-mobile thermal/battery/GPU-memory characterization and real assistive-technology/screen-reader fixture qualification.
 
 The most important architectural rule remains that independently owned layers must
 not be destroyed by another layer's generator. That separation is now durable through
@@ -46,9 +50,9 @@ the composition boundary and Graph Phase 8. Future source refreshes must preserv
 frozen-source completeness caveat, stable IDs and producer ownership rather than
 silently regenerating unrelated content/runtime layers.
 
-### Unreleased development after alpha.5
+### RC-qualified development beyond alpha.5
 
-The current branch also contains qualified work beyond the last published alpha:
+The current branch contains the following RC-qualified work beyond the last published alpha:
 
 - DGM1-derived route elevation summaries/profiles with explicit provenance and
   conservative interpretation of short-segment slope;
@@ -60,8 +64,9 @@ The current branch also contains qualified work beyond the last published alpha:
 - runtime-data/PWA upgrade hardening and measured performance/specialization
   evidence without making browser WASM a prerequisite.
 
-These are development-baseline capabilities, not a published-version claim. The
-next release must reconcile version/changelog/release evidence before deployment.
+These capabilities are qualified at the repository candidate boundary but remain
+subject to the explicit external/manual gates above. Deployment is intentionally
+separate and requires operator authorization.
 
 ---
 

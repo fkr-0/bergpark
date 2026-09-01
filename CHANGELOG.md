@@ -7,6 +7,10 @@ experience have completed their release gates.
 
 ## [Unreleased]
 
+No unreleased changes are recorded after the release-candidate qualification below.
+
+## [0.1.0-rc.1] - 2026-09-01
+
 ### Added
 
 - Versioned runtime-data contract covering every visitor-facing shipped layer,
@@ -72,6 +76,31 @@ experience have completed their release gates.
 - ROADMAP current-baseline claims now reflect durable alpha.4/alpha.5 visitor
   functionality and the bounded Graph Phase-8 topology/routing authority without
   rewriting historical phase descriptions or release metadata.
+
+### Verification
+
+- `pnpm run check`: PASS — 120/120 Node tests, 2/2 Vitest tests, 87/87 Python
+  tests, production Vite build and runtime-artifact validation.
+- `pnpm run test:e2e`: PASS — 57/57 Chromium tests using two workers, including
+  renderer fallback/switching, shared-depth context recovery, companion journeys,
+  warmed offline PWA behavior, reduced-motion and accessibility scenarios.
+- Runtime release artifact: 11/11 manifest-authorized layers, 6,270,709 bytes,
+  within the 8 MiB runtime-data budget; initial JS 328,201 bytes and CSS 41,530
+  bytes remain within their release budgets.
+
+### Release-candidate limitations
+
+- Leaflet is the reliable default and compatibility/low-power renderer; MapLibre
+  terrain and shared-depth Three.js are optional advanced/beta paths and fail
+  closed to Leaflet.
+- The preserved Phase-8 topology is bounded-source coverage, not a claim of
+  complete physical walking-inventory coverage.
+- The bundled heritage models remain schematic presentation assets, not surveyed
+  architectural reconstructions.
+- Real iOS Safari/WebKit, physical-mobile thermal/battery/GPU-memory testing and
+  a real assistive-technology/screen-reader fixture remain external/manual gates.
+- Live opening hours, field accessibility and water-feature schedules remain
+  source-dated evidence rather than operational guarantees.
 
 ## [0.1.0-alpha.5] - 2026-08-27
 
