@@ -25,6 +25,8 @@ The MapLibre terrain mesh is checked after DEM readiness with two stable geograp
 
 The runtime mesh must report **at least 60 m positive rise** from Neptunbassin to Herkules. This is deliberately conservative relative to the full water-axis relief while still rejecting a flat, inverted or unavailable DEM.
 
+Controls that are not yet resident in MapLibre's DEM cache remain **pending**; `null`/missing terrain samples are never coerced to a zero-metre elevation and therefore cannot falsely satisfy the rise gate.
+
 ## Required implementation response
 
 1. Terrain-mesh and hillshade use independent `raster-dem` source-cache instances backed by the same immutable local DGM1 Terrarium tiles.
