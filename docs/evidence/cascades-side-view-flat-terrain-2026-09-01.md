@@ -33,4 +33,6 @@ The runtime mesh must report **at least 60 m positive rise** from Neptunbassin t
 4. A successful check records lower, upper and rise values on the map element for deterministic browser qualification; a finite flat/inverted result fails closed to the existing flat fallback.
 5. Browser E2E requires the positive cascade rise before declaring DGM1 terrain ready.
 
+The implemented authority is `src/maplibre-map.js`, with deterministic unit coverage in `tests/terrain-relief-guard.test.mjs` and browser proof in `tests/e2e/terrain-relief-regression.spec.js`.
+
 The acceptance intent is visual and directional: **from this side-view class of camera, the Herkules/right-hand end must unmistakably be uphill from the Neptunbassin/left-hand end.**
