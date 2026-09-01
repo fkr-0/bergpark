@@ -1,89 +1,171 @@
 schema_version: 1
 release:
   unit: bergpark
-  candidate: 0.1.0-alpha.5
-  proposed_tag: v0.1.0-alpha.5
-  date: 2026-08-27
-  previous_published_tag: v0.1.0-alpha.2
-  previous_published_tag_revision: 43c76838764a142fede0480b30c6f5228b99808b
-  remote_main_before_alpha5: 29e94c87ebddc51607e2edbe172ef1509ccd1fe4
-  source_head_before_release_metadata: 8a0ad44f3a464a88c55c8a4ac397de64d0b1a8a5
-  release_metadata_commit: 65d8250f70d0f822f5ac3ab18d7486f870ae917a
-  release_evidence_commit: this_commit
-  push_authorized: true
-  tag_requested: false
-  target_repository: fkr-0/bergpark
+  candidate: 0.1.0-rc.1
+  candidate_source_revision: 5df09fe6c6573ceff17e47a7d6fcd94e6aa9770e
+  base_revision: 60cefdf2fda39b60d39b0871e7802c866f27e07d
+  upstream_convergence:
+    - a4f5ef0  # switchable visitor renderers
+    - a6695bb  # nature-first companion journeys
+  evidence_commit: this_commit
+  date: 2026-09-01
+  previous_release: 0.1.0-alpha.5
   target_url: https://bergpark.fkr.dev
-versions:
-  before: 0.1.0-alpha.4
-  after: 0.1.0-alpha.5
-package_manager:
-  name: pnpm
-  version: 11.3.0
-  declaration: package.json#packageManager
-  lockfile: pnpm-lock.yaml
-  install_gate: pnpm install --frozen-lockfile
-release_delta:
-  durable_commits_before_metadata:
-    - 0531e6192a2164b6aeeaf0af02b9c4ae0a38250e  # sourced tree-detail safety
-    - f248b06771d3ba002e704698f79f31914911ee92  # Phase-3 visitor layers
-    - 8a0ad44f3a464a88c55c8a4ac397de64d0b1a8a5  # pnpm browser gate
-  runtime:
-    - selective sourced bench and visitor-POI layers with bounded map rendering
-    - sourced tree detail with explicit unknown physical-height handling
-    - semantic role/object discoverability in index and detail flows
-    - dense visitor clusters that can drill down at maximum zoom without exceeding the 180-marker global bound
-    - explicit Enter/Space activation for visitor clusters and points
-    - network-first selective runtime data with offline fallback and bounded visited-tile caching
-  release_infrastructure:
-    - deterministic successful in-memory map-tile fixtures for browser E2E
-    - pnpm-only local development and Playwright preview orchestration
-    - pnpm-authoritative development and implementation-review documentation
-preflight_verification:
-  - command: pnpm run check:e2e
-    location: integrated shared checkout before metadata commit
-    result: pass
-    details: Biome warnings-fatal PASS; 28/28 Node tests PASS; 2/2 Vitest PASS; 65/65 Python PASS; Vite 8.2.2 build PASS; 16/16 Chromium Playwright PASS. Counts include concurrent shared-checkout seams and are not the authoritative clean candidate.
-  - command: focused Chromium 390px visitor-layer E2E after production rebuild
-    location: integrated shared checkout
-    result: pass
-    details: 1/1 PASS; max-zoom cluster drill-down, keyboard activation, marker bound and provenance detail qualified.
-  - command: Firefox non-offline visitor/3D slice
-    location: built shared preview
-    result: pass
-    details: 7/7 PASS; the two synthetic offline reload cases remain unqualified because Playwright Firefox returns NS_ERROR_OFFLINE before service-worker navigation.
-  - command: WebKit launch qualification
-    location: Arch development host
-    result: not_run_product
-    details: Playwright WebKit cannot launch because required host libraries are unavailable; this is retained as a beta qualification gate.
-  - command: pnpm install --frozen-lockfile
-    location: exact clean candidate at 65d8250f70d0f822f5ac3ab18d7486f870ae917a
-    result: pass
-    details: pnpm 11.3.0; frozen lockfile accepted with a clean worktree before and after qualification.
-  - command: pnpm run check:e2e
-    location: exact clean candidate at 65d8250f70d0f822f5ac3ab18d7486f870ae917a
-    result: pass
-    details: Biome warnings-fatal PASS; 27/27 Node tests PASS; 2/2 Vitest PASS; 65/65 Python PASS; Vite 8.2.2 build PASS; 15/15 Chromium Playwright PASS.
-release_gate:
-  exact_clean_worktree_check: pass_at_65d8250f70d0f822f5ac3ab18d7486f870ae917a
-  git_diff_check: pass
+  proposed_tag: v0.1.0-rc.1
   tag_created: false
-  pushed: authorized_pending_at_evidence_commit
+  push_authorized: false
+  deployment_authorized: false
   github_release_created: false
-  ci_workflow: pending_push
-  pages_workflow: pending_push
-  production_e2e: pending_post_push
-artifacts:
-  dist_tree_sha256_manifest_sha256: ef8b1dd0210a6fa30813e5883cdf4de17488960afed42824b2a7f7e90138b0cd
-  dist_bytes: 5303367
-  dist_files: 24
-known_limitations:
-  - Bundled landmark 3D assets are schematic interaction models, not surveyed architectural reconstructions.
-  - Firefox synthetic offline reload and WebKit/iOS Safari remain explicit beta qualification gates.
-  - Live visitor facts such as opening hours, field accessibility and water-feature schedules remain source-dated rather than guaranteed.
-alpha4_remote_failure:
-  ci: failed
-  pages: failed
-  classification: test_harness_false_positive
-  cause: third-party map-tile requests were intentionally aborted and their net::ERR_FAILED console messages were counted as application runtime errors
-  alpha5_fix: deterministic fulfilled tile fixtures preserve zero third-party tile traffic without generating false application errors
+
+scope:
+  changed_files:
+    - package.json
+    - README.md
+    - ROADMAP.md
+    - CHANGELOG.md
+    - docs/architecture.md
+  application_source_changed: false
+  upstream_feature_commits_preserved: true
+
+preserved_dirty_work:
+  path: src/model-viewer.js
+  status: preserved_uncommitted_and_excluded_from_candidate
+  sha256: 985f01fdb0cb07f8c25cfa2951290ed3ea713853aab0360fbf85c20e8c12deed
+  diff_sha256: bb8cb6e31d5114c92d2b4f605f77bf2d55529cde544de042ae5927388012460f
+  release_blocker: false
+  qualification:
+    pre_candidate_full_check: pass
+    pre_candidate_chromium_matrix: 57/57
+    final_candidate_matrix: clean committed tree, dirty file excluded
+
+integrity_review:
+  canonical_places: 30
+  canonical_directed_edges: 122
+  canonical_bidirectional_edges: 61
+  catalogue_trees: 569
+  sourced_benches: 215
+  semantic_figures: 23
+  path_nodes: 2633
+  directed_path_segments: 7196
+  included_osm_ways: 955
+  physical_walking_inventory_complete: false
+  checks:
+    stable_place_ids: pass
+    directed_edge_endpoints_resolve: pass
+    unique_tree_ids: pass
+    unique_bench_ids: pass
+    unique_figure_ids: pass
+    graph_composition_counts_match: pass
+    coordinate_bounds_review: pass
+    provenance_and_unknowns: pass_via_repository_integrity_suite
+
+renderer:
+  default: leaflet
+  advanced_optional: maplibre-webgl2-plus-three-shared-depth
+  terrain_preference: explicit_opt_in
+  fallback_conditions:
+    - reduced_power
+    - webgl2_unavailable
+    - terrain_unavailable
+    - terrain_initialization_failed
+    - terrain_tile_failure
+    - shared_depth_failure
+  canonical_identity_preserved_across_switch: pass
+  same_session_renderer_switch: pass
+  context_loss_recovery: pass
+  rationale: Leaflet remains the reliable default/compatibility/low-power surface; advanced terrain is optional and fail-closed.
+
+companion:
+  journeys:
+    - bilingual almanac/discovery
+    - semantic people/art context
+    - tree explorer/detail
+    - visitor-feature discovery
+    - bounded walking-network discovery
+    - transcript-backed manual narration
+    - multi-hop walking routes
+  canonical_deep_links: pass
+  reduced_motion: pass
+  keyboard_focus_return: pass
+  accessibility_model: DOM_semantics_with_webgl_enhancement
+
+offline:
+  runtime_manifest_layers: 11
+  runtime_data_bytes: 6270709
+  runtime_data_budget_bytes: 8388608
+  visited_tile_entry_budget: 80
+  warmed_offline_pwa: pass
+  runtime_upgrade_fixture: pass
+  uncached_offline_data_error: pass
+  application_html_not_used_as_json: pass
+
+verification:
+  install_and_dependencies:
+    command: pnpm install --frozen-lockfile
+    result: pass
+    pnpm_version: 11.3.0
+  release_check:
+    command: SOURCE_DATE_EPOCH="$(git show -s --format=%ct 5df09fe6c6573ceff17e47a7d6fcd94e6aa9770e)" BERGPARK_SOURCE_REVISION=5df09fe6c6573ceff17e47a7d6fcd94e6aa9770e pnpm run check
+    result: pass
+    node_tests: 120/120
+    vitest_tests: 2/2
+    python_tests: 87/87
+    build: pass
+    runtime_artifact_check: pass
+  chromium:
+    command: pnpm run test:e2e
+    workers: 2
+    tests: 57/57
+    result: pass
+  diff_check:
+    command: git diff --check
+    result: pass
+  final_candidate_commit: 5df09fe6c6573ceff17e47a7d6fcd94e6aa9770e
+
+runtime_manifest:
+  sha256: 8fa7eb6ae6e16c92c4454117e471b2370b8a1f81f879102964f81fd315685a39
+  source_revision: 5df09fe6c6573ceff17e47a7d6fcd94e6aa9770e
+  source_date_epoch: 1788236591
+  generated_at: 2026-09-01T04:23:11.000Z
+  layers:
+    nodes: { bytes: 49630, sha256: 05f9bd76858413ee3642abab4f9e80322faeaa79e7f6b5b9d37597d73096d837 }
+    edges: { bytes: 1363623, sha256: 211a4079ce1bf3074dc17b8b157e9301df2226fe4325fea9917c9c5703201bf3 }
+    trees: { bytes: 1439667, sha256: cae895e4682fcc3250360d2e2a82ea7ef17448c7b82d77f1223ce53dfc3b2152 }
+    content_de: { bytes: 534311, sha256: 6484e60c08a3a6a14a75a443ac522bb4131d6e4dea0f49afac66c4c3f71aa691 }
+    content_en: { bytes: 519780, sha256: f1061a5c9b38ff32aa5eb3de3351e7d606d98428fe46bf01a2e494b609cb0818 }
+    sources: { bytes: 41514, sha256: 6b72bd6d52e4657f386f8d3dcd6e3062b041f35d5b50437db94fed7e6eaaecd6 }
+    figures: { bytes: 112736, sha256: 287824deb2da70e4f45ae222cf6a65d99b852df95121f7ddf68cd14ee39ce8c3 }
+    semantic: { bytes: 100309, sha256: 3dfacad058a5c8e0a173383af9531acc1dcac1fe0ce193ad5c19216806ab02b1 }
+    benches: { bytes: 370159, sha256: 70e52fa77c801c5472138680ea94e0df1c6f5da986a9f93a3b8abb38d71bdba0 }
+    visitor_pois: { bytes: 234027, sha256: f2c245cf7284753c5c3fac7ea7d40c83359ff24b5b3838f8059d4c87f7108c51 }
+    walking_network: { bytes: 1504953, sha256: b8ba4c742f11a76a50139f72591b57f75a44b45aa8a41e30416d694ac6658367 }
+
+artifact:
+  dist_files: 90
+  dist_bytes: 13278170
+  dist_manifest_sha256: d8ef79676188ec1387cd66f4ff78501deb82125f27eb9b8c37619385d3641526
+  initial_js_bytes: 328201
+  initial_js_budget_bytes: 393216
+  initial_css_bytes: 41530
+  initial_css_budget_bytes: 98304
+  runtime_data_bytes: 6270709
+  runtime_data_budget_bytes: 8388608
+  vite_build_warnings: oversized_non_entry_chunks_only
+
+limitations_and_manual_gates:
+  - physical_walking_inventory_is_not_claimed_complete
+  - heritage_3d_assets_are_schematic_not_surveyed_reconstructions
+  - real_ios_safari_webkit_qualification_not_available_on_current_host
+  - physical_mobile_thermal_battery_gpu_memory_qualification_not_available
+  - real_assistive_technology_screen_reader_fixture_qualification_not_available
+  - live_opening_hours_field_accessibility_and_water_schedules_are_source_dated
+
+release_gate:
+  repository_checks: PASS
+  browser_matrix: PASS_57_OF_57
+  generated_content_drift: none_in_tracked_source
+  candidate_recommendation: ready_for_operator_release_authorization
+  deployment: not_performed
+  publish: not_performed
+  push: not_performed
+  tag: not_created
