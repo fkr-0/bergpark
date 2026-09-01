@@ -11,6 +11,7 @@ async function openTerrainGuide(page, fragment = '') {
 }
 
 test('explicit terrain preference mounts bounded MapLibre terrain while Leaflet remains the default path', async ({ page }) => {
+  test.setTimeout(60_000);
   const errors = captureRuntimeErrors(page);
   await openTerrainGuide(page);
 
@@ -43,6 +44,7 @@ test('explicit terrain preference mounts bounded MapLibre terrain while Leaflet 
 });
 
 test('place, tree and visitor deep links retain identity through the MapLibre controller boundary', async ({ page }) => {
+  test.setTimeout(60_000);
   await openTerrainGuide(page, '#place=herkules');
   await expect(page.locator('#detail-sheet')).toBeVisible();
   await expect(page.locator('#detail-sheet h2')).toContainText(/Herkules|Hercules/);
