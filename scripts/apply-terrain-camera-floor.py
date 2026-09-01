@@ -103,10 +103,4 @@ replace_one(
     "  supports MapLibre's one-level DEM parent lookup while the terrain camera is floored at z14;",
 )
 
-replace_one(
-    "scripts/perf/browser-profile.mjs",
-    r"/\\/terrain\\/dgm1-terrarium\\/(?:14|15|16)\\/[0-9]+\\/[0-9]+\\.png$/",
-    r"/\\/terrain\\/dgm1-terrarium\\/(?:13|14|15|16)\\/[0-9]+\\/[0-9]+\\.png$/",
-)
-
 print(json.dumps({"ok": True, "manifest_sha256": manifest_sha}, indent=2))
