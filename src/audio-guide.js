@@ -12,21 +12,38 @@ function narrationLanguageTag(language) {
   return language === 'en' ? 'en-GB' : 'de-DE';
 }
 
+function explicitLanguageText(value, language) {
+  if (typeof value === 'string') return value.trim() ? value.trim() : '';
+  if (!value || typeof value !== 'object') return '';
+  const exact = value[language];
+  return typeof exact === 'string' && exact.trim() ? exact.trim() : '';
+}
+
+/** Return whether this node has actual narration copy in the requested language. */
+export function narrationLanguageAvailable(node, language = 'de') {
+  if (!node?.id || !['de', 'en'].includes(language)) return false;
+  return NARRATION_FIELDS.some(([key]) => Boolean(explicitLanguageText(node[key], language)));
+}
+
 /**
  * Project existing bilingual editorial authority into one quiet narration descriptor.
  * This function never starts audio, fetches media, or mutates content.
  */
 export function createNarrationDescriptor(node, language = 'de') {
-  if (!node?.id) return null;
-  const title = localized(node.name, language, node.title ?? node.id);
+  if (!node?.id || !['de', 'en'].includes(language)) return null;
+  const title = explicitLanguageText(node.name, language)
+    || explicitLanguageText(node.title, language)
+    || '';
   const sections = NARRATION_FIELDS
     .map(([key, heading]) => ({
       key,
       heading: localized(heading, language, key),
-      text: localized(node[key], language),
+      text: explicitLanguageText(node[key], language),
     }))
     .filter(({ text }) => Boolean(text));
-  if (!title && !sections.length) return null;
+  // A title by itself is not an audio guide. Do not mislabel fallback copy as
+  // translated narration under a different speech locale.
+  if (!sections.length) return null;
   const speechParts = [title, ...sections.map(({ text }) => text)].filter(Boolean);
   return Object.freeze({
     id: `narration:${node.id}:${language}`,
@@ -51,6 +68,7 @@ export function createNarrationVariants(node, languages = ['de', 'en']) {
   return Object.freeze(
     [...new Set(languages)]
       .filter((language) => ['de', 'en'].includes(language))
+      .filter((language) => narrationLanguageAvailable(node, language))
       .map((language) => createNarrationDescriptor(node, language))
       .filter(Boolean)
       .map(Object.freeze),
@@ -63,6 +81,7 @@ export function createSpeechNarrator({
 } = {}) {
   let active = null;
   let state = 'idle';
+  let generation = 0;
 
   const supported = Boolean(
     speechSynthesisRef
@@ -71,8 +90,8 @@ export function createSpeechNarrator({
     && typeof UtteranceCtor === 'function',
   );
 
-  function finish(expectedId, nextState, onState) {
-    if (!active || active.id !== expectedId) return;
+  function finish(expectedGeneration, nextState, onState) {
+    if (!active || active.generation !== expectedGeneration) return;
     active = null;
     state = nextState;
     onState?.(nextState);
@@ -85,6 +104,7 @@ export function createSpeechNarrator({
     play(descriptor, { onState } = {}) {
       if (!supported || !descriptor?.speechText) return false;
       if (active) speechSynthesisRef.cancel();
+      const playGeneration = ++generation;
 
       const utterance = new UtteranceCtor(descriptor.speechText);
       utterance.lang = descriptor.langTag;
@@ -96,23 +116,28 @@ export function createSpeechNarrator({
         // Voice enumeration is optional. The browser's default voice remains valid.
       }
 
-      active = { id: descriptor.id, utterance };
+      active = { id: descriptor.id, generation: playGeneration, utterance };
       state = 'playing';
       onState?.('playing');
-      utterance.onend = () => finish(descriptor.id, 'idle', onState);
-      utterance.onerror = () => finish(descriptor.id, 'idle', onState);
-      speechSynthesisRef.speak(utterance);
-      return true;
+      utterance.onend = () => finish(playGeneration, 'idle', onState);
+      utterance.onerror = () => finish(playGeneration, 'idle', onState);
+      try {
+        speechSynthesisRef.speak(utterance);
+        return true;
+      } catch {
+        finish(playGeneration, 'idle', onState);
+        return false;
+      }
     },
     pause({ onState } = {}) {
-      if (!active || typeof speechSynthesisRef.pause !== 'function') return false;
+      if (!active || state !== 'playing' || typeof speechSynthesisRef.pause !== 'function') return false;
       speechSynthesisRef.pause();
       state = 'paused';
       onState?.('paused');
       return true;
     },
     resume({ onState } = {}) {
-      if (!active || typeof speechSynthesisRef.resume !== 'function') return false;
+      if (!active || state !== 'paused' || typeof speechSynthesisRef.resume !== 'function') return false;
       speechSynthesisRef.resume();
       state = 'playing';
       onState?.('playing');
@@ -120,6 +145,7 @@ export function createSpeechNarrator({
     },
     stop({ onState } = {}) {
       if (!active) return false;
+      generation += 1;
       active = null;
       state = 'idle';
       speechSynthesisRef.cancel();

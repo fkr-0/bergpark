@@ -1,6 +1,6 @@
 import { localized } from './i18n.js';
 import { semanticRelationLabel } from './semantic.js';
-import { createNarrationDescriptor, createSpeechNarrator } from './audio-guide.js';
+import { createNarrationDescriptor, createNarrationVariants, createSpeechNarrator } from './audio-guide.js';
 import { relatedJourneyBuckets } from './related-journey.js';
 import './companion.css';
 import {
@@ -159,9 +159,9 @@ export function resumeNarration(options = {}) {
   return speechNarrator.resume(options);
 }
 
-function narrationTranscriptMarkup(descriptor, i18n) {
+function narrationTranscriptMarkup(descriptor, i18n, { hidden = false } = {}) {
   if (!descriptor?.transcript?.length) return '';
-  return `<details class="narration-transcript" data-narration-transcript>
+  return `<details class="narration-transcript" data-narration-transcript data-transcript-language="${escapeHtml(descriptor.language)}" lang="${escapeHtml(descriptor.language)}"${hidden ? ' hidden' : ''}>
     <summary>${escapeHtml(i18n.t('transcript'))}</summary>
     <div>${descriptor.transcript.map(({ heading, text }) => `${heading ? `<h3>${escapeHtml(heading)}</h3>` : ''}<p>${escapeHtml(text)}</p>`).join('')}</div>
   </details>`;
@@ -174,7 +174,7 @@ function renderRelatedJourney(node, graph, language) {
     const evidence = item.source === 'semantic'
       ? item.provenance?.assertion ?? ''
       : [item.evidence?.distanceM != null ? `${Math.round(item.evidence.distanceM)} m` : '', item.context].filter(Boolean).join(' · ');
-    return `<button type="button" class="journey-link" data-related-id="${escapeHtml(item.id)}">
+    return `<button type="button" class="journey-link" data-related-id="${escapeHtml(item.id)}" data-related-source="${escapeHtml(item.source)}" data-related-relation="${escapeHtml(item.relationKey ?? '')}">
       <span class="journey-link__main"><strong>${escapeHtml(item.title)}</strong><small>${escapeHtml(item.relation)}${item.context && item.source === 'semantic' ? ` · ${escapeHtml(item.context)}` : ''}</small></span>
       ${evidence ? `<span class="journey-link__evidence">${escapeHtml(evidence)}</span>` : ''}
     </button>`;
@@ -272,8 +272,8 @@ export function renderNodeDetail(container, { node, graph, i18n, onNavigate, onS
   const title = localized(node.name, language, node.title ?? node.id);
   const description = localized(node.description, language, localized(node.summary, language));
   const sections = contentSections(node, language);
-  const narrationDescriptor = createNarrationDescriptor(node, language);
-  const narrationVariants = ['de', 'en'].map((candidate) => createNarrationDescriptor(node, candidate)).filter(Boolean);
+  const narrationVariants = createNarrationVariants(node);
+  const narrationDescriptor = narrationVariants.find((variant) => variant.language === language) ?? narrationVariants[0] ?? null;
   const routeOptions = discoverMountainRoutes(graph, node.id, language);
 
   container.hidden = false;
@@ -295,9 +295,9 @@ export function renderNodeDetail(container, { node, graph, i18n, onNavigate, onS
           <button class="action-button action-button--quiet" data-action="resume-narration" type="button" hidden>▶ ${escapeHtml(i18n.t('resumeAudio'))}</button>
           <button class="action-button action-button--quiet" data-action="stop-narration" type="button" hidden>■ ${escapeHtml(i18n.t('stopAudio'))}</button>
         </div>
-        ${narrationVariants.length > 1 ? `<label class="audio-language"><span>${escapeHtml(i18n.t('audioLanguage'))}</span><select data-audio-language>${narrationVariants.map((variant) => `<option value="${escapeHtml(variant.language)}"${variant.language === language ? ' selected' : ''}>${variant.language === 'de' ? 'Deutsch' : 'English'}</option>`).join('')}</select></label>` : ''}
+        ${narrationVariants.length > 1 ? `<label class="audio-language"><span>${escapeHtml(i18n.t('audioLanguage'))}</span><select data-audio-language>${narrationVariants.map((variant) => `<option value="${escapeHtml(variant.language)}"${variant.language === narrationDescriptor.language ? ' selected' : ''}>${variant.language === 'de' ? 'Deutsch' : 'English'}</option>`).join('')}</select></label>` : narrationDescriptor.language !== language ? `<p class="audio-language audio-language--static"><span>${escapeHtml(i18n.t('audioLanguage'))}</span><strong lang="${escapeHtml(narrationDescriptor.language)}">${narrationDescriptor.language === 'de' ? 'Deutsch' : 'English'}</strong></p>` : ''}
         <p class="sr-only" data-narration-status role="status">${escapeHtml(speechNarrator.supported ? i18n.t('audioReady') : i18n.t('audioUnavailable'))}</p>
-        ${narrationTranscriptMarkup(narrationDescriptor, i18n)}
+        ${narrationVariants.map((variant) => narrationTranscriptMarkup(variant, i18n, { hidden: variant.language !== narrationDescriptor.language })).join('')}
       </section>` : ''}
       ${renderGallery(node, language)}
       ${sections.map(({ heading, text }) => `<section class="detail-section"><h3>${escapeHtml(heading)}</h3><p>${escapeHtml(text)}</p></section>`).join('')}
@@ -366,6 +366,18 @@ export function renderNodeDetail(container, { node, graph, i18n, onNavigate, onS
   container.querySelector('[data-action="pause-narration"]')?.addEventListener('click', () => pauseNarration({ onState: setNarrationState }));
   container.querySelector('[data-action="resume-narration"]')?.addEventListener('click', () => resumeNarration({ onState: setNarrationState }));
   container.querySelector('[data-action="stop-narration"]')?.addEventListener('click', () => stopNarration({ onState: setNarrationState }));
+  const audioLanguage = container.querySelector('[data-audio-language]');
+  const syncTranscriptLanguage = () => {
+    const selectedLanguage = audioLanguage?.value ?? narrationDescriptor?.language;
+    for (const transcript of container.querySelectorAll('[data-transcript-language]')) {
+      transcript.hidden = transcript.dataset.transcriptLanguage !== selectedLanguage;
+    }
+  };
+  audioLanguage?.addEventListener('change', () => {
+    stopNarration({ onState: setNarrationState });
+    syncTranscriptLanguage();
+  });
+  syncTranscriptLanguage();
 
   const bindRouteButtons = (scope) => {
     for (const button of scope.querySelectorAll('[data-node-id]')) {
@@ -402,6 +414,10 @@ export function renderNodeDetail(container, { node, graph, i18n, onNavigate, onS
     button.addEventListener('click', () => onSelectNode?.(button.dataset.semanticId));
   }
   for (const button of container.querySelectorAll('[data-related-id]')) {
-    button.addEventListener('click', () => onSelectNode?.(button.dataset.relatedId));
+    button.addEventListener('click', () => onSelectNode?.(button.dataset.relatedId, {
+      source: 'related-journey',
+      returnTo: { kind: graph?.nodesById?.has(node.id) ? 'place' : 'story', id: node.id },
+      relationKey: button.dataset.relatedRelation || null,
+    }));
   }
 }

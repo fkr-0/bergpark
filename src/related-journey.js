@@ -18,8 +18,26 @@ const SEMANTIC_SOURCE_ORDER = new Map([
   ['located_at', 4],
 ]);
 
+const RELATION_LABELS = {
+  created: { de: 'schuf', en: 'created' },
+  co_created: { de: 'schuf mit', en: 'co-created' },
+  designed: { de: 'entwarf', en: 'designed' },
+  co_designed: { de: 'entwarf mit', en: 'co-designed' },
+  lead_designer_of: { de: 'leitete die Gestaltung von', en: 'led the design of' },
+  planned_landscape_setting_for: { de: 'plante das landschaftliche Umfeld von', en: 'planned the landscape setting for' },
+  developed_collection: { de: 'entwickelte die Sammlung', en: 'developed the collection' },
+  commissioned: { de: 'beauftragte', en: 'commissioned' },
+  initiated: { de: 'initiierte', en: 'initiated' },
+  member_of_collection: { de: 'gehört zur Sammlung', en: 'belongs to the collection' },
+  displayed_at: { de: 'wird gezeigt in', en: 'is displayed at' },
+  installed_at: { de: 'ist installiert bei', en: 'is installed at' },
+  located_at: { de: 'befindet sich bei', en: 'is located at' },
+};
+
 function relationLabel(edge, language) {
-  const raw = String(edge?.relation ?? '').replaceAll('_', ' ');
+  const known = RELATION_LABELS[edge?.relation];
+  if (known) return localized(known, language, edge.relation);
+  const raw = String(edge?.relation ?? '').replaceAll('_', ' ').trim();
   return raw || (language === 'de' ? 'Bezug' : 'Relation');
 }
 
@@ -29,6 +47,14 @@ function entityFor(graph, id) {
 
 function sourceIds(edge) {
   return [...new Set((edge?.source_ids ?? edge?.sourceIds ?? []).filter(Boolean))];
+}
+
+function sourceRefs(edge) {
+  const refs = [
+    ...(edge?.source_refs ?? edge?.sourceRefs ?? []),
+    ...(edge?.sources ?? []).flatMap((source) => [source?.id, source?.url]),
+  ].filter(Boolean);
+  return [...new Set(refs)];
 }
 
 function semanticItems(graph, nodeId, language) {
@@ -50,6 +76,8 @@ function semanticItems(graph, nodeId, language) {
       edge,
       provenance: edge.provenance ?? null,
       sourceIds: sourceIds(edge),
+      sourceRefs: sourceRefs(edge),
+      returnContext: Object.freeze({ kind: graph?.nodesById?.has(nodeId) ? 'place' : 'story', id: nodeId }),
       order: [SEMANTIC_SOURCE_ORDER.get(edge.relation) ?? 99, index, other.id],
     };
   }).filter(Boolean);
@@ -69,9 +97,11 @@ function nearbyItems(graph, nodeId, language) {
       : '',
     item: option.target,
     edge: option.edge,
-    provenance: null,
-    sourceIds: [],
+    provenance: option.edge?.provenance ?? null,
+    sourceIds: sourceIds(option.edge),
+    sourceRefs: sourceRefs(option.edge),
     evidence: option.evidence,
+    returnContext: Object.freeze({ kind: 'place', id: nodeId }),
     order: [100, index, option.id],
   }));
 }

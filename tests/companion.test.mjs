@@ -1,14 +1,21 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import { createNarrationDescriptor, createNarrationVariants, createSpeechNarrator } from '../src/audio-guide.js';
+import {
+  createNarrationDescriptor,
+  createNarrationVariants,
+  createSpeechNarrator,
+  narrationLanguageAvailable,
+} from '../src/audio-guide.js';
+import { createCompanionTrail } from '../src/companion-navigation.js';
 import { buildRelatedJourney, relatedJourneyBuckets } from '../src/related-journey.js';
 import { normalizeSearchText } from '../src/destination-search.js';
 
 function speechHarness() {
   const calls = [];
+  const utterances = [];
   const speech = {
-    speak(utterance) { calls.push(['speak', utterance.text]); },
+    speak(utterance) { utterances.push(utterance); calls.push(['speak', utterance.text]); },
     cancel() { calls.push(['cancel']); },
     pause() { calls.push(['pause']); },
     resume() { calls.push(['resume']); },
@@ -17,7 +24,7 @@ function speechHarness() {
   class Utterance {
     constructor(text) { this.text = text; this.lang = ''; this.onend = null; this.onerror = null; }
   }
-  return { calls, speech, Utterance };
+  return { calls, utterances, speech, Utterance };
 }
 
 test('companion search normalization is diacritic-insensitive', () => {
@@ -36,6 +43,18 @@ test('narration descriptors and transcript stay available in both languages', ()
   assert.equal(descriptor.transcript.length, 2);
   assert.equal(descriptor.speechText, 'Herkules. Deutsch');
   assert.deepEqual(variants.map(({ language }) => language), ['de', 'en']);
+});
+
+test('narration language choices never relabel fallback copy as a translation', () => {
+  const node = {
+    id: 'one-language',
+    name: { de: 'Nur Deutsch', en: 'German only record' },
+    description: { de: 'Belegter deutscher Text.' },
+  };
+  assert.equal(narrationLanguageAvailable(node, 'de'), true);
+  assert.equal(narrationLanguageAvailable(node, 'en'), false);
+  assert.deepEqual(createNarrationVariants(node).map(({ language }) => language), ['de']);
+  assert.equal(createNarrationDescriptor(node, 'en'), null);
 });
 
 test('speech narrator has explicit pause/resume/stop and no autoplay', () => {
@@ -62,6 +81,19 @@ test('speech narrator degrades cleanly when SpeechSynthesis is absent', () => {
   assert.equal(narrator.resume(), false);
 });
 
+test('stale completion from a replaced utterance cannot stop the new play of the same descriptor', () => {
+  const { speech, Utterance, utterances } = speechHarness();
+  const narrator = createSpeechNarrator({ speechSynthesisRef: speech, UtteranceCtor: Utterance });
+  const descriptor = createNarrationDescriptor({ id: 'same', name: 'Place', description: 'Text' }, 'en');
+  assert.equal(narrator.play(descriptor), true);
+  assert.equal(narrator.play(descriptor), true);
+  utterances[0].onend();
+  assert.equal(narrator.state, 'playing');
+  assert.equal(narrator.activeId, descriptor.id);
+  utterances[1].onend();
+  assert.equal(narrator.state, 'idle');
+});
+
 test('related journey prefers canonical semantic relations then bounded nearby walks', () => {
   const hercules = { id: 'herkules', name: { de: 'Herkules', en: 'Hercules' }, type: 'monument', osm_tags: {} };
   const drawing = { id: 'artwork-herkules', name: { de: 'Herkules-Entwurf', en: 'Hercules design' }, kind: 'artwork' };
@@ -77,4 +109,16 @@ test('related journey prefers canonical semantic relations then bounded nearby w
   assert.equal(journey[0].source, 'semantic');
   assert.deepEqual(journey[0].sourceIds, ['src-1']);
   assert.equal(relatedJourneyBuckets(graph, 'herkules', 'en').nearby.length, 1);
+});
+
+test('companion trail retains return context across route, knowledge, field evidence and audio', () => {
+  const trail = createCompanionTrail({ initial: { kind: 'route', id: 'route:a:b' } });
+  trail.visit({ kind: 'place', id: 'a' }, { source: 'route-start' });
+  trail.visit({ kind: 'story', id: 'person-a' }, { source: 'semantic', sourceIds: ['src-1'] });
+  trail.visit({ kind: 'tree', id: 'tree-1' }, { source: 'nearby-coordinate' });
+  const audio = trail.visit({ kind: 'audio', id: 'narration:tree-1:de' }, { source: 'manual-audio' });
+  assert.deepEqual(audio.returnTo, { kind: 'tree', id: 'tree-1' });
+  assert.equal(trail.back().to.id, 'tree-1');
+  assert.equal(trail.back().to.id, 'person-a');
+  assert.equal(trail.snapshot().returnTo.id, 'a');
 });

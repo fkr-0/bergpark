@@ -47,10 +47,11 @@ const SOURCE_ORDER = {
   semantic: 2,
   tree: 3,
   feature: 4,
+  network: 5,
 };
 
 export const DEFAULT_DESTINATION_RESULT_LIMIT = 80;
-export const DESTINATION_CATEGORIES = Object.freeze(['all', 'place', 'story', 'tree', 'feature']);
+export const DESTINATION_CATEGORIES = Object.freeze(['all', 'place', 'story', 'tree', 'feature', 'walk']);
 
 export function normalizeSearchText(value = '') {
   return String(value)
@@ -63,6 +64,7 @@ export function normalizeSearchText(value = '') {
 export function destinationCategory(result) {
   if (result?.routeKind === 'tree') return 'tree';
   if (result?.routeKind === 'feature') return 'feature';
+  if (result?.routeKind === 'network') return 'walk';
   if (result?.sourceKind === 'place') return 'place';
   return 'story';
 }

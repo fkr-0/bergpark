@@ -11,7 +11,10 @@
   color: #1a2420;
 }
 .audio-language { display: grid; gap: .25rem; margin: 0 0 .7rem; color: #52635b; font-size: .78rem; font-weight: 800; }
+.audio-language--static { grid-template-columns: auto 1fr; align-items: baseline; }
+.audio-language--static strong { color: var(--forest); }
 .narration-transcript { margin-top: .6rem; border-top: 1px solid #ddd7c8; }
+.narration-transcript[hidden] { display: none; }
 .narration-transcript summary { padding: .65rem 0; color: var(--forest); cursor: pointer; font-weight: 800; }
 .narration-transcript h3 { margin: .7rem 0 .25rem; }
 .narration-transcript p { margin: 0 0 .6rem; line-height: 1.55; }
@@ -38,4 +41,13 @@
 .narration-transcript summary:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
 @media (min-width: 760px) {
   .almanac-controls { grid-template-columns: minmax(0, 1fr) minmax(11rem, .35fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .audio-guide *,
+  .related-journey *,
+  .almanac-controls * {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
 }
