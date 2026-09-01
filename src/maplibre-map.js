@@ -3,6 +3,16 @@ import { localized } from './i18n.js';
 import { moveMapLibreCamera, prefersReducedMotion } from './motion-policy.js';
 
 const TERRAIN_PATH = 'terrain/dgm1-terrarium/';
+const TERRAIN_SOURCE_ID = 'terrain-dem';
+const HILLSHADE_SOURCE_ID = 'terrain-hillshade-dem';
+
+// Side-on cascades acceptance control derived from the user-visible regression
+// evidence: Neptunbassin is the lower/eastern end; Herkules is upper/western.
+export const CASCADES_TERRAIN_CONTROL = Object.freeze({
+  lower: Object.freeze({ id: 'neptunbassin', lng: 9.397959, lat: 51.315852 }),
+  upper: Object.freeze({ id: 'herkules', lng: 9.3932069, lat: 51.3161018 }),
+  minRiseM: 60,
+});
 const EXPECTED_PHASE3_ARTIFACT_SHA256 = 'cdff4e9d51f8bb1679b6a0e4f9ca6c1aeaa603488644faedafe3685e74989b4b';
 const EXPECTED_PHASE3_SOURCE_MANIFEST_SHA256 = 'aa6d1ed921fc51321180c1367d42975fe86e8b906e1dacce54b781c45fc9946e';
 const EMPTY_FEATURE_COLLECTION = Object.freeze({ type: 'FeatureCollection', features: [] });
@@ -10,6 +20,19 @@ const EMPTY_FEATURE_COLLECTION = Object.freeze({ type: 'FeatureCollection', feat
 function finite(value) {
   const number = Number(value);
   return Number.isFinite(number) ? number : null;
+}
+
+export function terrainRiseSanity(lowerElevation, upperElevation, minRiseM = CASCADES_TERRAIN_CONTROL.minRiseM) {
+  const lowerM = finite(lowerElevation);
+  const upperM = finite(upperElevation);
+  const riseM = lowerM == null || upperM == null ? null : upperM - lowerM;
+  return {
+    ok: riseM != null && riseM >= minRiseM,
+    lowerM,
+    upperM,
+    riseM,
+    minRiseM,
+  };
 }
 
 function assetBaseUrl(baseUrl = null) {
@@ -71,7 +94,10 @@ export function buildTerrainStyle(manifest, { baseUrl = null } = {}) {
         maxzoom: 19,
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       },
-      'terrain-dem': {
+      // Terrain mesh and hillshade intentionally use independent raster-dem
+      // source caches backed by the same immutable local DGM1 bytes. This follows
+      // MapLibre's 3D-terrain pattern and prevents mesh/hillshade cache crosstalk.
+      [TERRAIN_SOURCE_ID]: {
         type: 'raster-dem',
         tiles: [tileUrl],
         tileSize: manifest.tile_size,
@@ -81,19 +107,28 @@ export function buildTerrainStyle(manifest, { baseUrl = null } = {}) {
         bounds: manifest.renderer_bounds_wgs84,
         attribution: terrainAttribution(manifest),
       },
+      [HILLSHADE_SOURCE_ID]: {
+        type: 'raster-dem',
+        tiles: [tileUrl],
+        tileSize: manifest.tile_size,
+        encoding: manifest.encoding,
+        minzoom,
+        maxzoom,
+        bounds: manifest.renderer_bounds_wgs84,
+      },
       'walking-network': { type: 'geojson', data: emptyData() },
       'active-route': { type: 'geojson', data: emptyData() },
       'terrain-trees': { type: 'geojson', data: emptyData() },
       'terrain-visitor-features': { type: 'geojson', data: emptyData() },
       'user-position': { type: 'geojson', data: emptyData() },
     },
-    terrain: { source: 'terrain-dem', exaggeration: manifest.terrain_exaggeration },
+    terrain: { source: TERRAIN_SOURCE_ID, exaggeration: manifest.terrain_exaggeration },
     layers: [
       { id: 'osm-raster', type: 'raster', source: 'osm-raster' },
       {
         id: 'terrain-hillshade',
         type: 'hillshade',
-        source: 'terrain-dem',
+        source: HILLSHADE_SOURCE_ID,
         paint: { 'hillshade-exaggeration': 0.28, 'hillshade-shadow-color': '#294338', 'hillshade-highlight-color': '#f4f0df' },
       },
       {
@@ -290,6 +325,7 @@ export async function createMapLibreTerrainSpatialAdapter(element, graph, initia
   let activeRoute = null;
   let userPosition = null;
   let terrainEnabled = true;
+  let terrainVerified = false;
   let destroyed = false;
   let heritageLayer = null;
   let heritageInstallPromise = null;
@@ -331,6 +367,60 @@ export async function createMapLibreTerrainSpatialAdapter(element, graph, initia
   });
   map.addControl(new NavigationControl({ showCompass: true, showZoom: true, visualizePitch: true }), 'bottom-right');
 
+  function activateTerrain() {
+    if (!terrainEnabled || destroyed) return false;
+    try {
+      map.setTerrain({ source: TERRAIN_SOURCE_ID, exaggeration: manifest.terrain_exaggeration });
+      terrainVerified = false;
+      element.dataset.spatialTerrainReady = 'pending';
+      element.dataset.spatialTerrainVerified = 'pending';
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  function verifyTerrainRise() {
+    if (!terrainEnabled || terrainVerified || destroyed || typeof map.queryTerrainElevation !== 'function') return false;
+    const lower = map.queryTerrainElevation(
+      [CASCADES_TERRAIN_CONTROL.lower.lng, CASCADES_TERRAIN_CONTROL.lower.lat],
+      { exaggerated: false },
+    );
+    const upper = map.queryTerrainElevation(
+      [CASCADES_TERRAIN_CONTROL.upper.lng, CASCADES_TERRAIN_CONTROL.upper.lat],
+      { exaggerated: false },
+    );
+    const sanity = terrainRiseSanity(lower, upper);
+    // A control tile may not be resident yet. Stay pending instead of producing a
+    // false failure; source errors still go through the existing fail-closed path.
+    if (sanity.lowerM == null || sanity.upperM == null) return false;
+
+    element.dataset.spatialTerrainLowerM = sanity.lowerM.toFixed(3);
+    element.dataset.spatialTerrainUpperM = sanity.upperM.toFixed(3);
+    element.dataset.spatialTerrainRiseM = sanity.riseM.toFixed(3);
+    if (!sanity.ok) {
+      terrainEnabled = false;
+      try { map.setTerrain(null); } catch { /* flat fallback remains usable */ }
+      element.dataset.spatialTerrainState = 'flat-fallback';
+      element.dataset.spatialTerrainReady = 'flat';
+      element.dataset.spatialTerrainVerified = 'failed';
+      element.dataset.spatialTerrainError = 'terrain-elevation-direction-invalid';
+      heritageLayer?.setTerrainAvailable?.(false);
+      disableHeritageLayer('terrain-unavailable', 'terrain-elevation-direction-invalid');
+      return false;
+    }
+
+    terrainVerified = true;
+    element.dataset.spatialTerrainReady = 'true';
+    element.dataset.spatialTerrainVerified = 'cascades-rise';
+    delete element.dataset.spatialTerrainError;
+    if (typeof map.setCenterElevation === 'function') {
+      const centerElevation = map.queryTerrainElevation(map.getCenter(), { exaggerated: false });
+      if (Number.isFinite(centerElevation)) map.setCenterElevation(centerElevation);
+    }
+    return true;
+  }
+
   element.dataset.terrainEncoding = manifest.encoding;
   element.dataset.terrainTileCount = String(manifest.tile_count);
   element.dataset.terrainTileBytes = String(manifest.tile_bytes);
@@ -338,6 +428,8 @@ export async function createMapLibreTerrainSpatialAdapter(element, graph, initia
   element.dataset.terrainVerticalUnits = manifest.vertical_units;
   element.dataset.terrainExaggeration = String(manifest.terrain_exaggeration);
   element.dataset.spatialTerrainState = 'terrain';
+  element.dataset.spatialTerrainReady = 'pending';
+  element.dataset.spatialTerrainVerified = 'pending';
   element.dataset.spatialHeritageId = 'aquaedukt';
   element.dataset.spatialHeritageLayer = 'terrain-heritage-aquaedukt';
   element.dataset.spatialHeritageDepth = 'shared';
@@ -492,27 +584,33 @@ export async function createMapLibreTerrainSpatialAdapter(element, graph, initia
   map.on('webglcontextlost', () => {
     if (destroyed || heritageDisabled) return;
     heritageContextLost = true;
+    terrainVerified = false;
+    element.dataset.spatialTerrainReady = 'pending';
+    element.dataset.spatialTerrainVerified = 'pending';
     element.dataset.spatialHeritageState = 'context-lost';
     element.dataset.spatialHeritageRendered = 'false';
   });
   map.on('webglcontextrestored', () => {
     if (destroyed || heritageDisabled) return;
     heritageContextLost = false;
+    terrainVerified = false;
     element.dataset.spatialHeritageState = 'restoring';
     element.dataset.spatialHeritageRendered = 'false';
     // MapLibre calls setStyle() before this event; its subsequent style.load
     // is the safe point at which a custom layer can be manually re-added.
   });
   map.on('style.load', () => {
+    if (terrainEnabled) activateTerrain();
     syncSources();
     void ensureHeritageLayer();
   });
   map.on('load', () => {
+    if (terrainEnabled) activateTerrain();
     syncSources();
     void ensureHeritageLayer();
   });
-  map.once('idle', () => {
-    if (!destroyed) element.dataset.spatialTerrainReady = terrainEnabled ? 'true' : 'flat';
+  map.on('idle', () => {
+    if (!destroyed && terrainEnabled && !terrainVerified) verifyTerrainRise();
   });
   syncPlaceMarkers();
 
