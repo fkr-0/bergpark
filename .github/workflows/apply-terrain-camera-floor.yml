@@ -31,8 +31,10 @@ jobs:
           corepack install --global pnpm@11.3.0
           python -m pip install --requirement requirements-python.txt
           pnpm install --frozen-lockfile
-      - name: Apply camera-floor contract
-        run: python scripts/apply-terrain-camera-floor.py
+      - name: Apply camera-floor contract and diagnostics
+        run: |
+          python scripts/apply-terrain-camera-floor.py
+          python scripts/apply-terrain-cache-diagnostics.py
       - name: Validate deterministic terrain contracts
         run: |
           python terrain/pipeline/maplibre_dem.py validate
@@ -49,10 +51,10 @@ jobs:
         run: |
           python scripts/apply-terrain-camera-floor.py --strip-debug
           pnpm exec biome check src/maplibre-map.js tests/e2e/terrain-relief-regression.spec.js
-          rm scripts/apply-terrain-camera-floor.py .github/workflows/apply-terrain-camera-floor.yml
+          rm scripts/apply-terrain-camera-floor.py scripts/apply-terrain-cache-diagnostics.py .github/workflows/apply-terrain-camera-floor.yml
           git config user.name bergpark-ci
           git config user.email 26308101+fkr-0@users.noreply.github.com
-          git add src/maplibre-map.js terrain/pipeline/maplibre_dem.py public/terrain/dgm1-terrarium/manifest.json terrain/README.md reimagined.md tests/e2e/phase4-maplibre-terrain.spec.js tests/e2e/terrain-relief-regression.spec.js tests/maplibre-terrain.test.mjs tests/test_maplibre_dem.py scripts/apply-terrain-camera-floor.py .github/workflows/apply-terrain-camera-floor.yml
+          git add src/maplibre-map.js terrain/pipeline/maplibre_dem.py public/terrain/dgm1-terrarium/manifest.json terrain/README.md reimagined.md tests/e2e/phase4-maplibre-terrain.spec.js tests/e2e/terrain-relief-regression.spec.js tests/maplibre-terrain.test.mjs tests/test_maplibre_dem.py scripts/apply-terrain-camera-floor.py scripts/apply-terrain-cache-diagnostics.py .github/workflows/apply-terrain-camera-floor.yml
           git diff --cached --check
           git commit -m "fix: align terrain camera with DEM parent level"
           git push origin HEAD:fix/terrain-camera-floor
