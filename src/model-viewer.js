@@ -273,8 +273,14 @@ export function createLandmarkModelViewer({ parent, nodeId, title, presentation,
     controls?.dispose?.();
     model && disposeModelObject(model);
     renderer?.dispose?.();
-    root.remove();
     document.removeEventListener('keydown', onKeyDown);
+    canvas.removeEventListener('pointerdown', recordPointerInteraction);
+    canvas.removeEventListener('wheel', recordPointerInteraction);
+    // Chromium may retain a disposed WebGL canvas internally. Detach it from the
+    // modal subtree so that browser-level context retention cannot retain the
+    // complete viewer DOM through the canvas parent/listener chain.
+    root.replaceChildren();
+    root.remove();
     queueMicrotask(() => {
       if (previousFocus instanceof HTMLElement && previousFocus.isConnected) previousFocus.focus();
       onClose?.();
@@ -302,14 +308,14 @@ export function createLandmarkModelViewer({ parent, nodeId, title, presentation,
     }
   }
 
+  function recordPointerInteraction() {
+    root.dataset.pointerInteractions = String(Number(root.dataset.pointerInteractions ?? 0) + 1);
+  }
+
   closeButton.addEventListener('click', close);
   document.addEventListener('keydown', onKeyDown);
-  canvas.addEventListener('pointerdown', () => {
-    root.dataset.pointerInteractions = String(Number(root.dataset.pointerInteractions ?? 0) + 1);
-  });
-  canvas.addEventListener('wheel', () => {
-    root.dataset.pointerInteractions = String(Number(root.dataset.pointerInteractions ?? 0) + 1);
-  }, { passive: true });
+  canvas.addEventListener('pointerdown', recordPointerInteraction);
+  canvas.addEventListener('wheel', recordPointerInteraction, { passive: true });
 
   renderStrings();
   closeButton.focus();
