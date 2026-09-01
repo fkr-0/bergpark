@@ -31,6 +31,17 @@ test('MapLibre terrain style is bounded to the committed Terrarium derivative wi
   assert.match(dem.attribution, /dl-zero-de\/2\.0/);
 });
 
+test('MapLibre v6 worker is explicitly bundled at the browser runtime boundary', async () => {
+  const adapterSource = await readFile(new URL('../src/maplibre-map.js', import.meta.url), 'utf8');
+  const workerSource = await readFile(new URL('../src/maplibre-worker.js', import.meta.url), 'utf8');
+  const controllerSource = await readFile(new URL('../src/spatial-controller.js', import.meta.url), 'utf8');
+  assert.doesNotMatch(adapterSource, /maplibre-gl-worker/);
+  assert.match(workerSource, /maplibre-gl\/dist\/maplibre-gl-worker\.mjs\?worker&url/);
+  assert.match(workerSource, /setWorkerUrl\(mapLibreWorkerUrl\)/);
+  assert.match(controllerSource, /import\('\.\/maplibre-worker\.js'\)/);
+  assert.match(controllerSource, /configureMapLibreWorker\(\)/);
+});
+
 test('renderer manifest rejects unbounded zoom, exaggerated units, inverted bounds and provenance drift', async () => {
   const terrain = await manifest();
   for (const mutation of [

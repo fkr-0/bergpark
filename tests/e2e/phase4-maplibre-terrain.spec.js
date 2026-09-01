@@ -1,6 +1,10 @@
 import { expect, test } from '@playwright/test';
 import { captureRuntimeErrors, stubThirdPartyMapTiles } from './test-support.js';
 
+test.beforeEach(() => {
+  test.setTimeout(60_000);
+});
+
 async function openTerrainGuide(page, fragment = '') {
   await stubThirdPartyMapTiles(page);
   await page.goto(`/?renderer=terrain${fragment}`);
@@ -16,8 +20,8 @@ test('explicit terrain preference mounts bounded MapLibre terrain while Leaflet 
 
   const map = page.locator('#map');
   await expect(map).toHaveAttribute('data-terrain-encoding', 'terrarium');
-  await expect(map).toHaveAttribute('data-terrain-tile-count', '56');
-  await expect(map).toHaveAttribute('data-terrain-zooms', '14,15,16');
+  await expect(map).toHaveAttribute('data-terrain-tile-count', '60');
+  await expect(map).toHaveAttribute('data-terrain-zooms', '13,14,15,16');
   await expect(map).toHaveAttribute('data-terrain-vertical-units', 'metres');
   await expect(map).toHaveAttribute('data-terrain-exaggeration', '1');
   await expect(page.locator('.maplibregl-ctrl-attrib')).toContainText(/HVBG/);

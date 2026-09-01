@@ -114,7 +114,11 @@ export async function createBrowserSpatialController({
 
   if (requestedSelection.renderer === 'terrain') {
     try {
-      const { createMapLibreTerrainSpatialAdapter } = await import('./maplibre-map.js');
+      const [{ configureMapLibreWorker }, { createMapLibreTerrainSpatialAdapter }] = await Promise.all([
+        import('./maplibre-worker.js'),
+        import('./maplibre-map.js'),
+      ]);
+      configureMapLibreWorker();
       adapter = await createMapLibreTerrainSpatialAdapter(element, graph, world, {
         language,
         onSelectPlace,
