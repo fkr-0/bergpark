@@ -53,8 +53,8 @@ foundations have materially advanced:
   runtime layers, and semantic entities expose relation traversal with source context;
 - route detail exposes mapped-path/access uncertainty and DGM1-derived elevation
   evidence, including a lazy profile that fails accessibly and remains retryable;
-  the optional MapLibre/shared-depth spatial work remains a qualified development
-  baseline after alpha.5;
+  the MapLibre/DGM1/shared-depth stack is now integrated as an explicit opt-in renderer
+  with Leaflet retained as the default compatibility path;
 - `pnpm run check` currently covers Biome, Node/Vitest, 87 Python integrity tests,
   Vite build and runtime-artifact validation; Chromium E2E remains the broader
   `check:e2e` gate.
