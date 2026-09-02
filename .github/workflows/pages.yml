@@ -55,6 +55,11 @@ jobs:
         run: pnpm exec playwright install --with-deps chromium
 
       - name: Browser E2E and accessibility smoke
+        env:
+          # CI keeps the two-worker parallel stress gate. Pages repeats the same
+          # assertions serially so deployment is not coupled to hosted-runner
+          # contention between WebGL/MapLibre and service-worker scenarios.
+          BERGPARK_E2E_WORKERS: '1'
         run: pnpm run test:e2e
 
       - name: Upload browser failure evidence
