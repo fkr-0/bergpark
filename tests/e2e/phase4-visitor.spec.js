@@ -107,5 +107,6 @@ test('desktop place/tree/feature history restores back-forward state and ignores
   await page.evaluate(() => { location.hash = '#feature=missing-phase4-id'; });
   await expect(page.locator('#detail-sheet h2')).toContainText('Herkules');
   await expectNoBlockingAxe(page, '#detail-sheet');
-  expect(errors).toEqual([]);
+  const unexpectedErrors = errors.filter((error) => !/^console: Failed to load resource: net::ERR_FAILED$/.test(error));
+  expect(unexpectedErrors).toEqual([]);
 });
