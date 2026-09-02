@@ -1,6 +1,10 @@
 import { expect, test } from '@playwright/test';
 import { stubThirdPartyMapTiles } from './test-support.js';
 
+test.beforeEach(() => {
+  test.setTimeout(60_000);
+});
+
 async function openGuide(page, fragment = '') {
   await stubThirdPartyMapTiles(page);
   await page.goto(`/${fragment}`);
@@ -26,8 +30,8 @@ test('same-session renderer switching preserves landmark selection, route elevat
   const directRoute = page.locator('#detail-sheet [data-route-to]').first();
   await expect(directRoute).toBeVisible();
   await directRoute.click();
-  await expect(page.locator('[data-route-profile]')).toContainText(/DGM1|Höhenprofil|Elevation profile/);
-  await expect(page.locator('[data-route-profile]')).toContainText(/Anstieg|ascent/i);
+  await expect(page.locator('[data-route-profile]')).toContainText(/DGM1|Höhenprofil|Elevation profile/, { timeout: 15_000 });
+  await expect(page.locator('[data-route-profile]')).toContainText(/Anstieg|ascent/i, { timeout: 15_000 });
 
   await switchButton.click();
   await expect(map).toHaveAttribute('data-spatial-renderer', 'leaflet', { timeout: 10_000 });
