@@ -1,0 +1,55 @@
+name: Qualify navigation guidance v2
+
+on:
+  push:
+    branches:
+      - ux/navigation-guidance-v2
+
+permissions:
+  contents: write
+
+concurrency:
+  group: navigation-guidance-v2
+  cancel-in-progress: true
+
+jobs:
+  qualify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+          cache: pip
+          cache-dependency-path: requirements-python.txt
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack install --global pnpm@11.3.0
+      - name: Install dependencies
+        run: |
+          python -m pip install --requirement requirements-python.txt
+          pnpm install --frozen-lockfile
+      - name: Apply navigation tranche
+        run: |
+          python scripts/_stage_navigation_adapters.py
+          python scripts/_stage_navigation_ui.py
+      - name: Run deterministic gates
+        run: pnpm run check
+      - name: Install Chromium
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Run browser acceptance
+        env:
+          BERGPARK_E2E_WORKERS: '1'
+        run: pnpm run test:e2e
+      - name: Commit qualified product tree
+        run: |
+          rm scripts/_stage_navigation_adapters.py scripts/_stage_navigation_ui.py .github/workflows/stage-navigation-guidance-v2.yml
+          git config user.name fkr-0
+          git config user.email 26308101+fkr-0@users.noreply.github.com
+          git add -A
+          git commit -m 'feat: add graph-backed navigation guidance'
+          git push origin HEAD:ux/navigation-guidance-v2
