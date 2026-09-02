@@ -115,6 +115,7 @@ test('narration is quiet by default, transcript-backed, manual and single-voice'
   });
 
   await openGuide(page, '/#place=aquaedukt');
+  await expect(page.locator('#map')).toHaveAttribute('data-supplemental-data', 'ready', { timeout: 15_000 });
   const detail = page.locator('#detail-sheet');
   await expect(detail.locator('[data-action="narrate"]')).toBeEnabled();
   expect(await page.evaluate(() => window.__bergparkSpeechLog)).toEqual([]);
@@ -125,11 +126,13 @@ test('narration is quiet by default, transcript-backed, manual and single-voice'
   await expect(transcript).toContainText('Aquädukt');
 
   await detail.locator('[data-action="narrate"]').click();
-  await expect(detail.locator('[data-action="stop-narration"]')).toBeVisible();
+  const stopNarration = detail.locator('[data-action="stop-narration"]');
+  await expect(stopNarration).toBeVisible();
   expect((await page.evaluate(() => window.__bergparkSpeechLog)).map(([kind]) => kind)).toEqual(['speak']);
   await detail.locator('[data-action="narrate"]').click();
   expect((await page.evaluate(() => window.__bergparkSpeechLog)).map(([kind]) => kind)).toEqual(['speak', 'cancel', 'speak']);
-  await detail.locator('[data-action="stop-narration"]').click();
+  await expect(stopNarration).toBeVisible();
+  await stopNarration.click();
   expect((await page.evaluate(() => window.__bergparkSpeechLog)).map(([kind]) => kind)).toEqual(['speak', 'cancel', 'speak', 'cancel']);
 
   await page.locator('#language').click();
