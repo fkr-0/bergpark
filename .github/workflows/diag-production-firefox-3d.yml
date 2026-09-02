@@ -35,12 +35,13 @@ jobs:
             reporter: 'line',
             use: {
               baseURL: 'https://bergpark.fkr.dev',
+              headless: false,
               trace: 'retain-on-failure',
               screenshot: 'only-on-failure',
               video: 'retain-on-failure',
               serviceWorkers: 'allow',
             },
-            projects: [{ name: 'firefox', use: { ...devices['Desktop Firefox'] } }],
+            projects: [{ name: 'firefox', use: { ...devices['Desktop Firefox'], headless: false } }],
           });
           EOF
           cat > tests/e2e/production-firefox-3d.diag.spec.js <<'EOF'
@@ -86,13 +87,13 @@ jobs:
             await expect(map).toHaveAttribute('data-spatial-renderer', 'terrain', { timeout: 2_000 });
           });
           EOF
-      - name: Run deployed Firefox diagnostic
-        run: pnpm exec playwright test production-firefox-3d.diag.spec.js --config=playwright.production-firefox.config.js
+      - name: Run deployed Firefox diagnostic headed under Xvfb
+        run: xvfb-run -a pnpm exec playwright test production-firefox-3d.diag.spec.js --config=playwright.production-firefox.config.js
       - name: Upload diagnostic evidence
         if: always()
         uses: actions/upload-artifact@v5
         with:
-          name: production-firefox-3d-evidence
+          name: production-firefox-3d-evidence-headed
           path: |
             playwright-report/
             test-results/
