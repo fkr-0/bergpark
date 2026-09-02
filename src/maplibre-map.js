@@ -307,6 +307,7 @@ export async function createMapLibreTerrainSpatialAdapter(element, graph, initia
   onSelectPlace,
   onSelectTree,
   onSelectFeature,
+  onMapPositionSelect,
   fetchFn,
   baseUrl,
 } = {}) {
@@ -647,6 +648,12 @@ export async function createMapLibreTerrainSpatialAdapter(element, graph, initia
     const id = event.features?.[0]?.properties?.id;
     if (id) onSelectFeature?.(String(id));
   });
+  map.on('click', (event) => {
+    if (!Number.isFinite(event?.lngLat?.lat) || !Number.isFinite(event?.lngLat?.lng)) return;
+    const interactive = map.queryRenderedFeatures?.(event.point, { layers: sourceLayers }) ?? [];
+    if (interactive.length) return;
+    onMapPositionSelect?.({ lat: event.lngLat.lat, lng: event.lngLat.lng });
+  });
   map.on('sourcedata', (event) => {
     if (destroyed || !terrainEnabled || terrainVerified || event?.sourceId !== TERRAIN_SOURCE_ID) return;
     scheduleTerrainVerification({ immediate: true });
@@ -757,7 +764,13 @@ export async function createMapLibreTerrainSpatialAdapter(element, graph, initia
     },
     setUserPosition(position) {
       userPosition = position;
+      const source = map.getSource('user-position');
+      const rendered = Number.isFinite(position?.lat)
+        && Number.isFinite(position?.lng)
+        && Boolean(source && typeof source.setData === 'function');
       sourceSetData(map, 'user-position', userData(position));
+      element.dataset.userPositionRendered = String(rendered);
+      return rendered;
     },
     setWorld(nextWorld) {
       world = nextWorld;

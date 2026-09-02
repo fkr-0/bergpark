@@ -54,7 +54,7 @@ function routeStyle(active = false) {
     : { weight: 2, opacity: 0.28, lineCap: 'round', lineJoin: 'round', className: 'network-route-line' };
 }
 
-export function createLeafletSpatialAdapter(element, graph, world, { language = 'de', onSelectPlace, onLocationError } = {}) {
+export function createLeafletSpatialAdapter(element, graph, world, { language = 'de', onSelectPlace, onMapPositionSelect, onLocationError } = {}) {
   const { nodes, edges } = graph;
   let currentLanguage = language;
   const parkPoints = world?.places?.length
@@ -209,17 +209,27 @@ export function createLeafletSpatialAdapter(element, graph, world, { language = 
   }
 
   map.on('locationerror', (event) => onLocationError?.(event));
+  map.on('click', ({ latlng }) => {
+    if (!Number.isFinite(latlng?.lat) || !Number.isFinite(latlng?.lng)) return;
+    onMapPositionSelect?.({ lat: latlng.lat, lng: latlng.lng });
+  });
 
   function setUserPosition(position) {
     userLayer.clearLayers();
+    element.dataset.userPositionRendered = 'false';
+    if (!Number.isFinite(position?.lat) || !Number.isFinite(position?.lng)) return false;
     const latlng = [position.lat, position.lng];
     L.circle(latlng, {
       radius: Math.min(position.accuracy ?? 0, 150),
       className: 'user-accuracy',
     }).addTo(userLayer);
     L.circleMarker(latlng, { radius: 8, className: 'user-location' })
-      .bindTooltip(currentLanguage === 'de' ? 'Dein Standort' : 'Your location')
+      .bindTooltip(position.simulated
+        ? (currentLanguage === 'de' ? 'Simulierte Position' : 'Simulated position')
+        : (currentLanguage === 'de' ? 'Dein Standort' : 'Your location'))
       .addTo(userLayer);
+    element.dataset.userPositionRendered = 'true';
+    return true;
   }
 
   return {

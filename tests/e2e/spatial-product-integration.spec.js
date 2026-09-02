@@ -143,3 +143,35 @@ test('unavailable WebGL2 makes an explicit 3D request visible and restores canon
   await expect(page).not.toHaveURL(/renderer=terrain/);
   await context.close();
 });
+
+
+test('mobile guidance surface collapses after meaningful map interaction', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await stubThirdPartyMapTiles(page);
+  await page.goto('/');
+  const guide = page.locator('#guide-surface');
+  await expect(guide).toHaveAttribute('data-guide-mode', /welcome|compact/);
+  await page.locator('#map').click({ position: { x: 36, y: 300 } });
+  await expect(guide).toHaveAttribute('data-guide-mode', 'compact');
+  const box = await guide.boundingBox();
+  expect(box?.height).toBeLessThan(80);
+});
+
+test('desktop can set a simulated map position through the renderer-neutral position seam', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 820 });
+  await stubThirdPartyMapTiles(page);
+  await page.goto('/');
+  const positionButton = page.locator('#set-position');
+  await expect(positionButton).toBeVisible();
+  await positionButton.click();
+  await expect(page.locator('#map')).toHaveAttribute('data-position-pick', 'true');
+  await page.locator('#map').click({ position: { x: 900, y: 420 } });
+  await expect(page.locator('#map')).toHaveAttribute('data-position-source', 'simulated');
+  await expect(positionButton).toHaveAttribute('aria-pressed', 'false');
+  await expect(page.locator('#guide-surface')).toHaveAttribute('data-guide-mode', 'position');
+  await expect(page.locator('#map')).toHaveAttribute('data-spatial-renderer', 'leaflet');
+  // Leaflet is intentionally preferCanvas=true, so its user circle has no SVG/DOM node.
+  // The adapter marks successful insertion into its user layer instead of making QA
+  // depend on a renderer-specific DOM implementation detail.
+  await expect(page.locator('#map')).toHaveAttribute('data-user-position-rendered', 'true');
+});

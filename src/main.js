@@ -18,6 +18,7 @@ import { deepLinkHash, parseDeepLink, routeDeepLinkHash } from './deep-link.js';
 import { createBrowserSpatialController, LEAFLET_OVERLAY_COMPATIBILITY } from './spatial-controller.js';
 import { createSpatialWorld, createWalkingNetworkDescriptor } from './spatial-world.js';
 import { planWalkingRoute } from './walking-router.js';
+import { navigationSummary } from './guidance-surface.js';
 
 const app = document.querySelector('#app');
 const i18n = createI18n();
@@ -26,17 +27,20 @@ document.documentElement.lang = i18n.language;
 
 app.innerHTML = `
   <main class="app-shell">
-    <header class="topbar">
-      <div class="brand-block">
-        <p class="eyebrow" data-i18n="heritage"></p>
-        <h1 data-i18n="appTitle"></h1>
+    <header id="guide-surface" class="topbar" data-guide-mode="welcome">
+      <div class="brand-block guide-copy">
+        <p id="guide-kicker" class="eyebrow"></p>
+        <h1 id="guide-title"></h1>
+        <p id="guide-detail" class="guide-detail" hidden></p>
       </div>
       <div class="topbar-actions">
         <button id="renderer-switch" class="renderer-switch" type="button" aria-label="Geländemodus wechseln" aria-pressed="false">3D</button>
         <button id="language" class="language-button" type="button" aria-label="Sprache wechseln">EN</button>
+        <button id="set-position" class="icon-button desktop-position-button" type="button" aria-pressed="false"><span aria-hidden="true">⌖</span><span class="sr-only" data-i18n="setPosition"></span></button>
         <button id="locate" class="locate-button" type="button">
           <span aria-hidden="true">◎</span><span data-i18n="locate"></span>
         </button>
+        <button id="header-toggle" class="icon-button header-toggle" type="button" aria-expanded="true"><span aria-hidden="true">⌃</span></button>
       </div>
     </header>
     <section class="map-stage" aria-label="Interaktive Karte des Bergparks">
@@ -55,6 +59,14 @@ app.innerHTML = `
 `;
 
 const elements = {
+  shell: document.querySelector('.app-shell'),
+  topbar: document.querySelector('#guide-surface'),
+  guideKicker: document.querySelector('#guide-kicker'),
+  guideTitle: document.querySelector('#guide-title'),
+  guideDetail: document.querySelector('#guide-detail'),
+  headerToggle: document.querySelector('#header-toggle'),
+  setPosition: document.querySelector('#set-position'),
+  map: document.querySelector('#map'),
   rendererSwitch: document.querySelector('#renderer-switch'),
   language: document.querySelector('#language'),
   locate: document.querySelector('#locate'),
@@ -90,6 +102,10 @@ let latestUserPosition = null;
 let spatialSwitchPromise = null;
 let activeTreeFilterIds = null;
 let walkingRouteError = null;
+let positionSource = null;
+let manualPositionPickActive = false;
+let guideIntroAcknowledged = false;
+let guideUserCollapsed = false;
 
 function syncDeepLink(kind, id, mode = 'push') {
   if (mode === 'none') return;
@@ -285,6 +301,159 @@ function scheduleSupplementalHydration() {
   }, 800);
 }
 
+function readGuideIntroState() {
+  try {
+    return sessionStorage.getItem('bergpark.guide.introSeen') === '1';
+  } catch {
+    return false;
+  }
+}
+
+function rememberGuideIntro() {
+  guideIntroAcknowledged = true;
+  try { sessionStorage.setItem('bergpark.guide.introSeen', '1'); } catch { /* session storage is optional */ }
+}
+
+function formatGuidanceDistance(distanceM) {
+  if (!Number.isFinite(distanceM)) return null;
+  if (distanceM < 1000) return `${Math.max(0, Math.round(distanceM / 10) * 10)} ${i18n.t('metres')}`;
+  return `${(distanceM / 1000).toFixed(distanceM < 10_000 ? 1 : 0)} km`;
+}
+
+function currentTargetLabel() {
+  const routeTargetId = currentRoute?.toId ?? currentRoute?.route?.toId ?? null;
+  const nodeId = routeTargetId ?? currentNodeId;
+  const node = nodeId ? graph?.entitiesById?.get(nodeId) ?? graph?.nodesById?.get(nodeId) : null;
+  if (node) return localized(node.name, i18n.language, node.title ?? node.id);
+  if (currentTreeId) {
+    const tree = graph?.trees?.find(({ id }) => id === currentTreeId);
+    if (tree) return localized(tree.name, i18n.language, tree.species?.[i18n.language] ?? tree.id);
+  }
+  if (currentVisitorFeatureId) {
+    const feature = graph?.visitorFeaturesById?.get(currentVisitorFeatureId);
+    if (feature) return localized(feature.name ?? feature.title, i18n.language, feature.id);
+  }
+  return null;
+}
+
+function currentRouteForGuidance() {
+  if (currentRoute?.kind === 'network') {
+    return {
+      coordinates: currentRoute.route.coordinates,
+      distanceM: currentRoute.route.distanceM,
+      walkingMin: currentRoute.route.walkingMin,
+    };
+  }
+  if (currentRoute?.kind === 'direct') {
+    const descriptor = currentRoute.edge?.id ? spatialWorld?.routesById?.get(currentRoute.edge.id) : null;
+    return descriptor ? {
+      coordinates: descriptor.coordinates,
+      distanceM: currentRoute.edge.distance_m,
+      walkingMin: currentRoute.edge.walking_min,
+    } : null;
+  }
+  return null;
+}
+
+function renderGuidanceSurface() {
+  if (!elements.topbar) return;
+  const route = currentRouteForGuidance();
+  const targetLabel = currentTargetLabel();
+  let mode = guideIntroAcknowledged ? 'compact' : 'welcome';
+  let kicker = i18n.t('heritage');
+  let title = i18n.t('appTitle');
+  let detail = '';
+
+  if (route) {
+    const summary = latestUserPosition ? navigationSummary({
+      position: latestUserPosition,
+      coordinates: route.coordinates,
+      routeDistanceM: route.distanceM,
+      walkingMin: route.walkingMin,
+    }) : null;
+    if (summary) {
+      mode = 'navigation';
+      kicker = i18n.t('navigation');
+      title = summary.offRoute ? i18n.t('returnToRoute') : i18n.t('followRoute');
+      const parts = [];
+      if (targetLabel) parts.push(targetLabel);
+      const remaining = formatGuidanceDistance(summary.remainingM);
+      if (remaining) parts.push(`${i18n.t('remaining')} ${remaining}`);
+      if (Number.isFinite(summary.remainingWalkingMin)) parts.push(`ca. ${Math.max(1, Math.ceil(summary.remainingWalkingMin))} ${i18n.t('minutes')}`);
+      if (summary.offRoute) parts.push(`${formatGuidanceDistance(summary.offRouteM)} ${i18n.language === 'de' ? 'von der Route' : 'from route'}`);
+      detail = parts.join(' · ');
+    } else {
+      mode = 'route';
+      kicker = i18n.t('route');
+      title = targetLabel ?? i18n.t('route');
+      const parts = [formatGuidanceDistance(route.distanceM), Number.isFinite(route.walkingMin) ? `${route.walkingMin} ${i18n.t('minutes')}` : null].filter(Boolean);
+      detail = `${parts.join(' · ')}${parts.length ? ' · ' : ''}${i18n.t('locationForGuidance')}`;
+    }
+  } else if (targetLabel) {
+    mode = 'target';
+    kicker = i18n.t('destination');
+    title = targetLabel;
+  } else if (latestUserPosition) {
+    mode = 'position';
+    kicker = i18n.t(positionSource === 'simulated' ? 'positionSimulated' : 'positionGps');
+    title = i18n.t(positionSource === 'simulated' ? 'positionSimulated' : 'positionGps');
+    detail = i18n.t('mapHint');
+  }
+
+  elements.topbar.dataset.guideMode = mode;
+  elements.topbar.classList.toggle('is-user-collapsed', guideUserCollapsed);
+  elements.guideKicker.textContent = kicker;
+  elements.guideTitle.textContent = title;
+  elements.guideDetail.textContent = detail;
+  elements.guideDetail.hidden = !detail;
+  const visuallyCompact = mode === 'compact' || guideUserCollapsed;
+  elements.shell?.style.setProperty('--guide-map-control-offset', visuallyCompact ? '68px' : '150px');
+  elements.headerToggle.hidden = mode === 'compact';
+  elements.headerToggle.setAttribute('aria-expanded', String(!visuallyCompact));
+  elements.headerToggle.setAttribute('aria-label', i18n.t(visuallyCompact ? 'expandHeader' : 'collapseHeader'));
+  elements.headerToggle.querySelector('[aria-hidden="true"]').textContent = visuallyCompact ? '⌄' : '⌃';
+}
+
+function acknowledgeGuideIntro() {
+  if (!guideIntroAcknowledged) rememberGuideIntro();
+  renderGuidanceSurface();
+}
+
+function setPositionPickActive(active) {
+  manualPositionPickActive = Boolean(active);
+  elements.map.dataset.positionPick = String(manualPositionPickActive);
+  elements.setPosition.setAttribute('aria-pressed', String(manualPositionPickActive));
+  elements.setPosition.classList.toggle('is-active', manualPositionPickActive);
+}
+
+function applyUserPosition(position, source = 'gps') {
+  if (!Number.isFinite(position?.lat) || !Number.isFinite(position?.lng)) return false;
+  latestUserPosition = { ...position, simulated: source === 'simulated' };
+  positionSource = source;
+  elements.map.dataset.positionSource = source;
+  mapController?.setUserPosition(latestUserPosition);
+  guideUserCollapsed = false;
+  acknowledgeGuideIntro();
+  return true;
+}
+
+function clearUserPosition() {
+  latestUserPosition = null;
+  positionSource = null;
+  delete elements.map.dataset.positionSource;
+  mapController?.setUserPosition(null);
+  renderGuidanceSurface();
+}
+
+function handleMapPositionSelect(position) {
+  acknowledgeGuideIntro();
+  if (!manualPositionPickActive) return;
+  setPositionPickActive(false);
+  if (!applyUserPosition({ ...position, accuracy: 0 }, 'simulated')) return;
+  mapController?.focusPosition(position, { minZoom: 16, duration: 0.25 });
+  setStatus(i18n.t('setPositionDone'), true);
+}
+
 function renderChrome() {
   for (const element of document.querySelectorAll('[data-i18n]')) element.textContent = i18n.t(element.dataset.i18n);
   document.querySelector('.skip-link').textContent = i18n.t('skipMap');
@@ -293,7 +462,10 @@ function renderChrome() {
   elements.language.textContent = i18n.language === 'de' ? 'EN' : 'DE';
   elements.language.setAttribute('aria-label', i18n.language === 'de' ? 'Switch to English' : 'Auf Deutsch wechseln');
   elements.locate.setAttribute('aria-label', i18n.t('locateLabel'));
+  elements.setPosition.setAttribute('aria-label', i18n.t('setPositionLabel'));
+  elements.setPosition.title = i18n.t('setPosition');
   if (!elements.status.dataset.transient) elements.status.textContent = i18n.t('mapHint');
+  renderGuidanceSurface();
 }
 
 function setStatus(message, transient = false) {
@@ -428,6 +600,7 @@ async function switchSpatialRenderer(nextPreference) {
           const feature = graph?.visitorFeaturesById.get(id);
           if (feature) selectVisitorFeature(feature);
         },
+        onMapPositionSelect: handleMapPositionSelect,
         onLocationError: () => setStatus(i18n.t('gpsUnavailable'), true),
       });
       bindSpatialOverlays();
@@ -448,6 +621,7 @@ async function switchSpatialRenderer(nextPreference) {
           const feature = graph?.visitorFeaturesById.get(id);
           if (feature) selectVisitorFeature(feature);
         },
+        onMapPositionSelect: handleMapPositionSelect,
         onLocationError: () => setStatus(i18n.t('gpsUnavailable'), true),
       });
       bindSpatialOverlays();
@@ -572,6 +746,8 @@ function showDetail(node, { focusClose = false } = {}) {
   const close = elements.detail.querySelector('[data-action="close-detail"]');
   close?.addEventListener('click', closeNodeDetail);
   if (focusClose) close?.focus();
+  guideUserCollapsed = false;
+  acknowledgeGuideIntro();
 }
 
 function closeNodeDetail() {
@@ -625,6 +801,8 @@ function selectTree(id, context = {}) {
   const label = localized(tree.name, i18n.language, tree.species?.[i18n.language] ?? tree.species?.scientific ?? tree.catalog_ref ?? tree.id);
   setStatus(label, true);
   renderTreeDetail(elements.detail, { tree, i18n, onClose: closeTreeDetail });
+  guideUserCollapsed = false;
+  acknowledgeGuideIntro();
   syncDeepLink('tree', id, context.historyMode ?? 'push');
 }
 
@@ -647,6 +825,8 @@ function selectVisitorFeature(feature, { historyMode = 'push' } = {}) {
   const descriptor = spatialWorld?.visitorFeaturesById.get(feature.id);
   if (descriptor) mapController.focusPosition(descriptor.position, { minZoom: 17, duration: 0.35 });
   renderVisitorFeatureDetail(elements.detail, { feature, i18n, onClose: closeVisitorFeature });
+  guideUserCollapsed = false;
+  acknowledgeGuideIntro();
   syncDeepLink('feature', feature.id, historyMode);
 }
 
@@ -680,6 +860,8 @@ function showRoute(fromId, toId) {
     onSelectNode: selectEntity,
     onClose: closeRouteDetail,
   });
+  guideUserCollapsed = false;
+  acknowledgeGuideIntro();
 }
 
 function renderCurrentWalkingRoute() {
@@ -733,6 +915,8 @@ function showWalkingRoute(fromId, toId, profileId = 'shortest', { historyMode = 
   currentRoute = { kind: 'network', route, fromId, toId, profileId };
   if (target) setStatus(`${localized(target.name, i18n.language, target.id)} · ${Math.round(route.distanceM)} ${i18n.t('metres')}`, true);
   renderCurrentWalkingRoute();
+  guideUserCollapsed = false;
+  acknowledgeGuideIntro();
   syncWalkingRouteDeepLink(fromId, toId, profileId, historyMode);
   return true;
 }
@@ -752,8 +936,7 @@ function setupGps() {
     nodes: graph.nodes,
     radiusM: 30,
     onPosition(position) {
-      latestUserPosition = position;
-      mapController.setUserPosition(position);
+      applyUserPosition(position, 'gps');
     },
     onEnter(node) {
       selectNode(node.id, { source: 'gps' });
@@ -768,13 +951,17 @@ function setupGps() {
     if (gps.active) {
       gps.stop();
       elements.locate.classList.remove('is-active');
+      clearUserPosition();
       setStatus(i18n.t('mapHint'));
       return;
     }
+    setPositionPickActive(false);
+    if (positionSource === 'simulated') clearUserPosition();
     if (!gps.start()) {
       setStatus(i18n.t('gpsUnavailable'), true);
       return;
     }
+    acknowledgeGuideIntro();
     elements.locate.classList.add('is-active');
     setStatus(i18n.t('gpsWatching'), true);
   });
@@ -825,6 +1012,7 @@ function restoreDeepLink({ force = false } = {}) {
 }
 
 async function boot() {
+  guideIntroAcknowledged = readGuideIntroState();
   renderChrome();
   setStatus(i18n.t('loading'), true);
   const initial = await loadInitialGraphData();
@@ -842,6 +1030,7 @@ async function boot() {
       const feature = graph?.visitorFeaturesById.get(id);
       if (feature) selectVisitorFeature(feature);
     },
+    onMapPositionSelect: handleMapPositionSelect,
     onLocationError: () => setStatus(i18n.t('gpsUnavailable'), true),
   });
   setupGps();
@@ -856,13 +1045,34 @@ async function boot() {
 for (const button of elements.nav) {
   button.addEventListener('click', () => {
     if (!graph) return;
+    acknowledgeGuideIntro();
     setView(button.dataset.view);
     if (button.dataset.view !== 'map') ensureSupplementalData();
   });
 }
 
 elements.rendererSwitch.addEventListener('click', () => {
+  acknowledgeGuideIntro();
   void switchSpatialRenderer(mapController?.renderer === 'terrain' ? 'auto' : 'terrain');
+});
+elements.setPosition.addEventListener('click', () => {
+  acknowledgeGuideIntro();
+  if (gps?.active) {
+    gps.stop();
+    elements.locate.classList.remove('is-active');
+  }
+  const next = !manualPositionPickActive;
+  setPositionPickActive(next);
+  setStatus(next ? i18n.t('setPositionPrompt') : i18n.t('mapHint'), next);
+});
+elements.headerToggle.addEventListener('click', () => {
+  if (elements.topbar.dataset.guideMode === 'welcome') {
+    rememberGuideIntro();
+    guideUserCollapsed = false;
+  } else {
+    guideUserCollapsed = !guideUserCollapsed;
+  }
+  renderGuidanceSurface();
 });
 elements.language.addEventListener('click', () => i18n.toggle());
 i18n.subscribe(() => {
@@ -889,6 +1099,7 @@ i18n.subscribe(() => {
     renderVisitorFeatureDetail(elements.detail, { feature: graph.visitorFeaturesById.get(currentVisitorFeatureId), i18n, onClose: closeVisitorFeature });
   } else if (currentNodeId && !elements.detail.hidden) showDetail(graph.entitiesById.get(currentNodeId));
   if (currentView !== 'map' && graph && !currentTreeId && !currentVisitorFeatureId) setView(currentView);
+  renderGuidanceSurface();
 });
 
 window.addEventListener('beforeunload', () => {

@@ -95,6 +95,7 @@ export async function createBrowserSpatialController({
   onSelectPlace,
   onSelectTree,
   onSelectFeature,
+  onMapPositionSelect,
   onLocationError,
   preference = null,
 }) {
@@ -124,6 +125,7 @@ export async function createBrowserSpatialController({
         onSelectPlace,
         onSelectTree,
         onSelectFeature,
+        onMapPositionSelect,
       });
     } catch (error) {
       console.warn('MapLibre terrain unavailable; falling back to Leaflet:', error);
@@ -142,6 +144,7 @@ export async function createBrowserSpatialController({
     adapter = createLeafletSpatialAdapter(element, graph, world, {
       language,
       onSelectPlace,
+      onMapPositionSelect,
       onLocationError,
     });
   }
