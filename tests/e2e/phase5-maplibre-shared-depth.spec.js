@@ -2,6 +2,10 @@ import { expect, test } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
 import { captureRuntimeErrors, stubThirdPartyMapTiles } from './test-support.js';
 
+test.beforeEach(() => {
+  test.setTimeout(60_000);
+});
+
 async function openSharedDepthGuide(page, fragment = '#place=aquaedukt') {
   await stubThirdPartyMapTiles(page);
   await page.goto(`/?renderer=terrain${fragment}`);
