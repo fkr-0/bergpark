@@ -116,3 +116,30 @@ test('terrain initialization and shared-depth model failure recover without losi
   await expect(page).toHaveURL(/#place=aquaedukt$/);
   await context.close();
 });
+
+
+test('unavailable WebGL2 makes an explicit 3D request visible and restores canonical 2D state', async ({ browser }) => {
+  const context = await browser.newContext({ serviceWorkers: 'block' });
+  const page = await context.newPage();
+  await page.addInitScript(() => {
+    const original = HTMLCanvasElement.prototype.getContext;
+    HTMLCanvasElement.prototype.getContext = function getContext(kind, ...args) {
+      if (kind === 'webgl2') return null;
+      return original.call(this, kind, ...args);
+    };
+  });
+  await stubThirdPartyMapTiles(page);
+  await page.goto('/#place=herkules');
+  const map = page.locator('#map');
+  const switchButton = page.locator('#renderer-switch');
+  await expect(map).toHaveAttribute('data-spatial-renderer', 'leaflet');
+  await switchButton.click();
+  await expect(map).toHaveAttribute('data-spatial-renderer', 'leaflet');
+  await expect(map).toHaveAttribute('data-spatial-fallback-reason', 'webgl2-unavailable');
+  await expect(switchButton).toHaveAttribute('data-fallback-reason', 'webgl2-unavailable');
+  await expect(switchButton).toBeEnabled();
+  await expect(page.locator('#map-status')).toContainText(/WebGL2|3D terrain|3D-Gelände/);
+  await expect(page).toHaveURL(/#place=herkules$/);
+  await expect(page).not.toHaveURL(/renderer=terrain/);
+  await context.close();
+});

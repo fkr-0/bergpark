@@ -302,6 +302,21 @@ function setStatus(message, transient = false) {
   else delete elements.status.dataset.transient;
 }
 
+function spatialFallbackStatus(reason) {
+  if (reason === 'webgl2-unavailable') return i18n.t('terrainWebgl2Unavailable');
+  if (reason === 'reduced-power') return i18n.t('terrainReducedPower');
+  return i18n.t('terrainUnavailable');
+}
+
+function reconcileSpatialFallback(preference) {
+  if (preference !== 'terrain' || mapController?.renderer === 'terrain') return false;
+  const reason = mapController?.fallbackReason ?? 'terrain-renderer-unavailable';
+  syncSpatialPreference('auto');
+  elements.rendererSwitch.dataset.fallbackReason = reason;
+  setStatus(spatialFallbackStatus(reason), true);
+  return true;
+}
+
 function spatialPreferenceUrl(preference) {
   const url = new URL(location.href);
   if (preference === 'auto') {
@@ -327,10 +342,15 @@ function renderRendererSwitch() {
     ? (i18n.language === 'de' ? 'Zur 2D-Ansicht wechseln' : 'Switch to the 2D view')
     : (i18n.language === 'de' ? '3D-Geländemodus öffnen' : 'Open 3D terrain mode'));
   elements.rendererSwitch.dataset.renderer = terrain ? 'terrain' : 'leaflet';
+  const fallbackReason = terrain ? null : mapController?.fallbackReason;
+  if (fallbackReason) elements.rendererSwitch.dataset.fallbackReason = fallbackReason;
+  else delete elements.rendererSwitch.dataset.fallbackReason;
   elements.rendererSwitch.textContent = terrain ? '2D' : '3D';
   elements.rendererSwitch.title = terrain
     ? (i18n.language === 'de' ? 'Zur normalen Karte wechseln' : 'Switch to the standard map')
-    : (i18n.language === 'de' ? 'Geländemodus öffnen' : 'Open terrain mode');
+    : fallbackReason
+      ? spatialFallbackStatus(fallbackReason)
+      : (i18n.language === 'de' ? 'Geländemodus öffnen' : 'Open terrain mode');
 }
 
 function restoreSpatialPresentation() {
@@ -413,7 +433,7 @@ async function switchSpatialRenderer(nextPreference) {
       bindSpatialOverlays();
       elements.detail.hidden = !wasVisibleDetail;
       restoreSpatialPresentation();
-      syncSpatialPreference(preference);
+      if (!reconcileSpatialFallback(preference)) syncSpatialPreference(preference);
     } catch (error) {
       console.warn('Spatial renderer switch failed:', error);
       mapController = await createBrowserSpatialController({
@@ -827,7 +847,7 @@ async function boot() {
   setupGps();
   mapController.fitWorld();
   renderRendererSwitch();
-  setStatus(i18n.t('mapHint'));
+  if (!reconcileSpatialFallback(mapController.requestedRenderer)) setStatus(i18n.t('mapHint'));
   restoreDeepLink({ force: true });
   scheduleSupplementalHydration();
   scheduleWalkingNetworkHydration();
