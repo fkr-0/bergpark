@@ -1,0 +1,126 @@
+name: Stage 3D switch fallback hotfix
+
+on:
+  push:
+    branches:
+      - hotfix/3d-switch-fallback
+
+permissions:
+  contents: write
+
+jobs:
+  patch-and-qualify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack install --global pnpm@11.3.0
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Apply bounded product hotfix
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          p = Path('src/i18n.js')
+          s = p.read_text()
+          s = s.replace(
+              "    loadError: 'Kartendaten konnten nicht geladen werden.',\n",
+              "    loadError: 'Kartendaten konnten nicht geladen werden.',\n"
+              "    terrainWebgl2Unavailable: '3D-Gelände ist in diesem Browser oder Grafikmodus nicht verfügbar (WebGL2 fehlt). Die 2D-Karte bleibt aktiv.',\n"
+              "    terrainReducedPower: '3D-Gelände ist im aktuellen Datenspar-/Niedrigleistungsmodus deaktiviert. Die 2D-Karte bleibt aktiv.',\n"
+              "    terrainUnavailable: '3D-Gelände konnte nicht gestartet werden. Die 2D-Karte bleibt aktiv.',\n",
+              1,
+          )
+          s = s.replace(
+              "    loadError: 'Map data could not be loaded.',\n",
+              "    loadError: 'Map data could not be loaded.',\n"
+              "    terrainWebgl2Unavailable: '3D terrain is unavailable in this browser or graphics mode because WebGL2 is unavailable. The 2D map remains active.',\n"
+              "    terrainReducedPower: '3D terrain is disabled in the current data-saving/low-power mode. The 2D map remains active.',\n"
+              "    terrainUnavailable: '3D terrain could not be started. The 2D map remains active.',\n",
+              1,
+          )
+          p.write_text(s)
+
+          p = Path('src/main.js')
+          s = p.read_text()
+          old = """function setStatus(message, transient = false) {\n  elements.status.textContent = message;\n  if (transient) elements.status.dataset.transient = 'true';\n  else delete elements.status.dataset.transient;\n}\n\nfunction spatialPreferenceUrl(preference) {\n"""
+          new = """function setStatus(message, transient = false) {\n  elements.status.textContent = message;\n  if (transient) elements.status.dataset.transient = 'true';\n  else delete elements.status.dataset.transient;\n}\n\nfunction spatialFallbackStatus(reason) {\n  if (reason === 'webgl2-unavailable') return i18n.t('terrainWebgl2Unavailable');\n  if (reason === 'reduced-power') return i18n.t('terrainReducedPower');\n  return i18n.t('terrainUnavailable');\n}\n\nfunction reconcileSpatialFallback(preference) {\n  if (preference !== 'terrain' || mapController?.renderer === 'terrain') return false;\n  const reason = mapController?.fallbackReason ?? 'terrain-renderer-unavailable';\n  syncSpatialPreference('auto');\n  elements.rendererSwitch.dataset.fallbackReason = reason;\n  setStatus(spatialFallbackStatus(reason), true);\n  return true;\n}\n\nfunction spatialPreferenceUrl(preference) {\n"""
+          if old not in s:
+              raise SystemExit('main setStatus anchor missing')
+          s = s.replace(old, new, 1)
+
+          old = """  elements.rendererSwitch.dataset.renderer = terrain ? 'terrain' : 'leaflet';\n  elements.rendererSwitch.textContent = terrain ? '2D' : '3D';\n  elements.rendererSwitch.title = terrain\n    ? (i18n.language === 'de' ? 'Zur normalen Karte wechseln' : 'Switch to the standard map')\n    : (i18n.language === 'de' ? 'Geländemodus öffnen' : 'Open terrain mode');\n}\n"""
+          new = """  elements.rendererSwitch.dataset.renderer = terrain ? 'terrain' : 'leaflet';\n  const fallbackReason = terrain ? null : mapController?.fallbackReason;\n  if (fallbackReason) elements.rendererSwitch.dataset.fallbackReason = fallbackReason;\n  else delete elements.rendererSwitch.dataset.fallbackReason;\n  elements.rendererSwitch.textContent = terrain ? '2D' : '3D';\n  elements.rendererSwitch.title = terrain\n    ? (i18n.language === 'de' ? 'Zur normalen Karte wechseln' : 'Switch to the standard map')\n    : fallbackReason\n      ? spatialFallbackStatus(fallbackReason)\n      : (i18n.language === 'de' ? 'Geländemodus öffnen' : 'Open terrain mode');\n}\n"""
+          if old not in s:
+              raise SystemExit('renderer switch anchor missing')
+          s = s.replace(old, new, 1)
+
+          old = """      restoreSpatialPresentation();\n      syncSpatialPreference(preference);\n    } catch (error) {\n"""
+          new = """      restoreSpatialPresentation();\n      if (!reconcileSpatialFallback(preference)) syncSpatialPreference(preference);\n    } catch (error) {\n"""
+          if old not in s:
+              raise SystemExit('switch success anchor missing')
+          s = s.replace(old, new, 1)
+
+          old = """  mapController.fitWorld();\n  renderRendererSwitch();\n  setStatus(i18n.t('mapHint'));\n  restoreDeepLink({ force: true });\n"""
+          new = """  mapController.fitWorld();\n  renderRendererSwitch();\n  if (!reconcileSpatialFallback(mapController.requestedRenderer)) setStatus(i18n.t('mapHint'));\n  restoreDeepLink({ force: true });\n"""
+          if old not in s:
+              raise SystemExit('boot anchor missing')
+          s = s.replace(old, new, 1)
+          p.write_text(s)
+
+          p = Path('tests/e2e/spatial-product-integration.spec.js')
+          s = p.read_text()
+          append = r'''
+
+test('unavailable WebGL2 makes an explicit 3D request visible and restores canonical 2D state', async ({ browser }) => {
+  const context = await browser.newContext({ serviceWorkers: 'block' });
+  const page = await context.newPage();
+  await page.addInitScript(() => {
+    const original = HTMLCanvasElement.prototype.getContext;
+    HTMLCanvasElement.prototype.getContext = function getContext(kind, ...args) {
+      if (kind === 'webgl2') return null;
+      return original.call(this, kind, ...args);
+    };
+  });
+  await stubThirdPartyMapTiles(page);
+  await page.goto('/#place=herkules');
+  const map = page.locator('#map');
+  const switchButton = page.locator('#renderer-switch');
+  await expect(map).toHaveAttribute('data-spatial-renderer', 'leaflet');
+  await switchButton.click();
+  await expect(map).toHaveAttribute('data-spatial-renderer', 'leaflet');
+  await expect(map).toHaveAttribute('data-spatial-fallback-reason', 'webgl2-unavailable');
+  await expect(switchButton).toHaveAttribute('data-fallback-reason', 'webgl2-unavailable');
+  await expect(switchButton).toBeEnabled();
+  await expect(page.locator('#map-status')).toContainText(/WebGL2|3D terrain|3D-Gelände/);
+  await expect(page).toHaveURL(/#place=herkules$/);
+  await expect(page).not.toHaveURL(/renderer=terrain/);
+  await context.close();
+});
+'''
+          if "unavailable WebGL2 makes an explicit 3D request visible" not in s:
+              s += append
+          p.write_text(s)
+          PY
+      - name: Run deterministic gates
+        run: pnpm run check
+      - name: Install Chromium
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Run renderer integration gate
+        env:
+          BERGPARK_E2E_WORKERS: '1'
+        run: pnpm exec playwright test tests/e2e/spatial-product-integration.spec.js
+      - name: Remove staging workflow and commit clean product tree
+        run: |
+          rm .github/workflows/hotfix-3d-switch-fallback.yml
+          git config user.name 'fkr-0'
+          git config user.email '26308101+fkr-0@users.noreply.github.com'
+          git add src/main.js src/i18n.js tests/e2e/spatial-product-integration.spec.js .github/workflows/hotfix-3d-switch-fallback.yml
+          git commit -m 'fix: make 3d renderer fallback explicit'
+          git push origin HEAD:hotfix/3d-switch-fallback
