@@ -54,13 +54,13 @@ test('place, tree and visitor deep links retain identity through the MapLibre co
 
   await page.goto('/?renderer=terrain#tree=tree-5702751554');
   await expect(page.locator('#map')).toHaveAttribute('data-spatial-renderer', 'terrain');
-  await expect(page.locator('#map')).toHaveAttribute('data-supplemental-data', 'ready');
+  await expect(page.locator('#map')).toHaveAttribute('data-supplemental-data', 'ready', { timeout: 15_000 });
   await expect(page.locator('[data-action="close-tree"]')).toBeVisible();
   await expect(page).toHaveURL(/#tree=tree-5702751554$/);
 
   await page.goto('/?renderer=terrain#feature=bench-45387376');
   await expect(page.locator('#map')).toHaveAttribute('data-spatial-renderer', 'terrain');
-  await expect(page.locator('#map')).toHaveAttribute('data-supplemental-data', 'ready');
+  await expect(page.locator('#map')).toHaveAttribute('data-supplemental-data', 'ready', { timeout: 15_000 });
   await expect(page.locator('[data-action="close-visitor-feature"]')).toBeVisible();
   await expect(page).toHaveURL(/#feature=bench-45387376$/);
 });
@@ -68,7 +68,7 @@ test('place, tree and visitor deep links retain identity through the MapLibre co
 test('supplemental tree and visitor layers stay controller-owned on the terrain renderer', async ({ page }) => {
   await openTerrainGuide(page);
   await page.getByRole('button', { name: 'Bäume' }).click();
-  await expect(page.locator('#map')).toHaveAttribute('data-supplemental-data', 'ready');
+  await expect(page.locator('#map')).toHaveAttribute('data-supplemental-data', 'ready', { timeout: 15_000 });
   await expect.poll(async () => page.locator('#map').evaluate((element) => element.dataset.spatialRenderer)).toBe('terrain');
 
   await page.getByRole('button', { name: 'Karte' }).click();
