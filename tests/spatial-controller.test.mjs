@@ -47,7 +47,7 @@ test('renderer preference plumbing accepts only explicit known values', () => {
 test('spatial controller forwards core semantics without exposing the adapter map', () => {
   const calls = [];
   const adapter = Object.fromEntries([
-    'fitWorld', 'focusPlace', 'focusPosition', 'showRoute', 'clearRoute', 'setUserPosition',
+    'fitWorld', 'focusPlace', 'focusPosition', 'followPosition', 'showRoute', 'clearRoute', 'setUserPosition',
     'setWalkingNetwork', 'setWorld', 'setTreeVisibility', 'setTreeFilter', 'setVisitorKinds',
     'setLanguage', 'invalidate', 'destroy',
   ].map((name) => [name, (...args) => { calls.push([name, ...args]); return true; }]));
@@ -56,10 +56,11 @@ test('spatial controller forwards core semantics without exposing the adapter ma
   const controller = createSpatialController(adapter, { renderer: 'leaflet', requested: 'auto', fallbackReason: null });
   controller.focusPlace('herkules', { popup: true });
   controller.focusPosition({ lng: 9.4, lat: 51.3 }, { minZoom: 17 });
+  controller.followPosition({ lng: 9.41, lat: 51.31 }, { minZoom: 17, bearing: 42 });
   controller.showRoute({ id: 'route-1', coordinates: [{ lng: 9.4, lat: 51.3 }, { lng: 9.5, lat: 51.4 }] });
   controller.setUserPosition({ lng: 9.4, lat: 51.3, accuracy: 5 });
   assert.equal('map' in controller, false);
-  assert.deepEqual(calls.map(([name]) => name), ['focusPlace', 'focusPosition', 'showRoute', 'setUserPosition']);
+  assert.deepEqual(calls.map(([name]) => name), ['focusPlace', 'focusPosition', 'followPosition', 'showRoute', 'setUserPosition']);
   assert.equal(controller.compatibilitySurface('unknown'), null);
   assert.equal(controller.compatibilitySurface('leaflet-overlays-v1').map, adapter.map);
 });
