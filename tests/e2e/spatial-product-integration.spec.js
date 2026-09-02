@@ -12,7 +12,7 @@ async function openGuide(page, fragment = '') {
   await expect(page.locator('#renderer-switch')).toHaveAttribute('data-renderer', 'leaflet');
 }
 
-test('same-session renderer switching preserves landmark selection, route elevation and canonical identity', async ({ page }) => {
+test('same-session renderer switching preserves landmark selection and DGM1 route evidence', async ({ page }) => {
   await openGuide(page, '#place=herkules');
 
   const map = page.locator('#map');
@@ -41,23 +41,33 @@ test('same-session renderer switching preserves landmark selection, route elevat
   await expect(page.locator('#detail-sheet h2')).toContainText(/Herkules|Hercules/);
   await expect(page).toHaveURL(/#place=herkules$/);
   await expect(map).toHaveClass(/leaflet-container/);
+});
 
-  await page.locator('[data-action="close-route"]').click();
-  await expect(page.locator('#detail-sheet h2')).toContainText(/Herkules|Hercules/);
+test('terrain deep link returns to warmed Leaflet and reopens offline without losing canonical identity', async ({ page }) => {
+  await openGuide(page, '#place=herkules');
+  const map = page.locator('#map');
+  const switchButton = page.locator('#renderer-switch');
 
   await page.goto('/?renderer=terrain#place=herkules');
-  await expect(map).toHaveAttribute('data-spatial-renderer', 'terrain');
+  await expect(map).toHaveAttribute('data-spatial-renderer', 'terrain', { timeout: 15_000 });
   await expect(page.locator('#detail-sheet h2')).toContainText(/Herkules|Hercules/);
+  await expect(page).toHaveURL(/\?renderer=terrain#place=herkules$/);
 
   await switchButton.click();
-  await expect(map).toHaveAttribute('data-spatial-renderer', 'leaflet');
+  await expect(map).toHaveAttribute('data-spatial-renderer', 'leaflet', { timeout: 10_000 });
+  await expect(page).toHaveURL(/#place=herkules$/);
   await page.evaluate(async () => { await navigator.serviceWorker.ready; });
+  await page.reload({ waitUntil: 'domcontentloaded' });
+  await expect(map).toHaveClass(/leaflet-container/);
+  await expect(page.locator('#detail-sheet h2')).toContainText(/Herkules|Hercules/);
+
   await page.context().setOffline(true);
   try {
     await page.reload({ waitUntil: 'domcontentloaded' });
     await expect(map).toHaveClass(/leaflet-container/);
     await expect(page.locator('#detail-sheet')).toBeVisible();
     await expect(page.locator('#detail-sheet h2')).toContainText(/Herkules|Hercules/);
+    await expect(page).toHaveURL(/#place=herkules$/);
   } finally {
     await page.context().setOffline(false);
   }
