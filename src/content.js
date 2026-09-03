@@ -159,9 +159,9 @@ export function resumeNarration(options = {}) {
   return speechNarrator.resume(options);
 }
 
-function narrationTranscriptMarkup(descriptor, i18n, { hidden = false } = {}) {
+function narrationTranscriptMarkup(descriptor, i18n, { hidden = false, open = false } = {}) {
   if (!descriptor?.transcript?.length) return '';
-  return `<details class="narration-transcript" data-narration-transcript data-transcript-language="${escapeHtml(descriptor.language)}" lang="${escapeHtml(descriptor.language)}"${hidden ? ' hidden' : ''}>
+  return `<details class="narration-transcript" data-narration-transcript data-transcript-language="${escapeHtml(descriptor.language)}" lang="${escapeHtml(descriptor.language)}"${hidden ? ' hidden' : ''}${open ? ' open' : ''}>
     <summary>${escapeHtml(i18n.t('transcript'))}</summary>
     <div>${descriptor.transcript.map(({ heading, text }) => `${heading ? `<h3>${escapeHtml(heading)}</h3>` : ''}<p>${escapeHtml(text)}</p>`).join('')}</div>
   </details>`;
@@ -264,16 +264,34 @@ function renderSources(node, language, t) {
 
 export function renderNodeDetail(container, { node, graph, i18n, onNavigate, onSelectNode, routePlanner = null, onPlanWalkingRoute }) {
   if (!node) {
+    delete container.dataset.companionNodeId;
+    delete container.dataset.companionUiLanguage;
+    delete container.dataset.companionAudioLanguage;
     container.hidden = true;
     container.innerHTML = '';
     return;
   }
   const language = i18n.language;
+  const preserveCompanionState = container.dataset.companionNodeId === node.id
+    && container.dataset.companionUiLanguage === language;
+  const previousAudioLanguage = preserveCompanionState
+    ? container.dataset.companionAudioLanguage
+      ?? container.querySelector('[data-audio-language]')?.value
+      ?? container.querySelector('[data-narration-transcript]:not([hidden])')?.dataset.transcriptLanguage
+      ?? null
+    : null;
+  const previousOpenTranscriptLanguages = preserveCompanionState
+    ? new Set([...container.querySelectorAll('[data-narration-transcript][open]')]
+      .map((transcript) => transcript.dataset.transcriptLanguage))
+    : new Set();
   const title = localized(node.name, language, node.title ?? node.id);
   const description = localized(node.description, language, localized(node.summary, language));
   const sections = contentSections(node, language);
   const narrationVariants = createNarrationVariants(node);
-  const narrationDescriptor = narrationVariants.find((variant) => variant.language === language) ?? narrationVariants[0] ?? null;
+  const narrationDescriptor = narrationVariants.find((variant) => variant.language === previousAudioLanguage)
+    ?? narrationVariants.find((variant) => variant.language === language)
+    ?? narrationVariants[0]
+    ?? null;
   const routeOptions = discoverMountainRoutes(graph, node.id, language);
 
   container.hidden = false;
@@ -297,7 +315,10 @@ export function renderNodeDetail(container, { node, graph, i18n, onNavigate, onS
         </div>
         ${narrationVariants.length > 1 ? `<label class="audio-language"><span>${escapeHtml(i18n.t('audioLanguage'))}</span><select data-audio-language>${narrationVariants.map((variant) => `<option value="${escapeHtml(variant.language)}"${variant.language === narrationDescriptor.language ? ' selected' : ''}>${variant.language === 'de' ? 'Deutsch' : 'English'}</option>`).join('')}</select></label>` : narrationDescriptor.language !== language ? `<p class="audio-language audio-language--static"><span>${escapeHtml(i18n.t('audioLanguage'))}</span><strong lang="${escapeHtml(narrationDescriptor.language)}">${narrationDescriptor.language === 'de' ? 'Deutsch' : 'English'}</strong></p>` : ''}
         <p class="sr-only" data-narration-status role="status">${escapeHtml(speechNarrator.supported ? i18n.t('audioReady') : i18n.t('audioUnavailable'))}</p>
-        ${narrationVariants.map((variant) => narrationTranscriptMarkup(variant, i18n, { hidden: variant.language !== narrationDescriptor.language })).join('')}
+        ${narrationVariants.map((variant) => narrationTranscriptMarkup(variant, i18n, {
+          hidden: variant.language !== narrationDescriptor.language,
+          open: previousOpenTranscriptLanguages.has(variant.language),
+        })).join('')}
       </section>` : ''}
       ${renderGallery(node, language)}
       ${sections.map(({ heading, text }) => `<section class="detail-section"><h3>${escapeHtml(heading)}</h3><p>${escapeHtml(text)}</p></section>`).join('')}
@@ -335,6 +356,10 @@ export function renderNodeDetail(container, { node, graph, i18n, onNavigate, onS
       ${renderSources(node, language, i18n.t.bind(i18n))}
     </div>
   `;
+  container.dataset.companionNodeId = node.id;
+  container.dataset.companionUiLanguage = language;
+  if (narrationDescriptor?.language) container.dataset.companionAudioLanguage = narrationDescriptor.language;
+  else delete container.dataset.companionAudioLanguage;
 
   const setNarrationState = (state) => {
     const play = container.querySelector('[data-action="narrate"]');
@@ -375,6 +400,7 @@ export function renderNodeDetail(container, { node, graph, i18n, onNavigate, onS
   };
   audioLanguage?.addEventListener('change', () => {
     stopNarration({ onState: setNarrationState });
+    container.dataset.companionAudioLanguage = audioLanguage.value;
     syncTranscriptLanguage();
   });
   syncTranscriptLanguage();

@@ -50,6 +50,12 @@ test('audio is manual, bilingual transcripts follow selection, related journeys 
   await expect(page.locator('[data-transcript-language="de"]')).toBeHidden();
   await expect(page.locator('[data-transcript-language="en"]')).toBeVisible();
 
+  // Deferred walking-network hydration re-renders this same detail. Preserve
+  // the visitor's explicit audio choice across that integration-owned refresh.
+  await expect(page.locator('[data-walking-route-planner="ready"]')).toBeVisible();
+  await expect(language).toHaveValue('en');
+  await expect(page.locator('[data-transcript-language="en"]')).toBeVisible();
+
   await page.locator('[data-transcript-language="en"] summary').click();
   await expect(page.locator('[data-transcript-language="en"] p').first()).toBeVisible();
   await page.locator('[data-action="narrate"]').click();
