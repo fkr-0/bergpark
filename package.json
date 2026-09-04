@@ -1,6 +1,6 @@
 {
   "name": "bergpark-wilhelmshoehe-guide",
-  "version": "0.1.0-rc.1",
+  "version": "0.1.0-dev",
   "private": true,
   "type": "module",
   "description": "Offline-first bilingual PWA visitor guide for Bergpark Wilhelmshöhe",

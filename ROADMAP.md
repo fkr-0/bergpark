@@ -14,7 +14,7 @@ accuracy limits or source distinctions.
 Release progression is evidence-driven. A phase is complete only when its data,
 validation, runtime compatibility and provenance gates are all durable.
 
-## Current baseline — 0.1.0-rc.1 nature-first visitor RC
+## Current baseline — development toward 0.1.0-rc.1
 
 Durable capabilities at the current repository boundary include:
 
@@ -36,7 +36,7 @@ Durable capabilities at the current repository boundary include:
 - [x] tree/bench/path-topology layers preserved through the non-destructive composition boundary;
 - [x] a non-destructive graph composition pipeline for independently generated layers;
 - [x] graph-side shortest and avoid-known-steps/lower-ascent routing over the bounded Phase-8 topology;
-- [x] repository-wide pnpm verification commands covering Node/Vitest, Python integrity tests and the runtime build, plus 57/57 Chromium browser qualification;
+- [x] repository-wide pnpm verification commands covering Node/Vitest, Python integrity tests and the runtime build; the current expanded Chromium matrix is 54/60 and therefore still blocks the RC tag;
 - [x] bilingual nature-first almanac/discovery journeys spanning places, stories, trees, visitor features and bounded walking-network discovery;
 - [x] optional MapLibre/WebGL2 terrain renderer with shared-depth Three.js heritage presentation, same-session renderer switching, and fail-closed Leaflet fallback;
 - [x] offline runtime-manifest packaging, warmed visitor PWA behavior and conservative reduced-motion/a11y browser qualification;
@@ -50,9 +50,9 @@ the composition boundary and Graph Phase 8. Future source refreshes must preserv
 frozen-source completeness caveat, stable IDs and producer ownership rather than
 silently regenerating unrelated content/runtime layers.
 
-### RC-qualified development beyond alpha.5
+### Development toward rc.1 beyond public alpha.2
 
-The current branch contains the following RC-qualified work beyond the last published alpha:
+The current branch contains the following work beyond the latest public tag, `v0.1.0-alpha.2`. A September 1 candidate snapshot passed the then-current 57/57 Chromium matrix, but subsequent application changes expanded the matrix to 60 tests and the current audit is 54/60, so the RC label is withheld:
 
 - DGM1-derived route elevation summaries/profiles with explicit provenance and
   conservative interpretation of short-segment slope;
@@ -64,7 +64,8 @@ The current branch contains the following RC-qualified work beyond the last publ
 - runtime-data/PWA upgrade hardening and measured performance/specialization
   evidence without making browser WASM a prerequisite.
 
-These capabilities are qualified at the repository candidate boundary but remain
+These capabilities remain implemented at the repository boundary, but RC
+qualification is not current until the browser matrix returns green. They also remain
 subject to the explicit external/manual gates above. Deployment is intentionally
 separate and requires operator authorization.
 

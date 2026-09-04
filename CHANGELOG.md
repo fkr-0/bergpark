@@ -7,9 +7,12 @@ experience have completed their release gates.
 
 ## [Unreleased]
 
-No unreleased changes are recorded after the release-candidate qualification below.
+Development is targeting `0.1.0-rc.1`, but no RC tag has been created. The current
+repository/unit/data/PWA build gate passes; the expanded Chromium release matrix is
+54/60 at the audited HEAD, so RC qualification remains blocked pending a clean
+browser run. The latest public tag remains `v0.1.0-alpha.2`.
 
-## [0.1.0-rc.1] - 2026-09-01
+## 0.1.0-rc.1 candidate snapshot — 2026-09-01 (not tagged)
 
 ### Added
 
@@ -73,8 +76,8 @@ No unreleased changes are recorded after the release-candidate qualification bel
 - README, architecture/development guidance, implementation review, ROADMAP and
   bridge tasks are reconciled with the current composition/runtime authority and
   the 2,633-node / 7,196-segment bounded Phase-8 walking topology.
-- ROADMAP current-baseline claims now reflect durable alpha.4/alpha.5 visitor
-  functionality and the bounded Graph Phase-8 topology/routing authority without
+- ROADMAP current-baseline claims now reflect durable internal alpha.4/alpha.5
+  candidate functionality and the bounded Graph Phase-8 topology/routing authority without
   rewriting historical phase descriptions or release metadata.
 
 ### Verification
@@ -102,7 +105,7 @@ No unreleased changes are recorded after the release-candidate qualification bel
 - Live opening hours, field accessibility and water-feature schedules remain
   source-dated evidence rather than operational guarantees.
 
-## [0.1.0-alpha.5] - 2026-08-27
+## 0.1.0-alpha.5 candidate snapshot — 2026-08-27 (not tagged)
 
 ### Added
 
@@ -149,7 +152,7 @@ No unreleased changes are recorded after the release-candidate qualification bel
 - Landmark 3D assets remain schematic interaction models rather than surveyed
   architectural reconstructions.
 
-## [0.1.0-alpha.4] - 2026-08-27
+## 0.1.0-alpha.4 candidate snapshot — 2026-08-27 (not tagged)
 
 ### Added
 
@@ -310,4 +313,3 @@ No unreleased changes are recorded after the release-candidate qualification bel
 
 [0.1.0-alpha.1]: https://github.com/fkr-0/bergpark/releases/tag/v0.1.0-alpha.1
 [0.1.0-alpha.2]: https://github.com/fkr-0/bergpark/releases/tag/v0.1.0-alpha.2
-[0.1.0-alpha.4]: https://github.com/fkr-0/bergpark/releases/tag/v0.1.0-alpha.4

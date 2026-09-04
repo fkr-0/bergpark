@@ -3,7 +3,7 @@
 Open-data knowledge graph and installable bilingual visitor PWA for Bergpark
 Wilhelmshöhe in Kassel, Germany.
 
-**Release candidate:** `0.1.0-rc.1` (deployment not authorized) — https://bergpark.fkr.dev
+**Development status:** HEAD is development toward `0.1.0-rc.1`; the latest public tag is `v0.1.0-alpha.2`. The deployed site remains a separate release/deployment concern — https://bergpark.fkr.dev
 
 The map is the visitor application's primary interface. Its coordinates and
 walking network come from reproducible spatial graph exports; historical and
@@ -13,7 +13,7 @@ estimates are never silently promoted to canonical coordinates.
 
 ## Visitor application
 
-The current release candidate provides:
+The current development build provides:
 
 - touch-friendly Leaflet map with OpenStreetMap/OpenTopoMap layers;
 - landmark markers, walking-network and route polylines backed by the bounded
@@ -77,15 +77,16 @@ only as a rejected seed assumption in validation metadata.
 
 ## Release status
 
-The `0.1.0-rc.1` candidate is qualified as a first complete nature-first visitor
-product at the repository boundary. Leaflet remains the reliable default and
-compatibility/low-power renderer; MapLibre terrain plus the shared-depth Three.js
-heritage layer are optional advanced/beta paths and fail closed back to Leaflet.
-The candidate includes the bilingual almanac/discovery journeys, canonical
-multi-hop walking routes, narration/transcripts, offline runtime packaging and
-same-session renderer switching.
+HEAD is not yet tagged as `0.1.0-rc.1`. The repository/unit/data/PWA build gate
+passes, but the expanded Chromium release matrix is currently 54/60 at the audited
+HEAD, so the RC tag remains blocked pending a clean browser qualification. Leaflet
+remains the reliable default and compatibility/low-power renderer; MapLibre terrain
+plus the shared-depth Three.js heritage layer are optional advanced/beta paths and
+fail closed back to Leaflet. The development build includes the bilingual
+almanac/discovery journeys, canonical multi-hop walking routes,
+narration/transcripts, offline runtime packaging and same-session renderer switching.
 
-The RC does **not** claim complete physical walking-inventory coverage, surveyed
+The current development target does **not** claim complete physical walking-inventory coverage, surveyed
 3D reconstructions, or universal device accessibility/performance. Real iOS
 Safari/WebKit, physical-mobile thermal/battery/GPU-memory characterization and a
 real assistive-technology/screen-reader fixture remain external/manual gates.
