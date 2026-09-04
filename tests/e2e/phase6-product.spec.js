@@ -117,6 +117,10 @@ test('narration is quiet by default, transcript-backed, manual and single-voice'
   await openGuide(page, '/#place=aquaedukt');
   await expect(page.locator('#map')).toHaveAttribute('data-supplemental-data', 'ready', { timeout: 15_000 });
   const detail = page.locator('#detail-sheet');
+  // Supplemental walking-network hydration re-renders the active detail sheet.
+  // Wait for that integration boundary before exercising stateful audio controls,
+  // otherwise the test can race a legitimate DOM replacement under parallel E2E.
+  await expect(detail.locator('[data-walking-route-planner="ready"]')).toBeVisible({ timeout: 10_000 });
   await expect(detail.locator('[data-action="narrate"]')).toBeEnabled();
   expect(await page.evaluate(() => window.__bergparkSpeechLog)).toEqual([]);
 
