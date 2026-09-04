@@ -120,7 +120,7 @@ test('narration is quiet by default, transcript-backed, manual and single-voice'
   await expect(detail.locator('[data-action="narrate"]')).toBeEnabled();
   expect(await page.evaluate(() => window.__bergparkSpeechLog)).toEqual([]);
 
-  const transcript = detail.locator('[data-narration-transcript]');
+  const transcript = detail.locator('[data-narration-transcript][data-transcript-language="de"]');
   await expect(transcript).toBeVisible();
   await transcript.locator('summary').click();
   await expect(transcript).toContainText('Aquädukt');
@@ -137,7 +137,9 @@ test('narration is quiet by default, transcript-backed, manual and single-voice'
 
   await page.locator('#language').click();
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
-  const englishTranscript = page.locator('[data-narration-transcript]');
+  await expect(transcript).toBeHidden();
+  const englishTranscript = detail.locator('[data-narration-transcript][data-transcript-language="en"]');
+  await expect(englishTranscript).toBeVisible();
   await englishTranscript.locator('summary').click();
   await expect(englishTranscript).toContainText('Aqueduct');
 
