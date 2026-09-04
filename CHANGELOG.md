@@ -9,7 +9,7 @@ experience have completed their release gates.
 
 Development is targeting `0.1.0-rc.1`, but no RC tag has been created. The current
 repository/unit/data/PWA build gate passes; the expanded Chromium release matrix is
-54/60 at the audited HEAD, so RC qualification remains blocked pending a clean
+59/60 at the audited HEAD, so RC qualification remains blocked pending a clean
 browser run. The latest public tag remains `v0.1.0-alpha.2`.
 
 ## 0.1.0-rc.1 candidate snapshot — 2026-09-01 (not tagged)
