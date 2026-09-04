@@ -100,6 +100,24 @@ verification:
     result: pass
     tests: 6/6
     interpretation: The configured failures are concurrency/resource-sensitive rather than six deterministic feature regressions, but this serial diagnostic does not replace the configured release gate.
+  isolated_dedicated_preview_matrix:
+    command: BERGPARK_E2E_BASE_URL=http://127.0.0.1:4175 pnpm run test:e2e
+    workers: 2
+    result: fail
+    tests: 58/60
+    tested_worktree_later_committed_as: af679cb587ac725b966fa7021e407cbf3a2c4fda
+    isolation: dedicated Vite preview port avoided shared Playwright webServer lifecycle races
+    failures:
+      - tests/e2e/phase2-search.spec.js:15 touch-target boundingBox transiently returned null/0 after visible result
+      - tests/e2e/phase3-motion-focus.spec.js:43 close-detail focus assertion did not stabilize
+    repeat_diagnostics:
+      - case: tests/e2e/phase2-search.spec.js:15
+        command: same dedicated preview, workers=2, repeat-each=3
+        result: 3/3 pass
+      - case: tests/e2e/phase3-motion-focus.spec.js:43
+        command: same dedicated preview, workers=2, repeat-each=3
+        result: 3/3 pass
+    interpretation: Dedicated-server qualification still remains non-green; failure locations move and pass repeated isolation, confirming a flaky release gate rather than a clean RC candidate.
   post_reconciliation_build:
     command: pnpm run build && pnpm run check:runtime-artifact
     revision: f65b2c1878a6c741613d1762401976e8bb8c0f73
@@ -120,7 +138,7 @@ verification:
     python_tests: 87/87
     vite_build: pass
     runtime_artifact_check: pass
-    caveat: The working tree contained the preserved unrelated tests/e2e/phase6-product.spec.js test-only edit; this command does not run Playwright E2E.
+    caveat: This command does not run Playwright E2E; subsequent release-harness-only changes do not alter application functionality.
   final_diff_check:
     command: git diff --check
     result: pass
@@ -152,13 +170,15 @@ integrity:
   graph_and_data_integrity: pass_via_repository_gate
 
 workspace_concurrency:
-  coordinated_test_harness_commit:
-    revision: e303b5187cc756d4b2673195d12ca29f64236748
-    scope: tests/e2e/phase6-product.spec.js
-    change: target the intentional DE/EN narration transcript variants explicitly
-  unrelated_dirty_path_preserved:
-    - tests/e2e/phase6-product.spec.js
-  note: A later concurrent test-only hydration-wait edit remains uncommitted and outside this release-metadata claim; it is preserved and excluded from these commits.
+  coordinated_test_harness_commits:
+    - revision: e303b5187cc756d4b2673195d12ca29f64236748
+      scope: tests/e2e/phase6-product.spec.js
+      change: target the intentional DE/EN narration transcript variants explicitly
+    - revision: af679cb587ac725b966fa7021e407cbf3a2c4fda
+      scope: tests/e2e/phase6-product.spec.js
+      change: wait for supplemental walking-network hydration before stateful narration controls
+  application_functionality_changed: false
+  final_dirty_release_paths: none
 
 limitations_and_manual_gates:
   - full_chromium_release_matrix_not_green
@@ -173,7 +193,7 @@ release_gate:
   repository_checks: PASS
   pwa_build: PASS
   bilingual_rendering: PASS_3_OF_3_FOCUSED_BROWSER_TESTS
-  chromium_matrix: FAIL_REPEATED_59_OF_60
+  chromium_matrix: FAIL_REPEATED_NON_GREEN_58_TO_59_OF_60
   candidate_recommendation: DO_NOT_TAG_DEVELOPMENT_TOWARD_RC1
   tag: not_created
   deployment: not_performed

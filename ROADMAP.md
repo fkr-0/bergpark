@@ -36,7 +36,7 @@ Durable capabilities at the current repository boundary include:
 - [x] tree/bench/path-topology layers preserved through the non-destructive composition boundary;
 - [x] a non-destructive graph composition pipeline for independently generated layers;
 - [x] graph-side shortest and avoid-known-steps/lower-ascent routing over the bounded Phase-8 topology;
-- [x] repository-wide pnpm verification commands covering Node/Vitest, Python integrity tests and the runtime build; the current expanded Chromium matrix is 59/60 and therefore still blocks the RC tag;
+- [x] repository-wide pnpm verification commands covering Node/Vitest, Python integrity tests and the runtime build; repeated expanded Chromium qualification remains non-green at 58–59/60 and therefore still blocks the RC tag;
 - [x] bilingual nature-first almanac/discovery journeys spanning places, stories, trees, visitor features and bounded walking-network discovery;
 - [x] optional MapLibre/WebGL2 terrain renderer with shared-depth Three.js heritage presentation, same-session renderer switching, and fail-closed Leaflet fallback;
 - [x] offline runtime-manifest packaging, warmed visitor PWA behavior and conservative reduced-motion/a11y browser qualification;
@@ -52,7 +52,7 @@ silently regenerating unrelated content/runtime layers.
 
 ### Development toward rc.1 beyond public alpha.2
 
-The current branch contains the following work beyond the latest public tag, `v0.1.0-alpha.2`. A September 1 candidate snapshot passed the then-current 57/57 Chromium matrix, but subsequent application changes expanded the matrix to 60 tests and the current audit is 59/60, so the RC label is withheld:
+The current branch contains the following work beyond the latest public tag, `v0.1.0-alpha.2`. A September 1 candidate snapshot passed the then-current 57/57 Chromium matrix, but subsequent application changes expanded the matrix to 60 tests and repeated current qualification remains non-green at 58–59/60, so the RC label is withheld:
 
 - DGM1-derived route elevation summaries/profiles with explicit provenance and
   conservative interpretation of short-segment slope;

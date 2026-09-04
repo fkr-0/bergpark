@@ -78,8 +78,9 @@ only as a rejected seed assumption in validation metadata.
 ## Release status
 
 HEAD is not yet tagged as `0.1.0-rc.1`. The repository/unit/data/PWA build gate
-passes, but the expanded Chromium release matrix is currently 59/60 at the audited
-HEAD, so the RC tag remains blocked pending a clean browser qualification. Leaflet
+passes, but the expanded Chromium release matrix remains non-green in repeated
+qualification runs (58–59/60), so the RC tag stays blocked pending a clean browser
+qualification. Leaflet
 remains the reliable default and compatibility/low-power renderer; MapLibre terrain
 plus the shared-depth Three.js heritage layer are optional advanced/beta paths and
 fail closed back to Leaflet. The development build includes the bilingual

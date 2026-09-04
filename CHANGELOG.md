@@ -8,9 +8,34 @@ experience have completed their release gates.
 ## [Unreleased]
 
 Development is targeting `0.1.0-rc.1`, but no RC tag has been created. The current
-repository/unit/data/PWA build gate passes; the expanded Chromium release matrix is
-59/60 at the audited HEAD, so RC qualification remains blocked pending a clean
-browser run. The latest public tag remains `v0.1.0-alpha.2`.
+repository/unit/data/PWA build gate passes; the expanded Chromium release matrix
+remains non-green in repeated qualification runs (58–59/60), so RC qualification
+stays blocked pending a clean browser run. The latest public tag remains
+`v0.1.0-alpha.2`.
+
+### Added
+
+- Nature-first companion journeys now expose a richer bilingual almanac across
+  places, stories, trees, visitor features and bounded walking-network context.
+- The almanac surfaces canonical walking-network discovery without changing the
+  preserved OSM/Graph Phase-8 topology authority.
+- Manual narration exposes explicit DE/EN transcript variants and preserves the
+  visitor's selected narration language through deferred data hydration.
+
+### Fixed
+
+- Detail hydration preserves active narration state instead of silently resetting
+  the visitor's audio-language choice.
+- The landmark model viewer detaches disposed WebGL canvas listeners/subtrees to
+  avoid retaining the complete modal DOM through browser context retention.
+
+### Verification
+
+- `pnpm run check`: PASS — 126/126 Node tests, 2/2 Vitest tests, 87/87 Python
+  tests, production Vite build and runtime-artifact validation.
+- The configured two-worker Chromium release matrix remains flaky/non-green in
+  repeated qualification (58–59/60); isolated failing cases pass on repetition,
+  which is insufficient to authorize an RC tag.
 
 ## 0.1.0-rc.1 candidate snapshot — 2026-09-01 (not tagged)
 
