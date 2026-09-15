@@ -17,7 +17,7 @@
     "test:e2e": "playwright test",
     "lint": "biome check --error-on-warnings src scripts tests vitest.config.mjs",
     "check:runtime-artifact": "node scripts/check-runtime-artifact.mjs",
-    "check": "pnpm run lint && pnpm run test && pnpm run test:py && pnpm run build && pnpm run check:runtime-artifact",
+    "check": "pnpm run lint && node scripts/copy-data.mjs && pnpm run test && pnpm run test:py && pnpm run build && pnpm run check:runtime-artifact",
     "check:e2e": "pnpm run check && pnpm run test:e2e"
   },
   "dependencies": {
